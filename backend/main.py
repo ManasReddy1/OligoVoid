@@ -1410,6 +1410,48 @@ def get_benchmark_calibration():
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# LATENT SPACE ANALYSIS
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+@app.get("/api/latent/map")
+def get_latent_map():
+    """UMAP/PCA 2D latent space visualization of all patterns."""
+    try:
+        from backend.latent_analysis import compute_latent_space_map
+        return compute_latent_space_map()
+    except Exception as e:
+        logger.error("Latent map error: %s", e, exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/latent/interpolation")
+def get_latent_interpolation(
+    drug_a: str = Query("FDA_004", description="Pattern ID for starting drug"),
+    drug_b: str = Query("FDA_002", description="Pattern ID for ending drug"),
+    n_steps: int = Query(7, ge=3, le=15, description="Number of interpolation steps"),
+):
+    """Interpolate in latent space between two FDA drugs."""
+    try:
+        from backend.latent_analysis import interpolate_between_drugs
+        return interpolate_between_drugs(drug_a, drug_b, n_steps)
+    except Exception as e:
+        logger.error("Interpolation error: %s", e, exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/latent/dimensions")
+def get_latent_dimensions():
+    """Analyze what each latent dimension encodes."""
+    try:
+        from backend.latent_analysis import analyze_latent_dimensions
+        return analyze_latent_dimensions()
+    except Exception as e:
+        logger.error("Dimension analysis error: %s", e, exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # STATIC FILES (must be mounted LAST to avoid catching /api/* routes)
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 

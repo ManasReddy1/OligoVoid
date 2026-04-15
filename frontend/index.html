@@ -46,6 +46,7 @@
     <button class="nav-tab" data-tab="scorer">Custom Scorer</button>
     <button class="nav-tab" data-tab="generative">AI Generated</button>
     <button class="nav-tab" data-tab="validation">Model Validation</button>
+    <button class="nav-tab" data-tab="latent">Latent Space</button>
   </nav>
 
   <!-- ═══════════════ MAIN CONTENT ═══════════════ -->
@@ -383,6 +384,89 @@
       <div class="val-loading" id="val-loading" style="display:none">
         <div class="spinner"></div>
         <span>Loading validation data...</span>
+      </div>
+    </section>
+
+    <!-- ── TAB 8: LATENT SPACE ── -->
+    <section id="tab-latent" class="tab-panel">
+      <div class="section-header">
+        <h2>What Did the AI Learn?</h2>
+        <p class="section-subtitle">This visualization shows the &lsquo;knowledge map&rsquo; our AI built from 3,700 siRNA experiments. Each dot is a known or candidate modification pattern. The closer two dots are, the more chemically similar their patterns. Gold stars are FDA-approved drugs.</p>
+      </div>
+
+      <div class="latent-explainer">
+        <div class="latent-explainer-icon">&#x1f9ec;</div>
+        <div class="latent-explainer-text">
+          <strong>What is this?</strong>
+          Imagine the AI read 3,700 chemistry experiments about siRNA drugs. Then we asked it to draw a map where similar chemical strategies sit close together. FDA-approved drugs cluster in specific regions &mdash; and our novel candidates cluster nearby. This suggests they might work through similar mechanisms.
+        </div>
+      </div>
+
+      <!-- Section 1: Scatter Plot -->
+      <div class="latent-section">
+        <h3>Latent Space Map</h3>
+        <p>Every known pattern and top void candidate, projected to 2D. Proximity = chemical similarity in the AI&rsquo;s learned representation.</p>
+        <div class="latent-legend" id="latent-legend">
+          <span class="latent-legend-item"><span class="latent-dot latent-dot-fda"></span> FDA Drugs</span>
+          <span class="latent-legend-item"><span class="latent-dot latent-dot-high"></span> High Efficacy (&ge;70%)</span>
+          <span class="latent-legend-item"><span class="latent-dot latent-dot-med"></span> Medium Efficacy</span>
+          <span class="latent-legend-item"><span class="latent-dot latent-dot-low"></span> Low Efficacy (&lt;30%)</span>
+          <span class="latent-legend-item"><span class="latent-dot latent-dot-void-high"></span> High-Score Voids</span>
+          <span class="latent-legend-item"><span class="latent-dot latent-dot-void-low"></span> Low-Score Voids</span>
+        </div>
+        <div class="latent-scatter-wrap">
+          <canvas id="latent-scatter-canvas" width="700" height="500"></canvas>
+        </div>
+        <div class="latent-cluster-summary" id="latent-cluster-summary"></div>
+        <div class="latent-interpretation" id="latent-interpretation"></div>
+      </div>
+
+      <!-- Section 2: Interpolation -->
+      <div class="latent-section">
+        <h3>What Lies Between Two FDA Drugs?</h3>
+        <p>We smoothly transition between two FDA-approved drugs in the AI&rsquo;s learned chemical space. Each intermediate pattern is novel &mdash; never published &mdash; but predicted to be viable.</p>
+        <div class="latent-interp-controls">
+          <label>From:
+            <select id="interp-drug-a">
+              <option value="FDA_004">Inclisiran (84%)</option>
+              <option value="FDA_001">Patisiran (81%)</option>
+              <option value="FDA_002">Givosiran (90%)</option>
+              <option value="FDA_003">Lumasiran (94%)</option>
+              <option value="FDA_005">Vutrisiran (89%)</option>
+              <option value="FDA_006">Fitusiran (86%)</option>
+              <option value="FDA_007">Nedosiran (88%)</option>
+              <option value="FDA_008">Teprasiran (73%)</option>
+            </select>
+          </label>
+          <span class="interp-arrow">&rarr;</span>
+          <label>To:
+            <select id="interp-drug-b">
+              <option value="FDA_002">Givosiran (90%)</option>
+              <option value="FDA_001">Patisiran (81%)</option>
+              <option value="FDA_003">Lumasiran (94%)</option>
+              <option value="FDA_004">Inclisiran (84%)</option>
+              <option value="FDA_005">Vutrisiran (89%)</option>
+              <option value="FDA_006">Fitusiran (86%)</option>
+              <option value="FDA_007">Nedosiran (88%)</option>
+              <option value="FDA_008">Teprasiran (73%)</option>
+            </select>
+          </label>
+          <button class="btn btn-accent" id="btn-interpolate">Interpolate</button>
+        </div>
+        <div class="latent-interp-results" id="latent-interp-results"></div>
+        <div class="latent-interp-interpretation" id="latent-interp-interpretation"></div>
+      </div>
+
+      <!-- Section 3: Dimension Analysis -->
+      <div class="latent-section">
+        <h3>Decoding the AI&rsquo;s Internal Language</h3>
+        <p>The AI independently discovered that certain &lsquo;axes&rsquo; in its chemical knowledge separate meaningful properties. It learned this without being told.</p>
+        <div class="latent-dims" id="latent-dims"></div>
+      </div>
+
+      <div class="latent-loading" id="latent-loading" style="display:none">
+        <div class="spinner"></div>
+        <span>Computing latent space analysis...</span>
       </div>
     </section>
 

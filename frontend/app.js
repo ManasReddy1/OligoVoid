@@ -145,6 +145,7 @@ function initNav() {
       if (tab === 'scorer') initScorerPositions();
       if (tab === 'generative') initGenerativeTab();
       if (tab === 'validation') loadValidation();
+      if (tab === 'latent') loadLatentSpace();
     });
   });
 }
@@ -1694,4 +1695,277 @@ function renderValidation(data) {
   } else {
     fdaEl.innerHTML = '<div class="no-data">FDA validation not yet available. Train the GP model first.</div>';
   }
+}
+
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   TAB 8: LATENT SPACE
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+let latentLoaded = false;
+
+function loadLatentSpace() {
+  if (latentLoaded) return;
+
+  const loading = document.getElementById('latent-loading');
+  if (loading) loading.style.display = 'flex';
+
+  // Load map + dimensions in parallel
+  Promise.all([
+    fetch(`${API}/api/latent/map`).then(r => r.json()),
+    fetch(`${API}/api/latent/dimensions`).then(r => r.json()),
+  ])
+    .then(([mapData, dimData]) => {
+      if (loading) loading.style.display = 'none';
+      if (!mapData.error) renderLatentScatter(mapData);
+      if (!dimData.error) renderLatentDimensions(dimData);
+      latentLoaded = true;
+    })
+    .catch(err => {
+      if (loading) loading.style.display = 'none';
+      console.error('Latent space load error:', err);
+      document.getElementById('latent-cluster-summary').textContent =
+        'Failed to load latent space data. Is the CVAE model trained?';
+    });
+
+  // Wire up interpolation button
+  const btn = document.getElementById('btn-interpolate');
+  if (btn) {
+    btn.addEventListener('click', runInterpolation);
+  }
+}
+
+function renderLatentScatter(data) {
+  const canvas = document.getElementById('latent-scatter-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width;
+  const H = canvas.height;
+  const pad = 50;
+
+  // Gather all points for bounds
+  const allPts = [
+    ...data.known_patterns.map(p => ({ ...p, type: 'known' })),
+    ...data.void_candidates.map(p => ({ ...p, type: 'void' })),
+  ];
+
+  if (allPts.length === 0) {
+    ctx.fillStyle = '#8892b0';
+    ctx.font = '14px Inter, sans-serif';
+    ctx.fillText('No data points to display.', W / 2 - 80, H / 2);
+    return;
+  }
+
+  const xs = allPts.map(p => p.x);
+  const ys = allPts.map(p => p.y);
+  const xMin = Math.min(...xs);
+  const xMax = Math.max(...xs);
+  const yMin = Math.min(...ys);
+  const yMax = Math.max(...ys);
+  const xRange = (xMax - xMin) || 1;
+  const yRange = (yMax - yMin) || 1;
+
+  const toCanvasX = x => pad + ((x - xMin) / xRange) * (W - 2 * pad);
+  const toCanvasY = y => H - pad - ((y - yMin) / yRange) * (H - 2 * pad);
+
+  // Clear
+  ctx.clearRect(0, 0, W, H);
+
+  // Background grid
+  ctx.strokeStyle = '#1e2840';
+  ctx.lineWidth = 0.5;
+  for (let i = 0; i <= 5; i++) {
+    const gx = pad + (i / 5) * (W - 2 * pad);
+    const gy = pad + (i / 5) * (H - 2 * pad);
+    ctx.beginPath(); ctx.moveTo(gx, pad); ctx.lineTo(gx, H - pad); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(pad, gy); ctx.lineTo(W - pad, gy); ctx.stroke();
+  }
+
+  // Axes labels
+  ctx.fillStyle = '#8892b0';
+  ctx.font = '11px Inter, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Latent Dimension 1', W / 2, H - 10);
+  ctx.save();
+  ctx.translate(14, H / 2);
+  ctx.rotate(-Math.PI / 2);
+  ctx.fillText('Latent Dimension 2', 0, 0);
+  ctx.restore();
+
+  // Draw void points first (behind known)
+  data.void_candidates.forEach(p => {
+    const cx = toCanvasX(p.x);
+    const cy = toCanvasY(p.y);
+    const size = 5;
+    ctx.fillStyle = p.category === 'high_score_void' ? '#00d4ff' : '#64748b';
+    ctx.globalAlpha = 0.7;
+    // Diamond shape for voids
+    ctx.beginPath();
+    ctx.moveTo(cx, cy - size);
+    ctx.lineTo(cx + size, cy);
+    ctx.lineTo(cx, cy + size);
+    ctx.lineTo(cx - size, cy);
+    ctx.closePath();
+    ctx.fill();
+  });
+
+  ctx.globalAlpha = 1.0;
+
+  // Draw known patterns
+  data.known_patterns.forEach(p => {
+    const cx = toCanvasX(p.x);
+    const cy = toCanvasY(p.y);
+
+    if (p.category === 'fda_drug') {
+      // Gold star
+      drawStar(ctx, cx, cy, 8, 5, '#fbbf24');
+      // Label
+      if (p.drug_name) {
+        ctx.fillStyle = '#fbbf24';
+        ctx.font = 'bold 9px Inter, sans-serif';
+        ctx.textAlign = 'left';
+        ctx.fillText(p.drug_name, cx + 10, cy + 3);
+      }
+    } else {
+      const colors = {
+        high_efficacy: '#22c55e',
+        medium_efficacy: '#3b82f6',
+        low_efficacy: '#ef4444',
+      };
+      const r = p.category === 'high_efficacy' ? 5 : 4;
+      ctx.fillStyle = colors[p.category] || '#3b82f6';
+      ctx.globalAlpha = 0.8;
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = 1.0;
+    }
+  });
+
+  // Summary
+  const summaryEl = document.getElementById('latent-cluster-summary');
+  if (summaryEl) summaryEl.textContent = data.cluster_summary || '';
+
+  const interpEl = document.getElementById('latent-interpretation');
+  if (interpEl) interpEl.textContent = data.interpretation || '';
+}
+
+function drawStar(ctx, cx, cy, outerR, points, color) {
+  const innerR = outerR * 0.45;
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  for (let i = 0; i < points * 2; i++) {
+    const angle = (i * Math.PI) / points - Math.PI / 2;
+    const r = i % 2 === 0 ? outerR : innerR;
+    const x = cx + Math.cos(angle) * r;
+    const y = cy + Math.sin(angle) * r;
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+  ctx.closePath();
+  ctx.fill();
+}
+
+function runInterpolation() {
+  const drugA = document.getElementById('interp-drug-a').value;
+  const drugB = document.getElementById('interp-drug-b').value;
+  const resultsEl = document.getElementById('latent-interp-results');
+  const interpEl = document.getElementById('latent-interp-interpretation');
+
+  if (drugA === drugB) {
+    resultsEl.innerHTML = '<div class="no-data">Select two different drugs to interpolate between.</div>';
+    return;
+  }
+
+  resultsEl.innerHTML = '<div class="latent-loading" style="display:flex"><div class="spinner"></div><span>Interpolating...</span></div>';
+
+  fetch(`${API}/api/latent/interpolation?drug_a=${drugA}&drug_b=${drugB}&n_steps=7`)
+    .then(r => r.json())
+    .then(data => {
+      if (data.error) {
+        resultsEl.innerHTML = `<div class="no-data">${data.error}</div>`;
+        return;
+      }
+      renderInterpolation(data, resultsEl, interpEl);
+    })
+    .catch(err => {
+      resultsEl.innerHTML = `<div class="no-data">Interpolation failed: ${err.message}</div>`;
+    });
+}
+
+function renderInterpolation(data, resultsEl, interpEl) {
+  let html = '<div class="latent-interp-steps">';
+
+  data.steps.forEach((step, i) => {
+    const isEndpoint = i === 0 || i === data.steps.length - 1;
+    const classes = [
+      'interp-card',
+      isEndpoint ? 'is-endpoint' : '',
+      step.is_best_novel ? 'is-best-novel' : '',
+    ].filter(Boolean).join(' ');
+
+    const eff = step.predicted_efficacy;
+    const effColor = eff >= 80 ? '#22c55e' : eff >= 60 ? '#fbbf24' : '#ef4444';
+
+    html += `<div class="${classes}">`;
+    if (step.drug_label) {
+      html += `<div class="interp-drug-label">${step.drug_label}</div>`;
+    } else {
+      html += `<div style="font-size:0.7rem;color:var(--text-secondary)">Step ${step.step}</div>`;
+    }
+    html += `<div class="interp-eff-value" style="color:${effColor}">${eff}%</div>`;
+    html += `<div class="interp-eff-bar"><div class="interp-eff-fill" style="width:${eff}%;background:${effColor}"></div></div>`;
+    html += `<div class="interp-notation">${step.pattern_notation}</div>`;
+    html += '<div class="interp-badges">';
+    if (step.is_novel) html += '<span class="interp-badge interp-badge-novel">NOVEL</span>';
+    if (step.is_valid) html += '<span class="interp-badge interp-badge-valid">VALID</span>';
+    html += '</div>';
+    html += '</div>';
+  });
+
+  html += '</div>';
+  resultsEl.innerHTML = html;
+
+  if (interpEl) {
+    interpEl.textContent = data.interpretation || '';
+  }
+}
+
+function renderLatentDimensions(data) {
+  const container = document.getElementById('latent-dims');
+  if (!container || !data.dimensions) return;
+
+  let html = '<div class="latent-dims-grid">';
+
+  data.dimensions.forEach(dim => {
+    html += `<div class="latent-dim-card">`;
+    html += `<div class="latent-dim-header">`;
+    html += `<span class="latent-dim-number">DIM ${dim.dimension}</span>`;
+    html += `<span class="latent-dim-group">${dim.dominant_group.replace(/_/g, ' ')}</span>`;
+    html += `</div>`;
+
+    // Extremes
+    html += `<div class="latent-dim-extremes">`;
+    html += `<div class="latent-extreme latent-extreme-pos">`;
+    html += `<div class="latent-extreme-label">+ Positive</div>`;
+    html += `<div class="latent-extreme-notation">${dim.positive_extreme.pattern_notation}</div>`;
+    html += `</div>`;
+    html += `<div class="latent-dim-arrow">&harr;</div>`;
+    html += `<div class="latent-extreme latent-extreme-neg">`;
+    html += `<div class="latent-extreme-label">- Negative</div>`;
+    html += `<div class="latent-extreme-notation">${dim.negative_extreme.pattern_notation}</div>`;
+    html += `</div>`;
+    html += `</div>`;
+
+    // Interpretation
+    html += `<div class="latent-dim-interp">${dim.interpretation}</div>`;
+    html += `</div>`;
+  });
+
+  html += '</div>';
+
+  // Add overall interpretation
+  html += `<div class="latent-interpretation" style="margin-top:1rem">${data.interpretation}</div>`;
+
+  container.innerHTML = html;
 }
