@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+data/oligovoid.db
+.env
+.DS_Store
+node_modules/
+*.egg-info/
+dist/
+build/

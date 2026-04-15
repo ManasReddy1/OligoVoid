@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OligoVoid — siRNA Modification Gap Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ═══════════════ HEADER ═══════════════ -->
+  <header id="app-header">
+    <div class="header-left">
+      <h1 class="logo">OLIGOVOID</h1>
+      <p class="subtitle">siRNA Chemical Modification Gap Intelligence</p>
+    </div>
+    <div class="header-right">
+      <div class="stat-chip" id="chip-explored">
+        <span class="chip-value">—</span>
+        <span class="chip-label">explored</span>
+      </div>
+      <div class="stat-chip" id="chip-voids">
+        <span class="chip-value">—</span>
+        <span class="chip-label">voids</span>
+      </div>
+      <div class="stat-chip" id="chip-highscore">
+        <span class="chip-value">—</span>
+        <span class="chip-label">high-score</span>
+      </div>
+      <div class="stat-chip" id="chip-warming">
+        <span class="chip-value">—</span>
+        <span class="chip-label">warming</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════ NAV TABS ═══════════════ -->
+  <nav id="main-nav">
+    <button class="nav-tab active" data-tab="map">Modification Map</button>
+    <button class="nav-tab" data-tab="voids">Top Voids</button>
+    <button class="nav-tab" data-tab="dmtl">DMTL Cycles</button>
+    <button class="nav-tab" data-tab="velocity">Velocity</button>
+    <button class="nav-tab" data-tab="scorer">Custom Scorer</button>
+  </nav>
+
+  <!-- ═══════════════ MAIN CONTENT ═══════════════ -->
+  <main id="main-content">
+
+    <!-- ── TAB 1: MODIFICATION MAP ── -->
+    <section id="tab-map" class="tab-panel active">
+      <div class="section-header">
+        <h2>The siRNA Modification Space</h2>
+        <p class="section-subtitle">Each cell = one position &times; one modification. <span class="void-highlight">Red = never published.</span></p>
+      </div>
+
+      <div class="heatmap-legend">
+        <span class="legend-label">Coverage:</span>
+        <span class="legend-swatch" style="background:#ff3366"></span><span class="legend-text">0 (void)</span>
+        <span class="legend-swatch" style="background:#ff6600"></span><span class="legend-text">1-2</span>
+        <span class="legend-swatch" style="background:#ffaa00"></span><span class="legend-text">3-5</span>
+        <span class="legend-swatch" style="background:#88ff44"></span><span class="legend-text">6-10</span>
+        <span class="legend-swatch" style="background:#00ff88"></span><span class="legend-text">10+</span>
+        <span class="legend-divider"></span>
+        <span class="legend-swatch region-seed"></span><span class="legend-text">Seed (2-8)</span>
+        <span class="legend-swatch region-cleavage"></span><span class="legend-text">Cleavage (10-11)</span>
+        <span class="legend-swatch region-overhang"></span><span class="legend-text">3' Overhang (19-21)</span>
+      </div>
+
+      <div class="heatmap-container">
+        <div class="heatmap-strand-label">Guide Strand &nbsp; 5' &rarr; 3'</div>
+        <div class="heatmap-wrapper">
+          <div class="heatmap-y-axis" id="heatmap-y-axis-guide"></div>
+          <div class="heatmap-grid" id="heatmap-guide"></div>
+        </div>
+
+        <div class="heatmap-gap"></div>
+
+        <div class="heatmap-strand-label">Passenger Strand &nbsp; 3' &larr; 5'</div>
+        <div class="heatmap-wrapper">
+          <div class="heatmap-y-axis" id="heatmap-y-axis-passenger"></div>
+          <div class="heatmap-grid" id="heatmap-passenger"></div>
+        </div>
+      </div>
+
+      <div id="heatmap-tooltip" class="heatmap-tooltip"></div>
+
+      <div class="void-callout" id="void-callout"></div>
+
+      <!-- Inline Pattern Designer -->
+      <div class="pattern-designer" id="pattern-designer-inline">
+        <h3>Custom Pattern Designer</h3>
+        <p class="section-subtitle">Edit any position. Default: Alnylam ESC. Score updates live.</p>
+        <div class="designer-strand">
+          <span class="designer-strand-label">Guide 5'&rarr;3'</span>
+          <div class="designer-row" id="designer-guide"></div>
+        </div>
+        <div class="designer-strand">
+          <span class="designer-strand-label">Pass 3'&larr;5'</span>
+          <div class="designer-row" id="designer-passenger"></div>
+        </div>
+        <div class="designer-controls">
+          <div class="designer-field">
+            <label>Conjugate</label>
+            <select id="designer-conjugate">
+              <option value="GalNAc" selected>GalNAc</option>
+              <option value="Cholesterol">Cholesterol</option>
+              <option value="LNP">LNP</option>
+              <option value="None">None</option>
+            </select>
+          </div>
+          <button class="btn-primary" id="btn-analyze-pattern">Analyze This Pattern</button>
+        </div>
+        <div class="score-preview" id="score-preview"></div>
+        <div class="score-card-full" id="score-card-full" style="display:none"></div>
+      </div>
+    </section>
+
+    <!-- ── TAB 2: TOP VOIDS ── -->
+    <section id="tab-voids" class="tab-panel">
+      <div class="section-header">
+        <h2>Top Modification Voids</h2>
+        <p class="section-subtitle">Untested siRNA modification combinations ranked by scientific feasibility.</p>
+      </div>
+      <div class="filter-bar">
+        <div class="filter-group">
+          <label>Min Score</label>
+          <input type="range" id="filter-min-score" min="0" max="100" value="0" step="5">
+          <span class="filter-value" id="filter-min-score-value">0</span>
+        </div>
+        <div class="filter-group">
+          <label>Void Type</label>
+          <select id="filter-void-type">
+            <option value="">All types</option>
+            <option value="conservative_variant">Conservative Variant</option>
+            <option value="regional_explorer">Regional Explorer</option>
+            <option value="modification_pioneer">Modification Pioneer</option>
+            <option value="chemistry_hybrid">Chemistry Hybrid</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Sort By</label>
+          <select id="filter-sort">
+            <option value="overall_oligovoid_score">Score</option>
+            <option value="hamming_distance_to_nearest">Novelty</option>
+            <option value="thermodynamic_score">Thermodynamic</option>
+            <option value="risc_loading_score">RISC Loading</option>
+            <option value="nuclease_resistance_score">Nuclease Resistance</option>
+          </select>
+        </div>
+      </div>
+      <div class="void-cards" id="void-cards"></div>
+    </section>
+
+    <!-- ── TAB 3: DMTL CYCLES ── -->
+    <section id="tab-dmtl" class="tab-panel">
+      <div class="section-header">
+        <h2>Design-Make-Test-Learn Simulation</h2>
+        <p class="section-subtitle">Active learner explores modification space across cycles, starting from 5 known patterns.</p>
+      </div>
+      <div class="dmtl-controls">
+        <div class="dmtl-field">
+          <label>Acquisition Function</label>
+          <select id="dmtl-acq-fn">
+            <option value="balanced" selected>Balanced</option>
+            <option value="exploitation">Exploit</option>
+            <option value="exploration">Explore</option>
+            <option value="uncertainty">Uncertainty</option>
+          </select>
+        </div>
+        <div class="dmtl-field">
+          <label>Cycles: <span id="dmtl-cycles-value">8</span></label>
+          <input type="range" id="dmtl-cycles" min="1" max="15" value="8">
+        </div>
+        <button class="btn-primary" id="btn-run-dmtl">Run Simulation</button>
+      </div>
+      <div class="dmtl-loading" id="dmtl-loading" style="display:none">
+        <div class="spinner"></div>
+        <span>Running DMTL cycles... <span id="dmtl-cycle-counter">0</span></span>
+      </div>
+      <div class="dmtl-results" id="dmtl-results">
+        <div class="dmtl-timeline" id="dmtl-timeline"></div>
+        <div class="dmtl-coverage" id="dmtl-coverage">
+          <h3>Uncertainty Reduction Curve</h3>
+          <canvas id="coverage-canvas" width="700" height="280"></canvas>
+        </div>
+        <div class="dmtl-summary" id="dmtl-summary"></div>
+      </div>
+    </section>
+
+    <!-- ── TAB 4: VELOCITY ── -->
+    <section id="tab-velocity" class="tab-panel">
+      <div class="section-header">
+        <h2>Void Closure Velocity</h2>
+        <p class="section-subtitle">Warming voids = other groups approaching this combination. Move fast or get scooped.</p>
+      </div>
+      <div class="velocity-columns">
+        <div class="velocity-column">
+          <div class="velocity-column-header hot">HOT</div>
+          <div class="velocity-list" id="velocity-hot"></div>
+        </div>
+        <div class="velocity-column">
+          <div class="velocity-column-header warming">WARMING</div>
+          <div class="velocity-list" id="velocity-warming"></div>
+        </div>
+        <div class="velocity-column">
+          <div class="velocity-column-header cold">COLD</div>
+          <div class="velocity-list" id="velocity-cold"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TAB 5: CUSTOM SCORER ── -->
+    <section id="tab-scorer" class="tab-panel">
+      <div class="section-header">
+        <h2>Custom Pattern Scorer</h2>
+        <p class="section-subtitle">Build any siRNA modification pattern. Click positions to change modifications.</p>
+      </div>
+      <div class="scorer-builder">
+        <div class="scorer-strand">
+          <div class="scorer-strand-header">
+            <span class="scorer-strand-label">Guide Strand</span>
+            <span class="scorer-direction">5' &rarr; 3'</span>
+          </div>
+          <div class="scorer-positions" id="scorer-guide-positions"></div>
+          <div class="scorer-region-labels" id="scorer-guide-regions"></div>
+        </div>
+        <div class="scorer-strand">
+          <div class="scorer-strand-header">
+            <span class="scorer-strand-label">Passenger Strand</span>
+            <span class="scorer-direction">3' &larr; 5'</span>
+          </div>
+          <div class="scorer-positions" id="scorer-passenger-positions"></div>
+        </div>
+        <div class="scorer-options-row">
+          <div class="scorer-backbone">
+            <h4>Backbone</h4>
+            <div class="backbone-controls">
+              <div class="backbone-group">
+                <label>Guide terminal</label>
+                <select id="scorer-bb-guide-term">
+                  <option value="PS" selected>PS</option>
+                  <option value="PO">PO</option>
+                  <option value="MsPA">MsPA</option>
+                </select>
+              </div>
+              <div class="backbone-group">
+                <label>Guide internal</label>
+                <select id="scorer-bb-guide-int">
+                  <option value="PO" selected>PO</option>
+                  <option value="PS">PS</option>
+                  <option value="MsPA">MsPA</option>
+                </select>
+              </div>
+              <div class="backbone-group">
+                <label>Pass terminal</label>
+                <select id="scorer-bb-pass-term">
+                  <option value="PS" selected>PS</option>
+                  <option value="PO">PO</option>
+                  <option value="MsPA">MsPA</option>
+                </select>
+              </div>
+              <div class="backbone-group">
+                <label>Pass internal</label>
+                <select id="scorer-bb-pass-int">
+                  <option value="PO" selected>PO</option>
+                  <option value="PS">PS</option>
+                  <option value="MsPA">MsPA</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="scorer-conjugate-wrap">
+            <h4>Conjugate</h4>
+            <select id="scorer-conjugate">
+              <option value="GalNAc" selected>GalNAc (Liver)</option>
+              <option value="Cholesterol">Cholesterol</option>
+              <option value="LNP">LNP</option>
+              <option value="None">None</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn-primary btn-large" id="btn-score-pattern">Score This Pattern</button>
+      </div>
+      <div class="scorer-results" id="scorer-results" style="display:none"></div>
+      <div class="scorer-comparison" id="scorer-comparison" style="display:none"></div>
+    </section>
+
+  </main>
+
+  <!-- Modification picker popup -->
+  <div class="mod-picker-overlay" id="mod-picker-overlay" style="display:none">
+    <div class="mod-picker" id="mod-picker">
+      <div class="mod-picker-header">
+        <span id="mod-picker-title">Position 1</span>
+        <button class="mod-picker-close" id="mod-picker-close">&times;</button>
+      </div>
+      <div class="mod-picker-options" id="mod-picker-options"></div>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
