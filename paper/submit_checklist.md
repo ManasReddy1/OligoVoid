@@ -3,7 +3,7 @@
 ## arXiv (Submit this week)
 - [ ] Register at [arxiv.org](https://arxiv.org) (if not already)
 - [ ] Submit to **cs.LG** (primary) + **q-bio.BM** (cross-list)
-- [ ] Title: "OligoVoid: Generative Active Learning for Systematic Exploration of siRNA Chemical Modification Design Space"
+- [ ] Title: "OligoVoid: Mapping the Dark Matter of siRNA Chemical Space"
 - [ ] Upload: `oligovoid_paper.tex`, `references.bib`, `neurips_2025.sty`
 - [ ] Abstract: copy from LaTeX (250 words)
 - [ ] Add to comments: "Code available at https://github.com/ManasReddy1/OligoVoid"
