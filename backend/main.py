@@ -1356,6 +1356,60 @@ def model_performance():
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# BENCHMARKS
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+@app.get("/api/benchmarks")
+def get_benchmarks(
+    skip_active_learning: bool = Query(False, description="Skip the slower AL benchmark"),
+):
+    """Run all benchmarks and return results for Table 1.
+
+    WARNING: This endpoint is compute-intensive (30-120s). Results should be cached.
+    """
+    try:
+        from backend.benchmarks import run_all_benchmarks
+        return run_all_benchmarks(skip_active_learning=skip_active_learning)
+    except Exception as e:
+        logger.error("Benchmark error: %s", e, exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Benchmark failed: {e}")
+
+
+@app.get("/api/benchmarks/prediction")
+def get_benchmark_prediction():
+    """Run only the prediction comparison benchmark (Table 1)."""
+    try:
+        from backend.benchmarks import run_benchmark_comparison
+        return run_benchmark_comparison()
+    except Exception as e:
+        logger.error("Prediction benchmark error: %s", e, exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/benchmarks/generation")
+def get_benchmark_generation():
+    """Run only the CVAE generation quality benchmark."""
+    try:
+        from backend.benchmarks import evaluate_generation_quality
+        return evaluate_generation_quality()
+    except Exception as e:
+        logger.error("Generation benchmark error: %s", e, exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/benchmarks/calibration")
+def get_benchmark_calibration():
+    """Run only the uncertainty calibration benchmark."""
+    try:
+        from backend.benchmarks import evaluate_uncertainty_calibration
+        return evaluate_uncertainty_calibration()
+    except Exception as e:
+        logger.error("Calibration benchmark error: %s", e, exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # STATIC FILES (must be mounted LAST to avoid catching /api/* routes)
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
