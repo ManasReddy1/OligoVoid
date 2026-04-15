@@ -109,6 +109,12 @@ from backend.active_learner import (  # noqa: E402
     record_dmtl_cycle,
     get_dmtl_history,
 )
+from backend.ml_model import (  # noqa: E402
+    OligoVoidGPR,
+    get_gpr_model,
+    encode_pattern,
+    FEATURE_NAMES,
+)
 from backend.velocity_tracker import (  # noqa: E402
     get_velocity_history,
     get_fastest_closing,
@@ -163,6 +169,23 @@ def on_startup():
                 logger.info("Auto-loaded %d published siRNAs and built matrices", loaded)
     finally:
         db.close()
+
+    # ── Initialize GPR model on published dataset ──────────────────
+    try:
+        gpr = get_gpr_model()
+        patterns = PUBLISHED_MODIFICATIONS_DATASET
+        targets = [p["knockdown_efficacy"] for p in patterns]
+        diagnostics = gpr.fit(patterns, targets)
+        logger.info(
+            "GPR model trained on %d patterns: LOOCV R²=%.3f, MAE=%.2f, "
+            "calibration(1σ)=%.1f%%",
+            diagnostics["n_training"],
+            diagnostics["r2_loocv"],
+            diagnostics["mae_loocv"],
+            diagnostics["calibration_1sigma"] * 100,
+        )
+    except Exception as exc:
+        logger.warning("GPR model initialization failed: %s", exc)
 
 
 # ── In-memory cache for DMTL results ────────────────────────────────────
@@ -545,8 +568,22 @@ async def score_custom_pattern(req: CustomPatternRequest):
     guide_display = format_guide_strand(pattern)
     passenger_display = format_passenger_strand(pattern)
 
+    # GPR prediction
+    gpr_pred = {}
+    try:
+        gpr = get_gpr_model()
+        if gpr.is_fitted:
+            mu, std = gpr.predict(pattern)
+            gpr_pred = {
+                "gpr_predicted_knockdown": round(mu, 2),
+                "gpr_uncertainty": round(std, 2),
+            }
+    except Exception:
+        pass
+
     return {
         **combined,
+        **gpr_pred,
         "novelty_score": novelty,
         "nearest_known_pattern": nearest_id,
         "hamming_to_nearest": hamming,
@@ -756,6 +793,57 @@ def ontology():
         "conjugate_list": CONJUGATE_LIST,
         "stats": get_ontology_stats(),
         "known_pattern_coverage": get_known_pattern_coverage(),
+    }
+
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# GET /api/gpr/status — GPR model diagnostics
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+@app.get("/api/gpr/status")
+def gpr_status():
+    """Return GPR model diagnostics: R², MAE, calibration, kernel params."""
+    gpr = get_gpr_model()
+    return gpr.get_model_diagnostics()
+
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# POST /api/gpr/predict — GPR prediction for a pattern
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+class GPRPredictRequest(BaseModel):
+    guide_mods: list[str] = Field(..., min_length=21, max_length=21)
+    passenger_mods: list[str] = Field(..., min_length=21, max_length=21)
+    backbone_guide: list[str] = Field(default_factory=lambda: ["PO"] * 20, min_length=20, max_length=20)
+    backbone_passenger: list[str] = Field(default_factory=lambda: ["PO"] * 20, min_length=20, max_length=20)
+    conjugate: str = "None"
+
+
+@app.post("/api/gpr/predict")
+def gpr_predict(req: GPRPredictRequest):
+    """Predict knockdown efficacy and uncertainty for a siRNA pattern using GPR."""
+    gpr = get_gpr_model()
+    if not gpr.is_fitted:
+        raise HTTPException(503, "GPR model is not fitted yet")
+
+    pattern = {
+        "guide_mods": req.guide_mods,
+        "passenger_mods": req.passenger_mods,
+        "backbone_guide": req.backbone_guide,
+        "backbone_passenger": req.backbone_passenger,
+        "conjugate": req.conjugate,
+    }
+
+    mu, std = gpr.predict(pattern)
+    features = encode_pattern(pattern)
+
+    return {
+        "predicted_knockdown": round(mu, 2),
+        "uncertainty_std": round(std, 2),
+        "confidence_interval_68": [round(mu - std, 2), round(mu + std, 2)],
+        "confidence_interval_95": [round(mu - 2 * std, 2), round(mu + 2 * std, 2)],
+        "feature_vector": {name: round(float(val), 4) for name, val in zip(FEATURE_NAMES, features)},
+        "model_diagnostics": gpr.get_model_diagnostics(),
     }
 
 

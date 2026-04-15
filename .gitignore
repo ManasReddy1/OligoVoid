@@ -2,9 +2,13 @@ __pycache__/
 *.pyc
 *.pyo
 data/oligovoid.db
+data/cvae_model.pt
+data/real_data_gp.joblib
 .env
 .DS_Store
 node_modules/
 *.egg-info/
 dist/
 build/
+.venv/
+venv/

@@ -44,6 +44,8 @@
     <button class="nav-tab" data-tab="dmtl">DMTL Cycles</button>
     <button class="nav-tab" data-tab="velocity">Velocity</button>
     <button class="nav-tab" data-tab="scorer">Custom Scorer</button>
+    <button class="nav-tab" data-tab="generative">AI Generated</button>
+    <button class="nav-tab" data-tab="validation">Model Validation</button>
   </nav>
 
   <!-- ═══════════════ MAIN CONTENT ═══════════════ -->
@@ -286,6 +288,102 @@
       </div>
       <div class="scorer-results" id="scorer-results" style="display:none"></div>
       <div class="scorer-comparison" id="scorer-comparison" style="display:none"></div>
+    </section>
+
+    <!-- ── TAB 6: AI GENERATED ── -->
+    <section id="tab-generative" class="tab-panel">
+      <div class="section-header">
+        <h2>Generative AI Candidates</h2>
+        <p class="section-subtitle">Our Conditional VAE generates novel siRNA modification patterns targeted at 85% knockdown. These patterns have never been published.</p>
+      </div>
+
+      <div class="explainer-box">
+        <h3>How does an AI generate a drug candidate?</h3>
+        <p>We trained a neural network on 3,700+ real siRNA experiments. The network learns the &ldquo;language&rdquo; of modification chemistry &mdash; which combinations tend to produce high knockdown. Then we ask it: &ldquo;Generate a new pattern that should achieve 85% knockdown.&rdquo;</p>
+        <p>The network outputs novel candidates that sit in the unexplored regions of the modification space. This is the same class of approach used by Insilico Medicine&rsquo;s Chemistry42 for small molecule drug design.</p>
+      </div>
+
+      <div class="gen-controls">
+        <div class="gen-field">
+          <label>Target Efficacy: <span id="gen-efficacy-value">85</span>%</label>
+          <input type="range" id="gen-efficacy" min="60" max="95" value="85" step="5">
+        </div>
+        <div class="gen-field">
+          <label>Temperature: <span id="gen-temp-value">1.0</span></label>
+          <input type="range" id="gen-temp" min="0.5" max="1.5" value="1.0" step="0.1">
+          <span class="gen-temp-hint">Low = similar to known patterns. High = more adventurous.</span>
+        </div>
+        <div class="gen-field">
+          <label>Generate: <span id="gen-count-value">50</span> candidates</label>
+          <input type="range" id="gen-count" min="10" max="100" value="50" step="10">
+        </div>
+        <button class="btn-primary" id="btn-generate">Generate Novel Candidates</button>
+      </div>
+
+      <div class="gen-loading" id="gen-loading" style="display:none">
+        <div class="spinner"></div>
+        <span>Generating novel modification patterns...</span>
+      </div>
+
+      <div class="gen-results" id="gen-results" style="display:none">
+        <div class="gen-cards" id="gen-cards"></div>
+      </div>
+
+      <div class="gen-model-note" id="gen-model-note" style="display:none"></div>
+    </section>
+
+    <!-- ── TAB 7: MODEL VALIDATION ── -->
+    <section id="tab-validation" class="tab-panel">
+      <div class="section-header">
+        <h2>Is This Tool Actually Accurate?</h2>
+        <p class="section-subtitle">We validate every claim with real data. No synthetic benchmarks, no cherry-picked results.</p>
+      </div>
+
+      <!-- Section 1: Training Data -->
+      <div class="val-section">
+        <h3>Training Data</h3>
+        <p>We trained on 3,723 experimentally measured siRNAs from 9 published studies. Here&rsquo;s exactly where the data comes from:</p>
+        <div class="val-table-wrap" id="val-training-table"></div>
+      </div>
+
+      <!-- Section 2: Cross-Validation Results -->
+      <div class="val-section">
+        <h3>Cross-Validation Results</h3>
+        <p>We tested our model&rsquo;s honesty using 5-fold cross-validation: train on 80% of data, predict the remaining 20%, repeat 5 times.</p>
+        <div class="val-metrics" id="val-cv-metrics"></div>
+        <div class="val-scatter-wrap">
+          <canvas id="val-scatter-canvas" width="500" height="400"></canvas>
+        </div>
+        <div class="val-cv-explanation" id="val-cv-explanation"></div>
+      </div>
+
+      <!-- Section 3: FDA Drug Validation -->
+      <div class="val-section">
+        <h3>FDA Drug Validation</h3>
+        <p>The ultimate test: can we predict the efficacy of drugs that the FDA has already approved?</p>
+        <div class="val-fda-table" id="val-fda-table"></div>
+        <div class="val-fda-summary" id="val-fda-summary"></div>
+      </div>
+
+      <!-- Section 4: Honest Limitations -->
+      <div class="val-section val-limitations">
+        <h3>What We Cannot Do</h3>
+        <div class="limitations-box">
+          <p>We are transparent about what OligoVoid cannot do:</p>
+          <ul>
+            <li><strong>No wet-lab validation:</strong> all results are computational</li>
+            <li><strong>Limited chemical diversity:</strong> most training data uses 2&rsquo;-OMe and 2&rsquo;-F; other modifications have fewer examples</li>
+            <li><strong>Context-free:</strong> we don&rsquo;t model the target mRNA sequence (OligoFormer does this better &mdash; use it for sequence design)</li>
+            <li><strong>GP uncertainty is approximate:</strong> not a rigorous Bayesian guarantee</li>
+          </ul>
+          <p class="limitations-summary">OligoVoid is best used as: a gap-finding and experiment-prioritization tool. It answers &ldquo;what should I try next?&rdquo; not &ldquo;will this definitely work?&rdquo;</p>
+        </div>
+      </div>
+
+      <div class="val-loading" id="val-loading" style="display:none">
+        <div class="spinner"></div>
+        <span>Loading validation data...</span>
+      </div>
     </section>
 
   </main>
