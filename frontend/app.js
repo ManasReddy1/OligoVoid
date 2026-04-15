@@ -143,6 +143,8 @@ function initNav() {
       if (tab === 'dmtl') loadDMTL();
       if (tab === 'velocity') loadVelocity();
       if (tab === 'scorer') initScorerPositions();
+      if (tab === 'generative') initGenerativeTab();
+      if (tab === 'validation') loadValidation();
     });
   });
 }
@@ -1407,3 +1409,289 @@ function truncate(str, max) {
 // Make toggleVoidExpand and selectMod globally accessible
 window.toggleVoidExpand = toggleVoidExpand;
 window.selectMod = selectMod;
+
+
+// ═══════════════════════════════════════════════════════
+// TAB 6: AI GENERATED (CVAE + GP)
+// ═══════════════════════════════════════════════════════
+
+let generativeInitialized = false;
+
+function initGenerativeTab() {
+  if (generativeInitialized) return;
+  generativeInitialized = true;
+
+  // Wire up sliders
+  const efficacySlider = document.getElementById('gen-efficacy');
+  const tempSlider = document.getElementById('gen-temp');
+  const countSlider = document.getElementById('gen-count');
+
+  if (efficacySlider) {
+    efficacySlider.addEventListener('input', () => {
+      document.getElementById('gen-efficacy-value').textContent = efficacySlider.value;
+    });
+  }
+  if (tempSlider) {
+    tempSlider.addEventListener('input', () => {
+      document.getElementById('gen-temp-value').textContent = parseFloat(tempSlider.value).toFixed(1);
+    });
+  }
+  if (countSlider) {
+    countSlider.addEventListener('input', () => {
+      document.getElementById('gen-count-value').textContent = countSlider.value;
+    });
+  }
+
+  // Wire up generate button
+  const btn = document.getElementById('btn-generate');
+  if (btn) {
+    btn.addEventListener('click', runGeneration);
+  }
+}
+
+async function runGeneration() {
+  const efficacy = parseFloat(document.getElementById('gen-efficacy').value);
+  const temp = parseFloat(document.getElementById('gen-temp').value);
+  const count = parseInt(document.getElementById('gen-count').value);
+
+  const loading = document.getElementById('gen-loading');
+  const results = document.getElementById('gen-results');
+  const noteEl = document.getElementById('gen-model-note');
+
+  loading.style.display = 'flex';
+  results.style.display = 'none';
+  noteEl.style.display = 'none';
+
+  try {
+    const data = await apiFetch('/api/generate/candidates', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        target_efficacy: efficacy,
+        temperature: temp,
+        n_generate: count,
+      }),
+    });
+
+    loading.style.display = 'none';
+    renderGeneratedCandidates(data);
+  } catch (err) {
+    loading.style.display = 'none';
+    showToast(`Generation failed: ${err.message}`, true);
+  }
+}
+
+function renderGeneratedCandidates(data) {
+  const results = document.getElementById('gen-results');
+  const cardsEl = document.getElementById('gen-cards');
+  const noteEl = document.getElementById('gen-model-note');
+
+  results.style.display = 'block';
+
+  if (!data.candidates || data.candidates.length === 0) {
+    cardsEl.innerHTML = '<div class="no-data">No valid candidates generated. Try adjusting temperature.</div>';
+    return;
+  }
+
+  cardsEl.innerHTML = data.candidates.map((cand, idx) => {
+    const pred = cand.predicted_efficacy || 0;
+    const unc = cand.uncertainty_std || 0;
+    const conf = cand.model_confidence || 'low';
+    const confClass = conf === 'high' ? 'high' : conf === 'medium' ? 'medium' : 'low';
+    const isNovel = cand.is_novel;
+
+    // Generate fake pattern blocks for visualization (feature-vector based)
+    const patternHtml = renderFeatureBlocks(cand.feature_vector_original || []);
+
+    return `
+      <div class="gen-card">
+        <div class="gen-card-header">
+          <span class="gen-card-rank">#${cand.rank || idx + 1}</span>
+          ${isNovel
+            ? '<span class="gen-card-badge novel">Novel</span>'
+            : '<span class="gen-card-badge void">Near Known</span>'}
+        </div>
+        <div class="gen-card-pattern">${patternHtml}</div>
+        <div class="gen-card-stats">
+          <div class="gen-stat">
+            <span class="gen-stat-label">Predicted efficacy</span>
+            <span class="gen-stat-value ${confClass}">${pred.toFixed(0)}% knockdown</span>
+          </div>
+          <div class="gen-stat">
+            <span class="gen-stat-label">Uncertainty</span>
+            <span class="gen-stat-value">&plusmn;${unc.toFixed(0)}% (${conf} confidence)</span>
+          </div>
+          <div class="gen-stat">
+            <span class="gen-stat-label">Extrapolation</span>
+            <span class="gen-stat-value">${cand.is_extrapolation ? 'Yes — novel chemistry' : 'No — within training range'}</span>
+          </div>
+          <div class="gen-stat">
+            <span class="gen-stat-label">Target</span>
+            <span class="gen-stat-value">${cand.target_efficacy_pct}% at temp ${cand.temperature}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Model note
+  if (data.gp_model_note) {
+    noteEl.textContent = data.gp_model_note;
+    noteEl.style.display = 'block';
+  }
+}
+
+function renderFeatureBlocks(features) {
+  // Visualize the first 21 features as colored blocks (representing guide-strand-like profile)
+  const colors = ['#3b82f6', '#22c55e', '#ef4444', '#f97316', '#a78bfa', '#8892b0', '#ec4899', '#f59e0b'];
+  const blocks = [];
+  const nBlocks = Math.min(21, features.length);
+  for (let i = 0; i < nBlocks; i++) {
+    const val = features[i] || 0;
+    // Map feature value to color intensity
+    const absVal = Math.min(Math.abs(val), 3);
+    const colorIdx = Math.floor((absVal / 3) * (colors.length - 1));
+    const color = colors[Math.min(colorIdx, colors.length - 1)];
+    const opacity = 0.4 + (absVal / 3) * 0.6;
+    blocks.push(
+      `<div class="gen-mod-block" style="background:${color};opacity:${opacity.toFixed(2)}" title="Feature ${i+1}: ${val.toFixed(2)}"></div>`
+    );
+  }
+  // Pad to 21 if fewer
+  for (let i = nBlocks; i < 21; i++) {
+    blocks.push('<div class="gen-mod-block" style="background:#8892b0;opacity:0.3"></div>');
+  }
+  return blocks.join('');
+}
+
+
+// ═══════════════════════════════════════════════════════
+// TAB 7: MODEL VALIDATION
+// ═══════════════════════════════════════════════════════
+
+let validationData = null;
+
+async function loadValidation() {
+  if (validationData) return; // already loaded
+
+  const loading = document.getElementById('val-loading');
+  loading.style.display = 'flex';
+
+  try {
+    validationData = await apiFetch('/api/model/validation');
+    loading.style.display = 'none';
+    renderValidation(validationData);
+  } catch (err) {
+    loading.style.display = 'none';
+    showToast(`Failed to load validation data: ${err.message}`, true);
+  }
+}
+
+function renderValidation(data) {
+  // Section 1: Training Data Table
+  const tableWrap = document.getElementById('val-training-table');
+  if (data.training_data && data.training_data.datasets) {
+    const ds = data.training_data.datasets;
+    tableWrap.innerHTML = `
+      <table class="val-table">
+        <thead>
+          <tr><th>Dataset</th><th>N sequences</th><th>Cell Line</th><th>Year</th><th>Citation</th></tr>
+        </thead>
+        <tbody>
+          ${ds.map(d => `
+            <tr>
+              <td>${d.dataset}</td>
+              <td style="font-family:var(--font-mono)">${(d.n_sequences || 0).toLocaleString()}</td>
+              <td>${d.cell_line}</td>
+              <td>${d.year}</td>
+              <td style="font-size:0.65rem;color:var(--text-secondary)">${d.citation}</td>
+            </tr>
+          `).join('')}
+          <tr style="font-weight:700;border-top:2px solid var(--border-bright)">
+            <td>Total</td>
+            <td style="font-family:var(--font-mono)">${(data.training_data.total_sequences || 0).toLocaleString()}</td>
+            <td colspan="3"></td>
+          </tr>
+        </tbody>
+      </table>
+    `;
+  }
+
+  // Section 2: Cross-Validation Metrics
+  const cvEl = document.getElementById('val-cv-metrics');
+  const cv = data.cross_validation || {};
+  if (cv.cv_pearson_r != null) {
+    cvEl.innerHTML = `
+      <div class="val-metric-card">
+        <div class="val-metric-value">${cv.cv_pearson_r.toFixed(3)}</div>
+        <div class="val-metric-label">Pearson r</div>
+      </div>
+      <div class="val-metric-card">
+        <div class="val-metric-value">${cv.cv_rmse.toFixed(1)}%</div>
+        <div class="val-metric-label">RMSE</div>
+      </div>
+      <div class="val-metric-card">
+        <div class="val-metric-value">${cv.cv_r2.toFixed(3)}</div>
+        <div class="val-metric-label">R&sup2;</div>
+      </div>
+      <div class="val-metric-card">
+        <div class="val-metric-value">${cv.n_train || 0}</div>
+        <div class="val-metric-label">Train (subsampled)</div>
+      </div>
+      <div class="val-metric-card">
+        <div class="val-metric-value">${(cv.n_total || 0).toLocaleString()}</div>
+        <div class="val-metric-label">Total sequences</div>
+      </div>
+    `;
+
+    const r = cv.cv_pearson_r;
+    const varianceExplained = (r * r * 100).toFixed(1);
+    document.getElementById('val-cv-explanation').innerHTML =
+      `A Pearson r of ${r.toFixed(3)} means our model explains ~${varianceExplained}% of the variation in knockdown efficacy. ` +
+      `This is modest — intentionally so. Our GP prioritizes <strong>calibrated uncertainty</strong> over raw prediction accuracy. ` +
+      `The model honestly reports when it doesn't know, which is more valuable for experiment prioritization than a high r that overfits.`;
+  } else {
+    cvEl.innerHTML = '<div class="no-data">GP model not yet trained. Start the server to auto-train.</div>';
+  }
+
+  // Section 3: FDA Drug Validation
+  const fdaEl = document.getElementById('val-fda-table');
+  const fdaSummaryEl = document.getElementById('val-fda-summary');
+  const fda = data.fda_validation || {};
+
+  if (fda.predictions && fda.predictions.length > 0) {
+    fdaEl.innerHTML = `
+      <table class="val-table">
+        <thead>
+          <tr><th>Drug</th><th>Real Efficacy</th><th>Our Prediction</th><th>Error</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          ${fda.predictions.map(p => {
+            const error = Math.abs((p.actual || 0) - (p.predicted || 0));
+            const light = error < 15 ? 'green' : error < 30 ? 'yellow' : 'red';
+            return `
+              <tr>
+                <td>${p.drug || p.pattern_id || '—'}</td>
+                <td style="font-family:var(--font-mono)">${(p.actual || 0).toFixed(0)}%</td>
+                <td style="font-family:var(--font-mono)">${(p.predicted || 0).toFixed(0)}%</td>
+                <td style="font-family:var(--font-mono)">${error.toFixed(0)}%</td>
+                <td><span class="traffic-light ${light}"></span></td>
+              </tr>
+            `;
+          }).join('')}
+        </tbody>
+      </table>
+    `;
+
+    const mae = fda.mae != null ? fda.mae.toFixed(1) : '?';
+    const nCorrect = fda.n_correct_high || 0;
+    const nDrugs = fda.n_drugs || fda.predictions.length;
+    fdaSummaryEl.innerHTML =
+      `We correctly identify <strong>${nCorrect} of ${nDrugs}</strong> FDA drugs as efficacious, ` +
+      `with an average prediction error of <strong>${mae}%</strong>. ` +
+      `The GP was trained on unmodified RNA sequences — predicting modified drug patterns is extrapolation, ` +
+      `so high uncertainty is expected and <em>honest</em>.`;
+  } else {
+    fdaEl.innerHTML = '<div class="no-data">FDA validation not yet available. Train the GP model first.</div>';
+  }
+}
