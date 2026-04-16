@@ -1481,6 +1481,57 @@ def get_fda_validation():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.get("/api/fingerprint")
+async def get_fingerprint(
+    guide_mods: str = Query(..., description="Comma-separated guide modifications"),
+    passenger_mods: str = Query(..., description="Comma-separated passenger modifications"),
+):
+    """Compute chemistry fingerprint for a modification pattern."""
+    from backend.chemistry_fingerprint import compute_modification_fingerprint
+    guide = [m.strip() for m in guide_mods.split(",")]
+    passenger = [m.strip() for m in passenger_mods.split(",")]
+    return compute_modification_fingerprint(guide, passenger)
+
+
+@app.get("/api/landscape")
+async def get_landscape():
+    """Compute void landscape topology."""
+    from backend.void_landscape import compute_void_landscape
+    from backend.literature_parser import PUBLISHED_MODIFICATIONS_DATASET
+    from backend.void_detector import enumerate_modification_voids
+
+    known = [p for p in PUBLISHED_MODIFICATIONS_DATASET if p.get("guide_mods") and len(p.get("guide_mods", [])) >= 19]
+    try:
+        voids = enumerate_modification_voids(known, max_voids=500)
+    except Exception:
+        voids = []
+
+    scored = [v for v in voids if v.get("overall_oligovoid_score")]
+    unscored = [v for v in voids if not v.get("overall_oligovoid_score")]
+
+    return compute_void_landscape(known, unscored, scored)
+
+
+@app.get("/api/validation/honest")
+async def get_honest_validation():
+    """Get honest FDA validation with base-rate comparison."""
+    from backend.fda_validation import (
+        run_fda_sanity_check,
+        compare_to_random_classifier,
+        run_leave_one_out_fda_validation,
+    )
+
+    fda = run_fda_sanity_check()
+    random_comp = compare_to_random_classifier()
+    loo = run_leave_one_out_fda_validation()
+
+    return {
+        "fda_validation": fda,
+        "random_comparison": random_comp,
+        "leave_one_out": loo,
+    }
+
+
 @app.get("/api/casestudy")
 def get_case_study():
     """Generate modification intelligence report for the top-scored void."""

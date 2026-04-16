@@ -641,7 +641,7 @@ class RealDataGP:
     Validation: 5-fold CV with Pearson r, RMSE, R² metrics.
     """
 
-    def __init__(self, n_subsample: int = 500, random_seed: int = 42):
+    def __init__(self, n_subsample: int = 1000, random_seed: int = 42):
         self.n_subsample = n_subsample
         self.random_seed = random_seed
         self._gpr = None
@@ -704,10 +704,24 @@ class RealDataGP:
         y_pred_cv = np.zeros_like(y_sub)
         y_std_cv = np.zeros_like(y_sub)
 
+        # Identify features with near-zero variance (constant in training data)
+        # Features 0-7 are always zero for unmodified RNA — give them large
+        # initial length scales so the optimizer focuses on informative features
+        feat_std = X_norm.std(axis=0)
+        init_ls = np.ones(19)
+        for i in range(19):
+            if feat_std[i] < 0.01:
+                init_ls[i] = 100.0  # uninformative — start large
+
         for train_idx, test_idx in kf.split(X_norm):
-            kernel = ConstantKernel(1.0) * Matern(nu=2.5, length_scale=np.ones(19)) + WhiteKernel(noise_level=1.0)
+            kernel = (
+                ConstantKernel(1.0, constant_value_bounds=(1e-3, 1e4))
+                * Matern(nu=2.5, length_scale=init_ls.copy(),
+                         length_scale_bounds=(1e-2, 1e6))
+                + WhiteKernel(noise_level=0.5, noise_level_bounds=(1e-3, 1e3))
+            )
             gpr_fold = GaussianProcessRegressor(
-                kernel=kernel, n_restarts_optimizer=3, normalize_y=True, alpha=1e-6,
+                kernel=kernel, n_restarts_optimizer=8, normalize_y=True, alpha=1e-6,
             )
             gpr_fold.fit(X_norm[train_idx], y_sub[train_idx])
             mu, std = gpr_fold.predict(X_norm[test_idx], return_std=True)
@@ -730,9 +744,14 @@ class RealDataGP:
         }
 
         # Final model on all subsampled data
-        kernel = ConstantKernel(1.0) * Matern(nu=2.5, length_scale=np.ones(19)) + WhiteKernel(noise_level=1.0)
+        kernel = (
+            ConstantKernel(1.0, constant_value_bounds=(1e-3, 1e4))
+            * Matern(nu=2.5, length_scale=init_ls.copy(),
+                     length_scale_bounds=(1e-2, 1e6))
+            + WhiteKernel(noise_level=0.5, noise_level_bounds=(1e-3, 1e3))
+        )
         self._gpr = GaussianProcessRegressor(
-            kernel=kernel, n_restarts_optimizer=5, normalize_y=True, alpha=1e-6,
+            kernel=kernel, n_restarts_optimizer=10, normalize_y=True, alpha=1e-6,
         )
         self._gpr.fit(X_norm, y_sub)
         self._is_fitted = True

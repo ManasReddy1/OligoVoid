@@ -11,30 +11,55 @@
 </head>
 <body>
 
-  <!-- ═══════════════ ONBOARDING MODAL ═══════════════ -->
+  <!-- ═══════════════ ONBOARDING MODAL (5 steps) ═══════════════ -->
   <div class="onboarding-overlay" id="onboarding-overlay" style="display:none">
     <div class="onboarding-modal">
       <div class="onboarding-steps">
+
         <div class="onboarding-step active" data-step="1">
-          <div class="onboarding-step-icon">&#x1f9ec;</div>
           <h3>What is siRNA?</h3>
-          <p>Small interfering RNA (siRNA) is a tiny molecule that can silence specific disease-causing genes. It is the basis of 8 FDA-approved drugs that treat everything from high cholesterol to rare genetic diseases.</p>
+          <pre class="onboarding-ascii">
+  Normal gene expression:
+    DNA  &rarr;  mRNA  &rarr;  Protein
+
+  With siRNA therapy:
+    DNA  &rarr;  mRNA  &larr;  siRNA
+                 |
+            [SILENCED]
+          </pre>
+          <p>Small interfering RNA (siRNA) is a tiny molecule that silences disease-causing genes. It intercepts the messenger RNA before it can make harmful proteins. Eight FDA-approved drugs already use this mechanism to treat conditions from high cholesterol to rare genetic diseases.</p>
         </div>
+
         <div class="onboarding-step" data-step="2">
-          <div class="onboarding-step-icon">&#x1f52c;</div>
-          <h3>What is a chemical modification?</h3>
-          <p>Each position on the siRNA strand can have its sugar or backbone chemically changed to make the drug more stable, potent, or safe. There are 8 major modification types and 42 positions &mdash; giving millions of possible combinations.</p>
+          <h3>Why chemical modifications?</h3>
+          <p>Naked RNA survives about 15 minutes in your bloodstream. Chemical modifications act as <strong>protective armor</strong>: they shield each position on the strand from enzymes that would destroy it, while preserving its ability to silence the target gene.</p>
+          <p>There are 8 major modification types (2'-OMe, 2'-F, LNA, cEt, DNA, RNA, UNA, MOE) that can be applied to each of 42 positions on the siRNA duplex.</p>
         </div>
+
         <div class="onboarding-step" data-step="3">
-          <div class="onboarding-step-icon">&#x1f573;&#xfe0f;</div>
-          <h3>What is a &ldquo;void&rdquo;?</h3>
-          <p>A void is a modification pattern that has <em>never been published or tested</em>. Like dark matter in the universe &mdash; it should exist, but nobody has looked there yet. About 92% of the modification space is voids.</p>
+          <h3>The design space</h3>
+          <p>8 modifications across 42 positions means <strong>8<sup>42</sup> possible combinations</strong> &mdash; more than 10<sup>37</sup> patterns. That is more than the number of atoms in a human body. Even if every lab on Earth tested one pattern per second, it would take longer than the age of the universe to explore them all.</p>
+          <p>Only about 3,700 patterns have ever been published. That leaves 92% completely uncharted.</p>
         </div>
+
         <div class="onboarding-step" data-step="4">
-          <div class="onboarding-step-icon">&#x1f680;</div>
-          <h3>What can OligoVoid tell you?</h3>
-          <p>OligoVoid maps every void, scores them with biophysics rules and machine learning, then ranks which untested combinations are most likely to work. It tells you: &ldquo;try this one next.&rdquo;</p>
+          <h3>What is a &ldquo;void&rdquo;?</h3>
+          <p>A <strong>void</strong> is a modification pattern that has <em>never been published or tested</em>. Like dark matter in the universe &mdash; it should exist, but nobody has looked there yet. About 92% of the modification space is voids. Some of those voids could be the next breakthrough drug.</p>
         </div>
+
+        <div class="onboarding-step" data-step="5">
+          <h3>What can YOU do here?</h3>
+          <p>OligoVoid maps every void, scores them with biophysics rules and machine learning, then ranks which untested combinations are most likely to work. You can:</p>
+          <ul class="onboarding-list">
+            <li>Explore the dark matter map of siRNA chemistry</li>
+            <li>See which untested patterns score highest</li>
+            <li>Validate predictions against FDA-approved drugs</li>
+            <li>Build and score your own custom patterns</li>
+            <li>Generate entirely novel candidates with AI</li>
+          </ul>
+          <button class="btn-primary btn-large" id="onboarding-start">Start Exploring</button>
+        </div>
+
       </div>
       <div class="onboarding-nav">
         <div class="onboarding-dots">
@@ -42,6 +67,7 @@
           <span class="onboarding-dot" data-dot="2"></span>
           <span class="onboarding-dot" data-dot="3"></span>
           <span class="onboarding-dot" data-dot="4"></span>
+          <span class="onboarding-dot" data-dot="5"></span>
         </div>
         <div class="onboarding-buttons">
           <button class="btn-text" id="onboarding-skip">Skip</button>
@@ -52,70 +78,79 @@
   </div>
 
   <!-- ═══════════════ HEADER ═══════════════ -->
-  <div class="header-banner">
-    OligoVoid maps the 92% of siRNA drug design that has never been tested. Like a map of unexplored territory &mdash; showing you where no scientist has gone, and ranking the most promising destinations.
-  </div>
   <header id="app-header">
     <div class="header-left">
       <h1 class="logo">OLIGOVOID</h1>
       <p class="subtitle">Mapping the Dark Matter of siRNA Chemical Space</p>
     </div>
-    <div class="header-right">
+    <div class="header-center">
       <div class="stat-chip" id="chip-explored">
-        <span class="chip-value">—</span>
+        <span class="chip-value" data-tooltip="Percentage of position x modification combinations that have at least one published experiment">--</span>
         <span class="chip-label">explored</span>
       </div>
       <div class="stat-chip" id="chip-voids">
-        <span class="chip-value">—</span>
-        <span class="chip-label">voids</span>
+        <span class="chip-value" data-tooltip="Number of void candidates that have been scored and ranked by the ensemble model">--</span>
+        <span class="chip-label">voids ranked</span>
       </div>
-      <div class="stat-chip" id="chip-highscore">
-        <span class="chip-value">—</span>
-        <span class="chip-label">high-score</span>
+      <div class="stat-chip" id="chip-fda">
+        <span class="chip-value" data-tooltip="Number of FDA-approved siRNA drugs validated against OligoVoid predictions">--</span>
+        <span class="chip-label">FDA drugs validated</span>
       </div>
-      <div class="stat-chip" id="chip-warming">
-        <span class="chip-value">—</span>
-        <span class="chip-label">warming</span>
+      <div class="stat-chip" id="chip-generated">
+        <span class="chip-value" data-tooltip="Total novel candidates generated by the CVAE model">--</span>
+        <span class="chip-label">generated</span>
       </div>
+    </div>
+    <div class="header-right">
+      <a class="header-btn" href="https://github.com/manasreddy" target="_blank" rel="noopener">GitHub</a>
+      <a class="header-btn header-btn-accent" href="#" target="_blank" rel="noopener">Paper</a>
     </div>
   </header>
 
-  <!-- ═══════════════ NAV TABS ═══════════════ -->
+  <!-- ═══════════════ NAV TABS (9 tabs) ═══════════════ -->
   <nav id="main-nav">
-    <button class="nav-tab active" data-tab="map">Dark Matter Map</button>
+    <button class="nav-tab active" data-tab="map">The Map</button>
     <button class="nav-tab" data-tab="voids">Top Voids</button>
-    <button class="nav-tab nav-tab-highlight" data-tab="fda">FDA Validation</button>
-    <button class="nav-tab" data-tab="dmtl">DMTL Cycles</button>
+    <button class="nav-tab nav-tab-highlight" data-tab="fda">FDA Reality Check</button>
+    <button class="nav-tab" data-tab="dmtl">DMTL</button>
     <button class="nav-tab" data-tab="velocity">Velocity</button>
-    <button class="nav-tab" data-tab="scorer">Custom Scorer</button>
+    <button class="nav-tab" data-tab="scorer">Score Yours</button>
     <button class="nav-tab" data-tab="generative">AI Generated</button>
     <button class="nav-tab" data-tab="casestudy">Case Study</button>
     <button class="nav-tab" data-tab="howworks">How It Works</button>
-    <button class="nav-tab" data-tab="validation">Model Validation</button>
-    <button class="nav-tab" data-tab="latent">Latent Space</button>
   </nav>
 
   <!-- ═══════════════ MAIN CONTENT ═══════════════ -->
   <main id="main-content">
 
-    <!-- ── TAB 1: MODIFICATION MAP ── -->
+    <!-- ── TAB 1: THE MAP ── -->
     <section id="tab-map" class="tab-panel active">
+      <div class="explainer-collapsible" data-tab-key="map">
+        <button class="explainer-toggle">
+          <span class="explainer-toggle-icon">&#9660;</span>
+          What am I looking at?
+        </button>
+        <div class="explainer-body">
+          <p>This is the <strong>siRNA Dark Matter Map</strong>. Each cell represents one specific modification at one specific position on the siRNA strand. <span style="color:#ff3366;font-weight:600">Red cells</span> are voids &mdash; modification patterns that have <em>never been published</em>. <span style="color:#00ff88;font-weight:600">Green cells</span> are well-studied. About 92% of this map is red. Below the heatmap, you will find 7 territory cards summarizing each functional region of the siRNA, and a pattern designer to create and score custom patterns in real time.</p>
+        </div>
+      </div>
+
       <div class="section-header">
         <h2>The siRNA Dark Matter Map</h2>
-        <p class="section-subtitle">Each RED cell = a modification pattern that has NEVER been published. GREEN = well-studied.</p>
+        <p class="section-subtitle">Each RED cell = a modification that has NEVER been published. GREEN = well-studied.</p>
       </div>
 
       <div class="heatmap-legend heatmap-legend-always">
         <div class="legend-row">
           <span class="legend-swatch" style="background:#ff3366"></span><span class="legend-text">Red = Never tested (a void)</span>
-          <span class="legend-swatch" style="background:#ff6600"></span><span class="legend-text">Orange = Tested 1-2 times (barely explored)</span>
+          <span class="legend-swatch" style="background:#ff6600"></span><span class="legend-text">Orange = Tested 1-2 times</span>
           <span class="legend-swatch" style="background:#ffaa00"></span><span class="legend-text">Yellow = Tested 3-5 times</span>
-          <span class="legend-swatch" style="background:#00ff88"></span><span class="legend-text">Green = Well-studied (6+ papers)</span>
+          <span class="legend-swatch" style="background:#00ff88"></span><span class="legend-text">Green = Well-studied (6+)</span>
         </div>
         <div class="legend-row legend-regions">
-          <span class="legend-swatch region-seed"></span><span class="legend-text" title="Positions 2-8: The drug's 'address' — determines which gene gets silenced. Modifications here are delicate.">Seed Region (2-8)</span>
+          <span class="legend-swatch region-seed"></span><span class="legend-text" title="Positions 2-8: The drug's address &mdash; determines which gene gets silenced.">Seed Region (2-8)</span>
           <span class="legend-swatch region-cleavage"></span><span class="legend-text" title="Positions 10-11: Where the cellular scissors cut the target. NEVER modify these.">Cleavage Site (10-11)</span>
-          <span class="legend-swatch region-overhang"></span><span class="legend-text" title="Positions 19-21: Modifications here protect the drug in the bloodstream without affecting function.">3' Protective Zone (19-21)</span>
+          <span class="legend-swatch region-overhang"></span><span class="legend-text" title="Positions 19-21: Modifications here protect the drug without affecting function.">3' Protective Zone (19-21)</span>
         </div>
       </div>
 
@@ -125,19 +160,21 @@
           <div class="heatmap-y-axis" id="heatmap-y-axis-guide"></div>
           <div class="heatmap-grid" id="heatmap-guide"></div>
         </div>
-
         <div class="heatmap-gap"></div>
-
         <div class="heatmap-strand-label">Passenger Strand &nbsp; 3' &larr; 5'</div>
         <div class="heatmap-wrapper">
           <div class="heatmap-y-axis" id="heatmap-y-axis-passenger"></div>
           <div class="heatmap-grid" id="heatmap-passenger"></div>
         </div>
       </div>
-
       <div id="heatmap-tooltip" class="heatmap-tooltip"></div>
-
       <div class="void-callout" id="void-callout"></div>
+
+      <!-- Landscape Territory Cards -->
+      <div class="territory-section">
+        <h3>The Landscape: 7 Territories of siRNA Chemistry</h3>
+        <div class="territory-cards" id="territory-cards"></div>
+      </div>
 
       <!-- Inline Pattern Designer -->
       <div class="pattern-designer" id="pattern-designer-inline">
@@ -170,9 +207,19 @@
 
     <!-- ── TAB 2: TOP VOIDS ── -->
     <section id="tab-voids" class="tab-panel">
+      <div class="explainer-collapsible" data-tab-key="voids">
+        <button class="explainer-toggle">
+          <span class="explainer-toggle-icon">&#9660;</span>
+          What am I looking at?
+        </button>
+        <div class="explainer-body">
+          <p>These are the <strong>highest-scoring unexplored modification patterns</strong> &mdash; voids that have never been published but are predicted to work well. Each card shows the full modification pattern, biophysics sub-scores, and a chemistry fingerprint panel. Use the filters to narrow by score, void type, or sort order. The chemistry fingerprint shows the balance of rigid vs. flexible modifications across the strand.</p>
+        </div>
+      </div>
+
       <div class="section-header">
         <h2>Top Unexplored Combinations (Ranked)</h2>
-        <p class="section-subtitle">These modification patterns have never been published. The score estimates how likely they are to work based on 3,723 real experiments and FDA drug patterns.</p>
+        <p class="section-subtitle">These patterns have never been published. The score estimates viability based on 3,723 real experiments and FDA drug patterns.</p>
       </div>
       <div class="filter-bar">
         <div class="filter-group">
@@ -204,11 +251,28 @@
       <div class="void-cards" id="void-cards"></div>
     </section>
 
-    <!-- ── TAB 3: FDA VALIDATION ── -->
+    <!-- ── TAB 3: FDA REALITY CHECK ── -->
     <section id="tab-fda" class="tab-panel">
+      <div class="explainer-collapsible" data-tab-key="fda">
+        <button class="explainer-toggle">
+          <span class="explainer-toggle-icon">&#9660;</span>
+          What am I looking at?
+        </button>
+        <div class="explainer-body">
+          <p>This is the <strong>FDA Reality Check</strong> &mdash; an honest test of whether OligoVoid's predictions correlate with real clinical outcomes. I scored 5 FDA-approved siRNA drugs that were <em>not</em> used to train the model. For each drug, you see the clinical efficacy vs. OligoVoid's biophysics score, and whether the tool correctly classified it as high-efficacy.</p>
+        </div>
+      </div>
+
       <div class="section-header">
-        <h2>Does This Tool Actually Work?</h2>
-        <p class="section-subtitle">OligoVoid was scored against 5 FDA-approved siRNA drugs with known clinical results. These drugs were NOT used to train the model &mdash; this is an honest test.</p>
+        <h2>FDA Reality Check</h2>
+        <p class="section-subtitle">I scored 5 FDA-approved drugs that were NOT in the training data. This is an honest, out-of-sample test.</p>
+      </div>
+
+      <div class="caveat-box" id="fda-caveat">
+        <div class="caveat-icon">!</div>
+        <div class="caveat-content">
+          <strong>Honest caveat about base rate:</strong> A random model would correctly identify ~2-3 of 5 drugs as high-efficacy just by chance (since most approved drugs are effective). Getting 4 or 5 out of 5 is meaningful, but not miraculous. The real signal is in the <em>ranking correlation</em> and <em>error magnitude</em>, not just the binary classification. I show both so you can judge for yourself.
+        </div>
       </div>
 
       <div class="fda-cards" id="fda-drug-cards"></div>
@@ -228,8 +292,18 @@
       </div>
     </section>
 
-    <!-- ── TAB 4: DMTL CYCLES ── -->
+    <!-- ── TAB 4: DMTL ── -->
     <section id="tab-dmtl" class="tab-panel">
+      <div class="explainer-collapsible" data-tab-key="dmtl">
+        <button class="explainer-toggle">
+          <span class="explainer-toggle-icon">&#9660;</span>
+          What am I looking at?
+        </button>
+        <div class="explainer-body">
+          <p>This is a <strong>Design-Make-Test-Learn (DMTL) simulation</strong>. It models how an active learning algorithm would explore the modification space over multiple cycles. Starting from 5 known patterns, the algorithm picks the most informative void to test next, observes the result, updates its model, and repeats. You can compare different acquisition strategies: balanced, exploit (go for highest predicted score), explore (go for maximum uncertainty), or pure uncertainty sampling.</p>
+        </div>
+      </div>
+
       <div class="section-header">
         <h2>Design-Make-Test-Learn Simulation</h2>
         <p class="section-subtitle">Active learner explores modification space across cycles, starting from 5 known patterns.</p>
@@ -238,10 +312,10 @@
         <div class="dmtl-field">
           <label>Acquisition Function</label>
           <select id="dmtl-acq-fn">
-            <option value="balanced" selected>Balanced</option>
-            <option value="exploitation">Exploit</option>
-            <option value="exploration">Explore</option>
-            <option value="uncertainty">Uncertainty</option>
+            <option value="balanced" selected>Balanced (VPA)</option>
+            <option value="exploitation">Exploit (EI)</option>
+            <option value="exploration">Explore (MaxVar)</option>
+            <option value="uncertainty">Uncertainty (US)</option>
           </select>
         </div>
         <div class="dmtl-field">
@@ -250,6 +324,12 @@
         </div>
         <button class="btn-primary" id="btn-run-dmtl">Run Simulation</button>
       </div>
+
+      <div class="dmtl-strategy-compare" id="dmtl-strategy-compare" style="display:none">
+        <h3>Strategy Comparison</h3>
+        <div class="strategy-cards" id="strategy-cards"></div>
+      </div>
+
       <div class="dmtl-loading" id="dmtl-loading" style="display:none">
         <div class="spinner"></div>
         <span>Running DMTL cycles... <span id="dmtl-cycle-counter">0</span></span>
@@ -264,8 +344,18 @@
       </div>
     </section>
 
-    <!-- ── TAB 4: VELOCITY ── -->
+    <!-- ── TAB 5: VELOCITY ── -->
     <section id="tab-velocity" class="tab-panel">
+      <div class="explainer-collapsible" data-tab-key="velocity">
+        <button class="explainer-toggle">
+          <span class="explainer-toggle-icon">&#9660;</span>
+          What am I looking at?
+        </button>
+        <div class="explainer-body">
+          <p>This shows <strong>void closure velocity</strong> &mdash; how fast the research community is approaching each unexplored region. <span style="color:#ff3366;font-weight:600">Hot</span> voids have rapidly increasing publication counts nearby; someone may publish this combination soon. <span style="color:#ff8800;font-weight:600">Warming</span> voids show gradual interest. <span style="color:#3366ff;font-weight:600">Cold</span> voids are wide open &mdash; nobody is heading there. If you want to be first, target the hot ones now.</p>
+        </div>
+      </div>
+
       <div class="section-header">
         <h2>Void Closure Velocity</h2>
         <p class="section-subtitle">Warming voids = other groups approaching this combination. Move fast or get scooped.</p>
@@ -286,10 +376,30 @@
       </div>
     </section>
 
-    <!-- ── TAB 5: CUSTOM SCORER ── -->
+    <!-- ── TAB 6: SCORE YOURS ── -->
     <section id="tab-scorer" class="tab-panel">
+      <div class="explainer-collapsible" data-tab-key="scorer">
+        <button class="explainer-toggle">
+          <span class="explainer-toggle-icon">&#9660;</span>
+          What am I looking at?
+        </button>
+        <div class="explainer-body">
+          <p>This is the <strong>21-position pattern builder</strong>. Click any position to change its modification. Each of the 8 modification types has different properties:</p>
+          <div class="mod-descriptions">
+            <div><span class="mod-dot" style="background:#3b82f6"></span> <strong>2'-OMe</strong> &mdash; Gold standard. Good stability, good RISC tolerance. The workhorse.</div>
+            <div><span class="mod-dot" style="background:#22c55e"></span> <strong>2'-F</strong> &mdash; Mimics RNA geometry. Best RISC loading. Slightly less stable than OMe.</div>
+            <div><span class="mod-dot" style="background:#ef4444"></span> <strong>LNA</strong> &mdash; Locks sugar in C3'-endo. Extreme stability but stiff. Hurts RISC if in seed.</div>
+            <div><span class="mod-dot" style="background:#f97316"></span> <strong>cEt</strong> &mdash; LNA sibling. Similar stability, slightly better tolerance in some positions.</div>
+            <div><span class="mod-dot" style="background:#a78bfa"></span> <strong>DNA</strong> &mdash; Destabilizing. Used strategically to lower Tm at specific positions.</div>
+            <div><span class="mod-dot" style="background:#8892b0"></span> <strong>RNA</strong> &mdash; Unmodified. Natural but vulnerable to nucleases. Baseline reference.</div>
+            <div><span class="mod-dot" style="background:#ec4899"></span> <strong>UNA</strong> &mdash; Unlocked nucleic acid. Very flexible. Good at position 1 for thermodynamic asymmetry.</div>
+            <div><span class="mod-dot" style="background:#f59e0b"></span> <strong>MOE</strong> &mdash; 2'-O-methoxyethyl. Great nuclease resistance but bulky. Avoid in seed region.</div>
+          </div>
+        </div>
+      </div>
+
       <div class="section-header">
-        <h2>Custom Pattern Scorer</h2>
+        <h2>Score Your Own Pattern</h2>
         <p class="section-subtitle">Build any siRNA modification pattern. Click positions to change modifications.</p>
       </div>
       <div class="scorer-builder">
@@ -362,17 +472,22 @@
       <div class="scorer-comparison" id="scorer-comparison" style="display:none"></div>
     </section>
 
-    <!-- ── TAB 6: AI GENERATED ── -->
+    <!-- ── TAB 7: AI GENERATED ── -->
     <section id="tab-generative" class="tab-panel">
-      <div class="section-header">
-        <h2>Generative AI Candidates</h2>
-        <p class="section-subtitle">A Conditional VAE generates novel siRNA modification patterns targeted at 85% knockdown. These patterns have never been published.</p>
+      <div class="explainer-collapsible" data-tab-key="generative">
+        <button class="explainer-toggle">
+          <span class="explainer-toggle-icon">&#9660;</span>
+          What am I looking at?
+        </button>
+        <div class="explainer-body">
+          <p>I trained a <strong>Conditional Variational Autoencoder (CVAE)</strong> on 3,700+ real siRNA experiments. The network learned the &ldquo;language&rdquo; of modification chemistry &mdash; which combinations tend to produce high knockdown. When you click Generate, I ask it: &ldquo;create a new pattern that should achieve X% knockdown.&rdquo; The network outputs novel candidates that sit in the unexplored regions of the modification space.</p>
+          <p><strong>Target efficacy:</strong> what knockdown percentage to optimize for. <strong>Temperature:</strong> controls diversity (low = conservative, high = adventurous). <strong>Count:</strong> how many candidates to generate per batch.</p>
+        </div>
       </div>
 
-      <div class="explainer-box">
-        <h3>How does an AI generate a drug candidate?</h3>
-        <p>I trained a neural network on 3,700+ real siRNA experiments. The network learns the &ldquo;language&rdquo; of modification chemistry &mdash; which combinations tend to produce high knockdown. Then I ask it: &ldquo;Generate a new pattern that should achieve 85% knockdown.&rdquo;</p>
-        <p>The network outputs novel candidates that sit in the unexplored regions of the modification space. This is the same class of approach used by Insilico Medicine&rsquo;s Chemistry42 for small molecule drug design.</p>
+      <div class="section-header">
+        <h2>AI-Generated Candidates</h2>
+        <p class="section-subtitle">A CVAE generates novel siRNA modification patterns targeted at your specified knockdown. These patterns have never been published.</p>
       </div>
 
       <div class="gen-controls">
@@ -404,65 +519,21 @@
       <div class="gen-model-note" id="gen-model-note" style="display:none"></div>
     </section>
 
-    <!-- ── TAB 7: MODEL VALIDATION ── -->
-    <section id="tab-validation" class="tab-panel">
-      <div class="section-header">
-        <h2>Is This Tool Actually Accurate?</h2>
-        <p class="section-subtitle">Every claim is validated with real data. No synthetic benchmarks, no cherry-picked results.</p>
-      </div>
-
-      <!-- Section 1: Training Data -->
-      <div class="val-section">
-        <h3>Training Data</h3>
-        <p>I trained on 3,723 experimentally measured siRNAs from 9 published studies. Here&rsquo;s exactly where the data comes from:</p>
-        <div class="val-table-wrap" id="val-training-table"></div>
-      </div>
-
-      <!-- Section 2: Cross-Validation Results -->
-      <div class="val-section">
-        <h3>Cross-Validation Results</h3>
-        <p>I tested the model&rsquo;s honesty using 5-fold cross-validation: train on 80% of data, predict the remaining 20%, repeat 5 times.</p>
-        <div class="val-metrics" id="val-cv-metrics"></div>
-        <div class="val-scatter-wrap">
-          <canvas id="val-scatter-canvas" width="500" height="400"></canvas>
-        </div>
-        <div class="val-cv-explanation" id="val-cv-explanation"></div>
-      </div>
-
-      <!-- Section 3: FDA Drug Validation -->
-      <div class="val-section">
-        <h3>FDA Drug Validation</h3>
-        <p>The ultimate test: can OligoVoid predict the efficacy of drugs that the FDA has already approved?</p>
-        <div class="val-fda-table" id="val-fda-table"></div>
-        <div class="val-fda-summary" id="val-fda-summary"></div>
-      </div>
-
-      <!-- Section 4: Honest Limitations -->
-      <div class="val-section val-limitations">
-        <h3>What OligoVoid Cannot Do</h3>
-        <div class="limitations-box">
-          <p>I am transparent about what OligoVoid cannot do:</p>
-          <ul>
-            <li><strong>No wet-lab validation:</strong> all results are computational</li>
-            <li><strong>Limited chemical diversity:</strong> most training data uses 2&rsquo;-OMe and 2&rsquo;-F; other modifications have fewer examples</li>
-            <li><strong>Context-free:</strong> OligoVoid does not model the target mRNA sequence (OligoFormer does this better &mdash; use it for sequence design)</li>
-            <li><strong>GP uncertainty is approximate:</strong> not a rigorous Bayesian guarantee</li>
-          </ul>
-          <p class="limitations-summary">OligoVoid is best used as: a gap-finding and experiment-prioritization tool. It answers &ldquo;what should I try next?&rdquo; not &ldquo;will this definitely work?&rdquo;</p>
-        </div>
-      </div>
-
-      <div class="val-loading" id="val-loading" style="display:none">
-        <div class="spinner"></div>
-        <span>Loading validation data...</span>
-      </div>
-    </section>
-
     <!-- ── TAB 8: CASE STUDY ── -->
     <section id="tab-casestudy" class="tab-panel">
+      <div class="explainer-collapsible" data-tab-key="casestudy">
+        <button class="explainer-toggle">
+          <span class="explainer-toggle-icon">&#9660;</span>
+          What am I looking at?
+        </button>
+        <div class="explainer-body">
+          <p>This is a <strong>full modification intelligence report</strong> on OligoVoid's top-ranked void candidate. It covers what makes this pattern different from known drugs, a risk assessment across all biophysics dimensions, the scientific hypothesis for why it might work, the closest FDA-approved drug for comparison, and a concrete recommendation for the first experiment to run.</p>
+        </div>
+      </div>
+
       <div class="section-header">
         <h2>Deep Dive: The Most Promising Untested Pattern</h2>
-        <p class="section-subtitle">A complete scientific analysis of OligoVoid&rsquo;s top-ranked void candidate, written for anyone to understand.</p>
+        <p class="section-subtitle">A complete scientific analysis of OligoVoid's top-ranked void, written for anyone to understand.</p>
       </div>
 
       <div class="case-executive" id="case-executive"></div>
@@ -497,18 +568,28 @@
 
     <!-- ── TAB 9: HOW IT WORKS ── -->
     <section id="tab-howworks" class="tab-panel">
+      <div class="explainer-collapsible" data-tab-key="howworks">
+        <button class="explainer-toggle">
+          <span class="explainer-toggle-icon">&#9660;</span>
+          What am I looking at?
+        </button>
+        <div class="explainer-body">
+          <p>This is the <strong>full story</strong> of how OligoVoid works, told in 7 chapters. Each chapter explains one stage of the pipeline &mdash; from collecting raw data, through mapping the known universe, to scoring candidates and generating novel patterns. Written so anyone can understand, even without a biology background.</p>
+        </div>
+      </div>
+
       <div class="section-header">
-        <h2>How OligoVoid Works &mdash; From Raw Data to Recommendations</h2>
-        <p class="section-subtitle">A step-by-step explanation of the full pipeline, written so anyone can understand.</p>
+        <h2>How OligoVoid Works &mdash; The Full Story</h2>
+        <p class="section-subtitle">7 chapters, from raw data to recommendations. Written so anyone can understand.</p>
       </div>
 
       <div class="how-step">
         <div class="how-step-number">1</div>
         <div class="how-step-body">
           <h3>Collect Real Data</h3>
-          <p>I gathered 3,535 real siRNA experiments from 9 published studies (Huesken 2005, Takahashi 2009, and others). Each experiment tells us: &ldquo;this siRNA sequence, with these chemical modifications, achieved X% gene knockdown.&rdquo;</p>
+          <p>I gathered 3,723 real siRNA experiments from 9 published studies (Huesken 2005, Takahashi 2009, and others). Each experiment tells us: &ldquo;this siRNA sequence, with these chemical modifications, achieved X% gene knockdown.&rdquo;</p>
           <div class="how-detail">
-            <strong>Think of it like:</strong> collecting 3,535 restaurant reviews. Each review says what ingredients were used and how good the dish was. Now you can learn which ingredients tend to make great food.
+            <strong>Think of it like:</strong> collecting 3,723 restaurant reviews. Each review says what ingredients were used and how good the dish was. Now you can learn which ingredients tend to make great food.
           </div>
         </div>
       </div>
@@ -517,9 +598,9 @@
         <div class="how-step-number">2</div>
         <div class="how-step-body">
           <h3>Map the Known Universe</h3>
-          <p>For each of 42 positions on the siRNA (21 on the guide strand, 21 on the passenger), I count how many times each of 8 modifications has been tested. This creates a 42&times;8 heatmap. Red cells = voids (never tested). Green cells = well-studied.</p>
+          <p>For each of 42 positions on the siRNA (21 guide, 21 passenger), I count how many times each of 8 modifications has been tested. This creates a 42&times;8 heatmap. Red = voids (never tested). Green = well-studied.</p>
           <div class="how-detail">
-            <strong>Result:</strong> About 92% of the position&times;modification space has never been published. That&rsquo;s the &ldquo;dark matter.&rdquo;
+            <strong>Result:</strong> About 92% of the space has never been published. That is the &ldquo;dark matter.&rdquo;
           </div>
         </div>
       </div>
@@ -533,19 +614,19 @@
             <div class="how-layer">
               <div class="how-layer-badge bio">Layer 1</div>
               <div>
-                <strong>Biophysics Rules</strong> &mdash; Based on published chemistry rules: Does this pattern survive in blood? Can the cell&rsquo;s machinery use it? Will it hit the right target? (4 sub-scores)
+                <strong>Biophysics Rules</strong> &mdash; Does this pattern survive in blood? Can the cell's machinery use it? Will it hit the right target? Based on published chemistry rules. (4 sub-scores)
               </div>
             </div>
             <div class="how-layer">
               <div class="how-layer-badge gp">Layer 2</div>
               <div>
-                <strong>Gaussian Process (GP)</strong> &mdash; A machine learning model trained on 3,535 real experiments. It predicts efficacy AND tells you how confident it is. Low confidence = &ldquo;I haven&rsquo;t seen anything like this before.&rdquo;
+                <strong>Gaussian Process (GP)</strong> &mdash; A machine learning model trained on 3,723 real experiments. It predicts efficacy AND tells you how confident it is.
               </div>
             </div>
             <div class="how-layer">
               <div class="how-layer-badge cvae">Layer 3</div>
               <div>
-                <strong>CVAE Novelty</strong> &mdash; A generative AI that learned the &ldquo;language&rdquo; of siRNA chemistry. It checks: is this pattern truly novel, or just a trivial variation of something known?
+                <strong>CVAE Novelty</strong> &mdash; A generative AI that learned the &ldquo;language&rdquo; of siRNA chemistry. It checks: is this pattern truly novel, or a trivial variation?
               </div>
             </div>
           </div>
@@ -556,9 +637,9 @@
         <div class="how-step-number">4</div>
         <div class="how-step-body">
           <h3>Generate Novel Patterns</h3>
-          <p>The Conditional Variational Autoencoder (CVAE) can also <em>generate</em> entirely new modification patterns. I tell it: &ldquo;create something that should achieve 85% knockdown.&rdquo; It generates patterns that sit in the unexplored regions of chemical space.</p>
+          <p>The CVAE can also <em>generate</em> entirely new modification patterns. I tell it: &ldquo;create something that should achieve 85% knockdown.&rdquo; It generates patterns in the unexplored regions of chemical space.</p>
           <div class="how-detail">
-            <strong>Quality check:</strong> 96.5% validity (patterns are chemically plausible), 100% novelty (never seen in training data), and the diversity score shows they are not just copies of each other.
+            <strong>Quality check:</strong> 96.5% validity, 100% novelty (never seen in training data), and high diversity (not just copies of each other).
           </div>
         </div>
       </div>
@@ -567,99 +648,48 @@
         <div class="how-step-number">5</div>
         <div class="how-step-body">
           <h3>Prioritize with VPA</h3>
-          <p><strong>Void-Prioritized Acquisition (VPA)</strong> is the novel contribution. Standard active learning uses Expected Improvement (EI) &mdash; &ldquo;pick the pattern most likely to be the best.&rdquo; But EI keeps testing patterns similar to what already works.</p>
-          <p>VPA adds a bonus for patterns that are far from anything previously tested: <code>VPA(x) = EI(x) &times; (1 + &alpha; &times; novelty)</code>. This means VPA explores 23% more of the dark matter than standard EI, while still finding high-efficacy patterns.</p>
+          <p><strong>Void-Prioritized Acquisition (VPA)</strong> is the novel contribution. Standard active learning uses Expected Improvement (EI) &mdash; &ldquo;pick the pattern most likely to be the best.&rdquo; But EI keeps testing similar patterns. VPA adds a bonus for novelty: <code>VPA(x) = EI(x) &times; (1 + &alpha; &times; novelty)</code>.</p>
           <div class="how-detail">
-            <strong>Analogy:</strong> Imagine you&rsquo;re exploring a cave. EI keeps going deeper into tunnels you&rsquo;ve already found. VPA says &ldquo;that unexplored tunnel over there might connect to something big &mdash; let&rsquo;s check it first.&rdquo;
+            <strong>Analogy:</strong> Imagine you are exploring a cave. EI keeps going deeper into tunnels you have already found. VPA says &ldquo;that unexplored tunnel over there might connect to something big &mdash; let us check it first.&rdquo;
+          </div>
+        </div>
+      </div>
+
+      <div class="how-step">
+        <div class="how-step-number">6</div>
+        <div class="how-step-body">
+          <h3>Validate Against Real Drugs</h3>
+          <p>I test OligoVoid's predictions against 5 FDA-approved siRNA drugs that were NOT in the training data. This is the honest, out-of-sample validation. If the tool cannot correctly identify known drugs as high-efficacy, it has no business recommending untested ones.</p>
+          <div class="how-detail">
+            <strong>Transparency:</strong> I show the full results &mdash; including where the model gets it wrong &mdash; on the FDA Reality Check tab. No cherry-picking.
+          </div>
+        </div>
+      </div>
+
+      <div class="how-step">
+        <div class="how-step-number">7</div>
+        <div class="how-step-body">
+          <h3>What OligoVoid Cannot Do</h3>
+          <p>I am transparent about the limitations:</p>
+          <ul class="limitations-list">
+            <li><strong>No wet-lab validation:</strong> all results are computational</li>
+            <li><strong>Limited chemical diversity:</strong> most training data uses 2'-OMe and 2'-F; other modifications have fewer examples</li>
+            <li><strong>Context-free:</strong> OligoVoid does not model the target mRNA sequence (OligoFormer does this better &mdash; use it for sequence design)</li>
+            <li><strong>GP uncertainty is approximate:</strong> not a rigorous Bayesian guarantee</li>
+          </ul>
+          <div class="how-detail" style="border-left-color:#ff8800">
+            <strong>Bottom line:</strong> OligoVoid is best used as a gap-finding and experiment-prioritization tool. It answers &ldquo;what should I try next?&rdquo; not &ldquo;will this definitely work?&rdquo;
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ── TAB 10: LATENT SPACE ── -->
-    <section id="tab-latent" class="tab-panel">
-      <div class="section-header">
-        <h2>What Did the AI Learn?</h2>
-        <p class="section-subtitle">This visualization shows the &lsquo;knowledge map&rsquo; the AI built from 3,700 siRNA experiments. Each dot is a known or candidate modification pattern. The closer two dots are, the more chemically similar their patterns. Gold stars are FDA-approved drugs.</p>
-      </div>
-
-      <div class="latent-explainer">
-        <div class="latent-explainer-icon">&#x1f9ec;</div>
-        <div class="latent-explainer-text">
-          <strong>What is this?</strong>
-          Imagine the AI read 3,700 chemistry experiments about siRNA drugs. Then I asked it to draw a map where similar chemical strategies sit close together. FDA-approved drugs cluster in specific regions &mdash; and the novel candidates cluster nearby. This suggests they might work through similar mechanisms.
-        </div>
-      </div>
-
-      <!-- Section 1: Scatter Plot -->
-      <div class="latent-section">
-        <h3>Latent Space Map</h3>
-        <p>Every known pattern and top void candidate, projected to 2D. Proximity = chemical similarity in the AI&rsquo;s learned representation.</p>
-        <div class="latent-legend" id="latent-legend">
-          <span class="latent-legend-item"><span class="latent-dot latent-dot-fda"></span> FDA Drugs</span>
-          <span class="latent-legend-item"><span class="latent-dot latent-dot-high"></span> High Efficacy (&ge;70%)</span>
-          <span class="latent-legend-item"><span class="latent-dot latent-dot-med"></span> Medium Efficacy</span>
-          <span class="latent-legend-item"><span class="latent-dot latent-dot-low"></span> Low Efficacy (&lt;30%)</span>
-          <span class="latent-legend-item"><span class="latent-dot latent-dot-void-high"></span> High-Score Voids</span>
-          <span class="latent-legend-item"><span class="latent-dot latent-dot-void-low"></span> Low-Score Voids</span>
-        </div>
-        <div class="latent-scatter-wrap">
-          <canvas id="latent-scatter-canvas" width="700" height="500"></canvas>
-        </div>
-        <div class="latent-cluster-summary" id="latent-cluster-summary"></div>
-        <div class="latent-interpretation" id="latent-interpretation"></div>
-      </div>
-
-      <!-- Section 2: Interpolation -->
-      <div class="latent-section">
-        <h3>What Lies Between Two FDA Drugs?</h3>
-        <p>A smooth transition between two FDA-approved drugs in the AI&rsquo;s learned chemical space. Each intermediate pattern is novel &mdash; never published &mdash; but predicted to be viable.</p>
-        <div class="latent-interp-controls">
-          <label>From:
-            <select id="interp-drug-a">
-              <option value="FDA_004">Inclisiran (84%)</option>
-              <option value="FDA_001">Patisiran (81%)</option>
-              <option value="FDA_002">Givosiran (90%)</option>
-              <option value="FDA_003">Lumasiran (94%)</option>
-              <option value="FDA_005">Vutrisiran (89%)</option>
-              <option value="FDA_006">Fitusiran (86%)</option>
-              <option value="FDA_007">Nedosiran (88%)</option>
-              <option value="FDA_008">Teprasiran (73%)</option>
-            </select>
-          </label>
-          <span class="interp-arrow">&rarr;</span>
-          <label>To:
-            <select id="interp-drug-b">
-              <option value="FDA_002">Givosiran (90%)</option>
-              <option value="FDA_001">Patisiran (81%)</option>
-              <option value="FDA_003">Lumasiran (94%)</option>
-              <option value="FDA_004">Inclisiran (84%)</option>
-              <option value="FDA_005">Vutrisiran (89%)</option>
-              <option value="FDA_006">Fitusiran (86%)</option>
-              <option value="FDA_007">Nedosiran (88%)</option>
-              <option value="FDA_008">Teprasiran (73%)</option>
-            </select>
-          </label>
-          <button class="btn btn-accent" id="btn-interpolate">Interpolate</button>
-        </div>
-        <div class="latent-interp-results" id="latent-interp-results"></div>
-        <div class="latent-interp-interpretation" id="latent-interp-interpretation"></div>
-      </div>
-
-      <!-- Section 3: Dimension Analysis -->
-      <div class="latent-section">
-        <h3>Decoding the AI&rsquo;s Internal Language</h3>
-        <p>The AI independently discovered that certain &lsquo;axes&rsquo; in its chemical knowledge separate meaningful properties. It learned this without being told.</p>
-        <div class="latent-dims" id="latent-dims"></div>
-      </div>
-
-      <div class="latent-loading" id="latent-loading" style="display:none">
-        <div class="spinner"></div>
-        <span>Computing latent space analysis...</span>
-      </div>
-    </section>
-
   </main>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer id="app-footer">
+    Built by Manas Reddy | 2026 | MIT License | Trained on 3,723 real experiments | Not for clinical use.
+  </footer>
 
   <!-- Modification picker popup -->
   <div class="mod-picker-overlay" id="mod-picker-overlay" style="display:none">
@@ -671,6 +701,9 @@
       <div class="mod-picker-options" id="mod-picker-options"></div>
     </div>
   </div>
+
+  <!-- Tooltip container for data-tooltip attributes -->
+  <div class="number-tooltip" id="number-tooltip" style="display:none"></div>
 
   <!-- Toast container -->
   <div class="toast-container" id="toast-container"></div>
