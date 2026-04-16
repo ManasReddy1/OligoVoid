@@ -1583,6 +1583,58 @@ def get_full_results_report():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.get("/api/experiments/ablation")
+def get_ablation_study():
+    """Run the full ablation study — proves each component contributes."""
+    try:
+        from backend.ablation_study import run_full_ablation_study
+        return run_full_ablation_study(n_bootstrap=500)
+    except Exception as e:
+        logger.error("Ablation study error: %s", e, exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/experiments/killer")
+def get_killer_experiment():
+    """Run simulated discovery efficiency — THE killer experiment."""
+    try:
+        from backend.killer_experiment import run_simulated_discovery_experiment
+        return run_simulated_discovery_experiment(n_repeats=5, n_cycles=20)
+    except Exception as e:
+        logger.error("Killer experiment error: %s", e, exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/experiments/cvae-validation")
+def get_cvae_deep_validation():
+    """Run deep CVAE validation — property-controlled generation + interpolation."""
+    try:
+        from backend.cvae_deep_validation import (
+            run_property_controlled_generation_test,
+            run_reconstruction_analysis,
+            run_latent_interpolation_test,
+        )
+        return {
+            "property_controlled": run_property_controlled_generation_test(n_samples=100),
+            "reconstruction": run_reconstruction_analysis(n_samples=200),
+            "interpolation": run_latent_interpolation_test(n_pairs=30),
+        }
+    except Exception as e:
+        logger.error("CVAE validation error: %s", e, exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/experiments/statistics")
+def get_comprehensive_statistics():
+    """Get all OligoVoid metrics with proper CIs, p-values, and effect sizes."""
+    try:
+        from backend.cvae_deep_validation import compute_comprehensive_statistics
+        return compute_comprehensive_statistics()
+    except Exception as e:
+        logger.error("Statistics error: %s", e, exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # STATIC FILES (must be mounted LAST to avoid catching /api/* routes)
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
