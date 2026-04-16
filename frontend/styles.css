@@ -243,6 +243,149 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════
+   MAP REFERENCE PANEL (educational content)
+   ═══════════════════════════════════════════════════════ */
+
+.map-reference-panel {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.03), rgba(168, 85, 247, 0.02));
+  border: 1px solid rgba(0, 212, 255, 0.12);
+  border-radius: var(--radius-lg);
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.ref-panel-section {
+  margin-bottom: 1.2rem;
+}
+
+.ref-panel-section:last-child {
+  margin-bottom: 0;
+}
+
+.ref-panel-section h4 {
+  color: var(--accent-cyan);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.12);
+  padding-bottom: 0.3rem;
+}
+
+.ref-panel-section > p {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.ref-mod-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 0.8rem;
+}
+
+.ref-mod-item {
+  display: flex;
+  gap: 0.6rem;
+  padding: 0.6rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.ref-mod-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.7rem;
+  color: #fff;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.ref-mod-item strong {
+  color: var(--text-primary);
+  font-size: 0.72rem;
+}
+
+.ref-mod-item em {
+  color: var(--text-secondary);
+  font-size: 0.65rem;
+}
+
+.ref-mod-desc {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  display: block;
+  margin-top: 0.2rem;
+}
+
+.ref-struct {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  color: var(--accent-biolum);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  margin-top: 0.3rem;
+  line-height: 1.3;
+  overflow-x: auto;
+}
+
+.ref-regions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ref-region {
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  padding: 0.4rem 0.6rem;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: var(--radius);
+}
+
+.ref-region strong {
+  color: var(--text-primary);
+}
+
+.ref-region-badge {
+  display: inline-block;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  margin-right: 0.3rem;
+}
+
+/* Help icon (?) for tooltips */
+.help-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: rgba(0, 212, 255, 0.15);
+  color: var(--accent-cyan);
+  font-size: 0.55rem;
+  font-weight: 700;
+  cursor: help;
+  vertical-align: middle;
+  margin-left: 0.2rem;
+  border: 1px solid rgba(0, 212, 255, 0.3);
+}
+
+/* ═══════════════════════════════════════════════════════
    EXPLORATION PROGRESS BAR + ACHIEVEMENTS
    ═══════════════════════════════════════════════════════ */
 

@@ -153,6 +153,105 @@
         <p class="section-subtitle">Each RED cell = a modification that has NEVER been published. GREEN = well-studied.</p>
       </div>
 
+      <!-- ── READING THE MAP: quick reference ── -->
+      <div class="map-reference-panel">
+        <div class="ref-panel-section">
+          <h4>How to read this map</h4>
+          <p>An siRNA drug is a <strong>double-stranded RNA molecule</strong> with <strong>42 positions</strong> total: 21 on the <strong>Guide Strand</strong> (the active strand that silences the gene) and 21 on the <strong>Passenger Strand</strong> (the protective partner that gets discarded). Each position can carry one of <strong>8 chemical modifications</strong> (the Y-axis). Each cell in the heatmap = one specific modification at one specific position.</p>
+        </div>
+
+        <div class="ref-panel-section">
+          <h4>The 8 Chemical Modifications (Y-axis)</h4>
+          <div class="ref-mod-grid">
+            <div class="ref-mod-item">
+              <span class="ref-mod-dot" style="background:#3b82f6">m</span>
+              <div>
+                <strong>2'-OMe</strong> &mdash; <em>2'-O-Methyl</em><br>
+                <span class="ref-mod-desc">The workhorse. Adds a methyl group to the sugar ring. Good stability, good RISC tolerance. Used in 6 of 8 FDA drugs. Think of it as standard armor.</span>
+                <pre class="ref-struct">    Base
+     |
+ 5'--O    O--3'     &larr; Sugar ring
+     |   /           (ribose)
+     C--C
+     |   \
+     O    O-CH3     &larr; 2'-OMe here
+</pre>
+              </div>
+            </div>
+            <div class="ref-mod-item">
+              <span class="ref-mod-dot" style="background:#22c55e">f</span>
+              <div>
+                <strong>2'-F</strong> &mdash; <em>2'-Fluoro</em><br>
+                <span class="ref-mod-desc">Replaces the hydroxyl with fluorine. Mimics natural RNA geometry so the cell's machinery (Ago2) accepts it easily. Best for RISC loading. Slightly less stable than OMe but better tolerated in the seed region.</span>
+                <pre class="ref-struct">    Base
+     |
+ 5'--O    O--3'
+     |   /
+     C--C
+     |   \
+     O    F          &larr; Fluorine here
+</pre>
+              </div>
+            </div>
+            <div class="ref-mod-item">
+              <span class="ref-mod-dot" style="background:#ef4444">L</span>
+              <div>
+                <strong>LNA</strong> &mdash; <em>Locked Nucleic Acid</em><br>
+                <span class="ref-mod-desc">A bridge locks the sugar into a rigid shape (C3'-endo). Extreme thermal stability (+4&deg;C per modification). But too rigid for the seed region and toxic if more than 3 in a row. Used sparingly at the ends for protection.</span>
+              </div>
+            </div>
+            <div class="ref-mod-item">
+              <span class="ref-mod-dot" style="background:#f97316">E</span>
+              <div>
+                <strong>cEt</strong> &mdash; <em>Constrained Ethyl</em><br>
+                <span class="ref-mod-desc">Similar to LNA (locked sugar) but with a slightly different bridge. Similar stability, sometimes better tolerated in certain positions. Think of it as LNA's gentler sibling.</span>
+              </div>
+            </div>
+            <div class="ref-mod-item">
+              <span class="ref-mod-dot" style="background:#a78bfa">d</span>
+              <div>
+                <strong>DNA</strong> &mdash; <em>Deoxyribonucleic Acid</em><br>
+                <span class="ref-mod-desc">The natural DNA form (no 2'-OH). Destabilizing (&minus;1.5&deg;C). Used strategically to lower melting temperature at specific positions, helping the cell's machinery unwind the duplex.</span>
+              </div>
+            </div>
+            <div class="ref-mod-item">
+              <span class="ref-mod-dot" style="background:#8892b0">r</span>
+              <div>
+                <strong>RNA</strong> &mdash; <em>Unmodified RNA</em><br>
+                <span class="ref-mod-desc">Natural ribonucleic acid. No modification at all. Survives only ~15 seconds in blood. Used as a baseline reference. Any position left as RNA is a vulnerability.</span>
+              </div>
+            </div>
+            <div class="ref-mod-item">
+              <span class="ref-mod-dot" style="background:#ec4899">U</span>
+              <div>
+                <strong>UNA</strong> &mdash; <em>Unlocked Nucleic Acid</em><br>
+                <span class="ref-mod-desc">The sugar ring is broken open, making it extremely flexible (&minus;2&deg;C). Useful at position 1 to create thermodynamic asymmetry (so the guide strand loads into Ago2 instead of the passenger).</span>
+              </div>
+            </div>
+            <div class="ref-mod-item">
+              <span class="ref-mod-dot" style="background:#f59e0b">e</span>
+              <div>
+                <strong>MOE</strong> &mdash; <em>2'-O-Methoxyethyl</em><br>
+                <span class="ref-mod-desc">A larger chemical group attached to the 2' position. Excellent nuclease resistance but physically bulky. Too large for the seed region (blocks target recognition) or the Ago2 channel. Best at the ends.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ref-panel-section">
+          <h4>The 7 Functional Regions (X-axis: positions 1&ndash;21)</h4>
+          <div class="ref-regions-list">
+            <div class="ref-region"><span class="ref-region-badge" style="background:rgba(168,85,247,0.2);color:#a855f7;">Pos 1</span> <strong>5' End</strong> &mdash; The very first nucleotide. UNA here helps the cell load the correct strand. Like putting a soft handle on a sword so you grab the right end.</div>
+            <div class="ref-region"><span class="ref-region-badge" style="background:rgba(51,102,255,0.2);color:#3366ff;">Pos 2-8</span> <strong>Seed Region</strong> &mdash; The drug's "address." These 7 nucleotides find and bind the target mRNA. Must maintain A-form helix geometry. Too rigid = can't bind. Wrong shape = hits the wrong gene (off-target effects).</div>
+            <div class="ref-region"><span class="ref-region-badge" style="background:rgba(0,212,255,0.2);color:#00d4ff;">Pos 9</span> <strong>Central</strong> &mdash; Transition zone between seed and cleavage. Flexible modifications are tolerated here.</div>
+            <div class="ref-region"><span class="ref-region-badge" style="background:rgba(255,68,68,0.2);color:#ff4444;">Pos 10-11</span> <strong>Cleavage Site</strong> &mdash; Where Ago2 (the cell's "scissors" protein) cuts the target mRNA. <strong>NEVER put rigid modifications here</strong> (LNA, cEt, MOE) &mdash; they block the cutting mechanism entirely.</div>
+            <div class="ref-region"><span class="ref-region-badge" style="background:rgba(245,158,11,0.2);color:#f59e0b;">Pos 12-16</span> <strong>Supplementary</strong> &mdash; Helps stabilize binding to the target. More tolerant of diverse modifications. Good place for stability-enhancing mods.</div>
+            <div class="ref-region"><span class="ref-region-badge" style="background:rgba(34,197,94,0.2);color:#22c55e;">Pos 17-18</span> <strong>3' Body</strong> &mdash; Approaching the end. Modifications here help protect against 3'-exonuclease degradation.</div>
+            <div class="ref-region"><span class="ref-region-badge" style="background:rgba(0,212,255,0.2);color:#00d4ff;">Pos 19-21</span> <strong>3' Overhang</strong> &mdash; The unprotected tail. Primary attack site for exonucleases. Protective modifications (2'-OMe, PS backbone) are critical here. This is where the drug gets "eaten" first.</div>
+          </div>
+        </div>
+      </div>
+
       <div class="heatmap-legend heatmap-legend-always">
         <div class="legend-row">
           <span class="legend-swatch" style="background:#ff3366"></span><span class="legend-text">Red = Never tested (a void)</span>
@@ -168,13 +267,13 @@
       </div>
 
       <div class="heatmap-container">
-        <div class="heatmap-strand-label">Guide Strand &nbsp; 5' &rarr; 3'</div>
+        <div class="heatmap-strand-label">Guide Strand (the active strand that silences the target gene) &nbsp; 5' &rarr; 3'</div>
         <div class="heatmap-wrapper">
           <div class="heatmap-y-axis" id="heatmap-y-axis-guide"></div>
           <div class="heatmap-grid" id="heatmap-guide"></div>
         </div>
         <div class="heatmap-gap"></div>
-        <div class="heatmap-strand-label">Passenger Strand &nbsp; 3' &larr; 5'</div>
+        <div class="heatmap-strand-label">Passenger Strand (protective partner &mdash; gets discarded after loading) &nbsp; 3' &larr; 5'</div>
         <div class="heatmap-wrapper">
           <div class="heatmap-y-axis" id="heatmap-y-axis-passenger"></div>
           <div class="heatmap-grid" id="heatmap-passenger"></div>
@@ -203,12 +302,12 @@
         </div>
         <div class="designer-controls">
           <div class="designer-field">
-            <label>Conjugate</label>
+            <label title="A conjugate is a molecule attached to the siRNA that guides it to the right organ. Like an address label on a package.">Conjugate <span class="help-icon" title="A conjugate is a delivery molecule attached to the siRNA. GalNAc targets liver cells (used in 6/8 FDA drugs). Cholesterol enables broad tissue distribution. LNP (lipid nanoparticle) wraps the drug in a fatty bubble for IV delivery.">?</span></label>
             <select id="designer-conjugate">
-              <option value="GalNAc" selected>GalNAc</option>
-              <option value="Cholesterol">Cholesterol</option>
-              <option value="LNP">LNP</option>
-              <option value="None">None</option>
+              <option value="GalNAc" selected>GalNAc (targets liver cells)</option>
+              <option value="Cholesterol">Cholesterol (broad tissue delivery)</option>
+              <option value="LNP">LNP (lipid nanoparticle IV delivery)</option>
+              <option value="None">None (no targeting)</option>
             </select>
           </div>
           <button class="btn-primary" id="btn-analyze-pattern">Analyze This Pattern</button>
@@ -433,7 +532,7 @@
         </div>
         <div class="scorer-options-row">
           <div class="scorer-backbone">
-            <h4>Backbone</h4>
+            <h4>Backbone <span class="help-icon" title="The backbone is the 'spine' connecting each nucleotide. PS (phosphorothioate) = sulfur replaces oxygen, resists enzymes but may bind proteins. PO (phosphodiester) = natural, clean but vulnerable. MsPA = mesyl phosphoramidate, newer chemistry with fewer side effects.">?</span></h4>
             <div class="backbone-controls">
               <div class="backbone-group">
                 <label>Guide terminal</label>
@@ -470,23 +569,23 @@
             </div>
           </div>
           <div class="scorer-conjugate-wrap">
-            <h4>Conjugate</h4>
+            <h4>Conjugate <span class="help-icon" title="A delivery molecule attached to the siRNA that guides it to the right organ, like an address label on a package.">?</span></h4>
             <select id="scorer-conjugate">
-              <option value="GalNAc" selected>GalNAc (Liver)</option>
-              <option value="Cholesterol">Cholesterol</option>
-              <option value="LNP">LNP</option>
-              <option value="None">None</option>
+              <option value="GalNAc" selected>GalNAc (targets liver cells &mdash; used in 6/8 FDA drugs)</option>
+              <option value="Cholesterol">Cholesterol (broad tissue distribution)</option>
+              <option value="LNP">LNP (lipid nanoparticle &mdash; IV delivery)</option>
+              <option value="None">None (no targeting molecule)</option>
             </select>
           </div>
         </div>
         <button class="btn-primary btn-large" id="btn-score-pattern">Score This Pattern</button>
       </div>
       <div class="live-score-strip" id="scorer-live-score">
-        <div class="live-score-chip"><span class="live-score-chip-value" id="live-thermo">--</span><span class="live-score-chip-label">Thermo</span></div>
-        <div class="live-score-chip"><span class="live-score-chip-value" id="live-risc">--</span><span class="live-score-chip-label">RISC</span></div>
-        <div class="live-score-chip"><span class="live-score-chip-value" id="live-nucres">--</span><span class="live-score-chip-label">NucRes</span></div>
-        <div class="live-score-chip"><span class="live-score-chip-value" id="live-offtgt">--</span><span class="live-score-chip-label">OffTgt</span></div>
-        <div class="live-score-chip live-score-overall"><span class="live-score-chip-value" id="live-overall">--</span><span class="live-score-chip-label">Overall</span></div>
+        <div class="live-score-chip" title="Thermodynamic Stability: Can the two strands stay paired? Too hot = won't unwind for the cell to use. Too cold = falls apart in blood. Ideal melting temperature is 50-65&deg;C. Score of 100 = perfect stability range."><span class="live-score-chip-value" id="live-thermo">--</span><span class="live-score-chip-label">Thermo</span></div>
+        <div class="live-score-chip" title="RISC Loading: Can the cell's Ago2 protein grab the correct strand? The guide strand must load preferentially. Rigid modifications (LNA) in the seed region block this. Score of 100 = perfect loading."><span class="live-score-chip-value" id="live-risc">--</span><span class="live-score-chip-label">RISC</span></div>
+        <div class="live-score-chip" title="Nuclease Resistance: Can the drug survive in blood without being destroyed by enzymes? More protective modifications (2'-OMe, LNA) = higher score. Unmodified RNA = very low score."><span class="live-score-chip-value" id="live-nucres">--</span><span class="live-score-chip-label">NucRes</span></div>
+        <div class="live-score-chip" title="Off-Target Safety: Will this drug ONLY silence the intended gene? 2'-OMe in the passenger seed reduces off-target effects. Score of 100 = minimal off-target risk."><span class="live-score-chip-value" id="live-offtgt">--</span><span class="live-score-chip-label">OffTgt</span></div>
+        <div class="live-score-chip live-score-overall" title="Overall Score: Weighted combination of all four sub-scores. Thermo (20%) + RISC (35%) + NucRes (25%) + OffTarget (20%). Higher = more likely to work as a drug."><span class="live-score-chip-value" id="live-overall">--</span><span class="live-score-chip-label">Overall</span></div>
       </div>
       <div class="scorer-results" id="scorer-results" style="display:none"></div>
       <div class="scorer-comparison" id="scorer-comparison" style="display:none"></div>
@@ -500,8 +599,10 @@
           What am I looking at?
         </button>
         <div class="explainer-body">
-          <p>I trained a <strong>Conditional Variational Autoencoder (CVAE)</strong> on 3,700+ real siRNA experiments. The network learned the &ldquo;language&rdquo; of modification chemistry &mdash; which combinations tend to produce high knockdown. When you click Generate, I ask it: &ldquo;create a new pattern that should achieve X% knockdown.&rdquo; The network outputs novel candidates that sit in the unexplored regions of the modification space.</p>
-          <p><strong>Target efficacy:</strong> what knockdown percentage to optimize for. <strong>Temperature:</strong> controls diversity (low = conservative, high = adventurous). <strong>Count:</strong> how many candidates to generate per batch.</p>
+          <p>I trained a <strong>Conditional Variational Autoencoder (CVAE)</strong> on 3,527 real siRNA experiments. The network learned the &ldquo;language&rdquo; of modification chemistry &mdash; which combinations tend to produce high knockdown. When you click Generate, I ask it: &ldquo;create a new pattern that should achieve X% knockdown.&rdquo; The network outputs novel candidates that sit in the unexplored regions of the modification space.</p>
+          <p><strong>Target efficacy:</strong> What percentage of the disease-causing mRNA gets destroyed. 85% means the drug silences 85% of the target gene. Higher = more potent drug.<br>
+          <strong>Temperature:</strong> Controls how &ldquo;adventurous&rdquo; the AI is. Low (0.5) = stay close to known FDA drug patterns. High (1.5) = explore wilder, untested chemistry. Default 1.0 is balanced.<br>
+          <strong>Count:</strong> How many candidate patterns to generate in one batch.</p>
         </div>
       </div>
 
