@@ -107,6 +107,19 @@
     </div>
   </header>
 
+  <!-- ═══════════════ EXPLORATION PROGRESS BAR ═══════════════ -->
+  <div class="progress-strip" id="progress-strip">
+    <div class="progress-strip-inner">
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="progress-bar-fill" style="width:0%"></div>
+        </div>
+        <span class="progress-label" id="progress-label">Loading...</span>
+      </div>
+      <div class="achievement-row" id="achievement-row"></div>
+    </div>
+  </div>
+
   <!-- ═══════════════ NAV TABS (9 tabs) ═══════════════ -->
   <nav id="main-nav">
     <button class="nav-tab active" data-tab="map">The Map</button>
@@ -219,7 +232,7 @@
 
       <div class="section-header">
         <h2>Top Unexplored Combinations (Ranked)</h2>
-        <p class="section-subtitle">These patterns have never been published. The score estimates viability based on 3,723 real experiments and FDA drug patterns.</p>
+        <p class="section-subtitle">These patterns have never been published. The score estimates viability based on 3,527 real experiments and FDA drug patterns.</p>
       </div>
       <div class="filter-bar">
         <div class="filter-group">
@@ -468,6 +481,13 @@
         </div>
         <button class="btn-primary btn-large" id="btn-score-pattern">Score This Pattern</button>
       </div>
+      <div class="live-score-strip" id="scorer-live-score">
+        <div class="live-score-chip"><span class="live-score-chip-value" id="live-thermo">--</span><span class="live-score-chip-label">Thermo</span></div>
+        <div class="live-score-chip"><span class="live-score-chip-value" id="live-risc">--</span><span class="live-score-chip-label">RISC</span></div>
+        <div class="live-score-chip"><span class="live-score-chip-value" id="live-nucres">--</span><span class="live-score-chip-label">NucRes</span></div>
+        <div class="live-score-chip"><span class="live-score-chip-value" id="live-offtgt">--</span><span class="live-score-chip-label">OffTgt</span></div>
+        <div class="live-score-chip live-score-overall"><span class="live-score-chip-value" id="live-overall">--</span><span class="live-score-chip-label">Overall</span></div>
+      </div>
       <div class="scorer-results" id="scorer-results" style="display:none"></div>
       <div class="scorer-comparison" id="scorer-comparison" style="display:none"></div>
     </section>
@@ -587,9 +607,9 @@
         <div class="how-step-number">1</div>
         <div class="how-step-body">
           <h3>Collect Real Data</h3>
-          <p>I gathered 3,723 real siRNA experiments from 9 published studies (Huesken 2005, Takahashi 2009, and others). Each experiment tells us: &ldquo;this siRNA sequence, with these chemical modifications, achieved X% gene knockdown.&rdquo;</p>
+          <p>I gathered 3,527 real siRNA experiments from 9 published studies (Huesken 2005, Takahashi 2009, and others). Each experiment tells us: &ldquo;this siRNA sequence, with these chemical modifications, achieved X% gene knockdown.&rdquo;</p>
           <div class="how-detail">
-            <strong>Think of it like:</strong> collecting 3,723 restaurant reviews. Each review says what ingredients were used and how good the dish was. Now you can learn which ingredients tend to make great food.
+            <strong>Think of it like:</strong> collecting 3,527 restaurant reviews. Each review says what ingredients were used and how good the dish was. Now you can learn which ingredients tend to make great food.
           </div>
         </div>
       </div>
@@ -620,7 +640,7 @@
             <div class="how-layer">
               <div class="how-layer-badge gp">Layer 2</div>
               <div>
-                <strong>Gaussian Process (GP)</strong> &mdash; A machine learning model trained on 3,723 real experiments. It predicts efficacy AND tells you how confident it is.
+                <strong>Gaussian Process (GP)</strong> &mdash; A machine learning model trained on 3,527 real experiments. It predicts efficacy AND tells you how confident it is.
               </div>
             </div>
             <div class="how-layer">
@@ -688,7 +708,7 @@
 
   <!-- ═══════════════ FOOTER ═══════════════ -->
   <footer id="app-footer">
-    Built by Manas Reddy | 2026 | MIT License | Trained on 3,723 real experiments | Not for clinical use.
+    Built by Manas Reddy | 2026 | MIT License | Trained on 3,527 real experiments | Not for clinical use.
   </footer>
 
   <!-- Modification picker popup -->

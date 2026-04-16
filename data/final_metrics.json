@@ -1,0 +1,18 @@
+{
+  "fda_correct": 4,
+  "fda_spearman": 0.229,
+  "fda_mae": 11.3,
+  "total_slots": 336,
+  "tested_slots": 151,
+  "void_slots": 185,
+  "pct_explored": 44.9,
+  "n_training": 2823,
+  "n_test": 704,
+  "n_total": 3527,
+  "mean_efficacy": 62.1,
+  "std_efficacy": 24.4,
+  "cvae_validity": 95.0,
+  "cvae_novelty": 100.0,
+  "cvae_uniqueness": 100.0,
+  "cvae_diversity": 6.41
+}

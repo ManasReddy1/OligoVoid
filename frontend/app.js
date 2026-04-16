@@ -88,6 +88,15 @@ let generativeInitialized = false;
 let latentLoaded = false;
 let validationData = null;
 
+// Achievement tracking
+const achievements = {
+  explorer: { id: 'explorer', label: 'Explorer', desc: 'Viewed the dark matter map', unlocked: false },
+  scorer: { id: 'scorer', label: 'Scorer', desc: 'Scored a custom pattern', unlocked: false },
+  generator: { id: 'generator', label: 'Generator', desc: 'Generated AI candidates', unlocked: false },
+  fda: { id: 'fda', label: 'FDA Check', desc: 'Viewed FDA validation', unlocked: false },
+  dmtl: { id: 'dmtl', label: 'Simulator', desc: 'Ran a DMTL simulation', unlocked: false },
+};
+
 // ═══════════════════════════════════════════════════════
 // API HELPERS
 // ═══════════════════════════════════════════════════════
@@ -116,12 +125,18 @@ document.addEventListener('DOMContentLoaded', async function() {
   initDMTLControls();
   initExplainerBoxes();
   initTooltips();
+  initAchievements();
+  initLiveScoring();
 
   // Load initial data in parallel
   await Promise.all([
     loadStats(),
     loadOntology(),
   ]);
+
+  // Update progress bar and achievements from stats
+  updateProgressBar();
+  unlockAchievement('explorer');
 
   // Load first tab
   loadModificationMap();
@@ -319,11 +334,140 @@ function renderHeaderChips() {
   setChip('chip-voids', s.total_void_candidates || 0);
   setChip('chip-fda', s.fda_drugs_validated || 5);
   setChip('chip-generated', s.total_generated || 0);
+  updateProgressBar();
 }
 
 function setChip(id, value) {
   var chip = document.getElementById(id);
   if (chip) chip.querySelector('.chip-value').textContent = value;
+}
+
+// ═══════════════════════════════════════════════════════
+// PROGRESS BAR + ACHIEVEMENTS
+// ═══════════════════════════════════════════════════════
+
+function updateProgressBar() {
+  if (!statsData) return;
+  var pct = statsData.modification_space_explored_pct || 0;
+  var fill = document.getElementById('progress-bar-fill');
+  var label = document.getElementById('progress-label');
+  if (fill) {
+    requestAnimationFrame(function() { fill.style.width = pct + '%'; });
+  }
+  if (label) {
+    var voids = statsData.total_void_candidates || 0;
+    label.innerHTML = '<strong>' + pct + '%</strong> of modification space explored | <strong>' + voids + '</strong> voids ranked';
+  }
+}
+
+function initAchievements() {
+  // Load saved achievements
+  try {
+    var saved = JSON.parse(localStorage.getItem('ov_achievements') || '{}');
+    Object.keys(saved).forEach(function(key) {
+      if (achievements[key]) achievements[key].unlocked = saved[key];
+    });
+  } catch (e) { /* ignore */ }
+  renderAchievements();
+}
+
+function renderAchievements() {
+  var row = document.getElementById('achievement-row');
+  if (!row) return;
+  row.innerHTML = Object.values(achievements).map(function(a) {
+    var cls = 'achievement-badge badge-' + a.id;
+    if (a.unlocked) cls += ' unlocked';
+    else cls += ' locked';
+    return '<span class="' + cls + '" title="' + a.desc + '">' + a.label + '</span>';
+  }).join('');
+}
+
+function unlockAchievement(key) {
+  if (!achievements[key] || achievements[key].unlocked) return;
+  achievements[key].unlocked = true;
+  try {
+    var saved = JSON.parse(localStorage.getItem('ov_achievements') || '{}');
+    saved[key] = true;
+    localStorage.setItem('ov_achievements', JSON.stringify(saved));
+  } catch (e) { /* ignore */ }
+  renderAchievements();
+  // Brief highlight on the newly unlocked badge
+  requestAnimationFrame(function() {
+    var badge = document.querySelector('.badge-' + key + '.unlocked');
+    if (badge) {
+      badge.style.animation = 'none';
+      badge.offsetHeight; // force reflow
+      badge.style.animation = 'badge-unlock 0.6s ease';
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+// LIVE SCORING (scorer tab — updates as positions change)
+// ═══════════════════════════════════════════════════════
+
+function initLiveScoring() {
+  // Update live score whenever scorer backbone/conjugate changes
+  ['scorer-bb-guide-term', 'scorer-bb-guide-int', 'scorer-bb-pass-term', 'scorer-bb-pass-int', 'scorer-conjugate'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('change', updateLiveScore);
+  });
+  // Initial render
+  updateLiveScore();
+}
+
+function updateLiveScore() {
+  var scores = localBiophysicsScore(scorerGuide, scorerPassenger);
+  var strip = document.getElementById('scorer-live-score');
+  if (!strip) return;
+
+  function setVal(id, val) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = val.toFixed(0);
+    el.style.color = val >= 75 ? 'var(--accent-biolum)' : val >= 50 ? 'var(--void-warming)' : 'var(--void-untested)';
+  }
+
+  setVal('live-thermo', scores.Thermo);
+  setVal('live-risc', scores.RISC);
+  setVal('live-nucres', scores.NucRes);
+  setVal('live-offtgt', scores.OffTgt);
+  setVal('live-overall', scores.Overall);
+
+  // Brief flash to show update
+  strip.classList.add('score-updating');
+  setTimeout(function() { strip.classList.remove('score-updating'); }, 300);
+}
+
+// ═══════════════════════════════════════════════════════
+// CURIOSITY SCORE (for void cards)
+// ═══════════════════════════════════════════════════════
+
+function computeCuriosityScore(v) {
+  // Curiosity = how scientifically interesting is this void?
+  // Factors: novelty (hamming distance), high uncertainty, being in an underexplored region
+  var novelty = Math.min(1.0, (v.hamming_distance_to_nearest || 0) / 15);
+  var overallScore = (v.overall_oligovoid_score || 0) / 100;
+  // Risk inversely correlates — low risk + high novelty = high curiosity
+  var riskMap = { low: 1.0, medium: 0.6, high: 0.3, unknown: 0.5 };
+  var riskFactor = riskMap[(v.classification || {}).exploration_risk || 'unknown'];
+  var curiosity = (novelty * 0.5 + overallScore * 0.3 + riskFactor * 0.2) * 100;
+  var why;
+  if (novelty > 0.7) why = 'Very far from any known drug — uncharted territory';
+  else if (overallScore > 0.7) why = 'High predicted score in an unexplored region';
+  else if (riskFactor > 0.8) why = 'Low risk with moderate novelty — safe bet for first test';
+  else why = 'Moderate novelty and feasibility';
+  return { score: Math.min(100, Math.max(0, curiosity)), why: why };
+}
+
+function renderCuriosityMeter(v) {
+  var c = computeCuriosityScore(v);
+  return '<div class="curiosity-meter">' +
+    '<span class="curiosity-icon">?</span>' +
+    '<div class="curiosity-bar-track"><div class="curiosity-bar-fill" data-width="' + c.score + '%" style="width:0%"></div></div>' +
+    '<span class="curiosity-label">' + c.score.toFixed(0) + '/100</span>' +
+  '</div>' +
+  '<div class="curiosity-why">' + c.why + '</div>';
 }
 
 // ═══════════════════════════════════════════════════════
@@ -799,8 +943,11 @@ function initFilterListeners() {
   var minScore = document.getElementById('filter-min-score');
   var minScoreVal = document.getElementById('filter-min-score-value');
   if (minScore) {
+    var filterDebounce = null;
     minScore.addEventListener('input', function() {
       minScoreVal.textContent = minScore.value;
+      clearTimeout(filterDebounce);
+      filterDebounce = setTimeout(loadVoids, 400);
     });
     minScore.addEventListener('change', loadVoids);
   }
@@ -842,7 +989,7 @@ async function loadVoids() {
     });
 
     requestAnimationFrame(function() {
-      container.querySelectorAll('.score-bar-fill').forEach(function(bar) {
+      container.querySelectorAll('.score-bar-fill, .curiosity-bar-fill').forEach(function(bar) {
         bar.style.width = bar.dataset.width;
       });
     });
@@ -938,6 +1085,7 @@ function createVoidCard(v, rank) {
       '<span class="void-badge type-badge">' + formatVoidType(voidType) + '</span>' +
       (complexity ? '<span class="void-badge" style="border-color:var(--border-bright);color:var(--text-secondary);">' + complexity + '</span>' : '') +
     '</div>' +
+    renderCuriosityMeter(v) +
     (v.recommended_experiment ?
       '<div class="void-experiment"><strong>First experiment:</strong><br>"' + v.recommended_experiment + '"</div>' : '') +
     '<button class="void-expand-btn" onclick="toggleVoidExpand(this)">&#9660; More</button>' +
@@ -990,6 +1138,7 @@ async function loadFDAValidation() {
     renderFDACards(data.predictions || []);
     renderFDASummary(data.summary || {});
     fdaLoaded = true;
+    unlockAchievement('fda');
   } catch (err) {
     showToast('Failed to load FDA validation: ' + err.message, true);
   } finally {
@@ -1117,6 +1266,7 @@ async function runDMTLSimulation() {
     loading.style.display = 'none';
 
     renderDMTLResults(data);
+    unlockAchievement('dmtl');
 
     // Show strategy comparison if available
     if (data.strategy_comparison) {
@@ -1410,6 +1560,7 @@ function buildScorerPositions(containerId, mods, strand) {
             if (strandName === 'guide') scorerGuide[index] = newMod;
             else scorerPassenger[index] = newMod;
             buildScorerPositions(cId, strandName === 'guide' ? scorerGuide : scorerPassenger, strandName);
+            updateLiveScore();
           }
         );
       });
@@ -1491,6 +1642,8 @@ async function scoreCustomPattern() {
 
     renderComparison(result, compEl);
     compEl.style.display = 'block';
+
+    unlockAchievement('scorer');
 
     requestAnimationFrame(function() {
       resultsEl.querySelectorAll('.score-bar-fill').forEach(function(bar) {
@@ -1714,6 +1867,7 @@ async function runGeneration() {
 
     loading.style.display = 'none';
     renderGeneratedCandidates(data);
+    unlockAchievement('generator');
   } catch (err) {
     loading.style.display = 'none';
     showToast('Generation failed: ' + err.message, true);
