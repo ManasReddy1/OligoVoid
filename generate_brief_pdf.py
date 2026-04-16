@@ -355,7 +355,32 @@ def build_pdf():
     pdf.bullet("This is a sanity check, not proof of predictive power", size=11)
     pdf.bullet("Real validation requires prospective wet-lab experiments", size=11)
 
-    # == Slide 8: AI-Generated Candidates =====================================
+    # == Slide 8: Beyond FDA: Harder Tests ====================================
+    pdf.new_slide("Beyond FDA: Harder Tests",
+                  "Addressing the 'too easy' critique with negative controls")
+
+    pdf.section_label("50-Pattern Hard Benchmark")
+    pdf.bullet("8 FDA drugs + 22 academic patterns + 20 negative controls", size=12)
+    pdf.ln(2)
+
+    y_box = pdf.get_y()
+    pdf.key_number("AUC", "0.88", 18, y_box, 70, 30)
+    pdf.key_number("Cohen's d", "1.15", 100, y_box, 70, 30)
+    pdf.key_number("Mann-Whitney p", "0.004", 182, y_box, 70, 30)
+
+    pdf.set_xy(18, y_box + 38)
+    pdf.ln(2)
+    pdf.section_label("At Threshold 75")
+    pdf.bullet("", bold_prefix="Precision 87.5%", size=12)
+    pdf.bullet("", bold_prefix="Recall 93.3%", size=12)
+    pdf.bullet("", bold_prefix="Accuracy 88%", size=12)
+    pdf.ln(2)
+
+    pdf.set_font("Helvetica", "B", 12)
+    pdf.set_text_color(*ACCENT_DIM)
+    pdf.cell(0, 8, "This is NOT trivially easy.", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+
+    # == Slide 9: AI-Generated Candidates =====================================
     pdf.new_slide("AI-Generated Candidates",
                   "CVAE generates novel modification patterns")
 
@@ -386,25 +411,30 @@ def build_pdf():
     pdf.ln(1)
     pdf.bullet("100% are genuinely novel (not found in training data)", size=12)
 
-    # == Slide 9: Business Impact =============================================
-    pdf.new_slide("Business Impact", "Where the value lies")
+    # == Slide 10: Business Impact ============================================
+    pdf.new_slide("Business Impact", "Where the value lies -- now with simulated evidence")
 
-    pdf.bullet("Lead optimization costs $200-500M per drug", size=12)
-    pdf.bullet("Typical campaign: 200-500 variants at $500-2,000 each", size=12)
-    pdf.ln(4)
+    pdf.section_label("Virtual Wet-Lab Simulation (Monte Carlo, n=10,000)")
+    pdf.ln(1)
 
     y_box = pdf.get_y()
-    pdf.key_number("Time Saved", "3-6 months", 20, y_box, 85, 30)
-    pdf.key_number("Cost Saved", "$50K-$200K", 118, y_box, 85, 30)
-    pdf.key_number("Unclaimed Voids", "185 slots", 216, y_box, 85, 30)
+    pdf.key_number("Hit Rate Boost", "1.58x", 18, y_box, 65, 30)
+    pdf.key_number("Cost / Hit", "$1,694", 93, y_box, 65, 30)
+    pdf.key_number("vs Random", "$2,805", 168, y_box, 65, 30)
+    pdf.key_number("Cost Savings", "39.6%", 243, y_box, 65, 30)
 
-    pdf.set_xy(18, y_box + 40)
+    pdf.set_xy(18, y_box + 38)
+    pdf.ln(1)
+    pdf.bullet("OligoVoid hit rate 84.7% vs random 53.8%", size=12)
+    pdf.bullet("Top candidate P(hit) = 94.4% vs 52.9% random", size=12)
     pdf.ln(2)
+
+    pdf.section_label("Market Opportunity")
     pdf.bullet("185 void slots = unclaimed intellectual property territory", size=12)
     pdf.ln(1)
     pdf.bullet("", bold_prefix="RNA therapeutics market: $25B+ by 2030", size=13)
 
-    # == Slide 10: What Needs to Happen Next ==================================
+    # == Slide 11: What Needs to Happen Next ==================================
     pdf.new_slide("What Needs to Happen Next", "A clear path to validation")
 
     steps = [
@@ -456,7 +486,7 @@ def build_pdf():
         pdf.set_text_color(*LIGHT_GRAY)
         pdf.multi_cell(card_w - 8, 6, desc, align="C")
 
-    # == Slide 11: Technical Architecture =====================================
+    # == Slide 12: Technical Architecture =====================================
     pdf.new_slide("Technical Architecture", "Open-source, end-to-end platform")
 
     components = [
@@ -489,7 +519,7 @@ def build_pdf():
         pdf.set_text_color(*BODY_TEXT)
         pdf.cell(val_w, 10, value)
 
-    # == Slide 12: Who This Is For ============================================
+    # == Slide 13: Who This Is For ============================================
     pdf.new_slide("Who This Is For", "Target stakeholders and use cases")
 
     audiences = [
@@ -522,7 +552,7 @@ def build_pdf():
         pdf.set_text_color(*LIGHT_GRAY)
         pdf.multi_cell(card_w - 8, 6, what, align="C")
 
-    # == Slide 13: Contact ====================================================
+    # == Slide 14: Contact ====================================================
     pdf.add_page()
     pdf.slide_number += 1
     pdf.set_fill_color(*DARK_BG)

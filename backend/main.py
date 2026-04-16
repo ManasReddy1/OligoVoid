@@ -1636,6 +1636,32 @@ def get_comprehensive_statistics():
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# LIMITATION BUSTERS — Virtual Wet-Lab + Hard Benchmarks
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+@app.get("/api/experiments/virtual-wetlab")
+def get_virtual_wetlab():
+    """Run virtual wet-lab simulation (Monte Carlo campaign + portfolio + cost-benefit)."""
+    try:
+        from backend.virtual_wetlab import run_full_virtual_wetlab
+        return run_full_virtual_wetlab()
+    except Exception as e:
+        logger.error("Virtual wet-lab error: %s", e, exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/experiments/hard-benchmark")
+def get_hard_benchmark():
+    """Run hard benchmark with negative controls, conditional accuracy, orthogonality."""
+    try:
+        from backend.hard_benchmark import run_all_hard_benchmarks
+        return run_all_hard_benchmarks()
+    except Exception as e:
+        logger.error("Hard benchmark error: %s", e, exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # STATIC FILES (must be mounted LAST to avoid catching /api/* routes)
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
