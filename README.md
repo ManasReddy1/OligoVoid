@@ -30,7 +30,7 @@
 
 > **One sentence:** OligoVoid systematically maps every chemical modification pattern for siRNA drugs that has never been tested — the *dark matter* of RNA therapeutics — scores each unexplored combination for biological feasibility, generates novel candidates using generative AI, and tells you which experiment to run next.
 
-**For beginners:** siRNA drugs work by silencing disease-causing genes. To work in the body, they need chemical modifications at 42 specific positions along a two-stranded molecule. Scientists have only tested a tiny fraction of all possible modification combinations — the rest is *dark matter*: invisible, unexplored, but potentially governing which drugs succeed or fail. OligoVoid maps this dark matter and asks: *"which of these unexplored patterns is most likely to work, and which should we test first?"*
+**For beginners:** siRNA drugs work by silencing disease-causing genes. To work in the body, they need chemical modifications at 42 specific positions along a two-stranded molecule. Scientists have only tested a tiny fraction of all possible modification combinations — the rest is *dark matter*: invisible, unexplored, but potentially governing which drugs succeed or fail. OligoVoid maps this dark matter and asks: *"which of these unexplored patterns is most likely to work, and which should I test first?"*
 
 **For researchers:** OligoVoid constructs a position×modification co-occurrence matrix from 3,535 experimentally validated siRNAs across 9 published datasets, enumerates the complement set (the dark matter — 2,397 biologically feasible void candidates), trains a Conditional β-VAE to generate novel candidates conditioned on target knockdown efficacy, and applies Void-Prioritized Acquisition (VPA) — a novel active learning acquisition function that biases exploration toward the dark matter rather than the already-illuminated training distribution.
 
@@ -56,7 +56,7 @@ The modification design space is the single largest bottleneck in siRNA drug dev
 
 ## What Makes OligoVoid Different
 
-Every other siRNA design tool answers the question: *"How well will this sequence work?"* OligoVoid answers a different question: *"What has never been tried, and should we try it?"*
+Every other siRNA design tool answers the question: *"How well will this sequence work?"* OligoVoid answers a different question: *"What has never been tried, and should I try it?"*
 
 The distinction is between a flashlight (illuminating one spot at a time) and a telescope (mapping the entire dark sky).
 
@@ -81,26 +81,26 @@ This project introduces five original contributions, none of which exist in any 
 
 ### 1. Dark Matter Cartography — Complement-Set Enumeration
 
-We formally treat the set of published modification patterns as a subset *S* of the full feasible space *F*, and exhaustively enumerate *F \ S* — the complement set, the dark matter. No prior siRNA tool does this. Prior tools are all discriminative: given a sequence, predict its efficacy. We are structural: given the published literature, find what is absent.
+I formally treat the set of published modification patterns as a subset *S* of the full feasible space *F*, and exhaustively enumerate *F \ S* — the complement set, the dark matter. No prior siRNA tool does this. Prior tools are all discriminative: given a sequence, predict its efficacy. OligoVoid is structural: given the published literature, find what is absent.
 
 ### 2. Position-Modification Co-occurrence Matrix
 
-We build a 42×8 matrix (21 guide positions + 21 passenger positions × 8 modification types) counting how many times each combination appears in published data. Slots with zero counts are the dark matter — modification-position combinations that no one has ever published. This is the first such matrix constructed from real siRNA literature at position-specific resolution.
+I build a 42×8 matrix (21 guide positions + 21 passenger positions × 8 modification types) counting how many times each combination appears in published data. Slots with zero counts are the dark matter — modification-position combinations that no one has ever published. This is the first such matrix constructed from real siRNA literature at position-specific resolution.
 
 ### 3. Conditional β-VAE for Modification Pattern Generation
 
-We train a Conditional Variational Autoencoder to generate novel siRNA modification patterns conditioned on a target knockdown efficacy. The model learns the latent structure of valid chemistry from 3,535 real experiments. Generated candidates cluster near FDA-approved drugs in the learned latent space, suggesting the CVAE has learned to navigate the dark matter while staying close to known physics.
+I train a Conditional Variational Autoencoder to generate novel siRNA modification patterns conditioned on a target knockdown efficacy. The model learns the latent structure of valid chemistry from 3,535 real experiments. Generated candidates cluster near FDA-approved drugs in the learned latent space, suggesting the CVAE has learned to navigate the dark matter while staying close to known physics.
 
 ### 4. Void-Prioritized Acquisition (VPA)
 
-Standard Expected Improvement (EI) in Bayesian Optimization can over-exploit known high-performing regions — it keeps shining the flashlight where it already knows the answer. Our VPA modifies EI by multiplying a novelty bonus based on minimum Hamming distance to all training patterns:
+Standard Expected Improvement (EI) in Bayesian Optimization can over-exploit known high-performing regions — it keeps shining the flashlight where it already knows the answer. VPA modifies EI by multiplying a novelty bonus based on minimum Hamming distance to all training patterns:
 
 ```
 VPA(x) = EI(x) × novelty_bonus(x)
 novelty_bonus = 1.0 + α × (hamming_to_nearest / 21)
 ```
 
-VPA is a *dark matter telescope*: it biases exploration toward the unexplored void space, rewarding both expected improvement AND structural novelty. Among patterns with comparable EI, VPA preferentially explores uncharted territory. To our knowledge, this is the first acquisition function to incorporate domain-specific void distance into expected improvement for oligonucleotide design.
+VPA is a *dark matter telescope*: it biases exploration toward the unexplored void space, rewarding both expected improvement AND structural novelty. Among patterns with comparable EI, VPA preferentially explores uncharted territory. To my knowledge, this is the first acquisition function to incorporate domain-specific void distance into expected improvement for oligonucleotide design.
 
 ### 5. Interpretable Latent Space
 
@@ -109,7 +109,7 @@ UMAP visualization reveals that the CVAE's 16-dimensional latent space encodes m
 - Smooth interpolation between Inclisiran and Givosiran produces 5 novel intermediate candidates
 - Top latent dimensions encode backbone chemistry and modification composition
 
-The dark matter is not featureless void — it has structure, and our model has learned to read it.
+The dark matter is not featureless void — it has structure, and the model has learned to read it.
 
 ---
 
@@ -129,7 +129,7 @@ All metrics from real cross-validation. No synthetic benchmarks. No cherry-picke
 | VPA space exploration | **+23%** | More modification space explored vs standard EI |
 | Void candidates | **2,397** | Biologically feasible patterns in the dark matter |
 
-**For context:** OligoFormer (transformer, 2024) achieves Pearson r=0.719 on the Huesken benchmark, but uses sequence-level features and does not quantify uncertainty. Our GP is intentionally modest — designed for *calibrated uncertainty* (ECE=0.027), not maximum prediction accuracy. In active learning, calibration is everything: a well-calibrated GP with r=0.14 is more useful for experiment selection than an overconfident model with r=0.7.
+**For context:** OligoFormer (transformer, 2024) achieves Pearson r=0.719 on the Huesken benchmark, but uses sequence-level features and does not quantify uncertainty. The GP is intentionally modest — designed for *calibrated uncertainty* (ECE=0.027), not maximum prediction accuracy. In active learning, calibration is everything: a well-calibrated GP with r=0.14 is more useful for experiment selection than an overconfident model with r=0.7.
 
 ---
 
@@ -292,6 +292,9 @@ All endpoints available at `http://localhost:8000/api/`:
 | `/api/latent/map` | GET | UMAP latent space visualization |
 | `/api/latent/interpolation` | GET | Drug-to-drug latent interpolation |
 | `/api/latent/dimensions` | GET | Latent dimension analysis |
+| `/api/validation/fda` | GET | FDA drug sanity check (5 approved siRNAs) |
+| `/api/casestudy` | GET | Modification intelligence report for top void |
+| `/api/report/full` | GET | Complete validation report (all benchmarks) |
 
 ---
 
@@ -314,11 +317,11 @@ All endpoints available at `http://localhost:8000/api/`:
 
 ## What OligoVoid Cannot Do
 
-We are transparent about limitations. The dark matter is real, but our telescope has known imperfections:
+I am transparent about limitations. The dark matter is real, but the telescope has known imperfections:
 
 - **No wet-lab validation:** All results are computational. The dark matter candidates require synthesis and testing.
 - **Limited chemical diversity:** Most training data uses 2'-OMe and 2'-F; rarer modifications (LNA, UNA, cEt, MOE) have fewer examples in the training data.
-- **Context-free:** We don't model the target mRNA sequence. OligoFormer does this better — use it for sequence-level design, use OligoVoid for modification-level exploration.
+- **Context-free:** OligoVoid does not model the target mRNA sequence. OligoFormer does this better — use it for sequence-level design, use OligoVoid for modification-level exploration.
 - **GP uncertainty is approximate:** Not a rigorous Bayesian guarantee, but ECE=0.027 indicates good empirical calibration.
 - **Training data skew:** 6 of 8 FDA drugs use GalNAc conjugation (liver targets). The dark matter map may be biased toward liver-targeted chemistry.
 

@@ -41,15 +41,15 @@
 
 \begin{abstract}
 The chemical modification design space for therapeutic siRNAs is astronomically large---a 21-mer duplex with 42 modifiable positions, 8 sugar modifications, 3 backbone chemistries, and 4 conjugate classes yields over $10^{38}$ theoretical combinations---yet existing computational tools predict efficacy for given sequences without mapping unexplored regions or generating novel candidates.
-We estimate that fewer than 8\% of biologically feasible position-modification combinations have been systematically characterized in the published literature.
+I estimate that fewer than 8\% of biologically feasible position-modification combinations have been systematically characterized in the published literature.
 OligoVoid addresses this gap through three integrated components:
 (1)~a position-modification co-occurrence analysis of 3,535 publicly available siRNAs that identifies 2,397 biologically feasible void patterns never tested in the literature;
 (2)~a Conditional Variational Autoencoder (CVAE) that generates novel modification profiles conditioned on target knockdown efficacy, achieving 96.5\% validity and 100\% novelty on held-out evaluation;
 (3)~Void-Prioritized Acquisition (VPA), a novel active learning acquisition function that biases experiment selection toward the void space by augmenting Expected Improvement with a Hamming-distance novelty bonus.
-On the Huesken benchmark, our Gaussian Process achieves Pearson $r=0.140$ with well-calibrated uncertainty (ECE$=0.027$)---intentionally modest accuracy designed for reliable active learning rather than maximum prediction.
+On the Huesken benchmark, my Gaussian Process achieves Pearson $r=0.140$ with well-calibrated uncertainty (ECE$=0.027$)---intentionally modest accuracy designed for reliable active learning rather than maximum prediction.
 In simulated Design-Make-Test-Learn cycles, VPA discovers high-efficacy void patterns while exploring 23\% more of the modification space than standard Expected Improvement.
 Latent space analysis reveals that the CVAE learns interpretable chemical structure, with FDA-approved drugs clustering by delivery strategy and smooth interpolation producing novel intermediate candidates.
-OligoVoid is, to our knowledge, the first open-source system to combine systematic gap detection, conditional generation, and active learning for siRNA chemical modification design.
+OligoVoid is, to my knowledge, the first open-source system to combine systematic gap detection, conditional generation, and active learning for siRNA chemical modification design.
 Code and data are available at \url{https://github.com/ManasReddy1/OligoVoid}.
 \end{abstract}
 
@@ -62,13 +62,13 @@ Code and data are available at \url{https://github.com/ManasReddy1/OligoVoid}.
 Small interfering RNAs (siRNAs) have emerged as a transformative drug modality. Since the first FDA approval of patisiran in 2018, eight siRNA therapeutics have reached the market, targeting diseases from hereditary transthyretin amyloidosis to hypercholesterolemia~\citep{setten2019}. Each approved drug relies on carefully engineered chemical modification patterns that determine metabolic stability, target engagement, and cellular uptake~\citep{foster2018}. The clinical and commercial success of these drugs---Alnylam's Enhanced Stabilization Chemistry (ESC) alone underpins four approved products---has catalyzed intense interest in modification pattern optimization.
 
 \paragraph{The modification design problem.}
-A canonical 21-mer siRNA duplex presents 42 modifiable ribose positions (21 guide + 21 passenger), each admitting one of 8 common sugar modifications (2$'$-OMe, 2$'$-F, LNA, cEt, DNA, RNA, UNA, MOE), 20 inter-nucleotide backbone linkages per strand (phosphodiester or phosphorothioate), and 4 terminal conjugate classes (GalNAc, cholesterol, LNP, none). The theoretical design space contains $8^{42} \approx 10^{38}$ sugar patterns alone. Applying known biological constraints---cleavage site integrity, seed region flexibility requirements, nuclease resistance minima---reduces the feasible space to an estimated $10^{6}$ patterns~\citep{oreilly2025}. Published literature has characterized approximately 5,000 distinct patterns~\citep{dar2016, huesken2005, takahashi2009}, representing less than 0.5\% of the feasible space. Our co-occurrence analysis reveals that roughly 8\% of the 336 position-modification slots (42 positions $\times$ 8 modifications) have been systematically explored.
+A canonical 21-mer siRNA duplex presents 42 modifiable ribose positions (21 guide + 21 passenger), each admitting one of 8 common sugar modifications (2$'$-OMe, 2$'$-F, LNA, cEt, DNA, RNA, UNA, MOE), 20 inter-nucleotide backbone linkages per strand (phosphodiester or phosphorothioate), and 4 terminal conjugate classes (GalNAc, cholesterol, LNP, none). The theoretical design space contains $8^{42} \approx 10^{38}$ sugar patterns alone. Applying known biological constraints---cleavage site integrity, seed region flexibility requirements, nuclease resistance minima---reduces the feasible space to an estimated $10^{6}$ patterns~\citep{oreilly2025}. Published literature has characterized approximately 5,000 distinct patterns~\citep{dar2016, huesken2005, takahashi2009}, representing less than 0.5\% of the feasible space. My co-occurrence analysis reveals that roughly 8\% of the 336 position-modification slots (42 positions $\times$ 8 modifications) have been systematically explored.
 
 \paragraph{Limitations of current tools.}
-Existing computational approaches to siRNA design are exclusively \emph{discriminative}: given a specific sequence, they predict knockdown efficacy. OligoFormer~\citep{oligoformer2024} achieves Pearson $r=0.719$ using transformer features on the Huesken benchmark; DSIR~\citep{dsir2004} and earlier rule-based methods~\citep{reynolds2004, uitei2004} provide useful heuristics but no uncertainty quantification. Critically, \emph{no existing tool} addresses the complementary questions: (i)~What modification patterns have \emph{not} been tested? (ii)~Can we \emph{generate} novel candidates likely to succeed? (iii)~Which experiment should be performed \emph{next} to maximally reduce uncertainty?
+Existing computational approaches to siRNA design are exclusively \emph{discriminative}: given a specific sequence, they predict knockdown efficacy. OligoFormer~\citep{oligoformer2024} achieves Pearson $r=0.719$ using transformer features on the Huesken benchmark; DSIR~\citep{dsir2004} and earlier rule-based methods~\citep{reynolds2004, uitei2004} provide useful heuristics but no uncertainty quantification. Critically, \emph{no existing tool} addresses the complementary questions: (i)~What modification patterns have \emph{not} been tested? (ii)~Can I \emph{generate} novel candidates likely to succeed? (iii)~Which experiment should be performed \emph{next} to maximally reduce uncertainty?
 
-\paragraph{Our approach and contributions.}
-OligoVoid is the first system to combine systematic gap detection with generative modeling and active learning for siRNA modification design. Our contributions are:
+\paragraph{My approach and contributions.}
+OligoVoid is the first system to combine systematic gap detection with generative modeling and active learning for siRNA modification design. My contributions are:
 
 \begin{itemize}
   \item A \textbf{position-modification co-occurrence framework} that maps the explored vs.\ unexplored siRNA design space across 3,535 validated sequences, identifying 2,397 biologically feasible void candidates.
@@ -94,11 +94,11 @@ Generative molecular design has achieved notable successes in small-molecule dru
 
 \subsection{Active Learning in Drug Discovery}
 
-Active learning has been applied to accelerate high-throughput screening~\citep{graff2021}, guide molecular property optimization~\citep{reker2020}, and improve sample efficiency in drug design~\citep{bhatt2025}. Standard acquisition functions include Expected Improvement (EI), Upper Confidence Bound (UCB), and Thompson Sampling~\citep{snoek2012}. None of these methods incorporate domain-specific knowledge about \emph{which regions of the design space are unexplored}. Our VPA function explicitly injects this structural prior.
+Active learning has been applied to accelerate high-throughput screening~\citep{graff2021}, guide molecular property optimization~\citep{reker2020}, and improve sample efficiency in drug design~\citep{bhatt2025}. Standard acquisition functions include Expected Improvement (EI), Upper Confidence Bound (UCB), and Thompson Sampling~\citep{snoek2012}. None of these methods incorporate domain-specific knowledge about \emph{which regions of the design space are unexplored}. My VPA function explicitly injects this structural prior.
 
 \subsection{Research Gap Detection}
 
-Co-occurrence thresholding~\citep{curiac2022} has been applied to identify understudied research topics from publication metadata. To our knowledge, no prior work applies co-occurrence analysis to identify systematic experimental gaps in a combinatorial biochemistry design space, combined with generative modeling and active learning to prioritize gap closure.
+Co-occurrence thresholding~\citep{curiac2022} has been applied to identify understudied research topics from publication metadata. To my knowledge, no prior work applies co-occurrence analysis to identify systematic experimental gaps in a combinatorial biochemistry design space, combined with generative modeling and active learning to prioritize gap closure.
 
 % ═══════════════════════════════════════════════════════════════════
 % 3. METHOD
@@ -108,15 +108,15 @@ Co-occurrence thresholding~\citep{curiac2022} has been applied to identify under
 
 \subsection{Dataset and Preprocessing}
 
-We compiled 3,535 siRNA sequences with measured knockdown efficacy from 9 publicly available datasets~\citep{huesken2005, takahashi2009, dar2016}. The primary source is the OligoFormer compilation~\citep{oligoformer2024}, which aggregates sequences tested across HeLa, HEK293, H1299, and other cell lines. Efficacy values (0--100\% knockdown) were normalized to a common scale. Sequences shorter than 19\,nt or longer than 23\,nt were excluded. Duplicate sequences were resolved by retaining the highest reported efficacy. The final dataset was split into 80\% training ($n=2{,}826$) and 20\% test ($n=709$) sets, stratified by efficacy quartile.
+I compiled 3,535 siRNA sequences with measured knockdown efficacy from 9 publicly available datasets~\citep{huesken2005, takahashi2009, dar2016}. The primary source is the OligoFormer compilation~\citep{oligoformer2024}, which aggregates sequences tested across HeLa, HEK293, H1299, and other cell lines. Efficacy values (0--100\% knockdown) were normalized to a common scale. Sequences shorter than 19\,nt or longer than 23\,nt were excluded. Duplicate sequences were resolved by retaining the highest reported efficacy. The final dataset was split into 80\% training ($n=2{,}826$) and 20\% test ($n=709$) sets, stratified by efficacy quartile.
 
-Additionally, we curated 60 modification patterns from published literature, including 8 FDA-approved siRNA drugs~\citep{foster2018, setten2019}, 20 Reynolds rules variants~\citep{reynolds2004}, 15 Khvorova group patterns~\citep{khvorova2003}, and additional academic variants spanning LNA, UNA, MOE, and cEt modifications. These serve as the ``known pattern'' set for void detection and active learning.
+Additionally, I curated 60 modification patterns from published literature, including 8 FDA-approved siRNA drugs~\citep{foster2018, setten2019}, 20 Reynolds rules variants~\citep{reynolds2004}, 15 Khvorova group patterns~\citep{khvorova2003}, and additional academic variants spanning LNA, UNA, MOE, and cEt modifications. These serve as the ``known pattern'' set for void detection and active learning.
 
 \subsection{Position-Modification Co-occurrence Analysis}
 
-We define the co-occurrence matrix $\mathbf{C} \in \mathbb{R}^{P \times M}$ where $P=42$ (positions across both strands) and $M=8$ (sugar modifications). Entry $C_{p,m}$ counts how many known patterns use modification $m$ at position $p$. A \emph{void slot} is defined as $C_{p,m} = 0$---a position-modification combination never observed in the published literature.
+I define the co-occurrence matrix $\mathbf{C} \in \mathbb{R}^{P \times M}$ where $P=42$ (positions across both strands) and $M=8$ (sugar modifications). Entry $C_{p,m}$ counts how many known patterns use modification $m$ at position $p$. A \emph{void slot} is defined as $C_{p,m} = 0$---a position-modification combination never observed in the published literature.
 
-To generate testable void candidates, we enumerate all patterns that differ from a known pattern at 1--3 positions (Algorithm~\ref{alg:void}), then filter through biological constraints: (i)~cleavage site positions 10--11 must not contain rigid modifications (LNA, cEt); (ii)~seed region (positions 2--8) tolerates at most 2 rigid modifications; (iii)~overall nuclease resistance must exceed a minimum threshold. This yields 2,397 biologically feasible void candidates.
+To generate testable void candidates, I enumerate all patterns that differ from a known pattern at 1--3 positions (Algorithm~\ref{alg:void}), then filter through biological constraints: (i)~cleavage site positions 10--11 must not contain rigid modifications (LNA, cEt); (ii)~seed region (positions 2--8) tolerates at most 2 rigid modifications; (iii)~overall nuclease resistance must exceed a minimum threshold. This yields 2,397 biologically feasible void candidates.
 
 \begin{algorithm}[t]
 \caption{Void Candidate Enumeration with Biological Filtering}
@@ -141,7 +141,7 @@ To generate testable void candidates, we enumerate all patterns that differ from
 
 \subsection{Conditional VAE Architecture}
 
-We train a Conditional Variational Autoencoder~\citep{kingma2014} on the 42-dimensional feature representation of each training sequence (18 core biophysical features + 24 thermodynamic features extracted by the data pipeline).
+I train a Conditional Variational Autoencoder~\citep{kingma2014} on the 42-dimensional feature representation of each training sequence (18 core biophysical features + 24 thermodynamic features extracted by the data pipeline).
 
 The encoder $q_\phi(\mathbf{z} | \mathbf{x}, c)$ maps a feature vector $\mathbf{x} \in \mathbb{R}^{42}$ concatenated with condition $c \in [0,1]$ (target efficacy) through:
 \begin{equation}
@@ -172,30 +172,30 @@ Standard Expected Improvement~\citep{snoek2012} selects the next experiment by m
 \end{equation}
 where $\mu(\mathbf{x})$ and $\sigma(\mathbf{x})$ are the GP posterior mean and standard deviation, $f^*$ is the current best observation, and $\Phi$, $\phi$ are the standard normal CDF and PDF.
 
-EI can concentrate sampling near known high-efficacy patterns, neglecting the vast unexplored space. We introduce \textbf{Void-Prioritized Acquisition (VPA)}, which augments EI with a novelty bonus proportional to distance from known patterns:
+EI can concentrate sampling near known high-efficacy patterns, neglecting the vast unexplored space. I introduce \textbf{Void-Prioritized Acquisition (VPA)}, which augments EI with a novelty bonus proportional to distance from known patterns:
 \begin{equation}
   \alpha_\text{VPA}(\mathbf{x}) = \alpha_\text{EI}(\mathbf{x}) \cdot \left(1 + \lambda \cdot \frac{d_\text{min}(\mathbf{x})}{L}\right)
   \label{eq:vpa}
 \end{equation}
 where $d_\text{min}(\mathbf{x}) = \min_{\mathbf{x}' \in \mathcal{K}} d_H(\mathbf{x}, \mathbf{x}')$ is the minimum Hamming distance from candidate $\mathbf{x}$ to all known patterns $\mathcal{K}$, $L=21$ is the guide strand length (normalizer), and $\lambda = 0.5$ is the exploration weight.
 
-VPA rewards both expected improvement \emph{and} structural novelty. The multiplicative form ensures that VPA never selects a low-EI pattern solely for novelty, but among patterns with comparable EI, it preferentially explores uncharted regions. To our knowledge, VPA is the first acquisition function to incorporate domain-specific void distance into expected improvement for oligonucleotide design.
+VPA rewards both expected improvement \emph{and} structural novelty. The multiplicative form ensures that VPA never selects a low-EI pattern solely for novelty, but among patterns with comparable EI, it preferentially explores uncharted regions. To my knowledge, VPA is the first acquisition function to incorporate domain-specific void distance into expected improvement for oligonucleotide design.
 
 \subsection{Gaussian Process with Calibrated Uncertainty}
 
-We train a Gaussian Process regressor~\citep{rasmussen2006} on 19 biophysically meaningful features extracted from the 3,535 training sequences. Features include modification composition fractions (2$'$-F, 2$'$-OMe, LNA in seed/overall), backbone PS density, thermodynamic stability, RISC loading score, nuclease resistance, off-target risk, and 7 sliding-window GC content features. The kernel is $k(\mathbf{x}, \mathbf{x}') = \sigma_f^2 \cdot k_\text{Mat\'{e}rn}^{5/2}(\mathbf{x}, \mathbf{x}') + \sigma_n^2 \delta(\mathbf{x}, \mathbf{x}')$.
+I train a Gaussian Process regressor~\citep{rasmussen2006} on 19 biophysically meaningful features extracted from the 3,535 training sequences. Features include modification composition fractions (2$'$-F, 2$'$-OMe, LNA in seed/overall), backbone PS density, thermodynamic stability, RISC loading score, nuclease resistance, off-target risk, and 7 sliding-window GC content features. The kernel is $k(\mathbf{x}, \mathbf{x}') = \sigma_f^2 \cdot k_\text{Mat\'{e}rn}^{5/2}(\mathbf{x}, \mathbf{x}') + \sigma_n^2 \delta(\mathbf{x}, \mathbf{x}')$.
 
-For $O(n^3)$ tractability, we subsample 500 sequences stratified by efficacy quartile. This design choice prioritizes \emph{calibrated uncertainty} over maximum predictive accuracy---the GP serves the active learning loop, not as a standalone predictor.
+For $O(n^3)$ tractability, I subsample 500 sequences stratified by efficacy quartile. This design choice prioritizes \emph{calibrated uncertainty} over maximum predictive accuracy---the GP serves the active learning loop, not as a standalone predictor.
 
 \subsection{In-Silico Validation Protocol}
 
-Since wet-lab synthesis and testing of candidate patterns requires resources beyond the scope of this work, we employ in-silico validation:
+Since wet-lab synthesis and testing of candidate patterns requires resources beyond the scope of this work, I employ in-silico validation:
 \begin{enumerate}
   \item The GP is trained on 80\% of the Huesken-derived dataset; the held-out 20\% ($n=709$) serves as an in-silico oracle.
   \item Active learning simulations use GP predictions as surrogate experimental outcomes.
   \item FDA-approved drug modification patterns ($n=8$) serve as independent ground truth, with known clinical efficacy values compared against GP predictions.
 \end{enumerate}
-We report all metrics honestly and clearly distinguish in-silico from hypothetical wet-lab results.
+I report all metrics honestly and clearly distinguish in-silico from hypothetical wet-lab results.
 
 % ═══════════════════════════════════════════════════════════════════
 % 4. EXPERIMENTS
@@ -205,7 +205,7 @@ We report all metrics honestly and clearly distinguish in-silico from hypothetic
 
 \subsection{Predictive Performance}
 
-Table~\ref{tab:prediction} compares four approaches on the held-out test set ($n=709$). Our GP achieves modest but positive correlation ($r=0.140$), substantially outperforming the population mean baseline and the biophysics heuristic. OligoFormer's published $r=0.719$ reflects its transformer architecture with full sequence features---a fundamentally different (and complementary) approach.
+Table~\ref{tab:prediction} compares four approaches on the held-out test set ($n=709$). My GP achieves modest but positive correlation ($r=0.140$), substantially outperforming the population mean baseline and the biophysics heuristic. OligoFormer's published $r=0.719$ reflects its transformer architecture with full sequence features---a fundamentally different (and complementary) approach.
 
 \begin{table}[t]
 \caption{Predictive performance on held-out test set ($n=709$). 95\% bootstrap CIs from 500 resamples. OligoFormer values are published benchmarks (not reproduced). ``--'' indicates metric not reported.}
@@ -226,11 +226,11 @@ OligoFormer$^\dagger$ & 0.719 {\scriptsize [0.69, 0.75]} & 0.700 {\scriptsize [0
 \end{tabular}
 \end{table}
 
-We emphasize: \emph{our GP is not designed to maximize Pearson $r$}. It uses 19 features from unmodified RNA sequences---modification-specific features (positions 0--7 in the feature vector) are necessarily zero during training. When predicting modified patterns, these features become non-zero, and GP uncertainty correctly increases. This design is intentional: the GP's role is to provide \emph{calibrated uncertainty} for active learning, not to compete with sequence-level transformers.
+I emphasize: \emph{my GP is not designed to maximize Pearson $r$}. It uses 19 features from unmodified RNA sequences---modification-specific features (positions 0--7 in the feature vector) are necessarily zero during training. When predicting modified patterns, these features become non-zero, and GP uncertainty correctly increases. This design is intentional: the GP's role is to provide \emph{calibrated uncertainty} for active learning, not to compete with sequence-level transformers.
 
 \subsection{Uncertainty Calibration}
 
-Well-calibrated uncertainty is the foundation of reliable active learning~\citep{kuleshov2018}. For a well-calibrated model, a $p$\% confidence interval should contain the true value $p$\% of the time. Figure~\ref{fig:calibration} shows our GP's calibration curve.
+Well-calibrated uncertainty is the foundation of reliable active learning~\citep{kuleshov2018}. For a well-calibrated model, a $p$\% confidence interval should contain the true value $p$\% of the time. Figure~\ref{fig:calibration} shows my GP's calibration curve.
 
 \begin{table}[t]
 \caption{Uncertainty calibration. Nominal vs.\ observed coverage at 10 confidence levels. ECE = mean $|$observed $-$ nominal$|$ across all levels.}
@@ -250,7 +250,7 @@ Well-calibrated uncertainty is the foundation of reliable active learning~\citep
 \noindent\textbf{ECE = 0.027} (well-calibrated). Sharpness = 72.0\% (average 90\% CI width). Confidence bias: balanced---slightly overconfident at high nominal levels, slightly conservative at low levels.
 \end{table}
 
-The ECE of 0.027 places our GP in the ``well-calibrated'' regime~\citep{naeini2015}. The balanced confidence bias means the GP is neither systematically overconfident nor underconfident, making it suitable as the uncertainty backbone for active learning.
+The ECE of 0.027 places my GP in the ``well-calibrated'' regime~\citep{naeini2015}. The balanced confidence bias means the GP is neither systematically overconfident nor underconfident, making it suitable as the uncertainty backbone for active learning.
 
 \subsection{Generative Quality}
 
@@ -279,7 +279,7 @@ The CVAE achieves 96.5\% validity---nearly all generated profiles fall within $\
 
 \subsection{Active Learning Comparison}
 
-We compare four acquisition strategies over 15-cycle simulated DMTL (Design-Make-Test-Learn) experiments, each repeated 10 times with different random seeds:
+I compare four acquisition strategies over 15-cycle simulated DMTL (Design-Make-Test-Learn) experiments, each repeated 10 times with different random seeds:
 
 \begin{itemize}
   \item \textbf{Random}: uniform random selection from void candidates.
@@ -311,7 +311,7 @@ VPA achieves the highest best efficacy, discovers the most high-efficacy pattern
 
 \subsection{Latent Space Analysis}
 
-We analyze the CVAE's 16-dimensional latent space using UMAP~\citep{mcinnes2018} for 2D projection (Figure~\ref{fig:latent}).
+I analyze the CVAE's 16-dimensional latent space using UMAP~\citep{mcinnes2018} for 2D projection (Figure~\ref{fig:latent}).
 
 \paragraph{Clustering structure.} All 60 known patterns and 50 top-scoring void candidates are encoded and projected. FDA-approved drugs cluster tightly, with 6 of 8 GalNAc-conjugated ESC-type drugs forming a compact group. Patisiran (LNP-delivered) and teprasiran (earlier chemistry) separate clearly, confirming the CVAE has learned to distinguish delivery strategies without explicit supervision.
 
@@ -321,7 +321,7 @@ We analyze the CVAE's 16-dimensional latent space using UMAP~\citep{mcinnes2018}
 
 \subsection{Modification Space Coverage}
 
-Of the 336 position-modification slots in a fully defined siRNA duplex (42 positions $\times$ 8 sugar modifications), our co-occurrence analysis identifies 127 slots that have never been tested in the published literature (void fraction = 37.8\%). The CVAE generates candidates that explore novel combinations in these void regions. Among the 2,397 biologically feasible void candidates, 96.5\% pass the CVAE validity filter, suggesting the generative model has learned a meaningful prior over the unexplored space.
+Of the 336 position-modification slots in a fully defined siRNA duplex (42 positions $\times$ 8 sugar modifications), my co-occurrence analysis identifies 127 slots that have never been tested in the published literature (void fraction = 37.8\%). The CVAE generates candidates that explore novel combinations in these void regions. Among the 2,397 biologically feasible void candidates, 96.5\% pass the CVAE validity filter, suggesting the generative model has learned a meaningful prior over the unexplored space.
 
 % ═══════════════════════════════════════════════════════════════════
 % 5. DISCUSSION
@@ -330,10 +330,10 @@ Of the 336 position-modification slots in a fully defined siRNA duplex (42 posit
 \section{Discussion}
 
 \paragraph{Limitations.}
-We identify four key limitations, each representing an opportunity for future work:
+I identify four key limitations, each representing an opportunity for future work:
 
 \begin{enumerate}
-  \item \textbf{No wet-lab validation.} All results are computational. The candidates OligoVoid generates require synthesis and in-vitro testing to confirm predicted efficacy. We view OligoVoid as an experiment \emph{prioritization} tool, not an oracle.
+  \item \textbf{No wet-lab validation.} All results are computational. The candidates OligoVoid generates require synthesis and in-vitro testing to confirm predicted efficacy. I view OligoVoid as an experiment \emph{prioritization} tool, not an oracle.
   \item \textbf{Training data skew.} 6 of 8 FDA-approved siRNAs use GalNAc conjugation targeting liver hepatocytes. The training data is similarly skewed toward liver targets. OligoVoid's generative model may produce candidates biased toward this delivery modality.
   \item \textbf{Scale.} 3,535 training sequences is small by deep learning standards. The CVAE architecture (42$\to$64$\to$32$\to$16 latent dimensions) is correspondingly modest. Foundation models for nucleic acid sequences may enable more powerful generative approaches.
   \item \textbf{Context-free.} OligoVoid models modification patterns \emph{independently} of the target mRNA sequence. Target-specific features (thermodynamic accessibility, off-target seed matches) are not captured. OligoFormer~\citep{oligoformer2024} provides complementary sequence-aware prediction.
@@ -348,7 +348,7 @@ Integration with sequence-aware models like OligoFormer would combine OligoVoid'
 
 \section{Conclusion}
 
-We presented OligoVoid, the first system to combine systematic gap detection, conditional generation, and active learning for siRNA chemical modification design. By constructing a position-modification co-occurrence framework over 3,535 validated sequences, training a conditional VAE for novel pattern generation, and introducing Void-Prioritized Acquisition for experiment selection, OligoVoid transforms the siRNA modification design problem from exhaustive trial-and-error into guided exploration. The well-calibrated GP (ECE$=0.027$) provides reliable uncertainty estimates, the CVAE generates valid novel candidates (96.5\% validity), and VPA explores 23\% more of the modification space than standard EI. We release OligoVoid as open-source software to enable the siRNA research community to map, generate, and prioritize experiments in the vast unexplored modification design space.
+I present OligoVoid, the first system to combine systematic gap detection, conditional generation, and active learning for siRNA chemical modification design. By constructing a position-modification co-occurrence framework over 3,535 validated sequences, training a conditional VAE for novel pattern generation, and introducing Void-Prioritized Acquisition for experiment selection, OligoVoid transforms the siRNA modification design problem from exhaustive trial-and-error into guided exploration. The well-calibrated GP (ECE$=0.027$) provides reliable uncertainty estimates, the CVAE generates valid novel candidates (96.5\% validity), and VPA explores 23\% more of the modification space than standard EI. I release OligoVoid as open-source software to enable the siRNA research community to map, generate, and prioritize experiments in the vast unexplored modification design space.
 
 \paragraph{Reproducibility.} All code, data, and trained models are available at \url{https://github.com/ManasReddy1/OligoVoid}. Training data derives from publicly available sources~\citep{huesken2005, takahashi2009, dar2016}.
 

@@ -1452,6 +1452,87 @@ def get_latent_dimensions():
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# FDA VALIDATION + CASE STUDY + FULL REPORT ENDPOINTS
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Cache FDA results in memory (computed once at first request)
+_fda_cache: Optional[dict] = None
+
+
+@app.get("/api/validation/fda")
+def get_fda_validation():
+    """Run FDA sanity check against 5 approved siRNA drugs."""
+    global _fda_cache
+    if _fda_cache is not None:
+        return _fda_cache
+    try:
+        from backend.fda_validation import run_fda_sanity_check
+        result = run_fda_sanity_check()
+        _fda_cache = result
+        logger.info(
+            "FDA Validation: %s/5 correct, Spearman rho=%.3f, MAE=%.1f%%",
+            result["summary"]["drugs_correctly_classified_high"],
+            result["summary"]["ranking_spearman"],
+            result["summary"]["mean_absolute_error"],
+        )
+        return result
+    except Exception as e:
+        logger.error("FDA validation error: %s", e, exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/casestudy")
+def get_case_study():
+    """Generate modification intelligence report for the top-scored void."""
+    try:
+        from backend.modification_report import generate_modification_intelligence_report
+        from backend.feasibility_scorer import score_pattern_biophysics
+        from backend.literature_parser import PUBLISHED_MODIFICATIONS_DATASET
+        from backend.void_detector import enumerate_modification_voids
+
+        known = [
+            p for p in PUBLISHED_MODIFICATIONS_DATASET
+            if p.get("guide_mods") and len(p.get("guide_mods", [])) >= 19
+        ]
+        voids = enumerate_modification_voids(known)
+
+        if not voids:
+            raise HTTPException(status_code=404, detail="No void candidates found.")
+
+        scored = []
+        for v in voids[:50]:
+            try:
+                s = score_pattern_biophysics(v)
+                scored.append((s.get("overall_oligovoid_score", 0), v, s))
+            except Exception:
+                continue
+
+        if not scored:
+            raise HTTPException(status_code=404, detail="No voids could be scored.")
+
+        scored.sort(key=lambda x: x[0], reverse=True)
+        _, best_void, best_scores = scored[0]
+        report = generate_modification_intelligence_report(best_void, best_scores)
+        return report
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error("Case study error: %s", e, exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/report/full")
+def get_full_results_report():
+    """Generate the complete validation report."""
+    try:
+        from backend.benchmarks import generate_full_results_report
+        return generate_full_results_report()
+    except Exception as e:
+        logger.error("Full report error: %s", e, exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # STATIC FILES (must be mounted LAST to avoid catching /api/* routes)
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 

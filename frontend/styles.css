@@ -2264,3 +2264,455 @@ body {
   padding: 2rem;
   justify-content: center;
 }
+
+/* ═══════════════════════════════════════════════════════
+   HEADER BANNER
+   ═══════════════════════════════════════════════════════ */
+
+.header-banner {
+  background: linear-gradient(90deg, rgba(0,255,136,0.08), rgba(0,212,255,0.08));
+  border-bottom: 1px solid var(--border);
+  padding: 0.6rem 2rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════════════════
+   ONBOARDING MODAL
+   ═══════════════════════════════════════════════════════ */
+
+.onboarding-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.onboarding-modal {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-bright);
+  border-radius: var(--radius-lg);
+  max-width: 520px;
+  width: 90%;
+  padding: 2.5rem;
+}
+
+.onboarding-step { display: none; text-align: center; }
+.onboarding-step.active { display: block; }
+
+.onboarding-step-icon { font-size: 3rem; margin-bottom: 1rem; }
+
+.onboarding-step h3 {
+  font-family: var(--font-mono);
+  color: var(--accent-biolum);
+  margin-bottom: 0.8rem;
+  font-size: 1.3rem;
+}
+
+.onboarding-step p {
+  color: var(--text-primary);
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+.onboarding-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.onboarding-dots { display: flex; gap: 8px; }
+
+.onboarding-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--border-bright);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.onboarding-dot.active { background: var(--accent-biolum); }
+
+.onboarding-buttons { display: flex; gap: 1rem; }
+
+.btn-text {
+  background: none; border: none;
+  color: var(--text-secondary);
+  cursor: pointer; font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+}
+
+.btn-text:hover { color: var(--text-primary); }
+
+/* ═══════════════════════════════════════════════════════
+   NAV TAB HIGHLIGHT
+   ═══════════════════════════════════════════════════════ */
+
+.nav-tab-highlight {
+  background: rgba(0,255,136,0.1) !important;
+  border: 1px solid rgba(0,255,136,0.3) !important;
+}
+
+/* ═══════════════════════════════════════════════════════
+   ALWAYS-VISIBLE LEGEND
+   ═══════════════════════════════════════════════════════ */
+
+.heatmap-legend-always {
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+}
+
+.legend-row { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+.legend-regions { margin-top: 0.3rem; }
+
+/* ═══════════════════════════════════════════════════════
+   FDA VALIDATION TAB
+   ═══════════════════════════════════════════════════════ */
+
+.fda-cards { display: flex; flex-direction: column; gap: 1.2rem; margin-bottom: 2rem; }
+
+.fda-drug-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  transition: border-color 0.2s;
+}
+
+.fda-drug-card:hover { border-color: var(--border-bright); }
+
+.fda-drug-card.traffic-green { border-left: 4px solid #00ff88; }
+.fda-drug-card.traffic-yellow { border-left: 4px solid #ffaa00; }
+.fda-drug-card.traffic-red { border-left: 4px solid #ff3366; }
+
+.fda-drug-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.fda-drug-name {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  color: var(--accent-biolum);
+}
+
+.fda-drug-meta {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.fda-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.fda-bar-label { width: 130px; color: var(--text-secondary); flex-shrink: 0; }
+
+.fda-bar-track {
+  flex: 1; height: 20px;
+  background: var(--surface-elevated);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.fda-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.fda-bar-fill.clinical { background: var(--accent-cyan); }
+.fda-bar-fill.predicted { background: var(--accent-biolum); }
+
+.fda-bar-value { width: 40px; text-align: right; font-family: var(--font-mono); }
+
+.fda-drug-verdict {
+  margin-top: 0.8rem;
+  padding: 0.8rem 1rem;
+  background: var(--surface-elevated);
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.fda-drug-verdict .verdict-icon { margin-right: 0.3rem; }
+
+.fda-summary-box {
+  background: var(--surface);
+  border: 2px solid var(--accent-biolum);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin-top: 1.5rem;
+}
+
+.fda-summary-box h3 {
+  font-family: var(--font-mono);
+  color: var(--accent-biolum);
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+}
+
+.fda-summary-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.fda-stat {
+  text-align: center;
+  padding: 1rem;
+  background: var(--surface-elevated);
+  border-radius: var(--radius);
+}
+
+.fda-stat-value {
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+  color: var(--accent-biolum);
+  display: block;
+}
+
+.fda-stat-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 0.3rem;
+  display: block;
+}
+
+.fda-summary-interpretation {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.fda-disclaimer {
+  padding: 0.8rem 1rem;
+  background: rgba(255,170,0,0.1);
+  border: 1px solid rgba(255,170,0,0.3);
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  color: #ffaa00;
+}
+
+/* ═══════════════════════════════════════════════════════
+   CASE STUDY TAB
+   ═══════════════════════════════════════════════════════ */
+
+.case-executive {
+  background: linear-gradient(135deg, rgba(0,255,136,0.08), rgba(0,212,255,0.05));
+  border: 1px solid rgba(0,255,136,0.2);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+}
+
+.case-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.case-section h3 {
+  font-family: var(--font-mono);
+  color: var(--accent-cyan);
+  margin-bottom: 1rem;
+}
+
+.case-content {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+.case-risk-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.case-risk-card {
+  background: var(--surface-elevated);
+  border-radius: var(--radius);
+  padding: 1rem 1.2rem;
+  border-left: 4px solid var(--border);
+}
+
+.case-risk-card.risk-green { border-left-color: #00ff88; }
+.case-risk-card.risk-yellow { border-left-color: #ffaa00; }
+.case-risk-card.risk-red { border-left-color: #ff3366; }
+
+.case-risk-dim {
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+
+.case-risk-score {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.case-risk-plain {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-top: 0.3rem;
+}
+
+.case-recommendation {
+  background: var(--surface);
+  border: 2px solid var(--accent-purple);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.case-recommendation h3 {
+  font-family: var(--font-mono);
+  margin-bottom: 0.5rem;
+}
+
+.case-rec-prioritize { border-color: #00ff88; }
+.case-rec-investigate { border-color: #ffaa00; }
+.case-rec-low { border-color: var(--text-secondary); }
+
+/* ═══════════════════════════════════════════════════════
+   HOW IT WORKS TAB
+   ═══════════════════════════════════════════════════════ */
+
+.how-step {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  align-items: flex-start;
+}
+
+.how-step-number {
+  width: 48px; height: 48px;
+  min-width: 48px;
+  background: var(--accent-biolum);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.how-step-body {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+
+.how-step-body h3 {
+  font-family: var(--font-mono);
+  color: var(--accent-biolum);
+  margin-bottom: 0.5rem;
+}
+
+.how-step-body p {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 0.5rem;
+}
+
+.how-step-body code {
+  background: var(--surface-elevated);
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent-cyan);
+}
+
+.how-detail {
+  background: var(--surface-elevated);
+  border-left: 3px solid var(--accent-cyan);
+  padding: 0.8rem 1rem;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  margin-top: 0.8rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.how-layers {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 0.8rem;
+}
+
+.how-layer {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  padding: 0.8rem;
+  background: var(--surface-elevated);
+  border-radius: var(--radius);
+}
+
+.how-layer-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  min-width: 60px;
+  text-align: center;
+}
+
+.how-layer-badge.bio { background: rgba(0,255,136,0.15); color: #00ff88; }
+.how-layer-badge.gp { background: rgba(0,212,255,0.15); color: #00d4ff; }
+.how-layer-badge.cvae { background: rgba(168,85,247,0.15); color: #a855f7; }
+
+.how-layer div:last-child {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE ADDITIONS
+   ═══════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .fda-summary-stats { grid-template-columns: 1fr 1fr; }
+  .case-risk-cards { grid-template-columns: 1fr; }
+  .how-step { flex-direction: column; }
+  .how-step-number { align-self: flex-start; }
+  .onboarding-modal { padding: 1.5rem; }
+}

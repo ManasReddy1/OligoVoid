@@ -657,7 +657,7 @@ def evaluate_uncertainty_calibration(n_bins: int = 10) -> dict:
     """GP calibration curve + Expected Calibration Error (ECE).
 
     For a well-calibrated GP, a 90% confidence interval should contain
-    the true value ~90% of the time. We check this at multiple confidence levels.
+    the true value ~90% of the time. This check is done at multiple confidence levels.
 
     Steps:
       1. Train GP on 80% of data (5-fold CV on training set)
@@ -840,3 +840,181 @@ def run_all_benchmarks(
 
     results["total_elapsed_seconds"] = round(time.time() - t0, 1)
     return results
+
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# FULL RESULTS REPORT — combines everything for dashboard + paper
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+def generate_full_results_report() -> dict:
+    """Generate the complete validation report for the paper and dashboard.
+
+    Runs all validation checks and returns everything in one structured dict:
+    1. FDA Drug Sanity Check
+    2. Cross-Validation on Huesken Dataset
+    3. Generative Model Evaluation
+    4. Active Learning Comparison
+    5. Modification Space Coverage
+    6. Case Study on Top Void
+
+    Also prints a formatted summary table to the console.
+    """
+    from backend.fda_validation import run_fda_sanity_check
+    from backend.literature_parser import get_position_coverage_stats
+
+    t0 = time.time()
+    report = {}
+
+    # ── Section 1: FDA Drug Sanity Check ──
+    logger.info("Section 1: FDA Drug Sanity Check...")
+    try:
+        fda_result = run_fda_sanity_check()
+        report["fda_validation"] = fda_result
+    except Exception as e:
+        logger.warning("FDA validation failed: %s", e)
+        report["fda_validation"] = {"error": str(e)}
+
+    # ── Section 2: Cross-Validation ──
+    logger.info("Section 2: Cross-Validation...")
+    try:
+        prediction = run_benchmark_comparison(n_bootstrap=500)
+        report["cross_validation"] = prediction
+    except Exception as e:
+        logger.warning("Prediction benchmark failed: %s", e)
+        report["cross_validation"] = {"error": str(e)}
+
+    # ── Section 3: Generative Model ──
+    logger.info("Section 3: Generative Model...")
+    try:
+        generation = evaluate_generation_quality(n_generate=100)
+        report["generative_model"] = generation
+    except Exception as e:
+        logger.warning("Generation benchmark failed: %s", e)
+        report["generative_model"] = {"error": str(e)}
+
+    # ── Section 4: Active Learning ──
+    logger.info("Section 4: Active Learning...")
+    try:
+        al = benchmark_active_learning(n_cycles=10, n_repeats=5)
+        report["active_learning"] = al
+    except Exception as e:
+        logger.warning("Active learning benchmark failed: %s", e)
+        report["active_learning"] = {"error": str(e)}
+
+    # ── Section 5: Modification Space Coverage ──
+    logger.info("Section 5: Space Coverage...")
+    try:
+        coverage = get_position_coverage_stats()
+        report["space_coverage"] = coverage
+    except Exception as e:
+        logger.warning("Coverage analysis failed: %s", e)
+        report["space_coverage"] = {"error": str(e)}
+
+    # ── Section 6: Case Study on Top Void ──
+    logger.info("Section 6: Top Void Case Study...")
+    try:
+        from backend.modification_report import generate_modification_intelligence_report
+        from backend.feasibility_scorer import score_pattern_biophysics
+        from backend.literature_parser import PUBLISHED_MODIFICATIONS_DATASET
+        from backend.void_detector import enumerate_modification_voids
+
+        known = [
+            p for p in PUBLISHED_MODIFICATIONS_DATASET
+            if p.get("guide_mods") and len(p.get("guide_mods", [])) >= 19
+        ]
+        voids = enumerate_modification_voids(known)
+
+        if voids:
+            # Score all voids and pick the best
+            scored_voids = []
+            for v in voids[:50]:  # limit for speed
+                try:
+                    s = score_pattern_biophysics(v)
+                    scored_voids.append((s.get("overall_oligovoid_score", 0), v, s))
+                except Exception:
+                    continue
+
+            if scored_voids:
+                scored_voids.sort(key=lambda x: x[0], reverse=True)
+                best_score_val, best_void, best_scores = scored_voids[0]
+                case_study = generate_modification_intelligence_report(
+                    best_void, best_scores
+                )
+                case_study["void_pattern"] = {
+                    "guide_mods": best_void.get("guide_mods", []),
+                    "passenger_mods": best_void.get("passenger_mods", []),
+                    "conjugate": best_void.get("conjugate", "None"),
+                }
+                report["case_study"] = case_study
+            else:
+                report["case_study"] = {"error": "No voids could be scored."}
+        else:
+            report["case_study"] = {"error": "No void candidates found."}
+    except Exception as e:
+        logger.warning("Case study failed: %s", e)
+        report["case_study"] = {"error": str(e)}
+
+    report["total_elapsed_seconds"] = round(time.time() - t0, 1)
+
+    # ── Print formatted summary ──
+    _print_results_table(report)
+
+    return report
+
+
+def _print_results_table(report: dict) -> None:
+    """Print a formatted ASCII summary table."""
+    lines = [
+        "",
+        "+" + "=" * 52 + "+",
+        "|{:^52s}|".format("OligoVoid Validation Results"),
+        "+" + "=" * 52 + "+",
+    ]
+
+    # FDA
+    fda = report.get("fda_validation", {})
+    summary = fda.get("summary", {})
+    lines.append("| FDA Drug Sanity Check{:>31s}|".format(""))
+    n_correct = summary.get("drugs_correctly_classified_high", "?")
+    spearman = summary.get("ranking_spearman", "?")
+    mae = summary.get("mean_absolute_error", "?")
+    lines.append("|   Correctly classified: {:>3s}/5{:>22s}|".format(str(n_correct), ""))
+    lines.append("|   Spearman rho with clinical: {:>6s}{:>16s}|".format(str(spearman), ""))
+    lines.append("|   MAE vs clinical: {:>6s}%{:>25s}|".format(str(mae), ""))
+    lines.append("+" + "-" * 52 + "+")
+
+    # GP CV
+    cv = report.get("cross_validation", {})
+    gp_metrics = cv.get("models", {}).get("gp", {})
+    gp_r = gp_metrics.get("pearson_r", {}).get("point", "?")
+    gp_rmse = gp_metrics.get("rmse", {}).get("point", "?")
+    lines.append("| GP Cross-Validation{:>33s}|".format(""))
+    lines.append("|   Pearson r: {:>6s}{:>33s}|".format(str(gp_r), ""))
+    lines.append("|   RMSE: {:>6s}%{:>33s}|".format(str(gp_rmse), ""))
+    lines.append("+" + "-" * 52 + "+")
+
+    # Generative
+    gen = report.get("generative_model", {})
+    gen_m = gen.get("metrics", {})
+    val = gen_m.get("validity", "?")
+    nov = gen_m.get("novelty", "?")
+    div = gen_m.get("diversity", "?")
+    lines.append("| Generative Model (CVAE){:>29s}|".format(""))
+    lines.append("|   Validity: {:>6s}{:>34s}|".format(str(val), ""))
+    lines.append("|   Novelty: {:>6s}{:>35s}|".format(str(nov), ""))
+    lines.append("|   Diversity: {:>6s}{:>33s}|".format(str(div), ""))
+    lines.append("+" + "-" * 52 + "+")
+
+    # Active Learning
+    al = report.get("active_learning", {})
+    if "strategies" in al:
+        vpa_explored = al["strategies"].get("vpa", {}).get("pct_space_explored", {}).get("mean", [0])[-1]
+        rand_explored = al["strategies"].get("random", {}).get("pct_space_explored", {}).get("mean", [0])[-1]
+        improvement = round(vpa_explored - rand_explored, 1) if isinstance(vpa_explored, (int, float)) else "?"
+        lines.append("| Active Learning: VPA vs Random{:>22s}|".format(""))
+        lines.append("|   VPA explored: {:>6s}%{:>30s}|".format(str(round(vpa_explored, 1)), ""))
+        lines.append("|   Random explored: {:>6s}%{:>27s}|".format(str(round(rand_explored, 1)), ""))
+        lines.append("|   Improvement: {:>+6s}%{:>30s}|".format(str(improvement), ""))
+    lines.append("+" + "=" * 52 + "+")
+
+    print("\n".join(lines))

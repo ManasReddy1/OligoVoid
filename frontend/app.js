@@ -140,10 +140,13 @@ function initNav() {
       // Lazy-load tab content
       if (tab === 'map') loadModificationMap();
       if (tab === 'voids') loadVoids();
+      if (tab === 'fda') loadFDAValidation();
       if (tab === 'dmtl') loadDMTL();
       if (tab === 'velocity') loadVelocity();
       if (tab === 'scorer') initScorerPositions();
       if (tab === 'generative') initGenerativeTab();
+      if (tab === 'casestudy') loadCaseStudy();
+      if (tab === 'howworks') {}  // static content, no load needed
       if (tab === 'validation') loadValidation();
       if (tab === 'latent') loadLatentSpace();
     });
@@ -1968,4 +1971,232 @@ function renderLatentDimensions(data) {
   html += `<div class="latent-interpretation" style="margin-top:1rem">${data.interpretation}</div>`;
 
   container.innerHTML = html;
+}
+
+
+// ═══════════════════════════════════════════════════════
+// ONBOARDING MODAL
+// ═══════════════════════════════════════════════════════
+
+(function initOnboarding() {
+  if (localStorage.getItem('oligovoid_onboarded')) return;
+  const overlay = document.getElementById('onboarding-overlay');
+  if (!overlay) return;
+  overlay.style.display = 'flex';
+  let step = 1;
+
+  function showStep(n) {
+    step = n;
+    overlay.querySelectorAll('.onboarding-step').forEach(s => s.classList.remove('active'));
+    overlay.querySelectorAll('.onboarding-dot').forEach(d => d.classList.remove('active'));
+    const stepEl = overlay.querySelector(`.onboarding-step[data-step="${n}"]`);
+    const dotEl = overlay.querySelector(`.onboarding-dot[data-dot="${n}"]`);
+    if (stepEl) stepEl.classList.add('active');
+    if (dotEl) dotEl.classList.add('active');
+    const btn = document.getElementById('onboarding-next');
+    if (btn) btn.textContent = n >= 4 ? 'Got it' : 'Next';
+  }
+
+  document.getElementById('onboarding-next')?.addEventListener('click', () => {
+    if (step >= 4) {
+      overlay.style.display = 'none';
+      localStorage.setItem('oligovoid_onboarded', '1');
+    } else {
+      showStep(step + 1);
+    }
+  });
+
+  document.getElementById('onboarding-skip')?.addEventListener('click', () => {
+    overlay.style.display = 'none';
+    localStorage.setItem('oligovoid_onboarded', '1');
+  });
+
+  overlay.querySelectorAll('.onboarding-dot').forEach(dot => {
+    dot.addEventListener('click', () => {
+      const n = parseInt(dot.dataset.dot);
+      if (n) showStep(n);
+    });
+  });
+})();
+
+
+// ═══════════════════════════════════════════════════════
+// FDA VALIDATION TAB
+// ═══════════════════════════════════════════════════════
+
+let fdaLoaded = false;
+
+async function loadFDAValidation() {
+  if (fdaLoaded) return;
+  const loading = document.getElementById('fda-loading');
+  if (loading) loading.style.display = 'flex';
+
+  try {
+    const data = await apiFetch('/api/validation/fda');
+    renderFDACards(data.predictions || []);
+    renderFDASummary(data.summary || {});
+    fdaLoaded = true;
+  } catch (err) {
+    showToast('Failed to load FDA validation: ' + err.message, true);
+  } finally {
+    if (loading) loading.style.display = 'none';
+  }
+}
+
+function renderFDACards(predictions) {
+  const container = document.getElementById('fda-drug-cards');
+  if (!container) return;
+
+  container.innerHTML = predictions.map(p => {
+    const lightClass = 'traffic-' + p.traffic_light;
+    const icon = p.direction_correct ? '&#x2713;' : '&#x26a0;&#xfe0f;';
+    const clinical = p.clinical_efficacy_pct || 0;
+    const predicted = p.biophysics_score || 0;
+
+    return `
+      <div class="fda-drug-card ${lightClass}">
+        <div class="fda-drug-header">
+          <div>
+            <div class="fda-drug-name">${p.drug} (${p.brand})</div>
+            <div class="fda-drug-meta">Treats: ${p.target} | Approved: ${p.year_approved} | ${p.conjugate}</div>
+          </div>
+        </div>
+        <div class="fda-bar-row">
+          <span class="fda-bar-label">Clinical result:</span>
+          <div class="fda-bar-track"><div class="fda-bar-fill clinical" style="width:${clinical}%"></div></div>
+          <span class="fda-bar-value">${clinical}%</span>
+        </div>
+        <div class="fda-bar-row">
+          <span class="fda-bar-label">OligoVoid score:</span>
+          <div class="fda-bar-track"><div class="fda-bar-fill predicted" style="width:${predicted}%"></div></div>
+          <span class="fda-bar-value">${predicted}%</span>
+        </div>
+        <div class="fda-drug-verdict">
+          <span class="verdict-icon">${icon}</span>
+          ${p.direction_correct ? 'Correctly identified as high-efficacy drug' : 'Classification did not match'}
+          ${p.error_pct != null ? ` | Error: ${p.error_pct}%` : ''}
+          <br><br>${p.plain_english || ''}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderFDASummary(summary) {
+  const statsEl = document.getElementById('fda-summary-stats');
+  const interpEl = document.getElementById('fda-summary-interpretation');
+  if (!statsEl || !interpEl) return;
+
+  statsEl.innerHTML = `
+    <div class="fda-stat">
+      <span class="fda-stat-value">${summary.drugs_correctly_classified_high || '?'}/5</span>
+      <span class="fda-stat-label">Correctly Identified</span>
+    </div>
+    <div class="fda-stat">
+      <span class="fda-stat-value">${summary.ranking_spearman || '?'}</span>
+      <span class="fda-stat-label">Spearman &rho;</span>
+    </div>
+    <div class="fda-stat">
+      <span class="fda-stat-value">${summary.mean_absolute_error || '?'}%</span>
+      <span class="fda-stat-label">Mean Absolute Error</span>
+    </div>
+  `;
+
+  interpEl.innerHTML = `
+    <p><strong>What this means:</strong> A random model would correctly identify ~2-3 of 5 drugs by chance.
+    OligoVoid identifies ${summary.drugs_correctly_classified_high || '?'}/5,
+    suggesting the scoring system captures real chemical signals from the training data.</p>
+    <p style="margin-top:0.5rem;font-style:italic;font-size:0.85rem">${summary.honest_interpretation || ''}</p>
+  `;
+}
+
+
+// ═══════════════════════════════════════════════════════
+// CASE STUDY TAB
+// ═══════════════════════════════════════════════════════
+
+let caseStudyLoaded = false;
+
+async function loadCaseStudy() {
+  if (caseStudyLoaded) return;
+  const loading = document.getElementById('case-loading');
+  if (loading) loading.style.display = 'flex';
+
+  try {
+    const data = await apiFetch('/api/casestudy');
+    renderCaseStudy(data);
+    caseStudyLoaded = true;
+  } catch (err) {
+    showToast('Failed to load case study: ' + err.message, true);
+  } finally {
+    if (loading) loading.style.display = 'none';
+  }
+}
+
+function renderCaseStudy(data) {
+  // Executive summary
+  const exec = document.getElementById('case-executive');
+  if (exec) {
+    exec.innerHTML = `
+      <div style="font-size:0.8rem;color:var(--accent-biolum);font-family:var(--font-mono);margin-bottom:0.5rem">
+        OLIGOVOID SCORE: ${data.overall_oligovoid_score || '?'}/100
+        &mdash; Recommendation: ${data.overall_recommendation || '?'}
+      </div>
+      <p>${data.executive_summary || ''}</p>
+    `;
+  }
+
+  // What's different
+  const diffEl = document.getElementById('case-difference-content');
+  if (diffEl) diffEl.innerHTML = `<p>${data.what_is_different || ''}</p>`;
+
+  // Risk assessment
+  const riskEl = document.getElementById('case-risk-cards');
+  if (riskEl && data.risk_assessment) {
+    riskEl.innerHTML = data.risk_assessment.map(r => {
+      const cls = r.traffic_light === 'green' ? 'risk-green' : r.traffic_light === 'yellow' ? 'risk-yellow' : 'risk-red';
+      const icon = r.traffic_light === 'green' ? '&#x1f7e2;' : r.traffic_light === 'yellow' ? '&#x1f7e1;' : '&#x1f534;';
+      return `
+        <div class="case-risk-card ${cls}">
+          <div class="case-risk-dim">${icon} ${r.dimension} <span class="case-risk-score">${r.score}/100 &mdash; ${r.adjective}</span></div>
+          <div class="case-risk-plain">${r.plain_english}</div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Hypothesis
+  const hypEl = document.getElementById('case-hypothesis-content');
+  if (hypEl && data.hypothesis) {
+    hypEl.innerHTML = `
+      <p><strong>If it works:</strong> ${data.hypothesis.if_it_works}</p>
+      <p><strong>If it fails:</strong> ${data.hypothesis.if_it_fails}</p>
+      <p style="margin-top:0.5rem"><strong>Fastest experiment:</strong> ${data.hypothesis.fastest_experiment}</p>
+    `;
+  }
+
+  // Closest FDA drug
+  const closestEl = document.getElementById('case-closest-content');
+  if (closestEl && data.closest_fda_drug) {
+    const c = data.closest_fda_drug;
+    closestEl.innerHTML = `
+      <p>The most similar FDA-approved drug is <strong>${c.drug_name}</strong> (${c.brand || ''}).</p>
+      <p>Similarity: ${c.similarity_positions}/${c.total_positions} positions identical (${c.similarity_pct}%).</p>
+      <p>Their clinical efficacy: ${c.their_efficacy}%.</p>
+      <p>Estimated probability this void achieves &gt;70%: <strong>${c.estimated_success_probability}%</strong></p>
+      <p style="font-size:0.85rem;color:var(--text-secondary);margin-top:0.5rem">${c.probability_basis}</p>
+    `;
+  }
+
+  // Recommendation
+  const recEl = document.getElementById('case-recommendation');
+  if (recEl) {
+    const recClass = data.overall_recommendation === 'PRIORITIZE' ? 'case-rec-prioritize'
+      : data.overall_recommendation === 'INVESTIGATE' ? 'case-rec-investigate' : 'case-rec-low';
+    recEl.className = 'case-recommendation ' + recClass;
+    recEl.innerHTML = `
+      <h3>Recommendation: ${data.overall_recommendation || '?'}</h3>
+      <p>${data.recommendation_plain_english || ''}</p>
+    `;
+  }
 }
