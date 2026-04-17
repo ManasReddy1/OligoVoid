@@ -153,43 +153,59 @@
         <p class="section-subtitle">Each RED cell = a modification that has NEVER been published. GREEN = well-studied.</p>
       </div>
 
-      <!-- ── READING THE MAP: quick reference ── -->
+      <!-- ── READING THE MAP: comprehensive reference ── -->
       <div class="map-reference-panel">
         <div class="ref-panel-section">
           <h4>How to read this map</h4>
-          <p>An siRNA drug is a <strong>double-stranded RNA molecule</strong> with <strong>42 positions</strong> total: 21 on the <strong>Guide Strand</strong> (the active strand that silences the gene) and 21 on the <strong>Passenger Strand</strong> (the protective partner that gets discarded). Each position can carry one of <strong>8 chemical modifications</strong> (the Y-axis). Each cell in the heatmap = one specific modification at one specific position.</p>
+          <p>An siRNA (small interfering RNA) drug is a <strong>double-stranded RNA molecule</strong> that works by silencing a specific disease-causing gene. It has <strong>42 positions</strong> in total: 21 on the <strong>Guide Strand</strong> and 21 on the <strong>Passenger Strand</strong>.</p>
+
+          <div class="ref-strand-explainer">
+            <div class="ref-strand-box ref-strand-guide">
+              <strong>Guide Strand (21 positions)</strong>
+              <p>The guide strand is the &ldquo;active&rdquo; strand &mdash; the one that actually does the work of silencing the disease gene. After the siRNA enters the cell, a protein called Ago2 (Argonaute 2) grabs the guide strand and uses it as a template to find the matching messenger RNA (mRNA). Once found, Ago2 cuts the mRNA, destroying it so it can never make the harmful protein. Think of the guide strand as a search-and-destroy missile: its sequence determines which gene gets silenced, and its chemical modifications determine how well it survives, loads into Ago2, and finds its target. It reads from the 5' end (position 1) to the 3' end (position 21).</p>
+            </div>
+            <div class="ref-strand-box ref-strand-passenger">
+              <strong>Passenger Strand (21 positions)</strong>
+              <p>The passenger strand is the &ldquo;protective partner.&rdquo; Its job is to keep the guide strand safe during delivery through the bloodstream by forming a double-stranded duplex. Once the siRNA enters the cell, the passenger strand gets unwound and discarded &mdash; only the guide strand continues working. Even though the passenger strand gets thrown away, its chemical modifications still matter: they affect how stable the duplex is during delivery, how easily the two strands separate inside the cell, and whether the passenger accidentally silences an unintended gene (an &ldquo;off-target effect&rdquo;). It reads from the 3' end to the 5' end, running antiparallel to the guide.</p>
+            </div>
+          </div>
+
+          <p>Each position on either strand can carry one of <strong>8 different chemical modifications</strong> (shown on the Y-axis of the heatmap). Each cell in the heatmap represents one specific modification at one specific position. A <span style="color:#ff3366;font-weight:600;">red cell</span> means that combination has <em>never been tested</em> in any published experiment &mdash; it is a &ldquo;void,&rdquo; an unexplored possibility. A <span style="color:#00ff88;font-weight:600;">green cell</span> means it has been well-studied. This map shows you exactly where the gaps in human knowledge are.</p>
         </div>
 
         <div class="ref-panel-section">
           <h4>The 8 Chemical Modifications (Y-axis)</h4>
+          <p class="ref-mod-intro">Every nucleotide in RNA has a sugar ring (called ribose) at its core. Chemical modifications change what is attached to this sugar ring, particularly at the 2' position (the second carbon of the sugar). These modifications dramatically alter how the drug behaves in the body: how long it survives, how well the cell's machinery can use it, and whether it reaches the right organ. Below is each modification with its full chemical name, a structural diagram, and a plain-English explanation of what it does and where it works best.</p>
           <div class="ref-mod-grid">
             <div class="ref-mod-item">
               <span class="ref-mod-dot" style="background:#3b82f6">m</span>
               <div>
-                <strong>2'-OMe</strong> &mdash; <em>2'-O-Methyl</em><br>
-                <span class="ref-mod-desc">The workhorse. Adds a methyl group to the sugar ring. Good stability, good RISC tolerance. Used in 6 of 8 FDA drugs. Think of it as standard armor.</span>
-                <pre class="ref-struct">    Base
+                <strong>2'-OMe</strong> &mdash; <em>2'-O-Methylribose (2'-O-Methyl)</em><br>
+                <span class="ref-mod-desc">This is the most commonly used modification in siRNA drugs &mdash; the &ldquo;workhorse&rdquo; of the field. It works by attaching a small methyl group (-CH3) to the 2' carbon of the sugar ring. This tiny addition does two important things: first, it shields the sugar from enzymes in the blood (called nucleases) that would normally destroy unprotected RNA within seconds. Second, it keeps the sugar ring in a shape (called C3'-endo) that the cell's gene-silencing machinery (Ago2) can still recognize and use. Six out of eight FDA-approved siRNA drugs use 2'-OMe as their primary modification. It is safe, well-tolerated, and works at almost every position on both strands. Think of it as putting a thin coat of armor on each nucleotide &mdash; not too heavy to slow you down, but enough to protect you.</span>
+                <pre class="ref-struct">    Base (A, U, G, or C)
      |
- 5'--O    O--3'     &larr; Sugar ring
-     |   /           (ribose)
+ 5'--O    O--3'       &larr; Ribose sugar ring
+     |   /               (5 carbons in a ring)
      C--C
      |   \
-     O    O-CH3     &larr; 2'-OMe here
+     O    O--CH3       &larr; Methyl group at 2' position
+                          (this is the modification)
 </pre>
               </div>
             </div>
             <div class="ref-mod-item">
               <span class="ref-mod-dot" style="background:#22c55e">f</span>
               <div>
-                <strong>2'-F</strong> &mdash; <em>2'-Fluoro</em><br>
-                <span class="ref-mod-desc">Replaces the hydroxyl with fluorine. Mimics natural RNA geometry so the cell's machinery (Ago2) accepts it easily. Best for RISC loading. Slightly less stable than OMe but better tolerated in the seed region.</span>
-                <pre class="ref-struct">    Base
+                <strong>2'-F</strong> &mdash; <em>2'-Fluoro (2'-Deoxy-2'-fluoro)</em><br>
+                <span class="ref-mod-desc">This modification replaces the natural hydroxyl group (-OH) at the 2' position with a single fluorine atom. Fluorine is almost the same size as hydrogen, so this is one of the smallest possible changes you can make to the sugar. The result is a nucleotide that looks almost identical to natural RNA to the cell's machinery, which means Ago2 accepts it very easily &mdash; making 2'-F the best modification for RISC loading (the step where Ago2 grabs the guide strand). It provides moderate protection against nucleases, though not as much as 2'-OMe. Where 2'-F really shines is in the seed region (positions 2-8), where the guide strand needs to maintain the perfect A-form helix geometry to find its target. 2'-OMe is slightly too bulky in these positions, but 2'-F fits perfectly. Most FDA-approved siRNA drugs use an alternating pattern of 2'-OMe and 2'-F along the strand for this reason.</span>
+                <pre class="ref-struct">    Base (A, U, G, or C)
      |
- 5'--O    O--3'
+ 5'--O    O--3'       &larr; Ribose sugar ring
      |   /
      C--C
      |   \
-     O    F          &larr; Fluorine here
+     O    F            &larr; Fluorine atom at 2' position
+                          (tiny &mdash; almost same size as H)
 </pre>
               </div>
             </div>
@@ -197,42 +213,103 @@
               <span class="ref-mod-dot" style="background:#ef4444">L</span>
               <div>
                 <strong>LNA</strong> &mdash; <em>Locked Nucleic Acid</em><br>
-                <span class="ref-mod-desc">A bridge locks the sugar into a rigid shape (C3'-endo). Extreme thermal stability (+4&deg;C per modification). But too rigid for the seed region and toxic if more than 3 in a row. Used sparingly at the ends for protection.</span>
+                <span class="ref-mod-desc">LNA is one of the most powerful &mdash; and most dangerous &mdash; modifications available. It works by adding a methylene bridge (a -CH2- link) that connects the 2' oxygen to the 4' carbon of the sugar ring. This bridge physically locks the sugar into a rigid C3'-endo conformation, like welding a door shut. The result is extraordinary thermal stability: each LNA modification raises the melting temperature by about +4&deg;C, meaning the double strand holds together much more tightly. This makes LNA excellent for protecting the ends of the siRNA from exonuclease attack. However, this rigidity is a double-edged sword. If you put LNA in the seed region (positions 2-8), the strand becomes too stiff to properly scan for its target mRNA, reducing efficacy. If you put more than 3 LNA modifications in a row, the strand becomes so rigid it can be toxic to cells. LNA is best used sparingly at positions 19-21 (the 3' overhang) for maximum protection with minimum disruption.</span>
+                <pre class="ref-struct">    Base
+     |
+ 5'--O    O--3'       &larr; Ribose sugar ring
+     |   /
+     C--C
+     |   \    CH2      &larr; Methylene bridge
+     O    O--/            LOCKS the sugar rigid
+          |
+          C(4')        &larr; Bridge connects 2'O to 4'C
+</pre>
               </div>
             </div>
             <div class="ref-mod-item">
               <span class="ref-mod-dot" style="background:#f97316">E</span>
               <div>
-                <strong>cEt</strong> &mdash; <em>Constrained Ethyl</em><br>
-                <span class="ref-mod-desc">Similar to LNA (locked sugar) but with a slightly different bridge. Similar stability, sometimes better tolerated in certain positions. Think of it as LNA's gentler sibling.</span>
+                <strong>cEt</strong> &mdash; <em>Constrained Ethyl (2',4'-Constrained 2'-O-Ethyl)</em><br>
+                <span class="ref-mod-desc">cEt is often called &ldquo;LNA's gentler sibling.&rdquo; Like LNA, it has a bridge that constrains the sugar ring into a locked C3'-endo shape, giving it high thermal stability (+3 to +4&deg;C per modification). The difference is that cEt's bridge has an extra methyl group on it, which subtly changes how the nucleotide sits within the Ago2 protein channel. In practice, this means cEt is sometimes better tolerated than LNA at certain positions, particularly in the supplementary region (positions 12-16), where LNA might cause steric clashes with the protein. Like LNA, cEt should be avoided in the seed region and the cleavage site. It is primarily used in antisense oligonucleotides (ASOs) rather than siRNAs, so it appears less frequently in published siRNA data &mdash; which is exactly why many cEt-position combinations show up as &ldquo;voids&rdquo; on the map.</span>
+                <pre class="ref-struct">    Base
+     |
+ 5'--O    O--3'       &larr; Ribose sugar ring
+     |   /
+     C--C
+     |   \    CH-CH3   &larr; Ethyl bridge (with
+     O    O--/            extra methyl vs LNA)
+          |
+          C(4')        &larr; Constrains sugar shape
+</pre>
               </div>
             </div>
             <div class="ref-mod-item">
               <span class="ref-mod-dot" style="background:#a78bfa">d</span>
               <div>
-                <strong>DNA</strong> &mdash; <em>Deoxyribonucleic Acid</em><br>
-                <span class="ref-mod-desc">The natural DNA form (no 2'-OH). Destabilizing (&minus;1.5&deg;C). Used strategically to lower melting temperature at specific positions, helping the cell's machinery unwind the duplex.</span>
+                <strong>DNA</strong> &mdash; <em>2'-Deoxyribonucleic Acid (2'-Deoxy)</em><br>
+                <span class="ref-mod-desc">DNA is technically not a &ldquo;modification&rdquo; but rather the absence of the 2'-OH group that makes RNA special. In natural DNA, the 2' position has just a hydrogen atom instead of a hydroxyl group. This makes the nucleotide adopt a different sugar shape (C2'-endo instead of C3'-endo), which destabilizes the double-stranded duplex by about &minus;1.5&deg;C per DNA substitution. Why would you intentionally weaken your drug? Because sometimes you want the duplex to be easier to unwind at specific positions. For example, placing DNA at position 1 of the guide strand can help Ago2 peel apart the two strands more easily, ensuring the guide strand loads preferentially. DNA is also sometimes used at the cleavage site (positions 10-11) because Ago2 actually prefers a slightly looser structure at the point where it cuts the target. However, DNA offers almost no protection against nucleases, so it should never be used at the exposed ends of the strand.</span>
+                <pre class="ref-struct">    Base
+     |
+ 5'--O    O--3'       &larr; Deoxyribose sugar
+     |   /               (same ring as RNA but...)
+     C--C
+     |   \
+     O    H            &larr; Just hydrogen at 2'
+                          (no -OH, no modification)
+                          Makes duplex LOOSER
+</pre>
               </div>
             </div>
             <div class="ref-mod-item">
               <span class="ref-mod-dot" style="background:#8892b0">r</span>
               <div>
-                <strong>RNA</strong> &mdash; <em>Unmodified RNA</em><br>
-                <span class="ref-mod-desc">Natural ribonucleic acid. No modification at all. Survives only ~15 seconds in blood. Used as a baseline reference. Any position left as RNA is a vulnerability.</span>
+                <strong>RNA</strong> &mdash; <em>Unmodified Ribonucleic Acid</em><br>
+                <span class="ref-mod-desc">This is natural, unmodified RNA &mdash; exactly what your cells make on their own. The 2' position has a hydroxyl group (-OH), which is what makes RNA different from DNA. While this is the &ldquo;natural&rdquo; form, it is actually the worst choice for a drug. The 2'-OH group is a chemical target that blood enzymes (RNases and nucleases) attack aggressively. Unmodified RNA survives only about 15 seconds in human blood before being completely degraded. Every position left as unmodified RNA is a vulnerability in the drug &mdash; a weak link that enzymes can exploit. In early siRNA research (before chemical modifications were developed), this rapid degradation was the #1 reason siRNA drugs failed in clinical trials. Today, unmodified RNA is used only as a baseline reference point for comparison. If you see RNA in a published pattern, it usually means that specific position is so sensitive to any modification that even leaving it unmodified was the best option.</span>
+                <pre class="ref-struct">    Base
+     |
+ 5'--O    O--3'       &larr; Ribose sugar ring
+     |   /               (the natural form)
+     C--C
+     |   \
+     O    OH           &larr; Hydroxyl group at 2'
+                          (NATURAL but vulnerable
+                           &mdash; enzymes attack here)
+</pre>
               </div>
             </div>
             <div class="ref-mod-item">
               <span class="ref-mod-dot" style="background:#ec4899">U</span>
               <div>
                 <strong>UNA</strong> &mdash; <em>Unlocked Nucleic Acid</em><br>
-                <span class="ref-mod-desc">The sugar ring is broken open, making it extremely flexible (&minus;2&deg;C). Useful at position 1 to create thermodynamic asymmetry (so the guide strand loads into Ago2 instead of the passenger).</span>
+                <span class="ref-mod-desc">UNA is the exact opposite of LNA. Instead of locking the sugar ring rigid, UNA breaks it open entirely. The bond between the C2' and C3' carbons of the ribose sugar is cleaved, turning the rigid five-membered ring into a floppy, open-chain structure. This makes the nucleotide extremely flexible, which destabilizes the duplex by about &minus;2&deg;C per UNA substitution. Why is extreme flexibility useful? Because of &ldquo;thermodynamic asymmetry.&rdquo; When Ago2 receives the siRNA duplex, it needs to figure out which strand to keep (the guide) and which to throw away (the passenger). It does this by checking which end of the duplex is less stable &mdash; the strand with the weaker 5' end becomes the guide. By placing UNA at position 1 of the guide strand, you deliberately weaken that end, signaling to Ago2: &ldquo;this is the strand you should load.&rdquo; UNA at guide position 1 is a well-established trick used in several clinical programs.</span>
+                <pre class="ref-struct">    Base
+     |
+ 5'--O         O--3'  &larr; Sugar ring is BROKEN
+     |        /           OPEN (C2'-C3' bond cut)
+     C    C
+     |    |
+     O    OH           &larr; Open chain &mdash; no ring
+                          Extremely FLEXIBLE
+                          (opposite of LNA)
+</pre>
               </div>
             </div>
             <div class="ref-mod-item">
               <span class="ref-mod-dot" style="background:#f59e0b">e</span>
               <div>
-                <strong>MOE</strong> &mdash; <em>2'-O-Methoxyethyl</em><br>
-                <span class="ref-mod-desc">A larger chemical group attached to the 2' position. Excellent nuclease resistance but physically bulky. Too large for the seed region (blocks target recognition) or the Ago2 channel. Best at the ends.</span>
+                <strong>MOE</strong> &mdash; <em>2'-O-Methoxyethyl (2'-O-(2-Methoxyethyl))</em><br>
+                <span class="ref-mod-desc">MOE attaches a larger chemical group to the 2' position: a methoxyethyl chain (-O-CH2-CH2-O-CH3). This is a bigger group than the simple methyl of 2'-OMe, which gives MOE excellent protection against nucleases &mdash; the bulky chain physically shields the sugar from enzyme attack. MOE also increases binding affinity to the target by about +1 to +2&deg;C per modification due to favorable hydration effects. However, that physical bulk comes with a cost. The Ago2 protein has a narrow channel through which the guide strand must thread, and MOE modifications are often too large to fit through this channel without disruption, especially in the seed region (positions 2-8) where precise geometry is critical for target recognition. MOE is most commonly used in antisense oligonucleotides (ASOs) like mipomersen, rather than siRNAs. In siRNA design, MOE is best placed at the ends of the strands (positions 19-21) where maximum nuclease protection is needed and Ago2 geometry constraints are relaxed.</span>
+                <pre class="ref-struct">    Base
+     |
+ 5'--O    O--3'       &larr; Ribose sugar ring
+     |   /
+     C--C
+     |   \
+     O    O--CH2--CH2--O--CH3
+          &larr; Methoxyethyl chain at 2'
+             (BULKY but great protection)
+             Too large for seed region
+</pre>
               </div>
             </div>
           </div>
@@ -240,14 +317,61 @@
 
         <div class="ref-panel-section">
           <h4>The 7 Functional Regions (X-axis: positions 1&ndash;21)</h4>
+          <p class="ref-regions-intro">The 21 positions on each strand are not all equal &mdash; different positions have very different jobs in the gene-silencing process. Scientists have identified 7 functional regions, each with its own rules about which modifications work well and which ones will break the drug. Understanding these regions is the key to designing effective siRNA.</p>
           <div class="ref-regions-list">
-            <div class="ref-region"><span class="ref-region-badge" style="background:rgba(168,85,247,0.2);color:#a855f7;">Pos 1</span> <strong>5' End</strong> &mdash; The very first nucleotide. UNA here helps the cell load the correct strand. Like putting a soft handle on a sword so you grab the right end.</div>
-            <div class="ref-region"><span class="ref-region-badge" style="background:rgba(51,102,255,0.2);color:#3366ff;">Pos 2-8</span> <strong>Seed Region</strong> &mdash; The drug's "address." These 7 nucleotides find and bind the target mRNA. Must maintain A-form helix geometry. Too rigid = can't bind. Wrong shape = hits the wrong gene (off-target effects).</div>
-            <div class="ref-region"><span class="ref-region-badge" style="background:rgba(0,212,255,0.2);color:#00d4ff;">Pos 9</span> <strong>Central</strong> &mdash; Transition zone between seed and cleavage. Flexible modifications are tolerated here.</div>
-            <div class="ref-region"><span class="ref-region-badge" style="background:rgba(255,68,68,0.2);color:#ff4444;">Pos 10-11</span> <strong>Cleavage Site</strong> &mdash; Where Ago2 (the cell's "scissors" protein) cuts the target mRNA. <strong>NEVER put rigid modifications here</strong> (LNA, cEt, MOE) &mdash; they block the cutting mechanism entirely.</div>
-            <div class="ref-region"><span class="ref-region-badge" style="background:rgba(245,158,11,0.2);color:#f59e0b;">Pos 12-16</span> <strong>Supplementary</strong> &mdash; Helps stabilize binding to the target. More tolerant of diverse modifications. Good place for stability-enhancing mods.</div>
-            <div class="ref-region"><span class="ref-region-badge" style="background:rgba(34,197,94,0.2);color:#22c55e;">Pos 17-18</span> <strong>3' Body</strong> &mdash; Approaching the end. Modifications here help protect against 3'-exonuclease degradation.</div>
-            <div class="ref-region"><span class="ref-region-badge" style="background:rgba(0,212,255,0.2);color:#00d4ff;">Pos 19-21</span> <strong>3' Overhang</strong> &mdash; The unprotected tail. Primary attack site for exonucleases. Protective modifications (2'-OMe, PS backbone) are critical here. This is where the drug gets "eaten" first.</div>
+            <div class="ref-region"><span class="ref-region-badge" style="background:rgba(168,85,247,0.2);color:#a855f7;">Pos 1</span> <strong>5' End (The Entry Point)</strong> &mdash; This is the very first nucleotide of the guide strand. It plays a critical role in &ldquo;strand selection&rdquo; &mdash; the process by which Ago2 decides which strand to keep and which to discard. Ago2 has a special pocket (the MID domain) that grips the 5' end of the guide strand. Placing a flexible modification like UNA here weakens the 5' end of the guide, which paradoxically helps because Ago2 preferentially loads the strand with the less stable 5' end. Think of it as putting a soft handle on a sword so you naturally grab the correct end.</div>
+            <div class="ref-region"><span class="ref-region-badge" style="background:rgba(51,102,255,0.2);color:#3366ff;">Pos 2-8</span> <strong>Seed Region (The Drug's Address)</strong> &mdash; These 7 nucleotides are the most critical positions on the entire siRNA. The seed region is what the guide strand uses to find and bind to its target mRNA &mdash; like a ZIP code that addresses a letter. The seed must maintain perfect A-form helix geometry (a specific spiral shape) so it can scan through thousands of mRNAs and recognize the correct one. Modifications that are too rigid (like LNA or cEt) prevent the seed from flexing as it searches for its target, reducing efficacy. Modifications that change the helix shape (like DNA) can cause the seed to match the wrong mRNA, silencing an unintended gene &mdash; this is called an &ldquo;off-target effect&rdquo; and is one of the biggest safety concerns in siRNA drug design. The ideal seed modifications are 2'-F (which mimics natural RNA geometry perfectly) alternating with 2'-OMe.</div>
+            <div class="ref-region"><span class="ref-region-badge" style="background:rgba(0,212,255,0.2);color:#00d4ff;">Pos 9</span> <strong>Central Pivot (The Transition Zone)</strong> &mdash; Position 9 sits at the transition between the seed region and the cleavage site. It acts as a &ldquo;pivot point&rdquo; where the guide strand bends slightly as Ago2 changes from target-scanning mode to target-cutting mode. This position is relatively tolerant of diverse modifications because it is not directly involved in either target recognition (seed) or target cutting (cleavage). Flexible modifications work well here.</div>
+            <div class="ref-region"><span class="ref-region-badge" style="background:rgba(255,68,68,0.2);color:#ff4444;">Pos 10-11</span> <strong>Cleavage Site (The Scissors)</strong> &mdash; This is where the actual gene silencing happens. The Ago2 protein contains an enzyme (called &ldquo;Slicer&rdquo;) that physically cuts the target mRNA between the nucleotides aligned with positions 10 and 11 of the guide strand. This is a precise mechanical process &mdash; like molecular scissors. <strong>Rigid modifications (LNA, cEt, MOE) must NEVER be placed here</strong> because they physically block the cutting mechanism. Even slightly bulky modifications can prevent Ago2 from executing the cut, completely destroying the drug's ability to silence the target gene. The safe choices here are 2'-OMe, 2'-F, or DNA (which can actually help by loosening the structure slightly for the cut).</div>
+            <div class="ref-region"><span class="ref-region-badge" style="background:rgba(245,158,11,0.2);color:#f59e0b;">Pos 12-16</span> <strong>Supplementary Region (The Stabilizers)</strong> &mdash; After the seed finds the target and the cleavage site cuts it, the supplementary region provides additional base-pairing that holds the guide strand in place during the cutting process. These positions are much more tolerant of diverse modifications than the seed or cleavage site, making them a good location for stability-enhancing modifications. This is where you can experiment more freely with different chemistries (including cEt and LNA in moderation) because the geometry requirements are more relaxed.</div>
+            <div class="ref-region"><span class="ref-region-badge" style="background:rgba(34,197,94,0.2);color:#22c55e;">Pos 17-18</span> <strong>3' Body (The Transition to the Tail)</strong> &mdash; These positions bridge the functional core of the siRNA and the exposed 3' overhang. Enzymes called 3'-exonucleases attack RNA from the 3' end inward, so modifications here serve as an inner line of defense. 2'-OMe works well at these positions, providing stability without disrupting function.</div>
+            <div class="ref-region"><span class="ref-region-badge" style="background:rgba(0,212,255,0.2);color:#00d4ff;">Pos 19-21</span> <strong>3' Overhang (The Exposed Tail)</strong> &mdash; These are the most vulnerable positions on the entire siRNA. The 3' overhang is a single-stranded tail that hangs off the end of the duplex, fully exposed to blood enzymes. Without strong protection here, exonucleases will start chewing through the strand from this end within minutes. This is why positions 19-21 almost always use heavy protective modifications: 2'-OMe or LNA for the sugar, plus PS (phosphorothioate) backbone linkages between each nucleotide. Losing protection here does not just damage a few positions &mdash; it starts a chain reaction of degradation that destroys the entire strand.</div>
+          </div>
+        </div>
+
+        <div class="ref-panel-section">
+          <h4>What are conjugates?</h4>
+          <p class="ref-conjugate-intro">A conjugate is a molecule physically attached to the siRNA that acts like a delivery address label. Without a conjugate, injected siRNA would float randomly through the bloodstream with no way to reach the specific organ that needs treatment. The conjugate binds to receptors on the surface of specific cell types, triggering the cell to pull the siRNA inside (a process called receptor-mediated endocytosis). Choosing the right conjugate determines which organ the drug reaches.</p>
+          <div class="ref-conjugate-grid">
+            <div class="ref-conjugate-item">
+              <strong>GalNAc</strong> &mdash; <em>N-Acetylgalactosamine</em>
+              <p>GalNAc is a sugar molecule that binds specifically to the ASGPR (asialoglycoprotein receptor), which is found almost exclusively on liver cells (hepatocytes). The liver is currently the #1 target organ for siRNA drugs because ASGPR is abundant (500,000+ receptors per hepatocyte) and recycles rapidly, pulling in new drug molecules every ~15 minutes. Six out of eight FDA-approved siRNA drugs use GalNAc conjugation. It is injected subcutaneously (under the skin) and reaches the liver within hours. When you select GalNAc in the designer, the scoring model assumes liver-targeted delivery, which is the best-understood and most clinically validated approach.</p>
+            </div>
+            <div class="ref-conjugate-item">
+              <strong>Cholesterol</strong> &mdash; <em>Cholesterol conjugate</em>
+              <p>Cholesterol is a fat-like molecule that naturally circulates in the blood attached to lipoproteins (like LDL and HDL). By attaching cholesterol to the siRNA, the drug hitchhikes on these natural transport particles, which carry it to many different tissues including the liver, kidney, and some muscle cells. This gives broader tissue distribution than GalNAc but with lower potency to any single organ. Cholesterol conjugation was one of the earliest delivery strategies tested and has been used in research settings to target tissues beyond the liver.</p>
+            </div>
+            <div class="ref-conjugate-item">
+              <strong>LNP</strong> &mdash; <em>Lipid Nanoparticle</em>
+              <p>An LNP is a tiny bubble made of fatty molecules (lipids) that wraps around the siRNA, protecting it from degradation and helping it enter cells. LNPs are given by intravenous (IV) injection and naturally accumulate in the liver. Patisiran (Onpattro), the first FDA-approved siRNA drug, uses LNP delivery. LNPs can carry larger payloads and do not require covalent attachment, but they require IV infusion in a clinical setting rather than simple subcutaneous injection. When you select LNP, the scoring model accounts for the additional protection the lipid shell provides.</p>
+            </div>
+            <div class="ref-conjugate-item">
+              <strong>None</strong> &mdash; <em>No conjugate (naked siRNA)</em>
+              <p>Selecting &ldquo;None&rdquo; means the siRNA has no delivery molecule attached. Naked siRNA is rapidly cleared from the bloodstream by the kidneys (within minutes) and has very poor cellular uptake. This is almost never used in clinical drug design but can be relevant for certain research applications like direct injection into tumors or local delivery to the eye or lung. When no conjugate is selected, the scoring model will penalize the overall score because the drug has no mechanism to reach target cells efficiently.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="ref-panel-section">
+          <h4>What do the scoring terms mean?</h4>
+          <p class="ref-scoring-intro">When OligoVoid scores a modification pattern, it evaluates four fundamental biophysics properties that determine whether an siRNA drug will work. Each sub-score is rated from 0 to 100. Here is what each one measures and why it matters:</p>
+          <div class="ref-scoring-grid">
+            <div class="ref-scoring-item">
+              <strong>Thermodynamic Stability (Thermo)</strong>
+              <p>This measures whether the two strands of the siRNA will stay paired during delivery through the bloodstream. The key number is the &ldquo;melting temperature&rdquo; (Tm) &mdash; the temperature at which half the duplexes fall apart. If Tm is too low (below ~50&deg;C), the drug falls apart in the body before reaching its target. If Tm is too high (above ~65&deg;C), the two strands are so tightly bound that Ago2 cannot separate them inside the cell, and the drug never activates. A score of 100 means the Tm is in the ideal range. The score also checks &ldquo;thermodynamic asymmetry&rdquo; &mdash; whether the 5' end of the guide is slightly less stable than the 3' end, which ensures Ago2 loads the correct strand.</p>
+            </div>
+            <div class="ref-scoring-item">
+              <strong>RISC Loading (RISC)</strong>
+              <p>RISC stands for RNA-Induced Silencing Complex &mdash; the molecular machine (built around the Ago2 protein) that actually executes gene silencing. RISC Loading measures how easily the guide strand can be loaded into this machine. The guide strand must thread through a narrow channel in Ago2, which means bulky modifications (like LNA, cEt, or MOE) in the seed region (positions 2-8) can physically block loading. The score also checks that the 5' end is properly configured for recognition by Ago2's MID domain. A score of 100 means the modification pattern allows smooth, efficient loading of the guide strand into RISC.</p>
+            </div>
+            <div class="ref-scoring-item">
+              <strong>Nuclease Resistance (NucRes)</strong>
+              <p>Blood is full of enzymes (nucleases) whose entire job is to destroy foreign RNA. An unmodified siRNA would survive only about 15 seconds in human blood. Nuclease Resistance measures how well the chemical modifications protect the drug from enzymatic degradation. Modifications like 2'-OMe, 2'-F, LNA, and MOE all provide protection (by hiding the vulnerable 2'-OH group that nucleases target). The score checks every position on both strands: are the most exposed positions (the 3' overhang, the strand termini) adequately protected? A score of 100 means the drug has comprehensive protection and should survive long enough to reach its target cells.</p>
+            </div>
+            <div class="ref-scoring-item">
+              <strong>Off-Target Safety (OffTgt)</strong>
+              <p>The biggest safety concern with siRNA drugs is accidentally silencing the wrong gene. This happens when the seed region (positions 2-8) of the guide &mdash; or worse, the passenger strand &mdash; partially matches an unintended mRNA. Off-Target Safety measures the risk of this happening. Key factors include: Are there 2'-OMe modifications in the passenger strand's seed region? (This reduces off-target silencing by the passenger strand.) Does the pattern avoid G-rich stretches that could form unusual structures (G-quadruplexes) that bind promiscuously? A score of 100 means the pattern has multiple safeguards against off-target effects.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -293,11 +417,11 @@
         <h3>Custom Pattern Designer</h3>
         <p class="section-subtitle">Edit any position. Default: Alnylam ESC. Score updates live.</p>
         <div class="designer-strand">
-          <span class="designer-strand-label">Guide 5'&rarr;3'</span>
+          <span class="designer-strand-label">Guide Strand 5'&rarr;3' <small style="color:var(--text-secondary);font-weight:400;">(active strand &mdash; silences the target gene)</small></span>
           <div class="designer-row" id="designer-guide"></div>
         </div>
         <div class="designer-strand">
-          <span class="designer-strand-label">Pass 3'&larr;5'</span>
+          <span class="designer-strand-label">Passenger Strand 3'&larr;5' <small style="color:var(--text-secondary);font-weight:400;">(protective partner &mdash; discarded after delivery)</small></span>
           <div class="designer-row" id="designer-passenger"></div>
         </div>
         <div class="designer-controls">
@@ -498,14 +622,14 @@
         <div class="explainer-body">
           <p>This is the <strong>21-position pattern builder</strong>. Click any position to change its modification. Each of the 8 modification types has different properties:</p>
           <div class="mod-descriptions">
-            <div><span class="mod-dot" style="background:#3b82f6"></span> <strong>2'-OMe</strong> &mdash; Gold standard. Good stability, good RISC tolerance. The workhorse.</div>
-            <div><span class="mod-dot" style="background:#22c55e"></span> <strong>2'-F</strong> &mdash; Mimics RNA geometry. Best RISC loading. Slightly less stable than OMe.</div>
-            <div><span class="mod-dot" style="background:#ef4444"></span> <strong>LNA</strong> &mdash; Locks sugar in C3'-endo. Extreme stability but stiff. Hurts RISC if in seed.</div>
-            <div><span class="mod-dot" style="background:#f97316"></span> <strong>cEt</strong> &mdash; LNA sibling. Similar stability, slightly better tolerance in some positions.</div>
-            <div><span class="mod-dot" style="background:#a78bfa"></span> <strong>DNA</strong> &mdash; Destabilizing. Used strategically to lower Tm at specific positions.</div>
-            <div><span class="mod-dot" style="background:#8892b0"></span> <strong>RNA</strong> &mdash; Unmodified. Natural but vulnerable to nucleases. Baseline reference.</div>
-            <div><span class="mod-dot" style="background:#ec4899"></span> <strong>UNA</strong> &mdash; Unlocked nucleic acid. Very flexible. Good at position 1 for thermodynamic asymmetry.</div>
-            <div><span class="mod-dot" style="background:#f59e0b"></span> <strong>MOE</strong> &mdash; 2'-O-methoxyethyl. Great nuclease resistance but bulky. Avoid in seed region.</div>
+            <div><span class="mod-dot" style="background:#3b82f6"></span> <strong>2'-OMe (2'-O-Methyl)</strong> &mdash; The most widely used modification. A small methyl group (-CH3) is added to the 2' position of the sugar ring, protecting it from blood enzymes while keeping the sugar in a shape that the cell's gene-silencing protein (Ago2) can still use. Used in 6 out of 8 FDA-approved siRNA drugs. Works well at almost every position.</div>
+            <div><span class="mod-dot" style="background:#22c55e"></span> <strong>2'-F (2'-Fluoro)</strong> &mdash; A fluorine atom replaces the hydroxyl group at the 2' position. Because fluorine is tiny (almost the same size as hydrogen), the modified nucleotide looks almost identical to natural RNA. This makes 2'-F the best choice for the seed region (positions 2-8), where the drug needs to maintain precise geometry to find its target gene. Provides moderate enzyme protection.</div>
+            <div><span class="mod-dot" style="background:#ef4444"></span> <strong>LNA (Locked Nucleic Acid)</strong> &mdash; A chemical bridge locks the sugar ring into a rigid shape, dramatically increasing thermal stability (+4&deg;C per modification). However, this rigidity is a double-edged sword: if placed in the seed region, it prevents the strand from flexing as it searches for its target, reducing efficacy. More than 3 in a row can be toxic. Best used sparingly at the strand ends for protection.</div>
+            <div><span class="mod-dot" style="background:#f97316"></span> <strong>cEt (Constrained Ethyl)</strong> &mdash; Similar to LNA &mdash; a bridge constrains the sugar &mdash; but with an extra methyl group on the bridge. This subtle difference sometimes makes cEt better tolerated than LNA at certain positions. Mostly used in antisense drugs (ASOs), so many cEt + siRNA combinations have never been tested, creating many &ldquo;voids&rdquo; on the map.</div>
+            <div><span class="mod-dot" style="background:#a78bfa"></span> <strong>DNA (2'-Deoxy)</strong> &mdash; The natural DNA form, with just a hydrogen at the 2' position instead of a hydroxyl. Destabilizes the duplex by about -1.5&deg;C per substitution. This sounds bad, but it can be strategically useful: DNA at position 1 helps Ago2 separate the two strands, and DNA at the cleavage site (positions 10-11) can make it easier for Ago2 to cut the target.</div>
+            <div><span class="mod-dot" style="background:#8892b0"></span> <strong>RNA (Unmodified)</strong> &mdash; Natural ribonucleic acid with no chemical modification at all. The 2' hydroxyl group (-OH) is fully exposed, making it a target for blood enzymes (nucleases) that destroy unmodified RNA in about 15 seconds. Leaving any position as RNA creates a weak link in the drug. Used only as a baseline reference or when no modification is tolerated.</div>
+            <div><span class="mod-dot" style="background:#ec4899"></span> <strong>UNA (Unlocked Nucleic Acid)</strong> &mdash; The opposite of LNA. The sugar ring is broken open entirely, creating extreme flexibility and destabilizing the duplex by about -2&deg;C. Useful at position 1 of the guide strand to create &ldquo;thermodynamic asymmetry&rdquo; &mdash; deliberately weakening the 5' end so that Ago2 selects the guide strand over the passenger strand.</div>
+            <div><span class="mod-dot" style="background:#f59e0b"></span> <strong>MOE (2'-O-Methoxyethyl)</strong> &mdash; A larger chemical group (-O-CH2-CH2-O-CH3) attached at the 2' position. Provides excellent protection against enzymes, but it is physically bulky. Too large for the seed region (positions 2-8), where it would distort the geometry needed for target recognition, and too large for Ago2's narrow channel. Best used at the 3' overhang (positions 19-21) for maximum protection.</div>
           </div>
         </div>
       </div>
@@ -520,6 +644,7 @@
             <span class="scorer-strand-label">Guide Strand</span>
             <span class="scorer-direction">5' &rarr; 3'</span>
           </div>
+          <div class="scorer-strand-explain">The guide strand is the active strand that silences the disease gene. Ago2 uses it as a template to find and cut the target mRNA. Click any position (1&ndash;21) below to change its modification.</div>
           <div class="scorer-positions" id="scorer-guide-positions"></div>
           <div class="scorer-region-labels" id="scorer-guide-regions"></div>
         </div>
@@ -528,6 +653,7 @@
             <span class="scorer-strand-label">Passenger Strand</span>
             <span class="scorer-direction">3' &larr; 5'</span>
           </div>
+          <div class="scorer-strand-explain">The passenger strand is the protective partner. It shields the guide during delivery, then gets discarded inside the cell. Its modifications still affect duplex stability and off-target safety.</div>
           <div class="scorer-positions" id="scorer-passenger-positions"></div>
         </div>
         <div class="scorer-options-row">
@@ -581,11 +707,11 @@
         <button class="btn-primary btn-large" id="btn-score-pattern">Score This Pattern</button>
       </div>
       <div class="live-score-strip" id="scorer-live-score">
-        <div class="live-score-chip" title="Thermodynamic Stability: Can the two strands stay paired? Too hot = won't unwind for the cell to use. Too cold = falls apart in blood. Ideal melting temperature is 50-65&deg;C. Score of 100 = perfect stability range."><span class="live-score-chip-value" id="live-thermo">--</span><span class="live-score-chip-label">Thermo</span></div>
-        <div class="live-score-chip" title="RISC Loading: Can the cell's Ago2 protein grab the correct strand? The guide strand must load preferentially. Rigid modifications (LNA) in the seed region block this. Score of 100 = perfect loading."><span class="live-score-chip-value" id="live-risc">--</span><span class="live-score-chip-label">RISC</span></div>
-        <div class="live-score-chip" title="Nuclease Resistance: Can the drug survive in blood without being destroyed by enzymes? More protective modifications (2'-OMe, LNA) = higher score. Unmodified RNA = very low score."><span class="live-score-chip-value" id="live-nucres">--</span><span class="live-score-chip-label">NucRes</span></div>
-        <div class="live-score-chip" title="Off-Target Safety: Will this drug ONLY silence the intended gene? 2'-OMe in the passenger seed reduces off-target effects. Score of 100 = minimal off-target risk."><span class="live-score-chip-value" id="live-offtgt">--</span><span class="live-score-chip-label">OffTgt</span></div>
-        <div class="live-score-chip live-score-overall" title="Overall Score: Weighted combination of all four sub-scores. Thermo (20%) + RISC (35%) + NucRes (25%) + OffTarget (20%). Higher = more likely to work as a drug."><span class="live-score-chip-value" id="live-overall">--</span><span class="live-score-chip-label">Overall</span></div>
+        <div class="live-score-chip" title="THERMODYNAMIC STABILITY: Measures whether the two strands of the siRNA will stay paired during delivery through the bloodstream. The key metric is 'melting temperature' (Tm) &mdash; the temperature at which half the duplexes fall apart. If Tm is too low (below ~50&deg;C), the drug disintegrates before reaching its target cells. If Tm is too high (above ~65&deg;C), the strands are bonded so tightly that the cell's Ago2 protein cannot separate them, and the drug never activates. A score of 100 means the Tm falls in the ideal 50-65&deg;C range AND the 5' end of the guide is slightly less stable than the 3' end (ensuring correct strand loading)."><span class="live-score-chip-value" id="live-thermo">--</span><span class="live-score-chip-label">Thermo</span></div>
+        <div class="live-score-chip" title="RISC LOADING: Measures how efficiently the guide strand can be loaded into the RISC complex (RNA-Induced Silencing Complex), built around the Ago2 protein. Ago2 must grab the guide strand, thread it through a narrow channel, and use it to find the target mRNA. Bulky or rigid modifications (LNA, cEt, MOE) in the seed region (positions 2-8) physically obstruct this channel and reduce loading efficiency. The score also checks that the 5' end is properly configured for Ago2's MID domain recognition. Score of 100 = the guide strand loads smoothly with correct strand selection."><span class="live-score-chip-value" id="live-risc">--</span><span class="live-score-chip-label">RISC</span></div>
+        <div class="live-score-chip" title="NUCLEASE RESISTANCE: Measures how well the drug survives in the bloodstream. Human blood contains enzymes called nucleases whose job is to destroy foreign RNA. Unmodified RNA survives only ~15 seconds. Each protective modification (2'-OMe, 2'-F, LNA, MOE) at exposed positions extends survival. The score checks whether the most vulnerable positions &mdash; the 3' overhang (positions 19-21) and strand termini &mdash; have adequate protection. Score of 100 = comprehensive protection across the entire pattern."><span class="live-score-chip-value" id="live-nucres">--</span><span class="live-score-chip-label">NucRes</span></div>
+        <div class="live-score-chip" title="OFF-TARGET SAFETY: Measures the risk of the drug accidentally silencing the wrong gene. This happens when the seed region of the guide &mdash; or the passenger strand &mdash; partially matches an unintended mRNA. Key protective factors: 2'-OMe modifications in the passenger strand's seed region reduce passenger-mediated off-target silencing. Avoiding G-rich stretches prevents G-quadruplex formation. Score of 100 = multiple safeguards against off-target effects are in place."><span class="live-score-chip-value" id="live-offtgt">--</span><span class="live-score-chip-label">OffTgt</span></div>
+        <div class="live-score-chip live-score-overall" title="OVERALL OLIGOVOID SCORE: A weighted combination of all four biophysics sub-scores. Weights: Thermodynamic Stability (20%) + RISC Loading (35%) + Nuclease Resistance (25%) + Off-Target Safety (20%). A score above 75 indicates a pattern that should perform well across all dimensions. Higher = more likely to work as a drug in practice."><span class="live-score-chip-value" id="live-overall">--</span><span class="live-score-chip-label">Overall</span></div>
       </div>
       <div class="scorer-results" id="scorer-results" style="display:none"></div>
       <div class="scorer-comparison" id="scorer-comparison" style="display:none"></div>

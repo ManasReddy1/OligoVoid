@@ -367,6 +367,207 @@ body {
   margin-right: 0.3rem;
 }
 
+/* Strand explainer boxes */
+.ref-strand-explainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  margin: 0.8rem 0;
+}
+
+.ref-strand-box {
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.ref-strand-box strong {
+  font-size: 0.72rem;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.ref-strand-box p {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.ref-strand-guide {
+  border-color: rgba(0, 255, 136, 0.2);
+}
+
+.ref-strand-guide strong {
+  color: var(--accent-biolum);
+}
+
+.ref-strand-passenger {
+  border-color: rgba(0, 212, 255, 0.2);
+}
+
+.ref-strand-passenger strong {
+  color: var(--accent-cyan);
+}
+
+/* Mod intro and regions intro */
+.ref-mod-intro, .ref-regions-intro {
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 0.7rem;
+}
+
+/* Conjugate reference grid */
+.ref-conjugate-intro {
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 0.7rem;
+}
+
+.ref-conjugate-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.ref-conjugate-item {
+  padding: 0.6rem 0.8rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.ref-conjugate-item strong {
+  color: var(--accent-cyan);
+  font-size: 0.72rem;
+}
+
+.ref-conjugate-item em {
+  color: var(--text-secondary);
+  font-size: 0.62rem;
+}
+
+.ref-conjugate-item p {
+  font-size: 0.63rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin-top: 0.3rem;
+}
+
+/* Scoring reference grid */
+.ref-scoring-intro {
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 0.7rem;
+}
+
+.ref-scoring-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.ref-scoring-item {
+  padding: 0.6rem 0.8rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.ref-scoring-item strong {
+  color: var(--accent-biolum);
+  font-size: 0.72rem;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.ref-scoring-item p {
+  font-size: 0.63rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+/* Scorer strand explain text */
+.scorer-strand-explain {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 0.4rem;
+  padding: 0 0.2rem;
+}
+
+/* Territory card description */
+.territory-card-desc {
+  font-size: 0.58rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin-top: 0.3rem;
+  opacity: 0.85;
+}
+
+/* Enhanced tooltip styling */
+.heatmap-tooltip {
+  max-width: 400px !important;
+  padding: 0.7rem 0.9rem !important;
+}
+
+.tt-strand-note {
+  font-size: 0.6rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.3rem;
+  font-style: italic;
+}
+
+.tt-mod-name {
+  font-size: 0.72rem;
+  margin: 0.3rem 0 0.15rem;
+}
+
+.tt-mod-explain {
+  font-size: 0.62rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 0.3rem;
+}
+
+.tt-region-explain {
+  font-size: 0.62rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 0.3rem;
+  padding: 0.25rem 0.4rem;
+  background: rgba(0, 212, 255, 0.05);
+  border-radius: 3px;
+  border-left: 2px solid rgba(0, 212, 255, 0.3);
+}
+
+.tt-insight {
+  font-size: 0.62rem;
+  line-height: 1.5;
+  margin-bottom: 0.3rem;
+  padding: 0.25rem 0.4rem;
+  background: rgba(0, 255, 136, 0.05);
+  border-radius: 3px;
+  border-left: 2px solid rgba(0, 255, 136, 0.3);
+  color: var(--accent-biolum);
+}
+
+.tt-count {
+  font-size: 0.62rem;
+  margin-top: 0.3rem;
+}
+
+.tt-void {
+  color: #ff3366;
+  font-weight: 600;
+  font-size: 0.62rem;
+  margin-top: 0.2rem;
+  line-height: 1.4;
+}
+
 /* Help icon (?) for tooltips */
 .help-icon {
   display: inline-flex;
@@ -1326,6 +1527,13 @@ body {
 
 .void-rank { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-secondary); }
 .void-id { font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700; color: var(--accent-cyan); margin-left: 0.4rem; }
+
+.void-id-expanded {
+  font-size: 0.6rem;
+  color: var(--text-secondary);
+  margin-top: 0.15rem;
+  line-height: 1.3;
+}
 
 .void-overall-score {
   font-family: var(--font-mono);

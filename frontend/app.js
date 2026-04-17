@@ -626,6 +626,58 @@ function renderHeatmap(strand, strandData, gridId, yAxisId) {
   });
 }
 
+// Modification full names and explanations for tooltips
+var MOD_FULL_NAMES = {
+  "2'-OMe": "2'-O-Methyl",
+  "2'-F": "2'-Fluoro",
+  "LNA": "Locked Nucleic Acid",
+  "cEt": "Constrained Ethyl",
+  "DNA": "2'-Deoxyribonucleic Acid",
+  "RNA": "Unmodified RNA",
+  "UNA": "Unlocked Nucleic Acid",
+  "MOE": "2'-O-Methoxyethyl"
+};
+
+var MOD_BRIEF = {
+  "2'-OMe": "A methyl group on the sugar ring. The most commonly used modification \u2014 provides good nuclease protection and is well-tolerated by the cell's gene-silencing machinery (Ago2). Used in 6/8 FDA-approved siRNA drugs.",
+  "2'-F": "A fluorine atom replaces the hydroxyl on the sugar. Almost the same size as natural RNA, so Ago2 accepts it easily. Best modification for the seed region where precise geometry is critical.",
+  "LNA": "A methylene bridge locks the sugar rigid. Extremely stabilizing (+4\u00b0C per modification) but too stiff for the seed region and toxic in long stretches. Best used sparingly at strand ends for protection.",
+  "cEt": "Similar to LNA (locked sugar) but with an ethyl bridge. Sometimes better tolerated at certain positions. Mostly used in antisense drugs, so many siRNA combinations are untested.",
+  "DNA": "The natural DNA form \u2014 no 2'-OH group. Destabilizes the duplex (-1.5\u00b0C), which can help Ago2 separate the strands. Used strategically at position 1 or the cleavage site.",
+  "RNA": "Unmodified, natural RNA. Survives only ~15 seconds in blood because enzymes attack the exposed 2'-OH group. Any position left as RNA is a vulnerability in the drug.",
+  "UNA": "The sugar ring is broken open, making it extremely flexible (-2\u00b0C). The opposite of LNA. Used at position 1 to create thermodynamic asymmetry so Ago2 loads the correct strand.",
+  "MOE": "A large methoxyethyl chain on the sugar. Excellent nuclease resistance but physically too bulky for the seed region or Ago2's narrow channel. Best at the 3' overhang for protection."
+};
+
+function getRegionInfo(strand, pos) {
+  if (pos === 1) return { name: "5' End", desc: "The entry point. This position determines which strand Ago2 selects as the guide. Flexible modifications (UNA, DNA) here help ensure the correct strand loads." };
+  if (pos >= 2 && pos <= 8) return { name: "Seed Region", desc: "The drug's 'address' \u2014 these positions find and bind the target mRNA. Modifications must maintain A-form helix geometry. Too rigid = reduced efficacy. Wrong shape = off-target gene silencing." };
+  if (pos === 9) return { name: "Central Pivot", desc: "Transition zone between seed and cleavage. Relatively tolerant of diverse modifications. Acts as a hinge where the guide strand bends during target recognition." };
+  if (pos >= 10 && pos <= 11) return { name: "Cleavage Site", desc: "Where Ago2's 'Slicer' enzyme cuts the target mRNA. Rigid/bulky modifications (LNA, cEt, MOE) BLOCK the cutting mechanism and must NEVER be placed here." };
+  if (pos >= 12 && pos <= 16) return { name: "Supplementary Region", desc: "Stabilizes the guide-target pairing during cutting. More tolerant of diverse modifications. A good place to experiment with different chemistries." };
+  if (pos >= 17 && pos <= 18) return { name: "3' Body", desc: "Transition to the exposed tail. Modifications here serve as an inner defense line against 3'-exonucleases that attack from the end." };
+  if (pos >= 19) return { name: "3' Overhang", desc: "The most vulnerable positions \u2014 fully exposed single-stranded tail. Exonucleases attack here first. Strong protection (2'-OMe, LNA, PS backbone) is critical." };
+  return { name: "", desc: "" };
+}
+
+function getModAtPositionInsight(mod, pos, strand) {
+  // Contextual insight about this specific modification at this specific position
+  var region = getRegionInfo(strand, pos);
+  if (pos === 1 && mod === 'UNA') return 'Excellent choice: UNA at position 1 creates thermodynamic asymmetry, helping Ago2 load the guide strand preferentially. This is a well-validated strategy used in clinical programs.';
+  if (pos === 1 && mod === 'DNA') return 'DNA at position 1 destabilizes the 5\' end, which can help with strand selection. A reasonable alternative to UNA for thermodynamic asymmetry.';
+  if (pos >= 2 && pos <= 8 && mod === "2'-F") return 'Ideal: 2\'-F in the seed region maintains the precise A-form helix geometry needed for target recognition. Its small size mimics natural RNA perfectly.';
+  if (pos >= 2 && pos <= 8 && mod === "2'-OMe") return '2\'-OMe in the seed provides good protection but is slightly bulkier than 2\'-F. Most FDA drugs alternate OMe/F in the seed for optimal balance.';
+  if (pos >= 2 && pos <= 8 && mod === 'LNA') return 'Caution: LNA in the seed region can reduce efficacy due to excessive rigidity. The locked sugar prevents the flexible scanning motion needed to find the target mRNA.';
+  if (pos >= 2 && pos <= 8 && mod === 'cEt') return 'Caution: Like LNA, cEt in the seed region adds rigidity that may impair target scanning. However, cEt is sometimes slightly better tolerated than LNA at certain seed positions.';
+  if (pos >= 2 && pos <= 8 && mod === 'MOE') return 'Warning: MOE is physically too bulky for the seed region. Its large methoxyethyl group can distort the helix geometry needed for precise target recognition.';
+  if ((pos === 10 || pos === 11) && (mod === 'LNA' || mod === 'cEt' || mod === 'MOE')) return 'CRITICAL WARNING: Rigid/bulky modifications at the cleavage site block Ago2\'s Slicer enzyme from cutting the target mRNA. This will likely destroy the drug\'s gene-silencing activity entirely.';
+  if ((pos === 10 || pos === 11) && mod === 'DNA') return 'DNA at the cleavage site can help by loosening the structure slightly, making it easier for Ago2 to execute the cut. Used in some advanced designs.';
+  if (pos >= 19 && (mod === "2'-OMe" || mod === 'LNA')) return 'Strong protective choice at the 3\' overhang, where exonucleases attack first. This modification shields the exposed tail from rapid degradation.';
+  if (pos >= 19 && mod === 'RNA') return 'Vulnerable: Unmodified RNA at the 3\' overhang is rapidly destroyed by exonucleases. This is the most exposed position on the strand.';
+  if (mod === 'RNA') return 'Unmodified RNA at this position is vulnerable to nuclease degradation. Unless this position is too sensitive for any modification, consider adding protection.';
+  return '';
+}
+
 function showHeatmapTooltip(e) {
   var cell = e.currentTarget;
   var tooltip = document.getElementById('heatmap-tooltip');
@@ -635,12 +687,15 @@ function showHeatmapTooltip(e) {
   var count = parseInt(cell.dataset.count);
 
   var strandLabel = strand === 'guide' ? 'Guide' : 'Passenger';
-  var regionNote = '';
-  if (strand === 'guide') {
-    if (SEED_RANGE.includes(pos)) regionNote = ' (seed region)';
-    else if (CLEAVAGE_RANGE.includes(pos)) regionNote = ' (cleavage site)';
-    else if (OVERHANG_RANGE.includes(pos)) regionNote = " (3' overhang)";
-  }
+  var strandExplain = strand === 'guide'
+    ? 'The guide strand is the active strand that silences the target gene.'
+    : 'The passenger strand is the protective partner that gets discarded after delivery.';
+
+  var region = getRegionInfo(strand, pos);
+  var regionTag = region.name ? ' \u2014 ' + region.name : '';
+  var modFull = MOD_FULL_NAMES[mod] || mod;
+  var modExplain = MOD_BRIEF[mod] || '';
+  var posInsight = getModAtPositionInsight(mod, pos, strand);
 
   var examples = '';
   if (knownPatterns && count > 0) {
@@ -652,11 +707,15 @@ function showHeatmapTooltip(e) {
   }
 
   tooltip.innerHTML =
-    '<div class="tt-title">Position ' + pos + ', ' + strandLabel + ' strand' + regionNote + '</div>' +
-    '<div>' + mod + ' modification</div>' +
-    '<div class="tt-count">Tested in: ' + count + ' published siRNAs</div>' +
-    (count === 0 ? '<div style="color:#ff3366;font-weight:700;margin-top:0.2rem;">VOID — Never tested</div>' : '') +
-    (examples ? '<div class="tt-examples">Examples: ' + examples + '</div>' : '');
+    '<div class="tt-title">' + strandLabel + ' Strand, Position ' + pos + regionTag + '</div>' +
+    '<div class="tt-strand-note">' + strandExplain + '</div>' +
+    '<div class="tt-mod-name"><strong>' + mod + '</strong> (' + modFull + ')</div>' +
+    '<div class="tt-mod-explain">' + modExplain + '</div>' +
+    (region.desc ? '<div class="tt-region-explain"><strong>This region:</strong> ' + region.desc + '</div>' : '') +
+    (posInsight ? '<div class="tt-insight">' + posInsight + '</div>' : '') +
+    '<div class="tt-count">Published experiments using ' + mod + ' at ' + strandLabel.toLowerCase() + ' position ' + pos + ': <strong>' + count + '</strong></div>' +
+    (count === 0 ? '<div class="tt-void">VOID \u2014 This specific combination has never been tested in any published siRNA experiment. It is an unexplored possibility \u2014 a gap in human knowledge.</div>' : '') +
+    (examples ? '<div class="tt-examples">Used in: ' + examples + '</div>' : '');
 
   tooltip.style.display = 'block';
   positionTooltip(tooltip, e);
@@ -669,8 +728,8 @@ function hideHeatmapTooltip() {
 function positionTooltip(tooltip, e) {
   var x = e.clientX + 12;
   var y = e.clientY + 12;
-  tooltip.style.left = Math.min(x, window.innerWidth - 300) + 'px';
-  tooltip.style.top = Math.min(y, window.innerHeight - 150) + 'px';
+  tooltip.style.left = Math.min(x, window.innerWidth - 420) + 'px';
+  tooltip.style.top = Math.min(y, window.innerHeight - 300) + 'px';
 }
 
 function handleHeatmapClick(e) {
@@ -716,15 +775,22 @@ function renderTerritoryCards() {
   var container = document.getElementById('territory-cards');
   if (!container) return;
 
-  // Define 7 territories with their colors
+  // Define 7 territories with their colors and beginner-friendly descriptions
   var territories = [
-    { name: "5' End", positions: '1', color: '#a855f7', borderColor: 'rgba(168,85,247,0.4)', bg: 'rgba(168,85,247,0.08)' },
-    { name: 'Seed', positions: '2-8', color: '#3366ff', borderColor: 'rgba(51,102,255,0.4)', bg: 'rgba(51,102,255,0.08)' },
-    { name: 'Central', positions: '9', color: '#00d4ff', borderColor: 'rgba(0,212,255,0.4)', bg: 'rgba(0,212,255,0.08)' },
-    { name: 'Cleavage', positions: '10-11', color: '#ff4444', borderColor: 'rgba(255,68,68,0.4)', bg: 'rgba(255,68,68,0.08)' },
-    { name: 'Supplementary', positions: '12-16', color: '#f59e0b', borderColor: 'rgba(245,158,11,0.4)', bg: 'rgba(245,158,11,0.08)' },
-    { name: "3' Body", positions: '17-18', color: '#22c55e', borderColor: 'rgba(34,197,94,0.4)', bg: 'rgba(34,197,94,0.08)' },
-    { name: "3' Overhang", positions: '19-21', color: '#00d4ff', borderColor: 'rgba(0,212,255,0.4)', bg: 'rgba(0,212,255,0.08)' },
+    { name: "5' End", positions: '1', color: '#a855f7', borderColor: 'rgba(168,85,247,0.4)', bg: 'rgba(168,85,247,0.08)',
+      desc: 'The entry point. Position 1 of the guide strand determines which strand the cell keeps for gene silencing. Flexible modifications (like UNA) here help the cell select the correct strand.' },
+    { name: 'Seed', positions: '2-8', color: '#3366ff', borderColor: 'rgba(51,102,255,0.4)', bg: 'rgba(51,102,255,0.08)',
+      desc: "The drug's address \u2014 these 7 positions find and bind the target gene. Must maintain precise geometry. If modifications here are too rigid, the drug can't find its target or may silence the wrong gene." },
+    { name: 'Central', positions: '9', color: '#00d4ff', borderColor: 'rgba(0,212,255,0.4)', bg: 'rgba(0,212,255,0.08)',
+      desc: 'Pivot point between the targeting region (seed) and the cutting region (cleavage). Tolerant of diverse modifications. Acts as a hinge in the guide strand.' },
+    { name: 'Cleavage', positions: '10-11', color: '#ff4444', borderColor: 'rgba(255,68,68,0.4)', bg: 'rgba(255,68,68,0.08)',
+      desc: "Where the cell's scissors (Ago2 Slicer) cut the target mRNA. Rigid modifications here BLOCK the cut entirely. Only flexible mods (2'-OMe, 2'-F, DNA) are safe." },
+    { name: 'Supplementary', positions: '12-16', color: '#f59e0b', borderColor: 'rgba(245,158,11,0.4)', bg: 'rgba(245,158,11,0.08)',
+      desc: 'Stabilizes the guide-target binding during cutting. The most tolerant region \u2014 a good place to experiment with diverse modifications and enhance overall drug stability.' },
+    { name: "3' Body", positions: '17-18', color: '#22c55e', borderColor: 'rgba(34,197,94,0.4)', bg: 'rgba(34,197,94,0.08)',
+      desc: "Inner defense line against enzymes that chew RNA from the 3' end. Protective modifications (2'-OMe) here slow degradation before it reaches the functional core." },
+    { name: "3' Overhang", positions: '19-21', color: '#00d4ff', borderColor: 'rgba(0,212,255,0.4)', bg: 'rgba(0,212,255,0.08)',
+      desc: "The most vulnerable positions \u2014 an exposed single-stranded tail. Enzymes attack here first. Without strong protection (LNA, 2'-OMe, PS backbone), the entire strand degrades from this end." },
   ];
 
   // Count voids per territory from heatmap data
@@ -750,11 +816,16 @@ function renderTerritoryCards() {
     card.style.borderColor = t.borderColor;
     card.style.color = t.color;
 
+    var posLabel = t.positions.indexOf('-') >= 0
+      ? 'Guide positions ' + t.positions + ' (out of 21)'
+      : 'Guide position ' + t.positions + ' (out of 21)';
+
     card.innerHTML =
       '<div class="territory-card-name">' + t.name + '</div>' +
-      '<div class="territory-card-positions">Pos ' + t.positions + '</div>' +
+      '<div class="territory-card-positions">' + posLabel + '</div>' +
       '<div class="territory-card-stat">' + voidPct + '%</div>' +
-      '<div class="territory-card-label">voids</div>';
+      '<div class="territory-card-label">unexplored</div>' +
+      '<div class="territory-card-desc">' + t.desc + '</div>';
 
     container.appendChild(card);
   });
@@ -998,6 +1069,36 @@ async function loadVoids() {
   }
 }
 
+// Expand void ID abbreviations for beginners
+// e.g. "G2_UNA" -> "Guide Position 2, UNA (Unlocked Nucleic Acid)"
+function expandVoidId(voidId) {
+  if (!voidId) return '';
+  var parts = voidId.split('_');
+  var expanded = [];
+  parts.forEach(function(part) {
+    // Check for position codes like G2, G14, P5
+    var posMatch = part.match(/^([GP])(\d+)$/);
+    if (posMatch) {
+      var strandName = posMatch[1] === 'G' ? 'Guide' : 'Passenger';
+      expanded.push(strandName + ' pos ' + posMatch[2]);
+      return;
+    }
+    // Check for modification names
+    if (MOD_FULL_NAMES[part]) {
+      expanded.push(part + ' (' + MOD_FULL_NAMES[part] + ')');
+      return;
+    }
+    // Check abbreviations
+    var modFromAbbrev = ABBREV_TO_MOD[part] || ABBREV_TO_MOD[part.toLowerCase()];
+    if (modFromAbbrev) {
+      expanded.push(modFromAbbrev + ' (' + MOD_FULL_NAMES[modFromAbbrev] + ')');
+      return;
+    }
+    expanded.push(part);
+  });
+  return expanded.join(', ');
+}
+
 function createVoidCard(v, rank) {
   var card = document.createElement('div');
   card.className = 'void-card';
@@ -1010,11 +1111,13 @@ function createVoidCard(v, rank) {
   var risk = classification.exploration_risk || 'unknown';
   var complexity = classification.estimated_synthesis_complexity || '';
 
+  var expandedId = expandVoidId(v.void_id);
+
   var scores = [
-    { label: 'RISC', value: v.risc_loading_score },
-    { label: 'Stability', value: v.thermodynamic_score },
-    { label: 'NucRes', value: v.nuclease_resistance_score },
-    { label: 'Off-target', value: v.off_target_risk_score ? (100 - v.off_target_risk_score) : null },
+    { label: 'RISC Loading', title: 'How easily the guide strand loads into the Ago2 protein for gene silencing', value: v.risc_loading_score },
+    { label: 'Thermo Stability', title: 'Whether the two strands stay paired during delivery (ideal melting temp: 50-65\u00b0C)', value: v.thermodynamic_score },
+    { label: 'Nuclease Resistance', title: 'How well the drug resists destruction by blood enzymes', value: v.nuclease_resistance_score },
+    { label: 'Off-target Safety', title: 'Risk of accidentally silencing the wrong gene (higher = safer)', value: v.off_target_risk_score ? (100 - v.off_target_risk_score) : null },
   ];
 
   // Build chemistry fingerprint from guide notation
@@ -1034,7 +1137,8 @@ function createVoidCard(v, rank) {
     '<div class="void-card-header">' +
       '<div>' +
         '<span class="void-rank">#' + rank + '</span>' +
-        '<span class="void-id">' + v.void_id + '</span>' +
+        '<span class="void-id" title="' + expandedId + '">' + v.void_id + '</span>' +
+        (expandedId !== v.void_id ? '<div class="void-id-expanded">' + expandedId + '</div>' : '') +
       '</div>' +
       '<div style="text-align:right;">' +
         '<div class="void-overall-score" style="color:' + scoreColor + '">' + overallScore.toFixed(0) + '</div>' +
@@ -1058,7 +1162,7 @@ function createVoidCard(v, rank) {
         if (s.value == null) return '';
         var c = scoreColorFn(s.value);
         var cls = s.value >= 75 ? 'bg-score-high' : s.value >= 50 ? 'bg-score-mid' : 'bg-score-low';
-        return '<div class="score-bar-item">' +
+        return '<div class="score-bar-item" title="' + (s.title || '') + '">' +
           '<div class="score-bar-top">' +
             '<span class="score-bar-label">' + s.label + '</span>' +
             '<span class="score-bar-value" style="color:' + c + '">' + s.value.toFixed(0) + '</span>' +
