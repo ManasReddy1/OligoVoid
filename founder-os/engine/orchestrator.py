@@ -431,10 +431,54 @@ class Orchestrator:
         self.note("score", scored=len(out))
         return out
 
+    # -- stage 7: probe design --------------------------------------------
+
+    def stage_probe(self, top_n: int = 3) -> dict[str, Any]:
+        """Design one cheap real-world test for the top survivors.
+
+        This is the only stage that touches ground truth, and it is the only
+        stage that spends the founder's money, so nothing here executes. It
+        writes a probe the human approves or ignores.
+        """
+        rows = self.s.ideas(status="alive", cycle_id=self.cycle_id)
+        scored = []
+        for r in rows:
+            sc = self.s.scores(r["id"]) or {}
+            scored.append((sc.get("founder_score") or 0, r, sc))
+        scored.sort(key=lambda x: x[0], reverse=True)
+
+        existing = {p["idea_id"] for p in self.s.probes()}
+        made = 0
+        for _, r, sc in scored[:top_n]:
+            if r["id"] in existing:
+                continue
+            sys_p, user_p = P.probe_prompt(_brief(r), {
+                k: sc.get(k) for k in
+                ("novelty", "viability", "originality", "survival", "founder_score")})
+            out = self._collect(
+                lambda i=r["id"]: self.b.request(f"probe-{i}", sys_p, user_p,
+                                                 tier="strong",
+                                                 meta={"idea_id": i}),
+                f"probe-{r['id']}")
+            if out is None:
+                continue
+            d = out.get("parsed") if isinstance(out, dict) else out
+            if not isinstance(d, dict):
+                continue
+            self.s.add_probe(r["id"], d.get("kind", "landing_page"),
+                             d.get("hypothesis", ""), d.get("falsifier", ""),
+                             float(d.get("budget_usd", 0) or 0))
+            self.s.db.execute("UPDATE probes SET result=? WHERE idea_id=? AND result IS NULL",
+                              (json.dumps(d), r["id"]))
+            self.s.db.commit()
+            made += 1
+        self.note("probe", designed=made, pending=len(self.pending))
+        return {"designed": made}
+
     # -- driver -----------------------------------------------------------
 
     def run(self, upto: str = "score") -> dict[str, Any]:
-        order = ["generate", "screen", "build", "attack", "rank", "score"]
+        order = ["generate", "screen", "build", "attack", "rank", "score", "probe"]
         done: dict[str, Any] = {}
         try:
             for stage in order:

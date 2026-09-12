@@ -313,3 +313,45 @@ def render_for_judging(idea: dict) -> dict:
             "growth": cut(idea.get("loop"), 40),
             "price_month": idea.get("price_month"),
             "build_cost_usd": idea.get("build_cost_usd")}
+
+
+PROBE_SYSTEM = """You design the cheapest experiment that would settle whether an \
+idea is worth building. You are not a marketer. You care about one thing: what is \
+the least money and least time that would produce a number capable of changing the \
+founder's mind. Output JSON only."""
+
+
+def probe_prompt(idea: dict, scores: dict) -> tuple[str, str]:
+    user = f"""Design ONE real-world probe for this idea.
+
+IDEA
+{json.dumps(idea, indent=2)}
+
+WHERE IT STANDS
+{json.dumps(scores, indent=2)}
+
+Available probe kinds and their realistic costs:
+- landing_page: a page plus $50-$150 of paid traffic. Measures whether anyone
+  clicks and leaves an email.
+- ad_ab: $50 split across two positioning messages. Measures which message pulls.
+- community_post: free. A post in the exact forum where the affected population
+  already gathers. Measures whether people reply saying they need this.
+- concierge: free. Deliver the outcome by hand to five people for two weeks.
+  Measures whether they come back.
+- fake_door: free. A control for a feature that does not exist yet, inside
+  something you already have. Measures intent.
+
+Pick the ONE that would most change your mind per dollar, given what is already
+uncertain about this specific idea. Do not default to a landing page.
+
+Return JSON:
+{{
+  "kind": "<one of the five>",
+  "hypothesis": "the specific belief being tested, stated so it could be false",
+  "falsifier": "the number or observation that would kill the idea, with a threshold",
+  "budget_usd": <number>,
+  "days": <number>,
+  "exactly_what_to_do": ["3-6 concrete steps a person could follow on a Saturday"],
+  "what_it_cannot_tell_you": "the thing this probe will NOT settle, stated plainly"
+}}"""
+    return PROBE_SYSTEM, user

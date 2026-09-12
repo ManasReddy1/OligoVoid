@@ -13,6 +13,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+import diversity
 from store import Store
 
 CSS = """
@@ -167,6 +168,12 @@ island theses. {len(killed)} killed by the gates. {len(alive)} survived to ranki
         parts.append(_dossier(store, r, n, sig_by_id))
     parts.append("</section>")
 
+    # ---- diversity ----
+    parts.append(_diversity(store, cycle_id))
+
+    # ---- probes ----
+    parts.append(_probes(store, {i["id"]: i for i in all_ideas}))
+
     # ---- kill log ----
     parts.append(_kill_log(killed))
 
@@ -307,6 +314,79 @@ def _dossier(store: Store, r: dict, n: int, sig_by_id: dict) -> str:
 
 def _vp(verdict: str | None) -> str:
     return {"fatal": "bad", "wounded": "bad", "survived": "ok"}.get(verdict or "", "")
+
+
+def _diversity(store: Store, cycle_id: int) -> str:
+    d = diversity.report(store, cycle_id)
+    g, sv = d["generated"], d["survivors"]
+    if not g.get("n"):
+        return ""
+    sg, ss = d["spread_generated"], d["spread_survivors"]
+
+    def row(label, a, b):
+        return (f"<tr><td>{esc(label)}</td><td class=\"num\">{esc(a)}</td>"
+                f"<td class=\"num\">{esc(b)}</td></tr>")
+
+    isl = " ".join(f'<span class="pill">island {k}: {v}</span>'
+                   for k, v in d["islands_surviving"].items())
+    rows = (row("candidates", g.get("n"), sv.get("n")) +
+            row("unique audience x mechanic x unlock cells",
+                g.get("unique_combinations"), sv.get("unique_combinations")) +
+            row("distinct cells per candidate",
+                g.get("combination_ratio"), sv.get("combination_ratio")) +
+            row("distinct audiences", g.get("unique_audiences"), sv.get("unique_audiences")) +
+            row("distinct mechanics", g.get("unique_mechanics"), sv.get("unique_mechanics")) +
+            row("mean pairwise distance",
+                sg.get("mean_pairwise_distance"), ss.get("mean_pairwise_distance")) +
+            row("structural disorder",
+                sg.get("structural_disorder"), ss.get("structural_disorder")))
+
+    crowded = (f'Most crowded cell: <code>{esc(sv.get("most_crowded_cell"))}</code> '
+               f'with {esc(sv.get("most_crowded_count"))} survivors.'
+               if sv.get("most_crowded_count", 0) > 1 else
+               "No cell holds more than one survivor.")
+
+    return (f'<section><div class="shead"><div class="eyebrow">Diversity monitor</div>'
+            f'<h2>Did the search collapse?</h2><p class="col">Optimising against any '
+            f'scorer collapses diversity, and collapsed diversity destroys the point '
+            f'of a search. These numbers are the alarm. A distinct-cells-per-candidate '
+            f'ratio falling toward zero means the gates are selecting one idea in '
+            f'many costumes.</p></div>'
+            f'<div class="tscroll"><table><thead><tr><th>Measure</th>'
+            f'<th>Generated</th><th>Survivors</th></tr></thead>'
+            f'<tbody>{rows}</tbody></table></div>'
+            f'<p class="fine" style="margin-top:12px">{crowded} '
+            f'Survivors by island thesis: {isl}</p></section>')
+
+
+def _probes(store: Store, ideas_by_id: dict) -> str:
+    probes = store.probes()
+    if not probes:
+        return ""
+    cards = []
+    for p in probes:
+        d = p.get("result") or {}
+        idea = ideas_by_id.get(p["idea_id"], {})
+        steps = "".join(f"<li>{esc(x)}</li>" for x in (d.get("exactly_what_to_do") or []))
+        cards.append(f"""<article class="card">
+<div class="chead"><div>
+  <span class="rank">{esc(p['kind'])} &middot; {esc(d.get('days', '?'))} days</span>
+  <h3>{esc(idea.get('title', 'idea ' + str(p['idea_id'])))}</h3></div>
+  <div class="score">${esc(round(p['budget_usd']))}</div></div>
+<dl class="kv">
+  <dt>testing</dt><dd>{esc(p['hypothesis'])}</dd>
+  <dt>kills it if</dt><dd><span class="pill bad">{esc(p['falsifier'])}</span></dd>
+  <dt>blind spot</dt><dd class="fine">{esc(d.get('what_it_cannot_tell_you', ''))}</dd>
+</dl>
+{'<details><summary>What to actually do</summary><ul class="tight" style="margin-top:9px">' + steps + '</ul></details>' if steps else ''}
+</article>""")
+    total = sum(p["budget_usd"] for p in probes)
+    return (f'<section><div class="shead"><div class="eyebrow">Probe queue</div>'
+            f'<h2>The cheapest way to find out</h2><p class="col">Everything above '
+            f'this point is a proxy. These are the only tests that touch ground '
+            f'truth, and nothing runs without you approving the spend. Total for '
+            f'the queue: <strong>${total:,.0f}</strong>.</p></div>'
+            f'{"".join(cards)}</section>')
 
 
 def _kill_log(killed: list[dict]) -> str:
