@@ -1,0 +1,23 @@
+{
+  "parsed": {
+    "stack": "iOS 18+ (iOS 27 for LongRunningIntent), Swift 6 / SwiftUI. PushKit VoIP push + CallKit reportNewIncomingCall, WebRTC to our own media endpoint. Voice is a cheap cascaded stack deliberately - streaming STT + a small text model + a commodity TTS voice, about $0.008-0.012/min all-in - NOT flagship speech-to-speech at $0.091/min, which would be $2.50+/active/month and instantly fatal. On-device model drafts the written message locally at $0. Backend is a Go signalling + media service on Fly.io with a LiveKit room per call, Postgres for schedules, RevenueCat for consumable credit packs. MFMessageComposeViewController for the send, which always needs the person's tap. App Store only.",
+    "milestones": [
+      "Week 1-3: Call spine. PushKit VoIP push on a schedule, CallKit incoming-call UI, WebRTC connect to the media endpoint, and a measured answer-rate log. Nothing conversational yet.",
+      "Week 4-6: Voice loop on the cheap stack. Streaming STT, a two-turn scripted prompt ('what would you say to your mother today'), barge-in handling, and per-minute cost instrumentation from day one.",
+      "Week 7-8: The finish. LongRunningIntent to keep the drafting alive past the old 30-second ceiling, on-device summarisation of the spoken minute into a written message, and the voice-note trim.",
+      "Week 9-10: Handoff to Messages. MFMessageComposeViewController pre-filled with the note and text, plus the published App Intent so it runs from Siri and Shortcuts.",
+      "Week 11-12: Credit packs, free-call allowance tuned so free users cannot outrun the voice bill, and the one-person-one-weekday-minute setup flow.",
+      "Week 13-14: 60-user cohort measuring answered-call-to-message-sent rate, then App Review submission with the VoIP/CallKit justification written before the first rejection."
+    ],
+    "build_cost_usd": 8500,
+    "weeks_to_v1": 14,
+    "inference_cost_user_month": 0.31,
+    "price_month": 7.99,
+    "expected_conversion": 0.03,
+    "riskiest_technical_assumption": "That App Review accepts a scheduled, app-initiated PushKit VoIP push to a synthetic voice endpoint as a genuine incoming call - VoIP push entitlement is policed on exactly this, and if it is refused the whole product collapses to a local notification, which the idea itself says is the thing that already failed.",
+    "cheapest_way_to_test_that_assumption": "Submit a 3-week stub app that does only the scheduled CallKit call to a bare voice endpoint and nothing else, and read the review outcome before building the voice loop or the message handoff.",
+    "_economics_note": "At 3 answered 2-minute calls a week the cheap stack costs about $0.31 per ACTIVE user per month and revenue is $7.99 x 0.03 = $0.24 per active user per month. That is a negative gross margin of roughly -$0.07 per active before any server or App Store cut, and it matches the founders' own kill line of $0.30. It only clears if the free allowance is hard-capped at about one call a week or conversion reaches 5%+, neither of which is the plan as written."
+  },
+  "text": "",
+  "usage": {}
+}

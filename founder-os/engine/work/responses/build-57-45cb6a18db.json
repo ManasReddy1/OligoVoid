@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "iOS 18+, Swift/SwiftUI, no server at all in v1. HKObserverQuery with enableBackgroundDelivery on sleep analysis, heart rate, HRV and workouts - the one genuinely reliable self-wake trigger on iOS - feeding an on-device classifier (Accelerate/Core ML, not an LLM) that clusters fragmented sleep blocks into a rotation total. Rota comes from EventKit calendar reads plus a two-tap shift confirmation, because the app cannot read a hospital roster. Apple Foundation on-device model only for the plain-English weekly note ($0). SwiftData + CloudKit private sync. Freemium via StoreKit 2, App Store.",
+    "milestones": [
+      "Week 1-2: HealthKit background delivery plumbing and a raw event log, running on a real device with an Oura ring and an Apple Watch, proving data actually arrives unattended over a 14-day soak.",
+      "Week 3-4: the clustering pass - group daytime blocks and naps into one corrected rotation total, validated against a hand-labelled diary from 5 shift workers.",
+      "Week 5: the rota layer - EventKit read, shift-pattern inference, and a two-tap correction for swapped shifts.",
+      "Week 6: the one number surface - a widget and a rotation summary that requires zero confirmation taps, which is the actual wedge.",
+      "Week 7-8: multi-year history, export, freemium paywall, and a 90-shift diary study with 12 nurses instrumented for the 10% disagreement kill bar and day-30 background-delivery survival."
+    ],
+    "build_cost_usd": 3400,
+    "weeks_to_v1": 8,
+    "inference_cost_user_month": 0.01,
+    "price_month": 5.99,
+    "expected_conversion": 0.03,
+    "riskiest_technical_assumption": "That third-party ring and watch data actually arrives in the background often enough to classify unattended - HealthKit background delivery is reliable, but Oura, Whoop and similar vendors write to HealthKit in batches when their own app syncs or is opened, so the wake fires late or on stale data, and their own kill bar is 25% of installs still receiving data at day 30.",
+    "cheapest_way_to_test_that_assumption": "Two weeks and about $700 of hardware: put an Oura ring and an Apple Watch on 4 night-shift nurses with a stub app that does nothing but timestamp every HealthKit background delivery, and measure the lag between the sleep actually ending and the sample becoming readable."
+  },
+  "text": "",
+  "usage": {}
+}

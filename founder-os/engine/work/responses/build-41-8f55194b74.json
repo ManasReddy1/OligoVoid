@@ -1,0 +1,23 @@
+{
+  "parsed": {
+    "stack": "iOS 18+, Swift 6 / SwiftUI. Share Extension and Photos picker for screenshots, Apple's on-device Foundation Model (vision) for fact extraction, all processing local so no message thread ever leaves the handset - which matters when the user is a K-12 teacher screenshotting parent messages. Output is an Anki-compatible .apkg and CSV via the share sheet, plus an optional built-in minimal review mode. StoreKit 2 non-consumable, no backend, no accounts. App Store only.",
+    "milestones": [
+      "Week 1: Extraction quality harness. 100 redacted thread screenshots, run through the on-device vision model, 5 teachers rate every generated card keep/discard. Precision here is the entire product.",
+      "Week 2-3: Screenshot-to-card pipeline. Share Extension, person attribution, two-or-three card generation with an explicit edit-before-save step rather than silent auto-add.",
+      "Week 4: Deck output in the exact note type the target forum's CSV workaround already uses, so imports drop into an existing daily review with no reshaping.",
+      "Week 5: Optional in-app review mode for people who do not want a second app, plus the 10-free-cards limit and StoreKit unlock.",
+      "Week 6: Privacy posture - explicit no-network build, a Sign of that in the App Store privacy card, and screenshots that lead with it.",
+      "Week 7: Submission and launch into the Anki forum threads where the CSV workaround is already being discussed."
+    ],
+    "build_cost_usd": 2600,
+    "weeks_to_v1": 7,
+    "inference_cost_user_month": 0.0,
+    "price_month": 0.42,
+    "expected_conversion": 0.04,
+    "riskiest_technical_assumption": "That an on-device vision model reading a message-thread screenshot can pick the one durable personal fact worth reviewing rather than transient chatter - precision, not recall, is what matters here, because a deck salted with useless cards gets deleted from the daily review inside a week and that is kill criterion #1.",
+    "cheapest_way_to_test_that_assumption": "Run 100 redacted thread screenshots through the same model weights in a desktop harness and have 5 teachers mark each generated card keep or discard - one week, about $250 in gift cards, before any app code.",
+    "_economics_note": "price_month is a $9.99 one-time purchase amortised over an assumed 24-month life. Inference is $0 - fully on-device, no server, no accounts - so gross margin is the App Store cut only. The real risk is volume: a community-embed loop into Anki forum threads against a one-time $9.99 price has to move thousands of units to matter, and the audience is 'K-12 teachers who already run a daily SRS review', which is a small population of a small population."
+  },
+  "text": "",
+  "usage": {}
+}

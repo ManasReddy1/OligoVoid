@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "iOS 18+, Swift/SwiftUI. Deliberately cheap voice: on-device SFSpeechRecognizer/SpeechAnalyzer for transcription ($0), the user's own recorded AVAudioFile played back verbatim for the confrontation moment (no TTS bill at all - it is their voice, not a synthesised one), and a $0.005-0.008/min cascaded voice loop (cheap streaming ASR + a small hosted text model + a budget TTS voice) only for the short back-and-forth turns. Apple Foundation on-device model for summarising the week's commitment. Backend: Cloudflare Workers + D1 + R2 for the audio corpus, ~$15/mo. INFocusStatusCenter for the busy/free signal, BGTaskScheduler + time-window notifications as the actual delivery mechanism. StoreKit 2, App Store.",
+    "milestones": [
+      "Week 1-2: record-and-store the spoken commitment, on-device transcription, and the append-only ledger where an edit is a new signed row rather than an overwrite.",
+      "Week 3-4: the refusal mechanic end to end - user taps edit, app plays back their own audio, and will not write the new value until a fresh recording exists. This is the whole product and it should be testable by week 4.",
+      "Week 5-6: the cheap voice loop for the check-in conversation, with a hard per-user monthly minute budget and automatic downgrade to text once it is hit.",
+      "Week 7: Focus-aware timing - INFocusStatusCenter authorisation, a scheduler that defers prompts while isFocused is true, and a measured comparison against a fixed 9pm reminder.",
+      "Week 8-9: paywall, corpus export, and a 40-person evening-course cohort on TestFlight instrumented for the four kill criteria."
+    ],
+    "build_cost_usd": 3100,
+    "weeks_to_v1": 9,
+    "inference_cost_user_month": 0.11,
+    "price_month": 11.99,
+    "expected_conversion": 0.03,
+    "riskiest_technical_assumption": "That iOS gives an app enough of a free/busy signal to time a prompt - it does not: INFocusStatusCenter returns a single user-authorised boolean meaning a Focus is on, which is a proxy for busy and says nothing about a person being free, there is no callback when a Focus ends, and the whole why-now rests on a signal that is one bit wide and opt-in.",
+    "cheapest_way_to_test_that_assumption": "Four days and zero dollars: ship a stub build to 60 people that requests Focus authorisation and logs the boolean every 15 minutes alongside a one-tap are-you-free-right-now prompt, and check whether the bit predicts a yes better than the hour of day does."
+  },
+  "text": "",
+  "usage": {}
+}

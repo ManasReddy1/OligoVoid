@@ -1,0 +1,23 @@
+{
+  "parsed": {
+    "stack": "iOS 18+, Swift 6 / SwiftUI + ActivityKit. On-device dictation for the ten-second log, Apple's on-device Foundation Model (with Private Cloud Compute fallback for longer notes, $0 in API fees under the Small Business Program) for the one-line summary. Backend is a small Go service on Fly.io (~$20/mo) holding the group, the rota ledger and every member's ActivityKit push-to-start token, Postgres for the ledger. APNs for push-start and push-update of the shared Live Activity. RevenueCat, one subscription per group. App Store only.",
+    "milestones": [
+      "Week 1-3: Live Activity persistence spike across three devices. Push-start, push-update, and measure how long 'whose turn' actually survives on a lock screen over 14 days without anyone opening the app. Go/no-go on the whole premise.",
+      "Week 4-5: Group formation. Invite link, three-member cap, the parent record, and the invite-for-function flow that has to get sibling #2 posting inside 7 days.",
+      "Week 6-7: Log entry. Ten-second dictation, on-device transcription, on-device summary to one line, write to shared ledger, fan-out push-update to the other two siblings.",
+      "Week 8-9: Rota logic - who rang last, who is up next, handling skipped turns and a sibling who simply stops, which is the failure mode that kills shared ledgers.",
+      "Week 10-11: Widget and lock-screen fallback for when the Live Activity has expired, paywall, and a 25-group beta.",
+      "Week 12: Submission and launch through caregiving forums."
+    ],
+    "build_cost_usd": 6200,
+    "weeks_to_v1": 12,
+    "inference_cost_user_month": 0.01,
+    "price_month": 7.99,
+    "expected_conversion": 0.03,
+    "riskiest_technical_assumption": "That the shared state can persistently live on three lock screens, when a Live Activity is capped at roughly 8 hours on screen and 12 before forced dismissal and push updates are budget-throttled, so 'nobody opens anything' becomes 'somebody re-starts it every day' and the app degrades into the widget it was meant to beat.",
+    "cheapest_way_to_test_that_assumption": "Put a 200-line throwaway app on three devices that push-starts an activity and re-ups it every 6 hours for 14 days, logging on-screen survival and throttled pushes - two days and the $99 developer account.",
+    "_economics_note": "Inference rounds to a cent a month per active: dictation and summarisation are on-device or Private Cloud, and Private Cloud is $0 in API fees under the Small Business Program. Real per-user cost is Fly.io and APNs, i.e. fractions of a cent. Margin is fine; the risk is entirely whether a three-person ledger stays alive past week 6."
+  },
+  "text": "",
+  "usage": {}
+}

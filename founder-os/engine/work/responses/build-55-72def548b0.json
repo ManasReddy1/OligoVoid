@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "iOS 18+ capture client (Swift/SwiftUI) plus inbound email ingest (Postmark inbound, a per-household forwarding address) because half of these bills arrive as PDFs. Extraction runs on a hosted frontier vision model at $0.10/$0.40 per million with a second cheap verification pass on any line under confidence, since the 95% line-level bar is too tight for a 4K on-device context. Postgres + object storage for the document images (Supabase, ~$50/mo at 5-year retention), append-only ledger, PDF/CSV export bundle built for handing to a lawyer. Web viewer for siblings. StoreKit 2, App Store.",
+    "milestones": [
+      "Week 1-2: the record itself - one line per document with category, payer, amount, date and the image permanently attached, plus the export bundle, built first because the export is the product.",
+      "Week 3-4: photo and email ingest with per-household forwarding addresses and deduplication of the same bill arriving both ways.",
+      "Week 5-6: two-pass extraction and the confidence gate that decides which lines a human confirms, measured against a hand-labelled 300-document set before it goes near a user.",
+      "Week 7-8: sibling invite, shared view, per-payer reconciliation and the who-paid-what settle-up summary.",
+      "Week 9-11: paywall, 5-year retention and deletion policy, privacy review for financial documents, and 15 households on TestFlight instrumented for second-sibling-in-30-days and categorisation agreement."
+    ],
+    "build_cost_usd": 5400,
+    "weeks_to_v1": 11,
+    "inference_cost_user_month": 0.12,
+    "price_month": 12.0,
+    "expected_conversion": 0.03,
+    "riskiest_technical_assumption": "That the agent can assign the payer - the category is on the document but which sibling paid it is not, anywhere, so that field is inferred from who happened to photograph it, and a settle-up record that silently guesses the payer is exactly the thing a Medicaid lookback or an accusatory sibling will break, which is a harder problem than the 95% categorisation bar they wrote the kill criterion around.",
+    "cheapest_way_to_test_that_assumption": "Two weeks and about $400 of API spend: hand-label 500 real bills and receipts from 8 multi-sibling families with the true payer, run the extraction pipeline blind, and measure payer accuracy separately from category accuracy - if payer needs a tap every time, the frictionless capture story is gone."
+  },
+  "text": "",
+  "usage": {}
+}

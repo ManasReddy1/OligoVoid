@@ -1,0 +1,23 @@
+{
+  "parsed": {
+    "stack": "iOS 18+ both sides, Swift 6 / SwiftUI. Sender records locally; on-device transcription for the text fallback at $0. Recipient's app reports a wake signal from its own Sleep Focus filter change and HealthKit sleep-sample end via background delivery. Backend is a Go service on Fly.io plus S3-compatible object storage for held audio (~$30/mo at small scale), Postgres for the hold queue, APNs for release. No cloud speech model at all - the audio is relayed, not synthesised, so the $0.005-0.018/min voice rate does not apply here. RevenueCat. App Store only.",
+    "milestones": [
+      "Week 1-3: Wake-signal accuracy spike. Instrument a build on 25 recipients that logs Sleep-Focus-exit and HealthKit sleep-end against a one-tap self-reported actual wake time for two weeks, and compute median error. The 60-minute kill criterion is decided here, before anything else is built.",
+      "Week 4-6: Record and hold. 30-second capture from a lock-screen-reachable surface for a 03:40 break, upload, hold queue with a per-recipient release rule, and a guarantee that nothing is ever delivered into the recipient's night.",
+      "Week 7-8: Two-sided invite. Recipient install flow, the HealthKit and Focus permission asks that the whole mechanism depends on, and the fallback rule for a recipient who grants neither.",
+      "Week 9-10: Roster awareness on the sender side - the shift pattern that makes this different from a WhatsApp voice note - plus on-device transcript for recipients who cannot listen.",
+      "Week 11-12: Retention plumbing, paywall, 50-nurse cohort measuring notes per roster week at week 8.",
+      "Week 13: Submission and launch through night-shift nursing communities."
+    ],
+    "build_cost_usd": 6800,
+    "weeks_to_v1": 13,
+    "inference_cost_user_month": 0.01,
+    "price_month": 4.99,
+    "expected_conversion": 0.02,
+    "riskiest_technical_assumption": "That the recipient's device can publish a usable 'just woke' signal at all, when it requires a non-paying recipient to install the app and grant both HealthKit and Focus permissions, and the only signals available are a Sleep Focus exit (which many people never configure) and a HealthKit sleep-sample end (which arrives on wearable sync, not on waking) - both of which can miss the actual wake moment by well over an hour.",
+    "cheapest_way_to_test_that_assumption": "Ship a 300-line TestFlight build to 25 volunteers that does nothing but log Sleep-Focus-exit and HealthKit sleep-end timestamps against a one-tap 'I am awake' prompt, and compare medians over two weeks - one week of work and the $99 developer account.",
+    "_economics_note": "Inference is about a cent: the audio is stored and relayed, not synthesised, and transcription is on-device, so the real marginal cost is object storage and egress on 30-second files - fractions of a cent per user per month. Margin is fine at $4.99 x 0.02 = $0.10 per active. Conversion is 0.02 rather than 0.03-0.04 because this is two-sided async social where the value accrues to the sender, recipients are free riders who still consume permissions and support, and the direct competitor is a free WhatsApp voice note."
+  },
+  "text": "",
+  "usage": {}
+}

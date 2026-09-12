@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "iOS 18+, Swift/SwiftUI. Contacts framework for names only (all the app can legally see), on-device SFSpeechRecognizer for the spoken six-name intake ($0), Apple Foundation on-device model for short drafts with a hosted frontier text model at $0.10/$0.40 per million for the longer/awkward ones (per-person context is the user's own dictated notes, a few thousand tokens, cached). Draft is handed to MFMessageComposeViewController - the user taps Send, and the delegate result tells us sent vs cancelled. Backend: Supabase, ~$25/mo. INFocusStatusCenter for the busy signal, notification scheduling for delivery. StoreKit 2 + RevenueCat, App Store.",
+    "milestones": [
+      "Week 1-2: spoken intake - name six people out loud, match them to Contacts on-device, capture what you owe each one, and store it as the person's own corpus.",
+      "Week 3-4: draft generation with the one-at-a-time queue and the hard gate - no second draft until the first is sent (compose-sheet result .sent) or explicitly abandoned out loud.",
+      "Week 5: surfacing - notification into a window where Focus is off, with a bad moment button feeding the 40% kill metric directly.",
+      "Week 6-7: the referral loop, paywall, corpus export, and instrumentation for drafts-sent-per-surfaced and month-3 retention.",
+      "Week 8: TestFlight with 50 recruited ex-social-media users and a 500-surface log before any paid acquisition."
+    ],
+    "build_cost_usd": 2600,
+    "weeks_to_v1": 8,
+    "inference_cost_user_month": 0.08,
+    "price_month": 7.99,
+    "expected_conversion": 0.025,
+    "riskiest_technical_assumption": "That the app can hold years of the user's contact history - it cannot: iOS exposes no message history and no contact-recency signal whatsoever, so there is nothing to read and the million-token window is holding only what the user dictated themselves, which means the corpus and the social-graph moat both have to be typed in by hand before the product has anything to draft from.",
+    "cheapest_way_to_test_that_assumption": "One weekend and zero dollars: run the intake as a voice memo plus a Google Form with 30 target users, hand-write the drafts yourself, and measure how many people will actually dictate six people's worth of context with no automation behind it, because that is the real ceiling."
+  },
+  "text": "",
+  "usage": {}
+}

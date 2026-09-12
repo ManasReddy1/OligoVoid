@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "iOS 18+, Swift/SwiftUI, entirely on-device and account-free: VisionKit document scanning, Vision text recognition for printed pages, Apple Foundation on-device model for ingredient/quantity structuring, escalating to Private Cloud Compute only for handwritten cards ($0 in API fees under the Small Business Program). SwiftData local store, CloudKit private database for the household's own binder sync, no server and no hosting bill at all. Unit arithmetic is deterministic Swift code, not the model. One-time unlock via StoreKit 2 at $8.99; price_month below is that unlock amortised over a 12-month useful life, which is the honest revenue line for a one-time-purchase utility.",
+    "milestones": [
+      "Week 1-2: scan a printed recipe page, extract the ingredient block, and get a structured list - printed web recipes only, no handwriting, no merging.",
+      "Week 3: the deterministic unit engine - cups/tbsp/g/oz/counts, fraction handling, and merging duplicates across recipes, unit-tested against 300 hand-written expected outputs.",
+      "Week 4: the binder - saved pages, week selection, the combined list, and a share sheet export of the list as text so a partner can shop from it.",
+      "Week 5: handwritten card handling via Private Cloud Compute with a clear confidence indicator on lines it is unsure about.",
+      "Week 6: paid unlock, App Store submission, and a 500-page accuracy audit across printed and handwritten sources before launch."
+    ],
+    "build_cost_usd": 1700,
+    "weeks_to_v1": 6,
+    "inference_cost_user_month": 0.01,
+    "price_month": 0.75,
+    "expected_conversion": 0.035,
+    "riskiest_technical_assumption": "That an on-device model clears a 5% line-error bar on handwritten family recipe cards while also getting the quantity arithmetic right - handwriting is precisely where a small local model degrades, and the two failure modes compound because a misread 1/2 cup becomes a wrong number on a list nobody re-checks.",
+    "cheapest_way_to_test_that_assumption": "Three days and zero dollars: build nothing but a scan-and-print-JSON harness, run 200 printed web recipe pages and 100 real handwritten family cards through it, and hand-score error rate on ingredient names and quantities separately."
+  },
+  "text": "",
+  "usage": {}
+}

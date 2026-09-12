@@ -1,0 +1,23 @@
+{
+  "parsed": {
+    "stack": "iOS 18+, Swift 6 / SwiftUI. On-device SFSpeechRecognizer/SpeechAnalyzer with a custom contextual-strings lexicon for medication names, Apple's on-device Foundation Model for the sentence-to-fields parse, Live Activity held open for the parenting block via ActivityKit with an App Intent capture button. All data local in SwiftData, encrypted, no cloud - which is also the sales pitch to practitioners. Export via PDFKit and CSV through the share sheet. RevenueCat subscription. App Store only.",
+    "milestones": [
+      "Week 1-2: Transcription accuracy harness. 200 recorded bedtime sentences with real drug names and times, run against on-device recognition with and without a contextual medication lexicon, scored at field level. This decides whether the product is possible.",
+      "Week 3-4: Parse layer. Spoken sentence to dated structured fields (sleep time, meals, meds, behaviour), with an explicit low-confidence flag rather than a guess, because a wrong medication name in a court record is worse than a blank.",
+      "Week 5-6: Live Activity for the parenting block - starts at block start, holds the capture button for its duration, re-ups across the 8-hour activity ceiling, one tap to a five-second note.",
+      "Week 7-8: Export. PDF that a family-law practitioner will actually forward - dated, source-labelled, no interpretation, no scoring, plus matching CSV.",
+      "Week 9-10: Practitioner review round with 5-8 family-law solicitors on the PDF format, then rework. Paid consult time, and it is the single highest-leverage spend in the build.",
+      "Week 11: 40-parent 4-week trial instrumented for blocks-with-at-least-one-entry, then submission."
+    ],
+    "build_cost_usd": 4900,
+    "weeks_to_v1": 11,
+    "inference_cost_user_month": 0.0,
+    "price_month": 12.99,
+    "expected_conversion": 0.05,
+    "riskiest_technical_assumption": "That on-device speech recognition clears the 5% field-error bar on medication names and times, when Apple's local recogniser carries no medical lexicon and reliably mangles drug names, and a record with a mis-transcribed medication is worse than the calendar notes it replaces rather than merely no better.",
+    "cheapest_way_to_test_that_assumption": "Pay 5 parents $40 each to record 200 real bedtime sentences, run them through the on-device recogniser in a throwaway harness with and without contextual strings, and count field-level errors - about $200 and a week.",
+    "_economics_note": "Inference is genuinely $0: on-device speech and on-device parse, no server, no per-user cloud cost. Conversion is set at 0.05 rather than the 0.02-0.04 consumer-freemium band because installs arrive by practitioner referral into an audience already paying $10-15/month for a court-mandated app - high intent, small pool. The binding constraint is the size of that pool, not the margin."
+  },
+  "text": "",
+  "usage": {}
+}

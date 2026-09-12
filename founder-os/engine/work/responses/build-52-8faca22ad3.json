@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "Outbound PSTN call, not an in-app VoIP call - CallKit/PushKit is for real communication apps and App Review rejects a bot dialler using it, so v1 dials the user's real phone number via Twilio Programmable Voice (~$0.014/min US outbound, $1.15/mo per number). Voice loop is a deliberately cheap cascade: streaming ASR + a small hosted text model at $0.10/$0.40 per million + a budget TTS voice, landing around $0.012/min, so ~$0.026/min all-in. iOS/Android are thin clients (React Native) over a Python/FastAPI + Postgres backend on Fly.io (~$40/mo) that owns the scheduler, the call orchestration and the promise ledger. On-device summarisation is not usable here because the call runs server-side. StoreKit 2 / Play Billing.",
+    "milestones": [
+      "Week 1-2: the promise ledger - every stated commitment, its date, and its outcome, with the read-back query that produces you said this on the 3rd, the 10th and the 17th and did not do it.",
+      "Week 3-5: Twilio outbound call orchestration, weekday scheduler with timezone and answer/no-answer/voicemail handling, and the opening read-back script spoken on a real call.",
+      "Week 6-7: the cheap cascaded voice loop with barge-in and a hard 3-minute cap, plus a per-user monthly minute budget that hard-stops the call rather than the bill.",
+      "Week 8-9: post-call extraction of the new commitment into the ledger, transcript review screen, and the two-sided referral.",
+      "Week 10-12: paywall with a 7-day trial capped at 3 calls, and a 40-person cohort of freelancers who currently pay a human, instrumented for second-call answer rate and human-cancellation at 8 weeks."
+    ],
+    "build_cost_usd": 7200,
+    "weeks_to_v1": 12,
+    "inference_cost_user_month": 0.85,
+    "price_month": 19.0,
+    "expected_conversion": 0.05,
+    "riskiest_technical_assumption": "That the cheap stack is conversational enough to survive a phone call - a $0.005-0.018/min cascade carries 1.2-2.5s of turn latency and clumsy barge-in, which reads as broken on a voice call in a way it does not in a chat box, and the speech-to-speech stacks that actually feel human are $0.091/min, or $5.73 per payer per month at 63 weekday minutes, which is 30% of a $19 subscription before Twilio and would put a free-tier-with-calls version underwater outright.",
+    "cheapest_way_to_test_that_assumption": "Ten days and about $300 of Twilio and API credit: wire the cheap cascade to a Twilio number with nothing but the read-back script, place 100 real 3-minute calls to 25 freelancers, and measure median time-to-hangup and answer rate on call two against the same script run on the flagship stack."
+  },
+  "text": "",
+  "usage": {}
+}
