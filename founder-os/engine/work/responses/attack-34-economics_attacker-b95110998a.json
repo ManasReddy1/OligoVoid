@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "economics_attacker",
+    "attack": "A one-time purchase at a consumer utility price, sold to an audience of a few thousand people, cannot clear any acquisition cost. Their own kill line sets 1,500 units in six months as the survival floor: at $9.99 that is $8.49 net after the 15% small-business rate, $12,700 total, about $2.1k/month that never compounds because a one-time purchase has no second month. Paid acquisition is arithmetically closed at any spec - $5.84 iOS CPI needs a 69% install-to-purchase rate to break even at $9.99, $1.92 Android needs 23% - and kill line 3 concedes the shareable-artifact loop carries nothing (under 10% of builders ever export or post). Raising the price does not rescue it either: the defined buyer is someone who currently does this job by hand in a free spreadsheet, and adult self-taught learners of Hungarian and Finnish who build conjugation decks number in the low thousands worldwide, so there is no volume at $9.99, $29.99 or $99.",
+    "strongest_defence": "COGS is zero and the developer is one person: App Store organic search in a niche with literally no competing product could plausibly deliver several thousand units at $14.99, and a $30-50k lifetime take is a fine solo outcome; adding Finnish and then Estonian costs nothing but a prompt change, so the catalogue compounds even if each title is small.",
+    "verdict": "fatal",
+    "verdict_reason": "No combination of price and conversion produces a business: the addressable base cannot fund one, and at every defensible price the product sells for less than a single iOS install costs."
+  },
+  "text": "",
+  "usage": {}
+}

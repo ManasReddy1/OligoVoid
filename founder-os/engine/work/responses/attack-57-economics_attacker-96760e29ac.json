@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "economics_attacker",
+    "attack": "Their kill lines compound into an effective conversion far below 3%. Kill line 2 accepts that only 25% of installs still have background delivery running at day 30, and kill line 3 asks for 3% of monthly actives paying by day 60 - 3% of the 25% that survive is 0.75% of installs, so a $5.84 iOS install becomes $779 per paying user and a $1.92 Android install $256, against a sleep subscription netting $4.24-8.49 a month. That is 92-184 months of payback on iOS. On-device scoring means marginal cost is genuinely zero, so the only survivable shape is organic-only - and the addressable base, US hospital nurses on rotating nights who already wear a ring or watch, is roughly 300-500k people, which caps an organic channel at a few hundred to low thousands of payers.",
+    "strongest_defence": "COGS is zero so organic is 100% margin, nursing subreddits and shift-worker Facebook groups convert densely and cost nothing, and a $6.99/month tool that fixes the one number a nurse's $350 ring gets wrong is an easy upsell to people who have already proven they will spend on sleep hardware - 2,000 payers is $14k/month with a cost base of one person.",
+    "verdict": "wounded",
+    "verdict_reason": "Zero marginal cost keeps organic viable, but the product's own funnel assumptions imply 0.75% install-to-pay, which makes paid acquisition cost $256-779 per payer against a sub-$9 monthly price."
+  },
+  "text": "",
+  "usage": {}
+}

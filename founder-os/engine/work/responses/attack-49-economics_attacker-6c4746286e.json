@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "economics_attacker",
+    "attack": "The unlock is a per-user million-token context held without a retrieval pipeline, drafting continuously - and long-context caching is the one 2026 cost line that does not fall to zero, because cached input is billed for how long it is held, not only when it is read. Keeping a 1M-token per-user cache warm means rewriting it each time it expires: even at the cheapest frontier tier a 1M-token cache write is roughly $0.13-0.31, so holding it live around the clock is $95-225 per active user per month. The charitable version is no better against this model: an uncached $0.10/M read of the full million tokens per draft at ten Focus-triggered drafts a day is $0.30 per active per month, and at the stated freemium 3% conversion each payer carries 33 actives - $9.90 of inference per payer per month against a $8-24 median payer, before the $195 iOS or $64 Android cost per payer. The only escape is to stop reading the whole history, which is retrieval, which the why-now claims is no longer needed.",
+    "strongest_defence": "Draft on demand only - six people named once, a few thousand tokens per draft - and inference rounds to a fraction of a cent per user per month, leaving a zero-COGS product distributed by a two-sided referral loop at no acquisition cost.",
+    "verdict": "fatal",
+    "verdict_reason": "The economics only work if the product abandons the continuous million-token context that is its entire why-now, and with it the claim that distinguishes it from the reminder list it says is the wrong build."
+  },
+  "text": "",
+  "usage": {}
+}

@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "economics_attacker",
+    "attack": "Voice is genuinely cheap here - a ten-second attributed entry is about $0.003 even at the $0.091 flagship rate, roughly $0.30 per household per month at three doses a day - so the margin half fails and the kill is retention against acquisition cost. Kill line 4 sets the floor at 40% household retention at month 3, meaning they are prepared to accept 60% churn in ninety days; at $8.99/month netting $7.64 that cohort averages roughly $25-30 of lifetime value, straddling the bottom of the $20-80 cost-per-paying-user band and losing outright at the midpoint. The trigger is also self-terminating - shared at-home dosing ends when the parent enters a facility or dies - so there is no expansion revenue and the switching-cost-of-history moat never has time to compound into pricing power.",
+    "strongest_defence": "invite_for_function means one sibling pays and brings two more writers at zero incremental CPI, so blended cost per paying household is well under the $5.84 headline; medication-error framing supports $12.99-14.99 rather than $8.99, and caregiver communities are dense enough to supply installs at no cost at all, making retention the only variable that matters.",
+    "verdict": "wounded",
+    "verdict_reason": "Marginal cost is negligible, but the author's own accepted 60%-in-90-days churn puts cohort LTV inside the acquisition-cost band, on a need that ends rather than grows."
+  },
+  "text": "",
+  "usage": {}
+}

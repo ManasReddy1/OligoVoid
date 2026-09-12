@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "economics_attacker",
+    "attack": "On-device rescoring makes marginal cost genuinely zero, so this is entirely an acquisition attack, and the wedge itself closes the till: the promise is that the corrected sample lands in HealthKit so every other app reads the right number, which means the nurse receives the full benefit without ever opening the app again and there is no in-app moment at which to sell a subscription. At their own kill-line floor of 3% paid conversion, a $5.84 iOS install is $195 per paying user and a $1.92 Android install is $64, against a sleep utility that prices at $4.99/month and nets $4.24 after the 15% small-business rate - 46 months and 15 months of unbroken retention respectively, on people whose rota changes and whose ring vendor could ship the same fix in a firmware update. The base is thin too: roughly 1.2M US rotating-shift nurses and paramedics who also wear a tracker, so even a heroic 5% organic install rate is ~60k installs, ~1,800 payers, ~$7.6k/month - inside the 17.3% who reach $1k but short of the 4.6% who reach $10k, with no paid channel available to push past it.",
+    "strongest_defence": "Marginal cost is zero, so every organic install is 100% margin and the community_embed loop (r/nursing, shift-worker Facebook groups, unit noticeboards) is a genuine zero-CAC channel; 1,800 payers at $7.6k/month is a viable one-person business that never buys an install, and the paywall can sit on the multi-rotation history rather than on the write-back.",
+    "verdict": "wounded",
+    "verdict_reason": "Zero marginal cost makes organic acquisition profitable, but paid acquisition is closed at 15-46 months of payback and the product's own design removes the in-app surface where a subscription would be sold."
+  },
+  "text": "",
+  "usage": {}
+}

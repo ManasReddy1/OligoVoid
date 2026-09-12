@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "economics_attacker",
+    "attack": "The wedge scopes the product to the first twelve weeks, so churn is 100% per quarter by construction and the entire customer base must be re-bought four times a year forever - the definition of an acquisition cost that never works at scale. Maximum possible LTV at a defensible $9.99/month is three months, $25.47 net after the 15% rate. Against that: even an optimistic 10% install-to-pay for new parents makes a $5.84 iOS install $58 per payer, 2.3x underwater with no fourth month to recover in, and the cited $20-80 cost-per-paying-user band straddles the entire lifetime value. Android at $19 per payer is the only cell that clears, on a product whose own premise is a two-iPhone household. The invite loop halves CPI per member but not per household, because the second parent is a free writing seat by design and never pays.",
+    "strongest_defence": "Charge $19.99/month or a $49 three-month pass ($42 net), which new parents at 4am will pay, and follow the child past twelve weeks into naps, weaning and toddler sleep the way Huckleberry does at $16.99/month - the shared two-seat record is the wedge, not the ceiling, and the household record itself is what makes leaving costly once it is months long.",
+    "verdict": "fatal",
+    "verdict_reason": "The stated wedge fixes customer lifetime at ninety days, and no price a 4am logging app can charge recovers an iOS acquisition cost inside ninety days while the whole base turns over every quarter."
+  },
+  "text": "",
+  "usage": {}
+}
