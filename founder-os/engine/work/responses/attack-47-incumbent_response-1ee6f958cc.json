@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "incumbent_response",
+    "attack": "The closest thing to an incumbent is Beeminder, which already ships the non-deferential mechanic as the akrasia horizon: you cannot change a goal inside seven days, and the record cannot be quietly rewritten. Adding a spoken check-in to that is not a large piece of work. Duolingo owns the evening-learner streak-pressure loop and has the distribution to put a voice commitment in front of this audience. But neither is a category leader that can make a product evaporate, and the platform owners who could are the ones structurally barred from shipping it.",
+    "strongest_defence": "Apple, Google and OpenAI cannot ship a feature that refuses a paying user a silent edit to their own record. A general assistant's memory is user-editable by design, its default stance is reassurance, and an assistant that argued with the person paying for it would be a trust and support liability rather than a feature. The stance is not merely unshipped by incumbents, it is unshippable by them, and Beeminder's existing version of it has spent a decade without reaching scale, so it is not the thing that absorbs this.",
+    "verdict": "survived",
+    "verdict_reason": "The product depends on refusing the user, which is exactly the stance the platform incumbents structurally will not take, so absorption is not the failure mode here."
+  },
+  "text": "",
+  "usage": {}
+}

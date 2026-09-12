@@ -124,6 +124,38 @@ is the same act that creates the record.
 
 ---
 
+## What timing does not fix, and the mistake worth avoiding
+
+The red team put a clean hole in this component, and it is worth recording
+rather than defending.
+
+One candidate in cycle 2 proposed surfacing how long it had been since you last
+spoke to someone. The demand attacker killed it with a single sentence: the
+output is a number the user already has, and **the barrier is avoidance, not
+information**.
+
+That objection separates two failures I had run together:
+
+| Failure | What causes it | What fixes it |
+|---|---|---|
+| Prompted when I could not act | wrong moment | the timing engine |
+| Did not want to face it | activation cost, guilt, a hard first sentence | not the timing engine |
+
+Timing fixes the first. It does nothing for the second, and a well-timed prompt
+aimed at an avoided task is arguably worse than a badly timed one, because it
+removes the last excuse and still gets dismissed.
+
+Avoidance needs a different mechanism: lowering the cost of the act itself. A
+prepared opening line rather than a blank message box. An easier version of the
+commitment offered when the hard one is being skipped, such as a voice note
+instead of a call. A smaller ask that still counts.
+
+A product that ships only the timing engine will work for commitments people
+want to keep and cannot reach, and will fail for commitments people are quietly
+avoiding. Knowing which kind you are building is the design decision. Shipping
+both mechanisms and calling it one feature is how this component gets blamed
+for a failure it never addressed.
+
 ## How this gets tested cheaply
 
 The whole component is falsifiable before any of it is built:

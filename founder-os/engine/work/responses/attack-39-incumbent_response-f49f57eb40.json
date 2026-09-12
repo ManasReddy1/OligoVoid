@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "incumbent_response",
+    "attack": "WhatsApp is the incumbent, because the family group chat is where these three siblings already coordinate, and it has shipped the primitives in the last two years: pinned messages, polls, and Events with RSVP inside group chats. A pinned 'whose turn' line costs nobody an install, and Meta ships group-coordination features on a quarterly cadence. On the Apple side, shared Reminders lists already carry a per-item assignee and a completion history, and Messages surfaces list changes inline in the thread the siblings are already reading. This product requires three of three siblings to install, adopt, and keep tapping a fourth app to maintain state the chat already carries for free.",
+    "strongest_defence": "A pinned message is not a computed answer to 'who is next' and goes stale the moment someone forgets to edit it, which is the arithmetic-by-hand failure in the pain. Neither WhatsApp nor Apple will compute turn order or hold it on the lock screen where nobody has to open anything, because for them this is one narrow case inside a general messaging product rather than the product itself.",
+    "verdict": "wounded",
+    "verdict_reason": "The coordination substrate is already free and already installed on all three phones, which caps adoption hard, but no incumbent computes or displays turn order and that is the actual wedge."
+  },
+  "text": "",
+  "usage": {}
+}

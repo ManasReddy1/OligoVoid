@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "incumbent_response",
+    "attack": "Google is the incumbent and the feature is one item in the assistant's morning brief. Calendar already holds free/busy and working hours, Contacts already holds time zones, and Google shipped keep-in-touch reminders inside Contacts years ago, so computing a three-name overlap window is a cron job over data Google already owns, delivered into a digest surface it already ships. Apple is the same story via the iOS morning summary and Siri Suggestions. The idea's own why_now concedes that time zone and free/busy are the two things the platform does hand over, which means the platform hands them to its own assistant first, and this is exactly the calendar-plus-notification surface that absorbed Timeful, Tempo and Woven rather than competing with them.",
+    "strongest_defence": "The incumbents' digests are attention products that will always rank a meeting above 'call Ana in Lisbon', and the whole claim here is that excluding everything else is what makes the brief get opened. A forty-second artifact with three names and nothing else is a different object from a line buried in a general summary.",
+    "verdict": "fatal",
+    "verdict_reason": "The entire product is arithmetic over calendar and contacts data the incumbent owns, delivered into a digest surface the incumbent already ships, with nothing accumulating on the app's side to defend."
+  },
+  "text": "",
+  "usage": {}
+}

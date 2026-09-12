@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "incumbent_response",
+    "attack": "The incumbent is the wearable vendor, and for this audience that is Oura and Whoop rather than Apple. Whoop has already abandoned the fixed bedtime window entirely, folding every sleep block including daytime naps into a rolling sleep-need and sleep-debt figure, and Oura ships nap detection plus Rest Mode and actively markets to shift workers, so 'shift-work mode: tell us your rota and we score the block against it' is a settings screen and a branch in a scorer for a team that already owns the raw PPG and accelerometer stream. Apple is the second front: watchOS already auto-detects naps and Health's Sleep Schedule already accepts a different schedule per weekday, making a rota schedule an increment rather than a new product. Worst of all, this product exists only while the vendor's scoring is wrong, and the vendor can rescore the nurse's entire history retroactively from data the app never sees.",
+    "strongest_defence": "The vendors structurally will not ask a user for a shift rota: their onboarding optimises for zero configuration and their marketing position is that one algorithm fits everyone, so admitting an entire occupational class is scored wrong is a claim they avoid rather than a feature they ship. And the HealthKit write-back means the product does not need vendor cooperation at all: the corrected sleepAnalysis sample becomes what every other app on the phone reads, whatever the vendor's own app says.",
+    "verdict": "wounded",
+    "verdict_reason": "The correction is a scoring branch over data the incumbent already owns and can recompute retroactively, but the vendors' unwillingness to take a rota as an input leaves the product real room to exist."
+  },
+  "text": "",
+  "usage": {}
+}

@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "demand_skeptic",
+    "attack": "The observed behaviour it cites is nurses hand-editing sleep windows inside their wearable's own app, and this version writes nothing back - so she would still edit Oura or Whoop and then additionally open this. It does not remove the labour it is justified by; it adds a fifth number in a fourth app. The output is by design a single corrected total with nothing to confirm and no decision attached: she already knows she slept badly after a run of nights, and the score was never the thing she was short of. Complaining about a sleep score is the cheapest behaviour a user can emit and the least predictive of a subscription.",
+    "strongest_defence": "The corrected total is meant to displace the vendor's number as her record rather than sit beside it, and what accumulates is a multi-year rota-specific sleep history the wearable's model cannot reproduce - which matters to a nurse arguing fatigue with rostering or occupational health, not to anyone chasing a score.",
+    "verdict": "wounded",
+    "verdict_reason": "It leaves the one piece of observed manual behaviour untouched and delivers an accurate number attached to no decision, though the displacement-of-record defence is at least testable."
+  },
+  "text": "",
+  "usage": {}
+}

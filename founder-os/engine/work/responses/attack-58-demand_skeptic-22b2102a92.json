@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "demand_skeptic",
+    "attack": "The pain statement is factually wrong about the tools, which undermines the evidence itself: YNAB has been explicitly paycheque-based for over a decade and Monarch and EveryDollar handle biweekly cycles, so 'budgeting tools cannot map 26 paycheques onto 12 months' describes a complaint people voice rather than a gap they face. The audience also already has a free, accurate, many-times-daily briefing in their bank balance, and for hourly warehouse and retail staff the next cheque's amount is not knowable in advance, so the brief's central arithmetic is a guess presented as a plan. Everyone paid biweekly already knows which two months carry a third cheque - it is a standing topic of conversation, not information.",
+    "strongest_defence": "The parallel spreadsheet is revealed behaviour rather than a stated wish: people maintain it for years, which is a durable cost they are already paying, and no incumbent delivers the answer unprompted on payday morning, which is the single moment the arithmetic is actionable rather than academic.",
+    "verdict": "wounded",
+    "verdict_reason": "The spreadsheet habit is real, but the gap the idea claims is not one the leading tools actually have and the audience's free bank balance already answers most of what the brief would say."
+  },
+  "text": "",
+  "usage": {}
+}

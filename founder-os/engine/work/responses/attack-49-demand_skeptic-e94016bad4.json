@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "demand_skeptic",
+    "attack": "The audience is explicitly people who quit Facebook and Instagram to keep up with friends more deliberately - a group defined by having paid a real social cost for unmediated contact - and the product hands them a machine-written message to send to a friend. The reluctance to send generated personal messages is strongest precisely among people who made an identity decision about authenticity, and the failure lands on the only step that matters, the send. The underlying evidence [245][238] is once again people describing an intention that surfaces and evaporates, the most abundant and least convertible statement in this whole category, and the author's own first kill criterion sets the success bar at 2 sends in 10.",
+    "strongest_defence": "The content is dictated by the user - six people, in their own words, saying what they owe each - so the model is finishing their sentence rather than inventing sentiment, and the real product is the refusal to surface a second draft until the first is sent or abandoned out loud, which is a constraint on their behaviour rather than a substitute for their voice.",
+    "verdict": "fatal",
+    "verdict_reason": "The named audience self-selected against mediated contact while the required action is sending a generated personal message, so the demand evidence argues against the mechanic rather than for it."
+  },
+  "text": "",
+  "usage": {}
+}
