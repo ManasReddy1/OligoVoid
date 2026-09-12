@@ -77,7 +77,8 @@ def main(db: str | None = None, reset: bool = False) -> None:
             continue
         n["UNLOCK"] += 1
 
-    for name in ("pains_health.json", "pains_life.json", "pains.json"):
+    for name in ("pains_health.json", "pains_life.json", "pains_agent.json",
+                 "pains.json"):
         for p in load_json(name):
             url = p.get("source_url")
             if not url:
@@ -91,7 +92,7 @@ def main(db: str | None = None, reset: bool = False) -> None:
                 continue
             n["PAIN"] += 1
 
-    for t in load_json("tombstones.json"):
+    for t in load_json("tombstones.json") + load_json("tombstones_assistant.json"):
         url = t.get("source_url")
         if not url:
             continue
@@ -119,6 +120,21 @@ def main(db: str | None = None, reset: bool = False) -> None:
                            source_url=p["source_url"], dated_at=p.get("dated_at")):
             continue
         n["PRODUCT"] += 1
+
+    # Platform rules are SHIFT signals: what a third-party app is actually
+    # allowed to do. For a product that acts on someone's phone these are not
+    # background colour, they decide whether the idea is buildable at all.
+    for row in load_json("platform_limits.json"):
+        url = row.get("source_url")
+        if not url:
+            continue
+        title = f"[{row.get('platform', '?')}] {row.get('title', '')}"[:200]
+        body = (f"ALLOWED: {row.get('what_is_allowed', '')}\n"
+                f"FORBIDDEN: {row.get('what_is_forbidden', '')}")
+        if add_signal(row.get("kind", "SHIFT"), title, url, body=body, payload=row,
+                      source_name="platform_shift", dated_at=row.get("dated_at"),
+                      confidence=float(row.get("confidence", 0.8))):
+            n[row.get("kind", "SHIFT")] = n.get(row.get("kind", "SHIFT"), 0) + 1
 
     # PRIOR rows are what a model says cold, with no evidence. They are the
     # obviousness baseline for gate L1, not evidence about the world.

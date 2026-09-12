@@ -95,9 +95,15 @@ def evidence_block(signals: Sequence[dict], limit: int = 48) -> str:
             bits.append(f"{s.get('title', '')}")
             bits.append(f"was={p.get('old_cost', '?')} now={p.get('new_cost', '?')}")
             bits.append(f"crossed={s.get('dated_at', '?')}")
+        elif s["kind"] == "SHIFT":
+            bits.append(f"{s.get('title', '')}")
+            bits.append(f"ALLOWED={str(p.get('what_is_allowed', ''))[:150]}")
+            bits.append(f"FORBIDDEN={str(p.get('what_is_forbidden', ''))[:150]}")
         elif s["kind"] == "TOMBSTONE":
             bits.append(f"{s.get('title', '')} died={p.get('died', '?')}")
             bits.append(f"cause={p.get('stated_cause', '')[:140]}")
+            if p.get("dissolved_by_2026"):
+                bits.append(f"dissolved={str(p['dissolved_by_2026'])[:120]}")
         else:
             bits.append(s.get("title", ""))
         lines.append(" | ".join(str(b) for b in bits))
