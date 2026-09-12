@@ -113,6 +113,13 @@ BANNED_AUDIENCES = {
     "professionals", "adults", "students",
 }
 
+# Function words do not qualify a generic audience.
+STOPWORDS_AUDIENCE = {
+    "who", "that", "which", "with", "and", "or", "the", "a", "an", "of", "in",
+    "on", "at", "for", "to", "their", "them", "they", "are", "is", "have",
+    "has", "been", "be", "do", "does", "did", "from", "by", "as", "it",
+}
+
 # A kill condition is falsifiable only if it names something observable.
 FALSIFIABLE_HINTS = re.compile(
     r"(\d|\bpercent\b|%|\bfewer\b|\bless than\b|\bmore than\b|\bunder\b|\bover\b|"
@@ -275,15 +282,29 @@ def check_validity(g: IdeaGenome,
     if not g.title.strip():
         reasons.append("no title")
 
-    # 2. audience must name a real population
+    # 2. audience must name a real population.
+    #
+    # A generic head noun is fine when it is qualified: "adults doing an evening
+    # course alongside full-time work" is a specific population, and an earlier
+    # version killed it for starting with "adults". Reject the bare term and the
+    # thinly-qualified one, not the qualified one.
     aud = g.audience.value.strip().lower()
     if aud:
+        words = aud.split()
         if aud in BANNED_AUDIENCES:
             reasons.append(f"audience '{aud}' is generic")
-        elif len(aud.split()) < 2:
+        elif len(words) < 2:
             reasons.append(f"audience '{aud}' is a single word, too broad")
-        elif any(aud == b or aud.startswith(b + " ") for b in BANNED_AUDIENCES):
-            reasons.append(f"audience '{aud}' leads with a generic term")
+        else:
+            lead = next((b for b in BANNED_AUDIENCES
+                         if aud == b or aud.startswith(b + " ")), None)
+            if lead:
+                qualifier = [w for w in aud[len(lead):].split()
+                             if w not in STOPWORDS_AUDIENCE]
+                if len(qualifier) < 3:
+                    reasons.append(
+                        f"audience '{aud}' is '{lead}' with too little "
+                        f"qualification to name a reachable population")
 
     # 3. kill conditions present and falsifiable
     if len(g.kill) < 2:

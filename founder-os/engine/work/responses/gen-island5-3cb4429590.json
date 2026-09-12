@@ -1,0 +1,194 @@
+{
+ "parsed": {
+  "reasoning": "I sorted the graveyard first, because the method only works if the corpse died of something that actually went away. Most of these did not. Humane [36] died of people sending the thing back faster than it sold. Kuri [38] died because Bosch decided it did not fit their shelf. Halo [48] died in a crowded aisle at Amazon. Glow [49] and Car Thing [50] died of nobody buying them. Vreal [45] died because there were not enough VR headsets in houses. Tandem live fitness [46] died because the founders decided live fitness just is not that interesting. Tandem's medication app [47] died of retention - they had the need validated and people still stopped opening it. Those are distribution, absorption, demand and retention deaths. Inference getting cheap does not touch any of them. A model at $0.10 per million tokens [3] does not make a stranger want your app, and it does not make a person open it on day 40.\n\nThe deaths that do dissolve are the ones where the thing was expensive to run or expensive to staff. Zeo [41] said it out loud: a suboptimal profit margin, an invasive headband, and the friction of logging into a website. That is a bill-of-materials death and a chore death. The sensor Zeo needed is now already on the wrist of anyone who owns a watch, and HealthKit background delivery [305] is one of the few things allowed to wake an app on its own, so the scoring can happen the moment the sleep block lands instead of waiting on some vendor batch job. Jibo [37] was $899 of hardware costing more than a $299 Echo and doing less - again a parts-cost death, and the coordination work it promised needs no parts at all now. Mycroft [40] ran out of money with the single most expensive item called out in the post-mortem; a voice loop that used to be a cloud bill is now zero marginal cost on the phone [2][310] or free on Private Cloud Compute for a small developer [1][311]. AIRO [35] died because it could not prove the sensing worked - it claimed to read meals off the body. A camera reading the printed ingredient list is not a claim, it is a photograph, and vision runs on-device now [2][310]. Those four corpses I will use. The rest I am leaving buried.\n\nThen the pains. I trust a pain more when someone has already built a worse version of it by hand, because that is a person paying in their own hours. Shift workers hand-editing sleep windows and setting the bedtime to 00:00-00:01 to fool the watch [12], firefighters keeping their apnea numbers on a separate vendor portal and ignoring the app's number [11], a nurse whose ring will not score a daytime block on the day it happened [10] - three separate rows, same population, same workaround shape. Someone with MCAS keeping their own recipe list outside the meal planner and cross-checking ingredients by hand [22]. A sibling with financial POA rebuilding an expense ledger in Excel every single month, split by POA role with the other sibling [211]. A parent scrolling months of message history and screenshotting photographed permission slips into the camera roll as a personal archive [225], and entering every appointment twice because the family organiser will not two-way sync [232]. A person paying actual money for human check-ins because a notification can be swiped away at no social cost [253]. Those are all labour - hours of a person's life doing clerical work - and labour cost is exactly the thing that just collapsed.\n\nTwo platform facts shape how the memory gets built. There is no first-party persistent personal-memory API for third parties on either phone platform, so whatever record accumulates, I have to build it and hold it myself - which is fine, because that is the only part a competitor cannot copy in a quarter. And the context is small: roughly 4K locally, 32K on Apple's free Private Cloud Compute tier [310]. You cannot shovel four years of someone's life into a prompt. The record has to be kept the way I keep the forklift logbook - a tight running summary plus indexed entries you can pull the specific page from - and it has to stay that size as it grows. That constraint is a feature: it forces the product to compress a life into something small enough to be read fast and painful enough to lose.\n\nPopulations I can actually reach without buying ads: night-shift nurses talk to each other in break rooms and in their own forums; MCAS people are already organised in patient groups and swap safe-food lists; POA siblings are a two-person unit where the second person has to be invited for the thing to work at all; and the freelancers paying for human check-ins are already spending money on the problem, which is the cheapest customer to find.",
+  "candidates": [
+   {
+    "title": "Shift Sleep Logbook",
+    "probability": 0.34,
+    "unlock": {
+     "value": "HealthKit background delivery lets an app wake itself the moment a sleep block is written and score it immediately [305], and a full model now runs on the phone at zero marginal cost [2][310], so the scoring that Zeo needed a $199 headband and a vendor web login to do is now free software on hardware the nurse already wears.",
+     "signal_ids": [
+      305,
+      2,
+      310,
+      311
+     ]
+    },
+    "pain": {
+     "value": "Rotating-shift workers cannot get a daytime sleep block scored on the day it happens, naps are not counted toward sleep debt, and any sleep outside the configured window is double-counted, so they hand-edit sleep windows or stop using the device for its main purpose.",
+     "signal_ids": [
+      10,
+      11,
+      12
+     ]
+    },
+    "audience": {
+     "value": "Night-shift hospital nurses working rotating 12-hour schedules"
+    },
+    "mechanic": {
+     "value": "passive_tracking"
+    },
+    "wedge": {
+     "value": "One screen that takes the sleep Apple Health already recorded, asks once which shift you just worked, and scores that daytime block the same afternoon against your own rota history instead of a fixed bedtime - no headband, no second device, no sleep window to configure."
+    },
+    "moat": {
+     "value": "accumulated_personal_corpus"
+    },
+    "model": {
+     "value": "freemium_subscription"
+    },
+    "loop": {
+     "value": "community_embed"
+    },
+    "kill": [
+     "Fewer than 30 of 100 nurses in a pilot still have it installed on day 60",
+     "Background delivery fails to score a daytime block within 2 hours of it being written on more than 10% of blocks",
+     "Scored sleep windows disagree with the nurse's own hand-logged window by more than 45 minutes on more than 1 in 5 daytime blocks",
+     "Under 3% of 60-day-retained free users pay $4/month by week 10"
+    ],
+    "why_now": "The sensor and the sleep data already exist on the worker's wrist and the only missing pieces - a legitimate self-wake trigger [305] and free local scoring [2][310] - both landed in 2026, which removes the hardware margin and the login chore that Zeo named as its cause of death.",
+    "why_not_obvious": "The obvious suggestion for shift workers is a better wearable, but the wearable is fine; what is broken is a fixed-bedtime assumption baked into the scoring, and fixing that is worth nothing on day one and a great deal after two years of your own rota-shaped record that no other app holds."
+   },
+   {
+    "title": "Callback",
+    "probability": 0.2,
+    "unlock": {
+     "value": "A spoken back-and-forth now costs $0.005-$0.018 a minute on cheap stacks [4] and the summarising and recall can run on-device for nothing [2][310][311], so the per-call cost structure that left Mycroft unable to fund a voice assistant no longer exists.",
+     "signal_ids": [
+      4,
+      2,
+      310,
+      311,
+      3
+     ]
+    },
+    "pain": {
+     "value": "A reminder or bot can be dismissed at zero social cost, so people who need accountability pay real money for human check-ins, and the tasks they record by voice become a substitute for doing them.",
+     "signal_ids": [
+      253,
+      260
+     ]
+    },
+    "audience": {
+     "value": "Self-employed remote freelancers who already pay for human accountability check-ins"
+    },
+    "mechanic": {
+     "value": "voice_conversation"
+    },
+    "wedge": {
+     "value": "One 3-minute call at a fixed time each weekday that opens by reading back, out loud, the exact thing you said you would do on the last call and the two times before that you said the same thing and did not do it."
+    },
+    "moat": {
+     "value": "switching_cost_of_history"
+    },
+    "model": {
+     "value": "subscription"
+    },
+    "loop": {
+     "value": "referral_two_sided"
+    },
+    "kill": [
+     "Fewer than 25% of trial users answer or place the second scheduled call in week one",
+     "In a 200-person test, being read your own three-week record of dodged commitments produces no better completion rate than a plain push notification",
+     "Paying users average more than 10 minutes of speech a day, which puts blended cost above $0.30 per active user per month at 3% conversion",
+     "Under 20% of users who currently pay a human for check-ins cancel that human within 8 weeks"
+    ],
+    "why_now": "The evidenced workaround is paying a person to call you [253], and a call that used to cost a human wage now costs under two cents a minute [4], so the only question left is whether the record makes the call hard to blow off.",
+    "why_not_obvious": "Everyone's first answer is a better reminder app, but the evidence says the problem is not the reminder, it is that nothing is keeping score; the durable part is a two-year record of what you promised and skipped, which is also exactly what makes leaving expensive."
+   },
+   {
+    "title": "Trigger List",
+    "probability": 0.28,
+    "unlock": {
+     "value": "A vision-capable model runs on the phone offline at zero marginal cost [2][310], so reading a printed ingredient panel and matching it against a personal trigger list needs no cloud bill, no maintained product database, and no sensing claim of the kind AIRO could not prove.",
+     "signal_ids": [
+      2,
+      310,
+      1,
+      311
+     ]
+    },
+    "pain": {
+     "value": "Meal planners only accept a fixed list of named diets and give no way to enter a personal list of trigger ingredients, so people with individualised food reactions keep their own list outside the app and cross-check every ingredient by hand.",
+     "signal_ids": [
+      22
+     ]
+    },
+    "audience": {
+     "value": "Adults managing MCAS on an individually built low-histamine trigger list"
+    },
+    "mechanic": {
+     "value": "capture_and_answer"
+    },
+    "wedge": {
+     "value": "Photograph one packet's ingredient panel, get a plain yes/no against your own typed list of triggers, and tap one button afterwards to record whether you reacted - nothing else, no account, no recipe feed."
+    },
+    "moat": {
+     "value": "accumulated_personal_corpus"
+    },
+    "model": {
+     "value": "freemium_subscription"
+    },
+    "loop": {
+     "value": "shareable_artifact"
+    },
+    "kill": [
+     "On-device vision misreads the ingredient panel on more than 5 of 300 hand-checked packets",
+     "Fewer than 40% of users record a reaction outcome after a scan in month one, so the personal record never passes 20 entries",
+     "Under 3% of active free users pay $5/month by week 8",
+     "Fewer than 15% of shared safe-lists produce an install within 30 days"
+    ],
+    "why_now": "The hand cross-checking described in [22] is a reading job, and reading a label is now free and offline on the phone [2][310], which is the same job AIRO promised from a sensor it could never prove worked.",
+    "why_not_obvious": "The first suggestion for a restricted diet is always another diet preset, but the whole point of this population is that their list is theirs alone; the asset is not the scanner, it is the accumulating record of what they personally reacted to, kept compact enough to fit the 4K local context [310]."
+   },
+   {
+    "title": "POA Ledger",
+    "probability": 0.18,
+    "unlock": {
+     "value": "On-device vision reads receipts, caregiver invoices and mileage notes at zero marginal cost [2][310] with free Private Cloud Compute for a small developer [311], so the monthly bookkeeping labour that made this only worth doing in Excel is gone - and unlike Jibo, the coordination job now needs no hardware in the parent's house at all.",
+     "signal_ids": [
+      2,
+      310,
+      311,
+      1
+     ]
+    },
+    "pain": {
+     "value": "The sibling holding financial POA rebuilds a monthly expense ledger in Excel from scratch - caregiver payments, mileage, groceries, medications - because there is no shared system for the money side of caregiving split across two POA roles.",
+     "signal_ids": [
+      211,
+      29
+     ]
+    },
+    "audience": {
+     "value": "Adult children holding financial POA for a parent while a sibling holds medical POA"
+    },
+    "mechanic": {
+     "value": "shared_ledger"
+    },
+    "wedge": {
+     "value": "Photograph the caregiver's cash receipts as they happen for one parent, and on the last day of the month get a single itemised statement the medical-POA sibling can open and comment on without an account of their own."
+    },
+    "moat": {
+     "value": "switching_cost_of_history"
+    },
+    "model": {
+     "value": "subscription"
+    },
+    "loop": {
+     "value": "invite_for_function"
+    },
+    "kill": [
+     "Fewer than 35% of first installers get the second sibling to open the shared statement within 14 days",
+     "The month-end statement still needs more than 30 minutes of hand correction in more than half of 40 test households",
+     "Under 3% convert at $9/month by week 12",
+     "More than 20% of households abandon within 60 days, matching the retention death that killed Tandem's medication app"
+    ],
+    "why_now": "The Excel rebuild in [211] is pure clerical labour on paper receipts, and reading paper is now free on the phone [2][310], so the only monthly work left is confirming what the camera already read.",
+    "why_not_obvious": "The obvious build is a shared family budget app, but this is not budgeting - it is one sibling accounting to another under a legal duty, so the product must be an exportable record from day one [29], and that same record is what makes the account too costly to abandon after two years of a parent's care."
+   }
+  ]
+ },
+ "text": "",
+ "usage": {}
+}
