@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "iOS 26 first (iPhone 13+), Swift/SwiftUI. VisionKit DataScanner for on-device OCR of the panel, plus Apple Foundation Models on-device for ingredient-name normalisation and the avoid-list match; no cloud call on the happy path. Small Anthropic Haiku-class fallback (~$0.10/M in) only for panels OCR scores as low-confidence, called from a single Cloudflare Worker. No account on first use; CloudKit private DB for the child's avoid-list and scan history. App Store, UK storefront first.",
+    "milestones": [
+      "Week 1-2: camera capture + VisionKit OCR of ingredients panels, tuned for curved/foil/chilled packaging; raw text on screen, no verdict yet.",
+      "Week 3-4: allergen ontology for nut and dairy (E-numbers, 'may contain', derivative names like casein/whey/marzipan) and the on-device match to one child's avoid-list; red/amber/green in under 2s.",
+      "Week 5-6: no-account onboarding, avoid-list builder, offline-first scan history in CloudKit, shareable 'checked' card for the other parent.",
+      "Week 7-9: the 500-packet own-brand audit - buy the packets, hand-label truth, measure agreement, fix the failure classes (amber must never read green).",
+      "Week 10-12: liability review and copy, disclaimers, paywall (5 free scans/week), TestFlight with 30 allergy families recruited via UK allergy charities, App Store review."
+    ],
+    "build_cost_usd": 14000,
+    "weeks_to_v1": 12,
+    "inference_cost_user_month": 0.04,
+    "price_month": 4.99,
+    "expected_conversion": 0.04,
+    "riskiest_technical_assumption": "That on-device OCR plus a small on-device model hits 97%+ agreement on real chilled-aisle packaging - curved, crinkled, foil-backed, 6pt type under supermarket lighting - because a single false 'safe' on a nut derivative is a hospital trip and ends the product.",
+    "cheapest_way_to_test_that_assumption": "Before writing any app, walk a single Tesco and Aldi with a phone, shoot 300 own-brand panels into a folder, run them through VisionKit and the on-device model in a throwaway script, and hand-score the false-negative rate against the printed panels - about two days and the cost of a weekly shop."
+  },
+  "text": "",
+  "usage": {}
+}

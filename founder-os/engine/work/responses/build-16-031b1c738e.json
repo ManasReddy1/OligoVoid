@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "React Native, iOS + Android. Cheap-stack speech-to-speech (~$0.008-0.015/min) for the 12-minute mock; the user's own N-400 answers typed in and fed as context so the officer asks about their real travel dates and addresses. Public USCIS content (N-400 form, 100 civics questions) so no licensing cost. Transcript scoring by a Haiku-class text pass. Consumable credits via StoreKit/Play Billing, plus a web credit purchase.",
+    "milestones": [
+      "Week 1-2: N-400 data intake (the user types their own answers once) and the officer prompt that questions those specific facts.",
+      "Week 3-4: the 12-minute voice mock with interruption and one unprepared follow-up per session - the interruption behaviour is the product, a polite turn-taker is worthless here.",
+      "Week 5-6: post-mock review: transcript, the answers that contradicted the typed N-400, civics questions missed.",
+      "Week 7: hard legal framing - practice only, not legal advice, no eligibility opinions - plus a refusal path when the user asks for immigration advice.",
+      "Week 8: one free mock then credits; seed through two immigrant-services nonprofits and the r/USCIS-style communities."
+    ],
+    "build_cost_usd": 8500,
+    "weeks_to_v1": 8,
+    "inference_cost_user_month": 0.75,
+    "price_month": 14.99,
+    "expected_conversion": 0.1,
+    "riskiest_technical_assumption": "That the voice model sustains an officer persona that interrupts and probes the user's own typed N-400 facts for 12 minutes without drifting into hallucinated legal or eligibility claims, which in this audience is an actively harmful failure, not a cosmetic one.",
+    "cheapest_way_to_test_that_assumption": "Script ten adversarial 12-minute mocks (including users who ask 'will I pass?') against the cheap stack and have an immigration paralegal read the transcripts for anything that reads as legal advice - a few hours of their time."
+  },
+  "text": "",
+  "usage": {}
+}

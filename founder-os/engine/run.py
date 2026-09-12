@@ -40,7 +40,7 @@ def _current_cycle(store: Store) -> int | None:
 
 
 def cmd_load(args) -> None:
-    load_evidence.main(args.db)
+    load_evidence.main(args.db, reset=args.reset)
 
 
 def cmd_cycle(args) -> None:
@@ -103,7 +103,11 @@ def main() -> None:
     ap.add_argument("--db", default=None)
     sub = ap.add_subparsers(dest="cmd", required=True)
 
-    sub.add_parser("load").set_defaults(fn=cmd_load)
+    lo = sub.add_parser("load")
+    lo.add_argument("--reset", action="store_true",
+                    help="wipe the store first. Reassigns signal ids, which "
+                         "orphans citations in existing cycles")
+    lo.set_defaults(fn=cmd_load)
 
     c = sub.add_parser("cycle")
     c.add_argument("--budget", type=float, default=6.0)
