@@ -271,42 +271,72 @@ def _dossier(store: Store, r: dict, n: int, sig_by_id: dict) -> str:
 
     econ_pill = ("ok" if (l3.get("margin_ratio") or 0) > 0.3 else "bad")
 
+    rows = [
+        ("for whom", sv("audience")),
+        ("the problem", sv("pain")),
+        ("why now", esc(notes.get("why_now", ""))),
+        ("enabled by", f'<span class="pill vd">{sv("unlock")}</span>'),
+        ("the wedge", sv("wedge")),
+        ("mechanic", f'<span class="pill">{sv("mechanic")}</span>'
+                     f'<span class="pill">{sv("model")}</span>'
+                     f'<span class="pill">{sv("loop")}</span>'
+                     f'<span class="pill">{sv("moat")}</span>'),
+        ("not obvious", esc(notes.get("why_not_obvious", "")) +
+         f'<div class="fine">originality {esc(l1.get("originality"))} &middot; '
+         f'nearest shipped: {esc(l1.get("nearest_product") or "none found")}</div>'),
+    ]
+
+    # Stages that have not run yet are omitted rather than shown empty. A blank
+    # margin reads as a margin of zero, which is a different claim.
+    if l3.get("build_cost_usd") is not None:
+        rows.append(("build",
+                     f'<span class="num">${l3["build_cost_usd"]:,.0f} &middot; '
+                     f'{esc(l3.get("weeks_to_v1"))} weeks</span> '
+                     f'<div class="fine">{esc(l3.get("stack", ""))}</div>'))
+        rows.append(("economics",
+                     f'<span class="pill {econ_pill}">margin '
+                     f'{esc(l3.get("margin_ratio"))}</span>'
+                     f'<div class="fine num">${esc(l3.get("price_month"))}/mo at '
+                     f'{esc(round((l3.get("expected_conversion") or 0) * 100, 1))}% '
+                     f'conversion, model cost '
+                     f'${esc(l3.get("inference_cost_user_month"))} per active user</div>'))
+    if l4.get("survival") is not None:
+        rows.append(("survived",
+                     f'<span class="num">{round(l4["survival"] * 100)}% of attacks</span>'
+                     + (f' <span class="pill bad">fatal: '
+                        f'{esc(", ".join(l4.get("fatal_surfaces") or []))}</span>'
+                        if l4.get("fatal_surfaces") else "")))
+    rows.append(("evidence",
+                 f'<span class="fine">{" &middot; ".join(cites) if cites else "uncited"}</span>'))
+
+    kv = "".join(f"<dt>{esc(k)}</dt><dd>{v}</dd>" for k, v in rows if v)
+
+    score_block = ""
+    if sc.get("founder_score") is not None:
+        score_block = (f'<div class="score">{esc(sc.get("founder_score"))}</div>'
+                       f'<div class="heads"><span>novelty <b>{esc(sc.get("novelty"))}</b></span>'
+                       f'<span>viability <b>{esc(sc.get("viability"))}</b></span></div>')
+
+    extra = ""
+    if l3.get("riskiest_technical_assumption"):
+        extra += (f'<p class="fine" style="margin-top:9px"><b>Riskiest assumption:</b> '
+                  f'{esc(l3["riskiest_technical_assumption"])}</p>')
+    if l3.get("cheapest_way_to_test_that_assumption"):
+        extra += (f'<p class="fine"><b>Cheapest test:</b> '
+                  f'{esc(l3["cheapest_way_to_test_that_assumption"])}</p>')
+
     return f"""<article class="card{' top' if n <= 3 else ''}">
 <div class="chead">
   <div><span class="rank">#{n} &middot; island {esc(r['island'])} &middot; {esc(r['operator'])}</span>
   <h3>{esc(g.get('title'))}</h3></div>
-  <div style="text-align:right">
-    <div class="score">{esc(sc.get('founder_score'))}</div>
-    <div class="heads"><span>novelty <b>{esc(sc.get('novelty'))}</b></span>
-    <span>viability <b>{esc(sc.get('viability'))}</b></span></div>
-  </div>
+  <div style="text-align:right">{score_block}</div>
 </div>
-<dl class="kv">
-  <dt>for whom</dt><dd>{sv('audience')}</dd>
-  <dt>the problem</dt><dd>{sv('pain')}</dd>
-  <dt>why now</dt><dd>{esc(notes.get('why_now', ''))} <span class="pill vd">{sv('unlock')}</span></dd>
-  <dt>the wedge</dt><dd>{sv('wedge')}</dd>
-  <dt>mechanic</dt><dd><span class="pill">{sv('mechanic')}</span>
-      <span class="pill">{sv('model')}</span><span class="pill">{sv('loop')}</span>
-      <span class="pill">{sv('moat')}</span></dd>
-  <dt>not obvious</dt><dd>{esc(notes.get('why_not_obvious', ''))}
-      <span class="fine">originality {esc(l1.get('originality'))};
-      nearest shipped: {esc(l1.get('nearest_product') or 'none found')}</span></dd>
-  <dt>build</dt><dd class="num">${esc(f"{l3.get('build_cost_usd', 0):,.0f}" if l3.get('build_cost_usd') else '?')}
-      &middot; {esc(l3.get('weeks_to_v1'))} weeks &middot; {esc(l3.get('stack', ''))}</dd>
-  <dt>economics</dt><dd><span class="pill {econ_pill}">margin {esc(l3.get('margin_ratio'))}</span>
-      <span class="num fine">${esc(l3.get('price_month'))}/mo at
-      {esc(round((l3.get('expected_conversion') or 0) * 100, 1))}% conversion,
-      model cost ${esc(l3.get('inference_cost_user_month'))}/active user</span></dd>
-  <dt>survived</dt><dd class="num">{esc(round((sc.get('survival') or 0) * 100))}% of attacks</dd>
-  <dt>evidence</dt><dd class="fine">{" &middot; ".join(cites) if cites else "uncited"}</dd>
-</dl>
+<dl class="kv">{kv}</dl>
 <details><summary>Kill conditions and the build</summary>
 <p class="fine" style="margin-top:9px"><b>This is wrong if:</b></p>
 <ul class="tight">{kills}</ul>
 {'<p class="fine" style="margin-top:9px"><b>Build path:</b></p><ul class="tight">' + miles + '</ul>' if miles else ''}
-{'<p class="fine" style="margin-top:9px"><b>Riskiest assumption:</b> ' + esc(l3.get('riskiest_technical_assumption', '')) + '</p>' if l3.get('riskiest_technical_assumption') else ''}
-{'<p class="fine"><b>Cheapest test:</b> ' + esc(l3.get('cheapest_way_to_test_that_assumption', '')) + '</p>' if l3.get('cheapest_way_to_test_that_assumption') else ''}
+{extra}
 </details>
 {attacks}
 </article>"""
