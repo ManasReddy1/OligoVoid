@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "distribution_attacker",
+    "attack": "The shareable artifact is a deck file, and whoever receives it gets 100% of the value without installing anything - they import it into Anki, the app they already run. The recipient's rational move is to ask for the next deck, not to buy a scanner, so every turn of the loop removes a buyer instead of adding one. Worse, decks are a public good that saturates permanently: once the first few hundred buyers post their Hungarian verb decks to AnkiWeb's shared repository, the whole remaining market is served forever by a free download. And the channel cannot hold the target anyway - r/hungarian is around 60k, mostly heritage speakers, and the population of adult self-taught Hungarian learners who run Anki and build decks off conjugator pages is plausibly a few thousand worldwide against a 1,500-unit six-month goal.",
+    "strongest_defence": "Hungarian is only the wedge; the same parser generalises to Finnish, Czech, Turkish, Greek and every other inflected language, so each language is a fresh small community the founder can work by hand one subreddit at a time, and the aggregate is a real market.",
+    "verdict": "fatal",
+    "verdict_reason": "The named artifact substitutes for installing and permanently saturates the market it reaches, and the wedge community is smaller than the unit target, so there is no zero-budget route to the first thousand buyers."
+  },
+  "text": "",
+  "usage": {}
+}
