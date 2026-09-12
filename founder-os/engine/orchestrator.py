@@ -395,6 +395,8 @@ class Orchestrator:
             ratings[head] = tournament.bradley_terry(ids, comps)
             lcbs[head] = tournament.bootstrap_lcb(ids, comps, reps=120)
 
+        checks = self._checklist_scores()
+
         out = []
         for r in rows:
             v = {x["gate"]: x for x in self.s.verdicts(r["id"])}
@@ -407,11 +409,17 @@ class Orchestrator:
             econ = float(l3.get("unit_economics", 0.5))
             survival = float(l4.get("survival", 0.5))
 
-            # Quality and distribution come from the tournament, normalised to
-            # 0-1 across the field. They are relative by construction, which is
-            # the point: pairwise beats absolute on subjective dimensions.
-            quality = _norm_rating(ratings["novelty"], r["id"], ids)
-            distribution = _norm_rating(ratings["viability"], r["id"], ids)
+            # Quality and distribution come from the judges' BINARY CHECKLIST,
+            # not from the pairwise ratings.
+            #
+            # An earlier version fed the novelty tournament rating in as
+            # "quality", which made the novelty head harmonic(originality,
+            # judged-novelty) — novelty counted twice and quality never
+            # measured at all. The checklist is independent of who won the
+            # pair, and binary items are auditable and do not drift.
+            ck = checks.get(r["id"], {})
+            quality = ck.get("quality", 0.5)
+            distribution = ck.get("distribution", 0.5)
             timing = scoring.timing_score(l3.get("months_since_unlock"))
 
             sc = scoring.assemble(originality, quality, build, econ,
@@ -420,7 +428,7 @@ class Orchestrator:
             sc["elo_viability"] = ratings["viability"].get(r["id"])
             sc["lcb"] = min(lcbs["novelty"][r["id"]]["lcb"],
                             lcbs["viability"][r["id"]]["lcb"])
-            sc["detail"] = {"l1": l1, "l3": l3,
+            sc["detail"] = {"l1": l1, "l3": l3, "checks": ck,
                             "lcb_novelty": lcbs["novelty"][r["id"]],
                             "lcb_viability": lcbs["viability"][r["id"]]}
             self.s.set_scores(r["id"], **sc)
@@ -429,6 +437,71 @@ class Orchestrator:
         out.sort(key=lambda x: x["founder_score"], reverse=True)
         self.note("score", scored=len(out))
         return out
+
+    def _checklist_scores(self) -> dict[int, dict[str, Any]]:
+        """Per-idea scores from the judges' yes/no checks.
+
+        The checks each comparison asks of both entries:
+          q1 names a specific population with a specific trigger moment
+          q2 the enabling capability genuinely changed recently
+          q3 something very close already ships          (a NO is good)
+          q4 the distribution loop turns without ad spend
+          q5 there is a reason to open it again in week two
+
+        Every idea appears in several comparisons, so each check is averaged
+        over its appearances. That averaging is also a free reliability signal:
+        a check that flips between appearances of the same idea is a judge
+        being inconsistent, not a property of the idea.
+        """
+        out: dict[int, dict[str, list[float]]] = {}
+        prompts_dir = getattr(self.b, "prompts", None)
+        responses_dir = getattr(self.b, "responses", None)
+        if prompts_dir is None or responses_dir is None:
+            return {}
+        for pf in sorted(prompts_dir.glob("judge-*.json")):
+            rf = responses_dir / pf.name
+            if not rf.exists():
+                continue
+            try:
+                meta = json.loads(pf.read_text()).get("meta", {})
+                data = json.loads(rf.read_text()).get("parsed") or {}
+            except (ValueError, OSError):
+                continue
+            checks = data.get("checks") or {}
+            for slot, idea_id in (("A", meta.get("a")), ("B", meta.get("b"))):
+                c = checks.get(slot)
+                if not isinstance(c, dict) or idea_id is None:
+                    continue
+                d = out.setdefault(int(idea_id), {})
+                for q in ("q1", "q2", "q3", "q4", "q5"):
+                    if q in c:
+                        d.setdefault(q, []).append(1.0 if c[q] else 0.0)
+
+        scores: dict[int, dict[str, Any]] = {}
+        for idea_id, d in out.items():
+            def mean(q, invert=False):
+                vals = d.get(q) or []
+                if not vals:
+                    return 0.5
+                m = sum(vals) / len(vals)
+                return 1.0 - m if invert else m
+
+            def flip(q):
+                vals = d.get(q) or []
+                return len(set(vals)) > 1 if len(vals) > 1 else False
+
+            q1, q2, q3n, q4, q5 = (mean("q1"), mean("q2"), mean("q3", invert=True),
+                                   mean("q4"), mean("q5"))
+            scores[idea_id] = {
+                "quality": round((q1 + q2 + q3n + q5) / 4, 3),
+                "distribution": round(q4, 3),
+                "specific_audience": q1, "recent_unlock": q2,
+                "not_already_shipping": q3n, "loop_turns": q4, "week_two_reason": q5,
+                "n_appearances": len(d.get("q1") or []),
+                "inconsistent_checks": [q for q in ("q1", "q2", "q3", "q4", "q5")
+                                        if flip(q)],
+            }
+        return scores
 
     # -- stage 7: probe design --------------------------------------------
 
