@@ -169,6 +169,9 @@ island theses. {len(killed)} killed by the gates. {len(alive)} survived to ranki
         parts.append(_dossier(store, r, n, sig_by_id))
     parts.append("</section>")
 
+    # ---- panel calibration ----
+    parts.append(_panel_calibration(store, cycle_id))
+
     # ---- coverage ----
     parts.append(_coverage(store))
 
@@ -351,6 +354,58 @@ def _vp(verdict: str | None) -> str:
 
 
 FRESH_MONTHS = 24
+
+
+def _panel_calibration(store: Store, cycle_id: int) -> str:
+    """Is the red team discriminating, or just wounding everything?
+
+    A panel that returns the same verdict for nearly every idea produces a
+    survival multiplier with no spread, which silently removes one of the two
+    factors in the composite score. That is worth showing next to the rankings
+    rather than discovering later.
+    """
+    counts: dict[str, int] = {}
+    by_surface: dict[str, dict[str, int]] = {}
+    for r in store.ideas(cycle_id=cycle_id):
+        for v in store.verdicts(r["id"]):
+            if v["gate"] != "L4":
+                continue
+            for a in ((v.get("detail") or {}).get("detail", {}).get("attacks") or []):
+                verdict = a.get("verdict", "?")
+                surface = a.get("surface", "?")
+                counts[verdict] = counts.get(verdict, 0) + 1
+                by_surface.setdefault(surface, {})
+                by_surface[surface][verdict] = by_surface[surface].get(verdict, 0) + 1
+    total = sum(counts.values())
+    if not total:
+        return ""
+
+    order = ["survived", "wounded", "fatal", "abstain"]
+    rows = "".join(
+        f'<tr><td class="m">{esc(surf)}</td>' +
+        "".join(f'<td class="num">{esc(by_surface[surf].get(v, 0))}</td>' for v in order) +
+        "</tr>"
+        for surf in sorted(by_surface))
+    head = "".join(f"<th>{v}</th>" for v in order)
+
+    survived_share = counts.get("survived", 0) / total
+    warn = ""
+    if survived_share < 0.10:
+        warn = (f'<p class="note" style="margin-top:12px">Only '
+                f'<strong>{counts.get("survived", 0)} of {total}</strong> attacks '
+                f'were answered outright. When almost every exchange lands on the '
+                f'same verdict, the survival multiplier stops separating ideas and '
+                f'one of the two factors in the composite quietly stops doing work. '
+                f'Either consumer ideas really are this fragile, or the rubric '
+                f'rewards wounding. The fix is the calibration set, not a softer '
+                f'panel.</p>')
+
+    return (f'<section><div class="shead"><div class="eyebrow">Panel calibration</div>'
+            f'<h2>Is the red team discriminating?</h2>'
+            f'<p class="col">{esc(total)} attacks across {esc(len(by_surface))} '
+            f'surfaces. An abstention is not counted as a survival.</p></div>'
+            f'<div class="tscroll"><table><thead><tr><th>Surface</th>{head}</tr>'
+            f'</thead><tbody>{rows}</tbody></table></div>{warn}</section>')
 
 
 def _coverage(store: Store) -> str:
