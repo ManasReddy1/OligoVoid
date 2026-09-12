@@ -152,6 +152,9 @@ island theses. {len(killed)} killed by the gates. {len(alive)} survived to ranki
 <span>uncalibrated &mdash; ranking is internally consistent, not backtested</span>
 </div></header>""")
 
+    # ---- caveat ----
+    parts.append(_caveat(store, cycle_id))
+
     # ---- attrition ----
     parts.append(_funnel(all_ideas, killed, alive))
 
@@ -209,6 +212,38 @@ shortlist with kill conditions, never as a verdict.</p></footer>""")
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(doc)
     return p
+
+
+def _caveat(store: Store, cycle_id: int) -> str:
+    """Anything that undermines the numbers below goes ABOVE them."""
+    cycle = store.cycle(cycle_id) or {}
+    ledger = cycle.get("progress_ledger")
+    corrections = [e for e in (ledger if isinstance(ledger, list) else [])
+                   if e.get("stage") == "correction"]
+    items = "".join(
+        f'<li><b>{esc(e.get("what", ""))}</b> &mdash; {esc(e.get("fix", ""))}</li>'
+        for e in corrections)
+
+    return f"""<section>
+<div class="shead col"><div class="eyebrow" style="color:var(--kill)">Read this first</div>
+<h2>What was wrong with this cycle</h2></div>
+<div class="card" style="border-left:3px solid var(--kill)">
+<p><b>No generator saw a single human problem.</b> The evidence block truncated a
+flat list at 40 items, and the caller passed unlocks, then tombstones, then
+pains. Nine unlocks plus thirty-one tombstones filled the limit exactly, so all
+49 harvested pain signals were cut off before any prompt was written.</p>
+<p>Every idea below was therefore generated from capability changes and dead
+products alone. That is why several read as analyses of why competitors failed
+rather than of what a person cannot do, and why all of them cite tombstones in
+their problem slot. The grounding gate passed them because the citations
+resolved and it never checked what <em>kind</em> of signal was cited.</p>
+<p class="fine">Both holes are now closed: evidence is selected round-robin across
+kinds so one kind cannot crowd out another, and gate L2 requires the problem
+slot to cite at least one real pain. Neither is retrofitted here. Re-screening
+would invalidate a completed tournament, and this report stands as what the
+system produced with the evidence it actually had.</p>
+{'<p class="fine"><b>Corrections applied mid-cycle:</b></p><ul class="tight">' + items + '</ul>' if items else ''}
+</div></section>"""
 
 
 def _funnel(all_ideas, killed, alive) -> str:

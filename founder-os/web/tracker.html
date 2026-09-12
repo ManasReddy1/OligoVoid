@@ -171,21 +171,21 @@
     <div class="meters">
       <div class="meter good">
         <span class="lab">Deliverables done</span>
-        <span class="big">26<span style="font-size:1rem;color:var(--muted)">/40</span></span>
-        <div class="bar"><i style="width:65%"></i></div>
-        <span class="sub">65% of the specified build</span>
+        <span class="big">28<span style="font-size:1rem;color:var(--muted)">/40</span></span>
+        <div class="bar"><i style="width:70%"></i></div>
+        <span class="sub">70% of the specified build</span>
       </div>
-      <div class="meter live">
+      <div class="meter good">
         <span class="lab">Cycle 1</span>
-        <span class="big">4<span style="font-size:1rem;color:var(--muted)">/7</span></span>
-        <div class="bar w"><i style="width:57%"></i></div>
-        <span class="sub">stages complete, panel running</span>
+        <span class="big">7<span style="font-size:1rem;color:var(--muted)">/7</span></span>
+        <div class="bar"><i style="width:100%"></i></div>
+        <span class="sub">complete, report published</span>
       </div>
       <div class="meter">
         <span class="lab">Ideas alive</span>
-        <span class="big">12<span style="font-size:1rem;color:var(--muted)">/30</span></span>
-        <div class="bar"><i style="width:40%"></i></div>
-        <span class="sub">18 killed by the gates</span>
+        <span class="big">5<span style="font-size:1rem;color:var(--muted)">/30</span></span>
+        <div class="bar"><i style="width:17%"></i></div>
+        <span class="sub">25 killed by the gates</span>
       </div>
       <div class="meter">
         <span class="lab">Evidence rows</span>
@@ -236,21 +236,23 @@
         <span class="n">&minus;10</span>
         <p class="why">The sharpest gate so far. Ten died on margin: continuous voice transcription, nightly voice against a $9 subscription, generated video burning $1.20 per non-paying trial user.</p>
       </div>
-      <div class="stage now">
+      <div class="stage pass">
         <span class="g">L4</span>
-        <div class="box" style="width:48%">Adversarial panel &mdash; 60 attacks across 5 surfaces</div>
-        <span class="n">running</span>
-        <p class="why">Demand, incumbent response, economics, distribution, retention and the graveyard. Any single unanswerable attack is a hard kill the judge cannot overrule.</p>
+        <div class="box" style="width:48%">Adversarial panel &mdash; 72 attacks across 6 surfaces</div>
+        <span class="n">&minus;7</span>
+        <p class="why">Run first at five surfaces, which killed 5. The sixth surface, the graveyard check, had been silently cut for cost and killed two more once actually run.</p>
       </div>
-      <div class="stage wait">
+      <div class="stage pass">
         <span class="g">L5</span>
-        <div class="box" style="width:40%">Tournament &mdash; pairwise, both orders, ranked by lower bound</div>
-        <span class="n">queued</span>
+        <div class="box" style="width:28%">Tournament &mdash; 40 comparisons, both orders</div>
+        <span class="n">5</span>
+        <p class="why">Every pair judged twice with the entries swapped. 100% agreement, zero cases of choosing whichever came first.</p>
       </div>
-      <div class="stage wait">
+      <div class="stage pass">
         <span class="g">L7</span>
-        <div class="box" style="width:26%">Probe design &mdash; the cheapest test for the top three</div>
-        <span class="n">queued</span>
+        <div class="box" style="width:20%">Probe design &mdash; three tests, all free</div>
+        <span class="n">3</span>
+        <p class="why">Two concierge runs and one community post. No landing pages: the uncertainty in all three is behavioural, and paid traffic cannot touch it.</p>
       </div>
     </div>
   </section>
@@ -330,12 +332,12 @@
       <div class="phase">
         <div class="ptop">
           <div class="ptitle"><span class="p">Phase 5</span><h3>Oracle ladder</h3></div>
-          <div><span class="pcount">4 / 5</span> <span class="chip live">Running</span></div>
+          <div><span class="pcount">4 / 5</span> <span class="chip done">Done</span></div>
         </div>
         <div class="items">
           <div class="item yes"><span class="m">&check;</span><span>L2 grounding, retrieval only</span></div>
           <div class="item yes"><span class="m">&check;</span><span>L3 buildability, margin as a hard kill</span></div>
-          <div class="item run"><span class="m">&rarr;</span><span>L4 panel, clean context per surface</span></div>
+          <div class="item yes"><span class="m">&check;</span><span>L4 panel, clean context per surface</span></div>
           <div class="item yes"><span class="m">&check;</span><span>L5 tournament, Bradley-Terry with bounds</span></div>
           <div class="item no"><span class="m">&mdash;</span><span>Sneaky advocate, to harden the rubric</span></div>
         </div>
@@ -457,6 +459,24 @@
       <table>
         <thead><tr><th>What broke</th><th>How it would have looked</th><th>Status</th></tr></thead>
         <tbody>
+          <tr><td><b>No generator ever saw a pain signal.</b> Evidence truncated at 40 items after 9 unlocks and 31 tombstones filled it</td>
+              <td>All 30 ideas generated from capability changes and dead products alone, citing tombstones as their evidence of a human problem. No error anywhere</td>
+              <td><span class="chip done">Fixed</span></td></tr>
+          <tr><td>Grounding accepted a citation of any kind</td>
+              <td>A problem evidenced only by a dead competitor passing as an evidenced human need</td>
+              <td><span class="chip done">Fixed</span></td></tr>
+          <tr><td>Panel silently dropped its last attack surface</td>
+              <td>Five ideas surviving that a sourced graveyard check kills</td>
+              <td><span class="chip done">Fixed</span></td></tr>
+          <tr><td>Timing scored a constant 0.4 for every idea</td>
+              <td>One of the four viability terms contributing nothing to any ranking</td>
+              <td><span class="chip done">Fixed</span></td></tr>
+          <tr><td>Novelty head counted novelty twice and never measured quality</td>
+              <td>A plausible-looking score with a term missing from it</td>
+              <td><span class="chip done">Fixed</span></td></tr>
+          <tr><td>Probe stage was unreachable behind the driver's stop point</td>
+              <td>A designed stage that simply never ran</td>
+              <td><span class="chip done">Fixed</span></td></tr>
           <tr><td>Deny rule matched &ldquo;million-token context&rdquo; as crypto</td>
               <td>Seven sound ideas killed at the first gate for a reason nobody would have questioned</td>
               <td><span class="chip done">Fixed</span></td></tr>
@@ -475,21 +495,21 @@
           <tr><td>Persona list leaked a British accent into the audience slot</td>
               <td>Half the survivors aimed at a market with a fifth of the revenue per install</td>
               <td><span class="chip done">Fixed for next cycle</span></td></tr>
-          <tr><td>L0 now kills nothing after the crypto fix</td>
-              <td>A gate that passes everything is pure cost and should be tightened or removed</td>
-              <td><span class="chip live">Open</span></td></tr>
+          <tr><td>L0 kills nothing after the crypto fix</td>
+              <td>Investigated: the target was wrong, not the gate. Its rules live in the generation prompt, so compliance is high. Now documented as a guarantee whose kill rate is a drift alarm</td>
+              <td><span class="chip done">Resolved</span></td></tr>
         </tbody>
       </table>
     </div>
-    <p class="note" style="margin-top:14px">The last row is not a fix, it is an
-      admission. The validity gate is designed to kill about 40% and is currently
-      killing none, which means the rules are too loose for what the generators
-      actually produce.</p>
+    <p class="note" style="margin-top:14px">Eight of these were found by running the
+      thing, not by reading it. Every one would have produced a plausible-looking
+      ranking with something quietly missing from it, which is the failure mode
+      that matters in a system whose whole output is a judgement.</p>
   </section>
 
   <footer>
     <p>Counts read from the live run ledger. Branch
-      <code>claude/multi-agent-orchestration-twygjg</code>, 29 commits.</p>
+      <code>claude/multi-agent-orchestration-twygjg</code>. Cycle 1 complete.</p>
     <p class="fine">Nothing here is calibrated against real outcomes yet. Published
       benchmarks on this class of prediction top out near a 4.7x lift over a sub-1%
       base rate, which is the honest ceiling this is aiming at.</p>
