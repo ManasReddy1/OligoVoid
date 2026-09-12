@@ -1,0 +1,191 @@
+{
+  "parsed": {
+    "reasoning": "Start with the pains that already have a workaround, because a workaround is a person telling you they solved the hard part themselves and only want the annoying part removed. [242] is the cleanest: the man did not fail to call his mother, he failed to be reminded at a moment that was still true. His calendar fired on days he had already called, so he wrote his own thing that tracks last contact instead. He could perform the action. The action was never the problem. [256] is the same complaint from a different angle in plain words: the reminder has no idea whether the thing happened, so it fires anyway and trains the person to ignore every future one. [235] is the one with no workaround at all, just a person saying they care deeply and forget people exist for months and hate themselves for it, and wishing they could simply remember. Put those three side by side and the irreducible steps of 'stay in touch' are: decide you want to, know it has not happened lately, and be standing somewhere you can do it. Step one is already done before any software gets involved. Step three is one tap. Every product in that category spends itself on step three and on making lists, which is the step nobody was stuck on.\n\nSame shape shows up in the shift-work rows. [10], [11] and [12] are three separate populations - night hospital staff, firefighters on 24s, rotating nurses and plant operators on Garmin - all saying the tracking hardware works fine and the clock assumption is what is broken. Sleep outside the configured bedtime gets called a nap and double-counted, or does not post until the next day, or a catch-up nap never repays the debt. Their workarounds are severe and therefore honest: setting the sleep window to 00:00-00:01, hand-pressing the watch buttons, re-entering sleep windows daily, reading apnea numbers on the CPAP vendor's own portal and ignoring the app entirely. Nobody in those quotes wants a coaching programme. They want the block of sleep they just finished to be counted as sleep at the moment they wake up, which is a timing question, not an analysis question.\n\n[18] is a two-person timing failure. Meds vanish from the caregiver's linked profile but stay on the patient's, and the pair fix it by flipping between profiles to force a refresh or re-typing the drug list. The dose itself is not hard. Knowing, at 9pm, whether the other person already handled it is the hard part, and it is exactly what [256] describes going wrong for one person alone. [214] is the same authority problem stretched over months: high-conflict co-parents free-type school times, meals, sleep and behaviour into calendar notes because the court-mandated app has messages and a calendar but no structured daily log, and calendar notes do not export as a record. They are already doing the work at the moment it happens. They are just doing it into a field that cannot come back out.\n\n[249] is worth reading as a warning rather than an opportunity. The person anticipated the streak break and wanted streaks off, and the product would not allow it. So continuity pressure as a mechanic is not free, and anything that punishes a miss will get uninstalled by exactly the population - shift workers, caregivers - whose weeks are not uniform. [263] is the builder's version of all of this: a person wiring an Apple Shortcut to self-email with a fixed subject, a mail filter into a folder, and manual triage, because nothing closes the loop between capturing a thought and putting it back in front of them when action is possible. People are building the initiation layer by hand out of mail rules. That is the clearest demand signal in the block.\n\nNow which unlock actually dissolves the reason this was not built. Not the cheap tokens. [3] and [5] and [4] make analysis and talking cheap, but nobody in these quotes was blocked on analysis. The blockers were platform blockers: an app could not wake itself at a true moment, and could not show an actionable thing on the lock screen without the person opening the app first. [305] changes the first - HealthKit background delivery is one of the few legitimate self-wake triggers, which means a sleep block ending is a real event the app can be woken by, rather than a schedule the app guesses at. [308] adds a second free trigger: Focus filters let an app change its own behaviour when the Focus changes, so 'she just came off shift' or 'he just finished work' is now an event, not an inference. [306] supplies the tap surface - Live Activities that can be remotely started, remotely updated and are interactive, policed by 4.5.3 - so the one decided action can sit on the lock screen and be finished without opening anything. [299] LongRunningIntent removes the 30-second background ceiling, and [298] lets Siri compose across App Intents. [2] and [310] mean the small amount of judgement needed (did this text mean the call happened, was that six-hour block sleep or a drive) runs on the phone at zero marginal cost, which is what lets a $4 app survive at 3% conversion. Free cloud headroom for small developers [1] [311] covers the rest.\n\nOn reachability: shift nurses and firefighters gather in their own forums and swap gear advice constantly [10] [11] [12]. Post-surgical caregiving pairs are two-person by construction [18], so the second install is the product working, not marketing. High-conflict co-parents are reached through the practitioners who already tell them to keep records [214]. Adult children who forget to call are diffuse as a category but concentrate in the communities where [235] and [242] were written. All four are nameable, which is more than can be said for 'busy people'. The steps being removed in each case are the same two: maintaining a list, and deciding when to look at it.",
+    "candidates": [
+      {
+        "title": "Off-Shift Sleep Confirm",
+        "probability": 0.3,
+        "unlock": {
+          "value": "HealthKit background delivery is a legitimate self-wake trigger, so the phone can wake the app the moment a daytime sleep block closes, and an interactive Live Activity can carry the single confirmation tap without the app being opened; the judgement about whether the block was sleep runs on-device at no marginal cost.",
+          "signal_ids": [
+            305,
+            306,
+            2,
+            310
+          ]
+        },
+        "pain": {
+          "value": "Rotating-shift and night-shift workers say their wearables score any sleep outside a fixed bedtime window as a nap, double-count it or withhold it until the next day, and never let a daytime catch-up nap repay sleep debt, so they set the window to 00:00-00:01, hand-edit entries daily, or stop trusting the device.",
+          "signal_ids": [
+            10,
+            11,
+            12
+          ]
+        },
+        "audience": {
+          "value": "Rotating-shift hospital nurses and 24-hour-shift firefighters who sleep in daytime blocks"
+        },
+        "mechanic": {
+          "value": "passive_tracking"
+        },
+        "wedge": {
+          "value": "One trigger only: when HealthKit posts a sleep block of 45 minutes or longer that started between 07:00 and 19:00, the phone wakes and puts a Live Activity on the lock screen reading 'Count 4h12m as shift sleep?' with one tap for yes and one for 'that was a drive'. Nothing else - no score, no coaching, no bedtime setting to configure."
+        },
+        "moat": {
+          "value": "accumulated_personal_corpus"
+        },
+        "model": {
+          "value": "one_time_purchase"
+        },
+        "loop": {
+          "value": "community_embed"
+        },
+        "kill": [
+          "Over a 30-day test on a real 3-on-4-off rotation, HealthKit background delivery wakes the app within 20 minutes of a daytime sleep block closing less than 80% of the time.",
+          "Fewer than 35% of confirmation prompts get a tap within 2 hours of the wearer waking, across 50 trial shift workers.",
+          "Fewer than 200 paid unlocks in the first 90 days from posts in shift-worker and nursing forums with zero ad spend.",
+          "More than 25% of trial users still hand-edit sleep entries in the vendor app in week 4, meaning the old workaround from [12] survived."
+        ],
+        "why_now": "The blocker was never the sleep maths, it was that no app could be woken at the true end of a daytime sleep block and put one confirmation in front of the person, which [305] and [306] now allow for free.",
+        "why_not_obvious": "The obvious pitch for shift workers is a better sleep-debt model or a coaching programme, but the quotes in [10] [11] [12] show they already know their own sleep and are only fighting a clock assumption, so the product is a confirmation tap rather than an analysis engine."
+      },
+      {
+        "title": "Last Contact",
+        "probability": 0.26,
+        "unlock": {
+          "value": "Focus filters let the app change its own behaviour the moment a person's Focus flips out of Work, and a remotely startable, interactive Live Activity can hold a single call button on the lock screen, while on-device models decide from local signals whether contact already happened - none of which needed a server or a per-user cost.",
+          "signal_ids": [
+            308,
+            306,
+            2
+          ]
+        },
+        "pain": {
+          "value": "People who genuinely want to stay in touch forget a person exists for months and then dislike themselves for it, and fixed 'call Mom' calendar events fire on days contact already happened, so the reminder becomes noise and gets ignored.",
+          "signal_ids": [
+            235,
+            242
+          ]
+        },
+        "audience": {
+          "value": "Adult children of ageing parents who live in another city and have event-driven rather than interrupt-driven memory"
+        },
+        "mechanic": {
+          "value": "spaced_repetition"
+        },
+        "wedge": {
+          "value": "Three people maximum, parents first. The trigger is the Focus change from Work to Personal on a weekday evening, not a clock time; the tap is a Live Activity that says 'Mum - 34 days' with a call button, and the interval resets from the actual call, so a day where contact already happened produces nothing at all."
+        },
+        "moat": {
+          "value": "social_graph"
+        },
+        "model": {
+          "value": "freemium_subscription"
+        },
+        "loop": {
+          "value": "community_embed"
+        },
+        "kill": [
+          "More than 1 in 5 real calls go undetected, so a prompt fires after contact already happened - the exact failure described in [242].",
+          "Fewer than 25% of surfaced prompts are acted on within 10 minutes over a 6-week trial with 100 people.",
+          "Median user has added fewer than 3 people by day 7, meaning it is a novelty rather than a standing loop.",
+          "Paid conversion below 3% after 2,000 installs sourced only from community posts."
+        ],
+        "why_now": "The person in [242] built his own last-contact tracker because the platform gave him no way to be interrupted at a moment that was still true, and [308] plus [306] now supply exactly that trigger and that one-tap surface.",
+        "why_not_obvious": "Everyone reaches for a CRM for friends with birthdays, notes and streak pressure, but [249] shows continuity pressure gets people wanting the feature switched off, and [235] says the person does not want a database, they want to remember at a usable moment."
+      },
+      {
+        "title": "Dose Handoff",
+        "probability": 0.24,
+        "unlock": {
+          "value": "A Live Activity can be started and updated remotely and acted on without opening the app, so one partner's tap can extinguish the other partner's prompt within seconds, and LongRunningIntent removes the 30-second background ceiling that made a shared state refresh unreliable.",
+          "signal_ids": [
+            306,
+            299,
+            298
+          ]
+        },
+        "pain": {
+          "value": "A spouse managing a partner's post-surgical medication regimen loses drugs from their own linked profile while the drugs stay on the patient's, with no fix but deleting and re-adding each one, and reminders that do not know whether the dose was already given keep firing until both people ignore them.",
+          "signal_ids": [
+            18,
+            256
+          ]
+        },
+        "audience": {
+          "value": "Spouses managing a partner's medication schedule during the first eight weeks after surgery"
+        },
+        "mechanic": {
+          "value": "shared_ledger"
+        },
+        "wedge": {
+          "value": "One post-surgical drug list for one pair of people, for eight weeks. At each dose window a Live Activity appears on both lock screens; whoever taps 'given' first clears it on both phones inside five seconds. No refill tracking, no pharmacy integration, no advice about the drugs themselves - only who did what and when."
+        },
+        "moat": {
+          "value": "switching_cost_of_history"
+        },
+        "model": {
+          "value": "subscription"
+        },
+        "loop": {
+          "value": "invite_for_function"
+        },
+        "kill": [
+          "The partner's prompt fails to clear within 15 seconds of the other tap in more than 2% of doses over a 1,000-dose test.",
+          "Fewer than 40% of first installers get the second person installed and paired within 48 hours, which is fatal because the product does nothing solo.",
+          "30-day retention below 35% among post-surgical pairs.",
+          "More than 10% of pairs report a drug going missing from one profile but not the other - the failure in [18] reproduced in the new product."
+        ],
+        "why_now": "The pair in [18] were flipping between two profiles to force a refresh because shared state could not be pushed to a surface either of them was already looking at, and remotely updated interactive Live Activities [306] make the two lock screens the shared record.",
+        "why_not_obvious": "The instinct is a full medication manager with refills, interactions and adherence charts, but medication apps have died on retention before [47] and the evidenced failure in [18] and [256] is only the handoff moment between two people, which is a far smaller thing to build and a far smaller thing to keep using."
+      },
+      {
+        "title": "Handoff Log",
+        "probability": 0.2,
+        "unlock": {
+          "value": "A vision- and speech-capable model runs on the phone at zero marginal cost and never sends a child's details to a server, so a spoken sentence at the moment it happens becomes a structured, timestamped, exportable row; a Live Activity holds the capture button open across a whole parenting block.",
+          "signal_ids": [
+            2,
+            310,
+            306,
+            311
+          ]
+        },
+        "pain": {
+          "value": "Parents in high-conflict custody arrangements need a defensible daily record of school times, meals, sleep, medications and behaviour, and free-type it into calendar notes because the court-mandated app has no structured daily log and the notes do not export as a record.",
+          "signal_ids": [
+            214
+          ]
+        },
+        "audience": {
+          "value": "Parents in court-supervised high-conflict custody arrangements who already use a court-mandated co-parenting app"
+        },
+        "mechanic": {
+          "value": "capture_and_answer"
+        },
+        "wedge": {
+          "value": "Bedtime only, for the first release. When the parenting block begins, a Live Activity sits on the lock screen for its duration; one tap starts a five-second voice note - 'asleep at 8:40, ate dinner, no meds' - and on-device transcription turns it into dated fields that export as a plain PDF and CSV. It records; it does not interpret, advise or score anyone."
+        },
+        "moat": {
+          "value": "accumulated_personal_corpus"
+        },
+        "model": {
+          "value": "subscription"
+        },
+        "loop": {
+          "value": "professional_recommendation"
+        },
+        "kill": [
+          "Fewer than 20% of parenting blocks get at least one logged entry across a 4-week trial with 40 parents.",
+          "More than half of 20 family-law practitioners shown the exported PDF say they would not accept or forward it.",
+          "Fewer than 10 of the first 100 paying users arrive through a practitioner referral, meaning the zero-budget loop does not exist.",
+          "On-device transcription mis-parses times or medication names in more than 5% of entries, which makes the record worse than the calendar notes it replaces."
+        ],
+        "why_now": "The parents in [214] are already speaking and typing the observations at the moment they happen and losing them in a field that will not come back out, and on-device transcription [2] [310] plus a block-long Live Activity [306] turn that same moment into an exportable row at no per-user cost.",
+        "why_not_obvious": "The obvious build is another full co-parenting platform with messaging and expense splitting, but the court already mandated one of those and [214] says the gap is a single missing structured daily log, so the right product sits beside the mandated app rather than trying to replace it."
+      }
+    ]
+  },
+  "text": "",
+  "usage": {}
+}
