@@ -307,6 +307,31 @@ def _dossier(store: Store, r: dict, n: int, sig_by_id: dict) -> str:
                      f'{esc(round((l3.get("expected_conversion") or 0) * 100, 1))}% '
                      f'conversion, model cost '
                      f'${esc(l3.get("inference_cost_user_month"))} per active user</div>'))
+    ck = (sc.get("detail") or {})
+    if isinstance(ck, str):
+        try:
+            ck = json.loads(ck)
+        except ValueError:
+            ck = {}
+    ck = (ck or {}).get("checks") or {}
+    if ck:
+        labels = [("specific_audience", "specific who and when"),
+                  ("recent_unlock", "capability just changed"),
+                  ("not_already_shipping", "nothing close ships"),
+                  ("loop_turns", "loop turns unpaid"),
+                  ("week_two_reason", "reason to return")]
+        pills = "".join(
+            f'<span class="pill {"ok" if ck.get(k, 0) >= 0.75 else ("bad" if ck.get(k, 0) <= 0.25 else "")}">'
+            f'{esc(lab)} {esc(round(ck.get(k, 0) * 100))}%</span>'
+            for k, lab in labels)
+        flips = ck.get("inconsistent_checks") or []
+        note = (f'<div class="fine">judges disagreed with themselves on '
+                f'{esc(", ".join(flips))} across {esc(ck.get("n_appearances"))} '
+                f'comparisons</div>' if flips else
+                f'<div class="fine">consistent across '
+                f'{esc(ck.get("n_appearances"))} comparisons</div>')
+        rows.append(("checks", pills + note))
+
     if l4.get("survival") is not None:
         rows.append(("survived",
                      f'<span class="num">{round(l4["survival"] * 100)}% of attacks</span>'
