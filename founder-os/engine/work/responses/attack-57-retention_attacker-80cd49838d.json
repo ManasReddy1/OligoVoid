@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "retention_attacker",
+    "attack": "This measures something the user cannot change: the corrected total for a run of nights is dictated by a hospital rota, so by the third rotation the number reads like the first two and has stopped being news - a metric with no lever attached is the thing people stop opening, and unlike a step count there is no behaviour to adjust. Because the design point is 'nothing to confirm', there is no occasion to launch it at all, so when background delivery lapses - an iOS eviction, a permission reset, a phone restore - nothing brings the nurse back to notice, and the app is dead while still installed, which their own kill line concedes at fewer than 25% still delivering at day 30. The paywall then arrives at day 60 to a person whose last meaningful interaction was week one.",
+    "strongest_defence": "The corrected history is the product rather than the daily number: a multi-year record of what rotating nights did to one person's sleep is irreproducible by the wearable vendor and is exactly what gets handed to occupational health or a union in a rota dispute. Silent lapse is an engineering problem with engineering fixes - a heartbeat check and one re-authorisation prompt - and the community-embed loop reaches nurses on the ward, where the number is a shared grievance rather than a private metric.",
+    "verdict": "fatal",
+    "verdict_reason": "It reports an unchangeable number into a surface the user has no reason to open, so no return visit exists to notice the silent failure or to make the paywall meaningful, and the defence's value arrives years after the first renewal has already been lost."
+  },
+  "text": "",
+  "usage": {}
+}

@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "incumbent_response",
+    "attack": "Splitwise is the incumbent: free, tens of millions of users, and it already does multi-party shared ledgers with receipt photos, per-payer attribution and settle-up, with periodic emailed summaries. An itemised month-end statement is a template change for them, and receipt OCR is table stakes elsewhere - Intuit's QuickBooks already reads receipts and produces categorised statements for precisely this kind of fiduciary bookkeeping, which is what elder-law firms point clients at today. The wedge as stated, 'photograph receipts and get a monthly itemised statement', is the intersection of two shipped products rather than a gap.",
+    "strongest_defence": "Splitwise is built for symmetric friends settling up, not for one sibling accounting to another under a legal duty, and it requires every participant to hold an account - whereas the whole adoption mechanic here is the medical-POA sibling opening and commenting on a statement without signing up for anything. Neither Splitwise nor Intuit will shape an export around a fiduciary duty or a court's expectations, because that is a compliance posture consumer apps decline.",
+    "verdict": "wounded",
+    "verdict_reason": "The mechanic and the OCR are both already free in products with far more distribution, leaving only the fiduciary framing and the no-account second seat as genuinely uncontested."
+  },
+  "text": "",
+  "usage": {}
+}

@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "incumbent_response",
+    "attack": "Apple and Google both ship this, and the API closes the door behind them. Google Messages already drafts replies with Gemini and summarises threads; Apple ships Smart Reply in Messages and Mail, Priority Messages, and Siri's on-screen awareness, and extends all three each release. The decisive constraint is that no third-party iOS app can read SMS or iMessage history, so 'who dropped off' - literally the behaviour in the pain, scrolling an SMS list by last contact - is computable only by Apple and Google. Stripped of that, the wedge degrades to the user dictating six names and what they owe each of them, which is the manual upkeep the product was supposed to remove, and it is the same wall that took Inbox, Donna, Humin and Refresh.",
+    "strongest_defence": "The incumbents draft replies to messages you received; nobody drafts the first message to a person who has sent you nothing, and that silence is exactly the case here, so the reply-drafting features are not substitutes. Dictating six names is a one-time act, not upkeep, and the Focus-window gating is the part the incumbents' fixed-schedule surfaces do not do.",
+    "verdict": "fatal",
+    "verdict_reason": "The signal that makes the product work is message history only the platform owners can read, and both of them are already shipping the drafting layer into the app the user is already in."
+  },
+  "text": "",
+  "usage": {}
+}

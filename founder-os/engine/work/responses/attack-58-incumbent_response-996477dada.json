@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "incumbent_response",
+    "attack": "Chime is the incumbent for this exact audience of hourly warehouse and retail staff: it already sees the direct deposit up to two days early, already pushes 'your paycheck is here', and already ships MyPay, so 'which bills land before your next Friday and what is left' is a notification template over data it holds natively, given away free because it monetises interchange. Cash App, Varo and Current are all one release behind it. YNAB undercuts the premise from the other side - its entire method is budgeting the money you actually have rather than a calendar month, which is the 26-paycheque problem already solved and already marketed. A subscription briefing has to beat a free bank push notification to a population with no discretionary spend.",
+    "strongest_defence": "A neobank only sees the bills paid from its own account, not the household's other cards and autopays, and its commercial incentive points at overdraft-adjacent products rather than telling a member how little is left. YNAB costs over a hundred dollars a year and demands the envelope ritual this audience already abandoned for a spreadsheet, so neither incumbent actually delivers the third-paycheque arithmetic on payday morning.",
+    "verdict": "wounded",
+    "verdict_reason": "The bank owns the payday signal, the notification channel and a free price point for this audience, though it sees only one account and has no incentive to forecast the household's bills."
+  },
+  "text": "",
+  "usage": {}
+}

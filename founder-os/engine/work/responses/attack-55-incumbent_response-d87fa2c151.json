@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "incumbent_response",
+    "attack": "The nearest incumbents are Monarch Money and Copilot, both of which already ship household collaboration with multiple members, transaction categorisation and receipt attachments, so 'a shared household ledger with per-payer tags and a PDF export' is a quarter of work for Monarch. Intuit owns Credit Karma and the QuickBooks receipt pipeline and could point either at family caregiving. The claim that this is unabsorbable needs to survive the fact that the mechanic itself - read a bill, categorise it, attribute a payer, attach the image - is generic personal-finance plumbing.",
+    "strongest_defence": "The artifact is evidence in an adversarial state eligibility review, and consumer finance apps structurally will not attach themselves to a Medicaid determination: Intuit, Monarch and Copilot all disclaim exactly that, and their data model is one account holder's own accounts, not documented spending on a third party's behalf split across siblings with a five-year retention obligation. It touches no calendar, email or contacts surface, so the absorption pattern that took Sunrise, Inbox and the contacts apps does not reach it, and the value is the accumulated run of evidence rather than any single answer an assistant could give.",
+    "verdict": "survived",
+    "verdict_reason": "The value is an adversarial compliance record that consumer-finance incumbents structurally decline to produce, and the product sits on none of the account-owned surfaces where absorption is the default."
+  },
+  "text": "",
+  "usage": {}
+}
