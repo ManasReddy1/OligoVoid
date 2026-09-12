@@ -121,18 +121,6 @@
   },
   {
     "kind": "PAIN",
-    "who": "People who know they are bad at keeping in touch but find explicit reminders emotionally unacceptable",
-    "what_breaks": "The only available tool is a calendar entry that says \"talk to so-and-so\", and putting a friend in it feels so transactional they refuse to do it.",
-    "quote": "I can't bring myself to actually put a calendar reminder in to \"talk to so-and-so\".",
-    "volume_evidence": "Comment in the HN thread on \"Why 30 is the decade friends disappear\"; the same objection is argued at length across dozens of comments in the 2022 keep-in-touch thread",
-    "category": "relationships",
-    "workaround": "None; quit Facebook and now has no mechanism at all",
-    "source_url": "https://news.ycombinator.com/item?id=12942264",
-    "dated_at": "2016-11-13",
-    "confidence": 0.8
-  },
-  {
-    "kind": "PAIN",
     "who": "People who meant to follow up with someone they just met and never did",
     "what_breaks": "They intend to text someone when they are near them or fresh off a meeting, but the intention only surfaces after the moment has passed.",
     "quote": "I end up doing this manually and I always forget folks until it's too late.",
@@ -141,78 +129,6 @@
     "workaround": "Manually texts people when he happens to notice he is in their part of town",
     "source_url": "https://news.ycombinator.com/item?id=20700303",
     "dated_at": "2019-08-14",
-    "confidence": 0.8
-  },
-  {
-    "kind": "PAIN",
-    "who": "People running a homemade Airtable reminder system for outreach",
-    "what_breaks": "The system works, but the contact list decays because there is no automatic way to add people they recently met.",
-    "quote": "The biggest issue I have with it is keeping the contact list up to date.",
-    "volume_evidence": "Comment in the 487-comment HN keep-in-touch thread; the commenter built the same Airtable system independently of the article's author",
-    "category": "relationships",
-    "workaround": "Airtable base that emails him three names per week to reach out to",
-    "source_url": "https://news.ycombinator.com/item?id=30337218",
-    "dated_at": "2022-02-14",
-    "confidence": 0.85
-  },
-  {
-    "kind": "PAIN",
-    "who": "People who route keep-in-touch nudges through a third-party email scheduler because no app fits",
-    "what_breaks": "There is no lightweight way to say \"remind me about this person in three months\", so they abuse an email follow-up service.",
-    "quote": "just send an email to, eg, \"every3months@followupthen.com\" with the subject line \"Get in touch with so-and-so\"",
-    "volume_evidence": "Comment in the 487-comment HN keep-in-touch thread; poster says a proper Airtable or Monica setup sounds great but he is \"nervous that it'll fall out of date\"",
-    "category": "relationships",
-    "workaround": "Recurring self-emails via followupthen.com addressed per person",
-    "source_url": "https://news.ycombinator.com/item?id=30335527",
-    "dated_at": "2022-02-14",
-    "confidence": 0.85
-  },
-  {
-    "kind": "PAIN",
-    "who": "People who keep a plain text file of friends' names as their entire relationship system",
-    "what_breaks": "The lowest-friction thing that survives is an unstructured list they check \"from time to time\", which means contact frequency is arbitrary.",
-    "quote": "I keep a text file with friends' names and from time to time check it too.",
-    "volume_evidence": "Comment in the 487-comment HN keep-in-touch thread, one of several text-file/spreadsheet variants described there",
-    "category": "relationships",
-    "workaround": "A text file of friends' names reviewed ad hoc",
-    "source_url": "https://news.ycombinator.com/item?id=30332093",
-    "dated_at": "2022-02-14",
-    "confidence": 0.8
-  },
-  {
-    "kind": "PAIN",
-    "who": "People who track birthdays and Christmas cards in a hand-built month-by-month spreadsheet",
-    "what_breaks": "Birthday and card obligations live in a grid they built themselves because no tool covers birthdays, keep-in-touch and card lists together.",
-    "quote": "I keep a spreadsheet with name in first col and one col for every month and in cells I put day of month for birthday. I also use this as my Christmas card list and my keep in touch list",
-    "volume_evidence": "Comment in the 487-comment HN keep-in-touch thread",
-    "category": "relationships",
-    "workaround": "A single spreadsheet doubling as birthday calendar, Christmas card list and keep-in-touch list",
-    "source_url": "https://news.ycombinator.com/item?id=30333564",
-    "dated_at": "2022-02-14",
-    "confidence": 0.85
-  },
-  {
-    "kind": "PAIN",
-    "who": "People who want the nudge delivered inside the messaging app rather than as a generic reminder",
-    "what_breaks": "A reminder that says \"contact Bob\" still leaves the work of opening the right app and starting the message, which is where the intention dies.",
-    "quote": "I want a notification to appear on my phone saying something like, \"hey you told us to stay in touch with Bob every month, click to open WhatsApp and message them.\"",
-    "volume_evidence": "Comment in the Launch HN thread for Dex (189 points, 141 comments); poster says every personal CRM he has tried \"seems to revolve around a lot of manual work\"",
-    "category": "relationships",
-    "workaround": "Was trying Monica, found it too manual, shopping for alternatives",
-    "source_url": "https://news.ycombinator.com/item?id=20700317",
-    "dated_at": "2019-08-14",
-    "confidence": 0.8
-  },
-  {
-    "kind": "PAIN",
-    "who": "People who track relationships as cards in a project-management board",
-    "what_breaks": "They have to repurpose a work tool, reviewing people as if they were tasks, because nothing exists for the job.",
-    "quote": "What I tried some time ago, was putting people as projects in my trello board",
-    "volume_evidence": "Comment in the 487-comment HN keep-in-touch thread",
-    "category": "relationships",
-    "workaround": "Trello board with people as project cards, updated with a comment at each weekly review",
-    "source_url": "https://news.ycombinator.com/item?id=30329600",
-    "dated_at": "2022-02-14",
     "confidence": 0.8
   },
   {
@@ -262,30 +178,6 @@
     "source_url": "https://news.ycombinator.com/item?id=31967368",
     "dated_at": "2022-07-03",
     "confidence": 0.9
-  },
-  {
-    "kind": "PAIN",
-    "who": "Gamified-learning users optimizing for the score instead of the outcome",
-    "what_breaks": "The reward window changes their behavior mid-session so they rush volume instead of engaging, and once out of the rhythm they stop entirely.",
-    "quote": "when you're doing that, you're pressuring yourself to get through as many lessons as possible, not to engage well with the material.",
-    "volume_evidence": "Comment in the 255-point/225-comment HN Duolingo streak thread",
-    "category": "follow_through",
-    "workaround": "None stated; says he is now unmotivated because he earns half the points",
-    "source_url": "https://news.ycombinator.com/item?id=31967218",
-    "dated_at": "2022-07-03",
-    "confidence": 0.85
-  },
-  {
-    "kind": "PAIN",
-    "who": "People who logged years into a learning app and retained nothing",
-    "what_breaks": "The tracked metric and the real skill diverge completely, so the record of consistency is worthless.",
-    "quote": "I felt like I didn't really remember any of the words introduced there, just learnt how to hit the buttons as fast as I could.",
-    "volume_evidence": "Comment in the 255-point/225-comment HN Duolingo streak thread; a highly-upvoted sibling comment makes the same point about a decade of use",
-    "category": "follow_through",
-    "workaround": "Moved to Anki plus real podcasts and texts",
-    "source_url": "https://news.ycombinator.com/item?id=31967792",
-    "dated_at": "2022-07-03",
-    "confidence": 0.85
   },
   {
     "kind": "PAIN",
@@ -453,30 +345,6 @@
     "workaround": "Apple Shortcut to self-email with a fixed subject line, a mail filter into a dedicated folder, and manual triage into an action planner",
     "source_url": "https://news.ycombinator.com/item?id=46234586",
     "dated_at": "2025-12-11",
-    "confidence": 0.85
-  },
-  {
-    "kind": "PAIN",
-    "who": "People who can only talk to their voice assistant at home, so tasks thought of in public never get recorded",
-    "what_breaks": "The capture mechanism is socially unusable in exactly the places where the thought occurs.",
-    "quote": "it's weird and uncomfortable to talk loudly at your phone in public spaces so I can only use it at home or outdoors",
-    "volume_evidence": "Comment in the 593-point/588-comment HN Pebble Index thread",
-    "category": "assistant_failure",
-    "workaround": "Only sets Siri reminders at home or outdoors; the rest are lost",
-    "source_url": "https://news.ycombinator.com/item?id=46212810",
-    "dated_at": "2025-12-10",
-    "confidence": 0.8
-  },
-  {
-    "kind": "PAIN",
-    "who": "People whose to-do list only works when a reminder drags them back to it at a fixed time",
-    "what_breaks": "A list does nothing on its own; it needs a scheduled interrupt, and even then the interrupt is barely strong enough to survive being dismissed.",
-    "quote": "My todo list didn't start working until I started scheduling reminders at fixed times to look at and process the list. I have just barely enough willpower not to dismiss the reminder",
-    "volume_evidence": "Comment in an HN thread on \"Why are Adults so busy?\"; a sibling commenter reports the same fix",
-    "category": "assistant_failure",
-    "workaround": "Fixed-time recurring reminders whose only job is to force a review of the list",
-    "source_url": "https://news.ycombinator.com/item?id=12496321",
-    "dated_at": "2016-09-14",
     "confidence": 0.85
   },
   {
