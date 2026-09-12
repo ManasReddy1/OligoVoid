@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Any
 
 import diversity
+import voidmap
 from store import Store
 
 CSS = """
@@ -167,6 +168,9 @@ island theses. {len(killed)} killed by the gates. {len(alive)} survived to ranki
     for n, r in enumerate(ranked, 1):
         parts.append(_dossier(store, r, n, sig_by_id))
     parts.append("</section>")
+
+    # ---- coverage ----
+    parts.append(_coverage(store))
 
     # ---- diversity ----
     parts.append(_diversity(store, cycle_id))
@@ -344,6 +348,65 @@ def _dossier(store: Store, r: dict, n: int, sig_by_id: dict) -> str:
 
 def _vp(verdict: str | None) -> str:
     return {"fatal": "bad", "wounded": "bad", "survived": "ok"}.get(verdict or "", "")
+
+
+FRESH_MONTHS = 24
+
+
+def _coverage(store: Store) -> str:
+    """How much of the enumerated space anyone has actually touched.
+
+    The direct analogue of OligoVoid's position-by-modification coverage
+    matrix: the interesting number is not what is occupied, it is what is not.
+    """
+    unlocks = []
+    fresh = set()
+    for sig in store.signals("UNLOCK"):
+        p = sig.get("payload") or {}
+        key = p.get("key") or esc(sig["title"])[:32]
+        unlocks.append({"key": key, "title": sig["title"]})
+        fresh.add(key)          # every loaded unlock crossed within 24 months
+
+    products = store.products()
+    audiences = sorted({p["audience"] for p in products if p.get("audience")})
+    if not unlocks or not audiences:
+        return ""
+
+    vm = voidmap.VoidMap(unlocks, audiences, products, fresh)
+    cov = vm.coverage()
+    revivals = vm.revival_candidates()
+    c = cov["counts"]
+
+    rows = "".join(
+        f'<tr><td>{esc(label)}</td><td class="num">{esc(c[k]):>6}</td>'
+        f'<td class="num">{esc(round(100 * c[k] / max(1, cov["total_cells"]), 1))}%</td></tr>'
+        for k, label in ((voidmap.OCCUPIED, "occupied by a shipped product"),
+                         (voidmap.TOMBSTONED, "tombstoned, tried and died"),
+                         (voidmap.FRONTIER, "void, and a recent unlock applies"),
+                         (voidmap.VOID, "void, no fresh unlock")))
+
+    return (f'<section><div class="shead"><div class="eyebrow">Coverage</div>'
+            f'<h2>How much of the space anyone has touched</h2>'
+            f'<p class="col">Cells are unlock x audience x mechanic, built from '
+            f'{len(unlocks)} capability changes, {len(audiences)} audiences and '
+            f'{len(vm.mechanics)} mechanics observed in the product corpus. The '
+            f'interesting number is not what is occupied.</p></div>'
+            f'<div class="tscroll"><table><thead><tr><th>Cell state</th>'
+            f'<th>Cells</th><th>Share</th></tr></thead><tbody>{rows}</tbody>'
+            f'</table></div>'
+            f'<p class="fine" style="margin-top:12px">'
+            f'<strong>{esc(round(100 * cov["void_fraction"], 1))}%</strong> of the '
+            f'enumerated space is unoccupied. {esc(len(revivals))} tombstoned cells '
+            f'pair with a capability change that may have dissolved their cause of '
+            f'death, which is the region this system is built to search.</p>'
+            f'<p class="note" style="margin-top:12px">Read the direction, not the '
+            f'number. Audiences here are raw strings taken from the product '
+            f'corpus rather than a normalised taxonomy, so the space is '
+            f'over-counted and the void share is inflated. The equivalent figure '
+            f'in this repository&rsquo;s siRNA work is meaningful because its axes '
+            f'are a closed vocabulary. Giving audiences the same treatment is the '
+            f'next real improvement to this section.</p>'
+            f'</section>')
 
 
 def _diversity(store: Store, cycle_id: int) -> str:
