@@ -1,0 +1,25 @@
+{
+ "parsed": {
+  "checks": {
+   "A": {
+    "q1": true,
+    "q2": false,
+    "q3": true,
+    "q4": true,
+    "q5": true
+   },
+   "B": {
+    "q1": true,
+    "q2": true,
+    "q3": true,
+    "q4": false,
+    "q5": true
+   }
+  },
+  "winner": "A",
+  "margin": "narrow",
+  "reason": "Code Book Recall sells into a funded, dated, high-stakes deadline with a cohort-and-instructor recommendation loop that refreshes every intake, while Sunday Plot Briefing's revenue rests on a small seasonal hobby population that stops using it every winter and reaches it only through gatekept community groups."
+ },
+ "text": "",
+ "usage": {}
+}

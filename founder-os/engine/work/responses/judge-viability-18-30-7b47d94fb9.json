@@ -1,0 +1,25 @@
+{
+ "parsed": {
+  "checks": {
+   "A": {
+    "q1": true,
+    "q2": true,
+    "q3": true,
+    "q4": false,
+    "q5": false
+   },
+   "B": {
+    "q1": true,
+    "q2": true,
+    "q3": true,
+    "q4": false,
+    "q5": true
+   }
+  },
+  "winner": "B",
+  "margin": "clear",
+  "reason": "Sunday Plot Briefing has a weekly delivery that gives a paying reason to come back through a whole season, whereas House Parts Record finishes its job in one capture and has to resell a narrow rural niche from scratch forever."
+ },
+ "text": "",
+ "usage": {}
+}

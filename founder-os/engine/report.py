@@ -169,6 +169,9 @@ island theses. {len(killed)} killed by the gates. {len(alive)} survived to ranki
         parts.append(_dossier(store, r, n, sig_by_id))
     parts.append("</section>")
 
+    # ---- judge hygiene ----
+    parts.append(_judge_hygiene(store))
+
     # ---- panel calibration ----
     parts.append(_panel_calibration(store, cycle_id))
 
@@ -379,6 +382,57 @@ def _vp(verdict: str | None) -> str:
 
 
 FRESH_MONTHS = 24
+
+
+def _judge_hygiene(store: Store) -> str:
+    """Did the position swap cancel order bias?
+
+    Every pair is judged twice with the entries exchanged. If the judge picks
+    the same underlying idea both times, order did not decide it. If it picks
+    whichever entry came first, that is position bias, and the swap is the only
+    thing that would catch it. Verbosity bias runs 15-30 points in frontier
+    judges and position bias is of the same order, so this check is not
+    optional bookkeeping.
+    """
+    from collections import defaultdict
+    rows, flagged = [], False
+    for head in ("novelty", "viability"):
+        seen = defaultdict(list)
+        for c in store.comparisons(head):
+            seen[frozenset((c["a_id"], c["b_id"]))].append((c["a_id"], c["winner"]))
+        both = {k: v for k, v in seen.items() if len(v) >= 2}
+        if not both:
+            continue
+        agree = sum(1 for v in both.values() if len({w for _, w in v}) == 1)
+        first = sum(1 for v in both.values() if all(w == a for a, w in v))
+        pct = 100 * agree / len(both)
+        if pct < 80 or first:
+            flagged = True
+        rows.append(
+            f'<tr><td class="m">{esc(head)}</td>'
+            f'<td class="num">{esc(len(both))}</td>'
+            f'<td class="num {"ok" if pct >= 80 else "no"}">{esc(round(pct))}%</td>'
+            f'<td class="num {"no" if first else "ok"}">{esc(first)}</td></tr>')
+    if not rows:
+        return ""
+
+    verdict = ("Order bias detected. The ranking is partly an artefact of "
+               "presentation order and should not be trusted."
+               if flagged else
+               "No order bias. Every pair judged twice picked the same idea "
+               "both times, so presentation order did not decide any comparison.")
+
+    return (f'<section><div class="shead"><div class="eyebrow">Judge hygiene</div>'
+            f'<h2>Did the swap cancel order bias?</h2>'
+            f'<p class="col">Each pair is judged twice with the two entries '
+            f'exchanged, and both entries are rendered in an identical '
+            f'fixed-length template so wording length cannot stand in for '
+            f'quality.</p></div>'
+            f'<div class="tscroll"><table><thead><tr><th>Head</th>'
+            f'<th>Pairs judged twice</th><th>Agreed on the same idea</th>'
+            f'<th>Always chose the first entry</th></tr></thead>'
+            f'<tbody>{"".join(rows)}</tbody></table></div>'
+            f'<p class="note" style="margin-top:12px">{verdict}</p></section>')
 
 
 def _panel_calibration(store: Store, cycle_id: int) -> str:
