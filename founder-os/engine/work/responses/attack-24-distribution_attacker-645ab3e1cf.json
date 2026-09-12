@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "distribution_attacker",
+    "attack": "The gift loop runs in the wrong direction: the delighted recipient is a grandparent over 70 whose peers are other grandparents, none of whom can buy, because subscribing requires recruiting their own adult children to supply photos every week - so every referral is a two-step cold ask across a generation gap, initiated by someone who cannot complete the purchase, landing on someone who never asked for it. The gifting occasion is annual, Christmas and birthdays, which makes the cycle roughly 365 days when the rule is that a 3-day loop beats a stronger 30-day one. Their own kill line concedes parents supply fewer than five photos a week in more than half of households by week six, so the artifact degrades precisely at the moment a recipient would be showing it off.",
+    "strongest_defence": "Gift products genuinely do spread at Christmas with no ad spend, and the relay completes itself in practice: the other grandparent at the coffee morning photographs the page and texts it to her own daughter, which is the ask arriving already endorsed by the person the daughter most wants to please - a printed page in a room full of people with the same absence is a strong physical artifact.",
+    "verdict": "wounded",
+    "verdict_reason": "The person delighted by the gift cannot buy and must relay the ask across a generation on an annual gifting cycle, so the loop turns far too slowly to reach a thousand payers unaided."
+  },
+  "text": "",
+  "usage": {}
+}

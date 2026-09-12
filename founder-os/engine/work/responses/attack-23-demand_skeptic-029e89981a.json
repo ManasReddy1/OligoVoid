@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "demand_skeptic",
+    "attack": "In the UK there is no logged-hours requirement for a driving licence at all - the DVSA merely recommends about 22 hours of private practice - so unlike the US states where these products exist because law mandates a signed log, there is no forcing function, no authority that ever asks to see the record, and consequently nothing that converts the log from a nice idea into a thing anyone must do. The mechanic compounds the problem: a streak is a daily-pressure device attached to an activity that happens two or three times a week when a parent is free and the car is available, so the streak breaks by design, and every single entry requires a second person to countersign, doubling the compliance burden on the least motivated participant. The user is a seventeen-year-old who will not open an app after parking, the payer is the parent, and the one-time price removes any ongoing reason for the developer to fight for retention. The author's own pain paragraph cites two adherence products that validated the need in research and then could not hold anyone - that is the evidence, and it points the other way.",
+    "strongest_defence": "The forcing function is not the law but the test itself: with waiting lists running months and a pass rate under 50%, both parent and learner are acutely anxious about readiness, and a countersigned record of what has actually been practised - night, motorway, roundabouts - answers 'is he ready to burn the booked slot' in a way an instructor's opinion does not.",
+    "verdict": "wounded",
+    "verdict_reason": "With no legal requirement to log and a streak mechanic bolted to a twice-weekly activity requiring two people's compliance, the stated need has no mechanism that converts it into behaviour."
+  },
+  "text": "",
+  "usage": {}
+}

@@ -323,10 +323,10 @@ A gate that passes almost everything is decoration and gets removed (F32).
 
 | Gate | Name | Cost | Target kill | Mechanism |
 |---|---|---|---|---|
-| **L0** | Validity | free, deterministic | ~40% | All nine slots filled; kill conditions present and falsifiable; audience not generic; no denied category; build estimate under ceiling; descriptor not duplicating a living elite |
-| **L1** | Obviousness | 1 cheap call + embeddings | ~30% | The novelty measurement. Below. |
+| **L0** | Validity | free, deterministic | ~0% measured | All nine slots filled; kill conditions present and falsifiable; audience not generic; no denied category; build estimate under ceiling; descriptor not duplicating a living elite. **A guarantee, not a filter** — the rules live in the generation prompt, so compliance is high and the kill rate is a drift alarm |
+| **L1** | Obviousness | 1 cheap call + embeddings | 27% measured | The novelty measurement. Below. |
 | **L2** | Grounding | retrieval only | ~15% | Every `pain` and `unlock` slot must resolve to a real Signal with a live URL |
-| **L3** | Buildability | 1 strong call | ~20% | Build plan, cost, weeks, and **gross margin**. Negative margin is an automatic kill |
+| **L3** | Buildability | 1 strong call | **45% measured** | Build plan, cost, weeks, and **gross margin**. Negative margin is an automatic kill, and in cycle 1 this was the sharpest gate in the ladder |
 | **L4** | Adversarial panel | 5-7 calls, clean context | ~50% | Red team argues to kill. Below. |
 | **L5** | Tournament | pairwise, batched | ranks | Bradley-Terry over pairwise comparisons, ranked by lower confidence bound |
 | **L6** | Calibration | offline, periodic | tunes weights | Backtest against labelled historical outcomes |

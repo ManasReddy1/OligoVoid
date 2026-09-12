@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "distribution_attacker",
+    "attack": "This is an invite-for-function loop wearing a shareable-artifact label, and it stalls exactly at the class boundary: notes pinned to lines of your class's set text are worthless to a student at another school reading a different text, so there is no reason for the link to cross to the next cohort, and the cohort it does serve graduates in nine months with no incentive to hand anything down. The gate is also the teacher, not the student: a UK school allowing under-18s to post unmoderated text visible to other under-18s triggers safeguarding and GDPR review, so each crossing is a hand-won departmental approval rather than a thumb on a link. Their own kill line expects only 100 of the first 1,000 signups via class links, which concedes the loop supplies 10% and search supplies the rest.",
+    "strongest_defence": "Quizlet and Kahoot both reached enormous scale on precisely this mechanic with no ad spend, because the in-class cycle time is minutes rather than days - one student drops a link in a lesson and twenty install before the bell - and the cohort boundary is crossed by the staff room rather than the students, as soon as one class's mock results move and a teacher tells the department.",
+    "verdict": "wounded",
+    "verdict_reason": "The link spreads very fast inside one class but has no mechanism to cross between classes or cohorts except a hand-won teacher relationship past a safeguarding gate."
+  },
+  "text": "",
+  "usage": {}
+}

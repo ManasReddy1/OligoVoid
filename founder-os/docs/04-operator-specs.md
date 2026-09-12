@@ -167,8 +167,23 @@ Pure code. Rejects on any of:
 - `build_estimate` already exceeding the $50k ceiling on the operator's own estimate
 - descriptor exactly duplicating a living archive elite
 
-Target kill rate ~40%. If it drops much below that, the operators have learned to
-game the schema and the rules need tightening.
+**Measured in cycle 1: 0%.** The designed target was ~40%, and that target was
+wrong rather than the gate being broken.
+
+The generators receive the controlled vocabularies, the audience rule, the
+falsifiability requirement and the category deny list *inside the prompt*. They
+comply, so there is little left for a syntactic gate to catch. That is the
+system working: it is cheaper to prevent a violation than to detect one.
+
+So L0's real job is not filtering, it is **guaranteeing**. It is the thing that
+stays true when a prompt is edited, a model is swapped, or a generator starts
+drifting, and its kill rate is a drift alarm rather than a throughput target. A
+rising L0 kill rate means the generators have stopped reading the rules.
+
+Two consequences worth stating plainly. Do not tighten L0 to hit a number; that
+is gaming the metric and it would kill sound ideas to make a dashboard look
+right. And do not delete it because it kills nothing; a guarantee that has never
+fired is not the same as a guarantee you do not need.
 
 ### L1 — Obviousness (the novelty measurement)
 

@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "retention_attacker",
+    "attack": "An allergy household's basket is the most brand-locked basket in the shop: within three or four weeks the parent has scanned the twelve lunchbox staples they actually buy and the problem stops existing at the moment the repertoire closes, because you do not re-scan the loaf you bought last Tuesday. After that, scan volume decays to the rate at which this family encounters a genuinely unfamiliar packet, which for people whose failure mode is anaphylaxis is close to zero by design - they stop experimenting precisely because the app told them what was safe. The author's own kill line concedes it (median scans below 4 per week by month 3), and the avoid-list itself is a one-time setup for one child and two allergens, so the 'accumulated personal corpus' stops accumulating in week two while the subscription renews monthly.",
+    "strongest_defence": "The trigger is a weekly shop that recurs for the eighteen years the child is packing lunchboxes, and the condition never goes away; UK own-brand recipes are reformulated without notice, which is the single event allergy parents most fear and cannot detect by memory, so the product can invert from a scanner into a monitor - re-check the saved safe list against every new scan and flag the day Tesco changes a formulation. Usage frequency is the wrong metric for an insurance-shaped purchase: a parent with a hospitalised child pays 4 pounds a month for the two scans a month that matter, the same way they pay for an EpiPen they hope never to use.",
+    "verdict": "wounded",
+    "verdict_reason": "The trigger genuinely recurs and the stakes support low-frequency payment, but the scan repertoire closes inside a month and the corpus stops growing long before the first renewal decision."
+  },
+  "text": "",
+  "usage": {}
+}
