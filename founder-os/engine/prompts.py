@@ -55,9 +55,33 @@ def vocab_block() -> str:
             f"LOOP (pick one key):\n{fmt(DISTRIBUTION_LOOPS)}")
 
 
-def evidence_block(signals: Sequence[dict], limit: int = 40) -> str:
+def evidence_block(signals: Sequence[dict], limit: int = 48) -> str:
+    """Render evidence for a prompt, with every kind guaranteed a share.
+
+    This was a flat truncation of the caller's list. In cycle 1 the caller
+    passed unlocks, then tombstones, then pains; 9 unlocks plus 31 tombstones
+    filled the limit exactly, so all 49 harvested pains were cut off and no
+    generator ever saw one. Every idea in that cycle cited tombstones for its
+    problem slot, because a tombstone was the only evidence of a problem it had.
+
+    Round-robin across kinds instead, so a long list of one kind can never
+    crowd out another.
+    """
+    from collections import OrderedDict
+    by_kind: "OrderedDict[str, list[dict]]" = OrderedDict()
+    for sig in signals:
+        by_kind.setdefault(sig.get("kind", "?"), []).append(sig)
+
+    picked: list[dict] = []
+    idx = 0
+    while len(picked) < limit and any(idx < len(v) for v in by_kind.values()):
+        for group in by_kind.values():
+            if idx < len(group) and len(picked) < limit:
+                picked.append(group[idx])
+        idx += 1
+
     lines = []
-    for s in list(signals)[:limit]:
+    for s in picked:
         p = s.get("payload") or {}
         bits = [f"[{s['id']}] {s['kind']}"]
         if s["kind"] == "PAIN":
@@ -78,6 +102,14 @@ def evidence_block(signals: Sequence[dict], limit: int = 40) -> str:
             bits.append(s.get("title", ""))
         lines.append(" | ".join(str(b) for b in bits))
     return "\n".join(lines)
+
+
+def evidence_kinds(signals: Sequence[dict], limit: int = 48) -> dict[str, int]:
+    """What the rendered block actually contains, for the caller to check."""
+    from collections import Counter
+    block = evidence_block(signals, limit)
+    return dict(Counter(line.split("]")[-1].split("|")[0].strip()
+                        for line in block.splitlines() if "]" in line))
 
 
 GENOME_SCHEMA = {

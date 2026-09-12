@@ -169,8 +169,14 @@ class Orchestrator:
             k = isl["id"]
             if k in already:
                 continue
-            slice_ = (unlocks + tombs +
-                      pains[k::max(1, self.cfg.islands)] + pains[:6])
+            # Order no longer decides what survives truncation, but keep the
+            # per-island pain rotation: it is the cheapest real source of
+            # divergence between lineages.
+            slice_ = (unlocks + pains[k::max(1, self.cfg.islands)] + pains + tombs)
+            seen_kinds = P.evidence_kinds(slice_)
+            if "PAIN" not in seen_kinds:
+                self.note("generate", warning="no PAIN evidence reached the prompt",
+                          island=k, kinds=seen_kinds)
             sys_p, user_p = P.generation_prompt(
                 thesis=isl["thesis"], operator=isl["operator"],
                 operator_brief=isl["brief"], signals=slice_,

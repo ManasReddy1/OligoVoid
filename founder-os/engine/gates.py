@@ -128,13 +128,21 @@ def comparison_text(g: IdeaGenome) -> str:
 # L2 — grounding. Retrieval only; no generation, so it cannot hallucinate.
 # --------------------------------------------------------------------------
 
+# A citation has to be of the right KIND, not merely present. Cycle 1 produced
+# an idea whose `pain` slot cited two tombstones and described why competitors
+# had died rather than what a person cannot do. Both citations resolved, so the
+# gate passed it.
+REQUIRED_KIND = {"pain": "PAIN", "unlock": "UNLOCK"}
+
+
 def check_grounding(g: IdeaGenome, signals_by_id: dict[int, dict]) -> GateResult:
-    """Load-bearing slots must resolve to a real signal with a live URL.
+    """Load-bearing slots must resolve to a real signal of the right kind.
 
     Slots that fail are stripped rather than trusted. The idea dies only if a
     load-bearing slot is left unsupported; strategy slots may be model-authored.
     """
     reasons, stripped, cited = [], [], []
+    wrong_kind: dict[str, list[str]] = {}
 
     for name, slot in g.slots().items():
         ok_ids = []
@@ -155,11 +163,24 @@ def check_grounding(g: IdeaGenome, signals_by_id: dict[int, dict]) -> GateResult
         slot = g.slot(name)
         if slot.provenance != "evidence" or not slot.signal_ids:
             reasons.append(f"load-bearing slot '{name}' has no live citation")
+            continue
+        want = REQUIRED_KIND.get(name)
+        if not want:
+            continue
+        kinds = [signals_by_id[i]["kind"] for i in slot.signal_ids
+                 if i in signals_by_id]
+        if want not in kinds:
+            wrong_kind[name] = kinds
+            reasons.append(
+                f"slot '{name}' cites {', '.join(sorted(set(kinds))) or 'nothing'} "
+                f"but needs at least one {want}. A problem evidenced only by a "
+                f"dead competitor describes the graveyard, not a person")
 
     return GateResult(passed=not reasons, reasons=reasons,
                       detail={"stripped": stripped,
                               "citations": sorted(set(cited)),
-                              "citation_count": len(set(cited))})
+                              "citation_count": len(set(cited)),
+                              "wrong_kind": wrong_kind})
 
 
 # --------------------------------------------------------------------------

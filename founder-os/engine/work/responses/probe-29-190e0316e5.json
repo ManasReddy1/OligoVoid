@@ -1,0 +1,20 @@
+{
+  "parsed": {
+    "kind": "community_post",
+    "hypothesis": "Apprentice electricians with a booked licensing exam feel the pain acutely enough to raise their hand unprompted, and the acute pain is specifically the conduit fill and box fill tables rather than something else on the exam - so an instructor-namable, one-jurisdiction drill has a segment and a channel.",
+    "falsifier": "Within 72 hours of a post that reaches at least 3,000 views in r/electricians, fewer than 10 people DM or comment with an actual booked exam date; OR of the first 10 who do, fewer than 3 name conduit fill or box fill unprompted as the thing they keep getting wrong. Under 10 means the segment is not acute (the [65] failure repeating); under 3 on the table question means the wedge is aimed at the wrong chapter even if the segment is real.",
+    "budget_usd": 0,
+    "days": 4,
+    "exactly_what_to_do": [
+      "Saturday morning: post to r/electricians with a title that filters hard - 'Apprentices with an exam booked in the next 12 weeks: which code table do you keep getting wrong?' Body is three lines: you are building a drill for one state's current code cycle, you want to know which tables to build first, and you will hand-run it free for anyone who replies with their exam date. No link, no landing page, no email capture - a link turns a felt-pain test into a curiosity click.",
+      "Cross-post the identical text to r/AskElectricians and to one state-specific apprentice Facebook group (search 'IBEW apprentice' plus your state, or your state's JATC alumni group). Post all three before 10am so they ride the weekend morning traffic.",
+      "Keep a spreadsheet with one row per responder: username, whether they stated a real exam date, which table or chapter they named, and whether they were asked or volunteered it. Do not prompt with 'is it conduit fill?' - a leading question destroys the only number that matters here.",
+      "Reply to every responder with the same one line: 'What are you using to study right now?' Tally the answers - Mike Holt, free NEC quiz apps, paper practice tests, nothing. If the majority already pay for something, note it; if the majority use free apps, your $29 has a fight on its hands.",
+      "At 72 hours screenshot the view counts from each post's insights tab and freeze the spreadsheet. Count DMs and comments containing a real date separately from generic 'sounds useful' replies, which are worth zero.",
+      "Separately, DM three apprenticeship instructors or JATC training directors found via the same subreddit or LinkedIn, one question only: 'would you name a study tool to your class, and has anything ever made you do that?' Record yes, no, or no reply - this is the referral kill condition in miniature."
+    ],
+    "what_it_cannot_tell_you": "Whether any of these people hand over $29. A booked exam date proves urgency, not willingness to pay, and free NEC quiz apps already exist - so people can be genuinely desperate and still never buy. It also tells you nothing about the day-30 retention kill or about cost per active learner, and Reddit's electricians skew more engaged and more online than the median apprentice, so a strong result here is an upper bound on the real segment, not a measurement of it."
+  },
+  "text": "",
+  "usage": {}
+}
