@@ -1,0 +1,860 @@
+<title>Founder OS Architecture</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
+<style>
+  :root{
+    --ground:#f6f7f9;
+    --surface:#ffffff;
+    --surface-2:#eef1f5;
+    --hairline:#dde2e9;
+    --hairline-strong:#c3ccd8;
+    --ink:#0f141b;
+    --ink-2:#38424f;
+    --muted:#5f6a7a;
+    --signal:#00854b;
+    --signal-dim:#d3f0e0;
+    --void:#5340cc;
+    --void-dim:#e2ddfb;
+    --kill:#c32b38;
+    --kill-dim:#fadfe2;
+    --warn:#8a5d00;
+    --mono:"Space Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sans:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    --r:3px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#0d0f14;
+      --surface:#141922;
+      --surface-2:#1b212c;
+      --hairline:#242c39;
+      --hairline-strong:#36404f;
+      --ink:#e8edf4;
+      --ink-2:#c2cbd8;
+      --muted:#8d99ab;
+      --signal:#00ff88;
+      --signal-dim:#0d2a1e;
+      --void:#9a8bff;
+      --void-dim:#1e1b38;
+      --kill:#ff6b76;
+      --kill-dim:#331519;
+      --warn:#f5b544;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0d0f14;
+    --surface:#141922;
+    --surface-2:#1b212c;
+    --hairline:#242c39;
+    --hairline-strong:#36404f;
+    --ink:#e8edf4;
+    --ink-2:#c2cbd8;
+    --muted:#8d99ab;
+    --signal:#00ff88;
+    --signal-dim:#0d2a1e;
+    --void:#9a8bff;
+    --void-dim:#1e1b38;
+    --kill:#ff6b76;
+    --kill-dim:#331519;
+    --warn:#f5b544;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    background:var(--ground);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding-inline:20px;padding-block:0 80px}
+  .col{max-width:70ch}
+
+  /* ---------- type ---------- */
+  h1,h2,h3{text-wrap:balance;line-height:1.18;margin:0}
+  h1{font-size:clamp(2rem,5.2vw,3.1rem);font-weight:700;letter-spacing:-.025em}
+  h2{font-size:clamp(1.3rem,3vw,1.7rem);font-weight:650;letter-spacing:-.015em}
+  h3{font-size:1.02rem;font-weight:650;letter-spacing:-.005em}
+  p{margin:0}
+  .eyebrow{
+    font-family:var(--mono);font-size:.68rem;font-weight:700;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+  }
+  .lede{font-size:1.12rem;color:var(--ink-2);max-width:64ch}
+  .fine{font-size:.86rem;color:var(--muted)}
+  code,.m{font-family:var(--mono);font-size:.9em}
+  strong{font-weight:650;color:var(--ink)}
+  a{color:var(--signal);text-decoration-thickness:1px;text-underline-offset:2px}
+  a:focus-visible,summary:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+
+  /* ---------- structure ---------- */
+  header.masthead{
+    border-bottom:1px solid var(--hairline);
+    padding-block:56px 34px;
+    display:flex;flex-direction:column;gap:18px;
+  }
+  .titleline{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline}
+  .chip{
+    font-family:var(--mono);font-size:.66rem;font-weight:700;letter-spacing:.12em;
+    text-transform:uppercase;padding:5px 9px;border-radius:var(--r);
+    background:var(--signal-dim);color:var(--signal);
+    border:1px solid color-mix(in srgb,var(--signal) 35%,transparent);
+    white-space:nowrap;
+  }
+  .meta{display:flex;flex-wrap:wrap;gap:10px 26px;font-family:var(--mono);font-size:.76rem;color:var(--muted)}
+  section{padding-block:44px;border-bottom:1px solid var(--hairline)}
+  section:last-of-type{border-bottom:0}
+  .shead{display:flex;flex-direction:column;gap:9px;margin-bottom:24px}
+  .stack{display:flex;flex-direction:column;gap:16px}
+  .stack-lg{display:flex;flex-direction:column;gap:30px}
+
+  /* ---------- callout ---------- */
+  .correction{
+    background:var(--surface);
+    border:1px solid var(--hairline-strong);
+    border-left:3px solid var(--kill);
+    border-radius:var(--r);
+    padding:22px 24px;
+    display:flex;flex-direction:column;gap:12px;
+  }
+  .correction .eyebrow{color:var(--kill)}
+  .bignum{font-family:var(--mono);font-weight:700;font-size:1.5rem;color:var(--ink);letter-spacing:-.02em}
+
+  .note{
+    border-left:2px solid var(--hairline-strong);
+    padding-left:16px;color:var(--muted);font-size:.92rem;
+  }
+
+  /* ---------- tables ---------- */
+  .tscroll{overflow-x:auto;border:1px solid var(--hairline);border-radius:var(--r);background:var(--surface)}
+  table{border-collapse:collapse;width:100%;font-size:.9rem;min-width:520px}
+  th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--hairline);vertical-align:top}
+  thead th{
+    font-family:var(--mono);font-size:.68rem;font-weight:700;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--muted);background:var(--surface-2);
+    border-bottom:1px solid var(--hairline-strong);white-space:nowrap;
+  }
+  tbody tr:last-child td{border-bottom:0}
+  td.num,th.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .ok{color:var(--signal);font-weight:650}
+  .no{color:var(--kill);font-weight:650}
+
+  /* ---------- figures ---------- */
+  figure{margin:0;display:flex;flex-direction:column;gap:12px}
+  figure svg{
+    display:block;width:100%;max-width:100%;height:auto;
+    background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r);
+  }
+  figcaption{font-size:.86rem;color:var(--muted);max-width:66ch}
+
+  /* ---------- genome slots ---------- */
+  .slots{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:1px;background:var(--hairline);border:1px solid var(--hairline);border-radius:var(--r);overflow:hidden}
+  .slot{background:var(--surface);padding:15px 16px;display:flex;flex-direction:column;gap:5px}
+  .slot .n{font-family:var(--mono);font-size:.68rem;color:var(--muted);letter-spacing:.08em}
+  .slot .k{font-family:var(--mono);font-weight:700;font-size:.9rem;color:var(--signal)}
+  .slot.desc .k{color:var(--void)}
+  .slot .d{font-size:.87rem;color:var(--ink-2);line-height:1.45}
+
+  /* ---------- occupancy grid ---------- */
+  .gridwrap{overflow-x:auto;padding-bottom:2px}
+  .occ{border-collapse:separate;border-spacing:3px;width:auto;min-width:0}
+  .occ th{
+    background:none;border:0;padding:0 6px 6px 0;
+    font-family:var(--mono);font-size:.66rem;font-weight:400;letter-spacing:.04em;
+    color:var(--muted);text-transform:none;white-space:nowrap;
+  }
+  .occ th.rowh{text-align:right;padding-right:10px;max-width:none}
+  .occ th.colh{writing-mode:vertical-rl;transform:rotate(180deg);height:128px;vertical-align:bottom;text-align:left;padding:0 0 6px 0}
+  .occ td{padding:0;border:0;width:26px;text-align:center}
+  .cell{width:26px;height:26px;border-radius:2px;background:var(--surface-2);border:1px solid var(--hairline)}
+  .cell.occ-ship{background:var(--signal-dim);border-color:color-mix(in srgb,var(--signal) 55%,transparent)}
+  .cell.occ-tomb{background:var(--kill-dim);border-color:color-mix(in srgb,var(--kill) 45%,transparent)}
+  .cell.occ-front{background:var(--void-dim);border-color:var(--void);box-shadow:inset 0 0 0 1px var(--void)}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 22px;font-family:var(--mono);font-size:.74rem;color:var(--muted)}
+  .legend span{display:flex;align-items:center;gap:8px}
+  .sw{width:14px;height:14px;border-radius:2px;flex:none}
+
+  /* ---------- ladder ---------- */
+  .ladder{display:flex;flex-direction:column;gap:3px}
+  .rung{
+    display:grid;grid-template-columns:52px minmax(0,1fr) 88px;
+    gap:5px 14px;align-items:center;
+  }
+  .rung .gate{font-family:var(--mono);font-weight:700;font-size:.82rem;color:var(--muted)}
+  .rung .bar{
+    background:var(--surface-2);border:1px solid var(--hairline);border-radius:2px;
+    padding:9px 13px;font-size:.89rem;color:var(--ink);font-weight:600;
+    min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .rung .why{grid-column:2 / 4;margin:0 0 11px;font-size:.86rem;color:var(--muted);line-height:1.45}
+  .rung .kill{font-family:var(--mono);font-size:.78rem;color:var(--kill);text-align:right;font-variant-numeric:tabular-nums}
+  .rung.truth .bar{background:var(--signal-dim);border-color:var(--signal)}
+  .rung.truth .kill{color:var(--signal)}
+
+  /* ---------- formula ---------- */
+  .formula{
+    background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r);
+    padding:20px 22px;font-family:var(--mono);font-size:.87rem;line-height:1.85;
+    color:var(--ink-2);overflow-x:auto;
+  }
+  .formula .h{color:var(--signal);font-weight:700}
+  .formula .v{color:var(--void);font-weight:700}
+  .formula .c{color:var(--muted)}
+
+  /* ---------- decisions ---------- */
+  .decisions{display:flex;flex-direction:column;gap:1px;background:var(--hairline);border:1px solid var(--hairline);border-radius:var(--r);overflow:hidden}
+  .dec{background:var(--surface);padding:17px 19px;display:grid;grid-template-columns:30px 1fr;gap:14px;align-items:start}
+  .dec .i{font-family:var(--mono);font-weight:700;color:var(--void);font-size:.9rem;padding-top:1px}
+  .dec .b{display:flex;flex-direction:column;gap:5px}
+  .dec h3{font-size:.97rem}
+  .dec p{font-size:.9rem;color:var(--ink-2)}
+  .dec .rec{font-family:var(--mono);font-size:.78rem;color:var(--signal)}
+
+  /* ---------- phases ---------- */
+  .phases{display:flex;flex-direction:column;gap:1px;background:var(--hairline);border:1px solid var(--hairline);border-radius:var(--r);overflow:hidden}
+  .ph{background:var(--surface);padding:14px 18px;display:grid;grid-template-columns:74px 1fr;gap:14px;align-items:baseline}
+  .ph.core{background:var(--surface-2)}
+  .ph .p{font-family:var(--mono);font-size:.72rem;font-weight:700;letter-spacing:.08em;color:var(--muted);white-space:nowrap}
+  .ph.core .p{color:var(--signal)}
+  .ph .t{font-size:.92rem;color:var(--ink-2)}
+  .ph .t b{color:var(--ink);font-weight:600}
+
+  ul.tight{margin:0;padding-left:1.15rem;display:flex;flex-direction:column;gap:7px}
+  ul.tight li{font-size:.94rem;color:var(--ink-2)}
+  ul.tight li b{color:var(--ink)}
+
+  footer{padding-block:36px;color:var(--muted);font-size:.86rem;display:flex;flex-direction:column;gap:8px}
+
+  @media (max-width:620px){
+    .rung{grid-template-columns:44px minmax(0,1fr) 74px}
+    .occ th.colh{height:112px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Multi-agent architecture &middot; design for review</div>
+    <div class="titleline">
+      <h1>Founder&nbsp;OS</h1>
+      <span class="chip">Not built yet</span>
+    </div>
+    <p class="lede">A search engine for consumer app ideas that do not exist yet. It maps the
+      design space, marks what already ships, finds the regions a recent capability change just
+      made viable, and then tries very hard to kill everything it finds.</p>
+    <div class="meta">
+      <span>v1 &middot; September 2026</span>
+      <span>37 cited findings</span>
+      <span>Target build: $10k&ndash;$50k</span>
+      <span>Consumer only</span>
+    </div>
+  </header>
+
+  <!-- ============ CORRECTION ============ -->
+  <section>
+    <div class="stack col">
+      <div class="correction">
+        <div class="eyebrow">Correction to the premise</div>
+        <p class="bignum">&ldquo;88&rdquo; is hours, not years.</p>
+        <p>The 10,000-agent run was OpenAI&rsquo;s Navier&ndash;Stokes effort, 1&ndash;5 September
+          2026, about <strong>88 hours</strong>. The problem dates to 1934 and has been a
+          Millennium Prize problem since 2000. Four things about it matter more than the agent
+          count:</p>
+        <ul class="tight">
+          <li><b>It answered the weaker question.</b> The official statement has four
+            propositions; two permit a smooth external forcing term. That is the one they proved.
+            OpenAI wrote: &ldquo;We do not intend to claim the Millennium Prize for this
+            result.&rdquo;</li>
+          <li><b>The mathematical idea was not the model&rsquo;s.</b> The method is the
+            C&oacute;rdoba&ndash;Mart&iacute;nez-Zoroa cascade, circa 2021&ndash;2023, no AI
+            involved.</li>
+          <li><b>Humans with model assistance got there first.</b> Two mathematicians had the
+            same class of result formally verified on 22 August, before OpenAI&rsquo;s internal
+            model finished training on 28 August.</li>
+          <li><b>No ablation shows 10,000 agents was necessary.</b> The only comparison they
+            disclosed is that an easier result in the same effort needed roughly
+            <strong>100 agents</strong>.</li>
+        </ul>
+        <p class="fine">What is worth copying is the machinery underneath: a sound verifier, a
+          generator separated from it, decomposition by hypothesis, an archive that maintains
+          diversity, structured shared memory, and a staged evaluation cascade.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ THE LAW ============ -->
+  <section>
+    <div class="shead col">
+      <div class="eyebrow">The governing constraint</div>
+      <h2>Agent count is a dependent variable of oracle quality</h2>
+      <p>Parallel agents scale well exactly as far as selection is sound and cheap. Everything
+        else in this design follows from that one sentence.</p>
+    </div>
+
+    <div class="stack-lg">
+      <div class="tscroll">
+        <table>
+          <thead>
+            <tr><th>Oracle available</th><th>Viable parallelism</th><th>Where it has been done</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Proof checker, type checker, unit test, numeric objective</td><td class="num ok">thousands</td><td>Gauss ran thousands of concurrent proof runtimes; AlphaEvolve optimises for throughput</td></tr>
+            <tr><td>Code execution plus a second-modality check</td><td class="num">dozens</td><td>Vision-model critique of generated figures</td></tr>
+            <tr><td><strong>Model-as-judge, or agents discussing</strong></td><td class="num no">3&ndash;4, centralised</td><td>&larr; this is us</td></tr>
+            <tr><td>Human review</td><td class="num">one, and it is the bottleneck</td><td>&mdash;</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tscroll">
+        <table>
+          <thead><tr><th>Measured penalty for ignoring it</th><th class="num">Value</th></tr></thead>
+          <tbody>
+            <tr><td>Coordination cost in reasoning turns</td><td class="num">T = 2.72 &times; (n + 0.5)<sup>1.724</sup> &mdash; super-linear</td></tr>
+            <tr><td>Practical ceiling under a fixed budget</td><td class="num">beyond 3&ndash;4 agents, per-agent reasoning goes thin</td></tr>
+            <tr><td>Returns once single-agent accuracy passes 45%</td><td class="num no">negative (&beta; = &minus;0.408, p &lt; 0.001)</td></tr>
+            <tr><td>Error amplification, centralised / decentralised / independent</td><td class="num">4.4&times; / 7.8&times; / <span class="no">17.2&times;</span></td></tr>
+            <tr><td>Message density past saturation (~0.39 msg/turn)</td><td class="num">+515% messaging buys 2&ndash;3%</td></tr>
+            <tr><td>Diversity utilisation as a group grows</td><td class="num no">1.03 &rarr; 0.47</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <figure>
+        <svg viewBox="0 0 920 366" role="img" aria-label="Two architectures compared: a committee of agents discussing one candidate, versus many independent proposals passed through a verifier with survivors mutating back into the pool.">
+          <defs>
+            <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <polygon points="0,0 10,5 0,10" fill="currentColor"/>
+            </marker>
+            <marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <polygon points="0,0 10,5 0,10" fill="var(--signal)"/>
+            </marker>
+            <marker id="ark" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <polygon points="0,0 10,5 0,10" fill="var(--kill)"/>
+            </marker>
+          </defs>
+
+          <line x1="460" y1="26" x2="460" y2="344" stroke="var(--hairline-strong)" stroke-width="1" stroke-dasharray="3 5"/>
+
+          <!-- LEFT: committee -->
+          <text x="34" y="34" font-family="Space Mono, monospace" font-size="11" font-weight="700" letter-spacing="1.4" fill="var(--kill)">WHAT THE HEADLINE SUGGESTS</text>
+          <rect x="34" y="52" width="120" height="34" rx="3" fill="var(--surface-2)" stroke="var(--hairline-strong)"/>
+          <text x="94" y="74" font-family="Inter, sans-serif" font-size="12" fill="currentColor" text-anchor="middle">one question</text>
+
+          <g stroke="var(--kill)" stroke-width="1" opacity="0.5">
+            <line x1="120" y1="150" x2="230" y2="118"/><line x1="120" y1="150" x2="230" y2="182"/>
+            <line x1="120" y1="150" x2="196" y2="226"/><line x1="230" y1="118" x2="230" y2="182"/>
+            <line x1="230" y1="118" x2="196" y2="226"/><line x1="230" y1="182" x2="196" y2="226"/>
+            <line x1="120" y1="150" x2="300" y2="150"/><line x1="230" y1="118" x2="300" y2="150"/>
+            <line x1="230" y1="182" x2="300" y2="150"/><line x1="196" y1="226" x2="300" y2="150"/>
+            <line x1="300" y1="150" x2="330" y2="112"/><line x1="230" y1="118" x2="330" y2="112"/>
+          </g>
+          <line x1="94" y1="86" x2="94" y2="128" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"/>
+          <g fill="var(--kill-dim)" stroke="var(--kill)" stroke-width="1.2">
+            <circle cx="120" cy="150" r="15"/><circle cx="230" cy="118" r="15"/>
+            <circle cx="230" cy="182" r="15"/><circle cx="196" cy="226" r="15"/>
+            <circle cx="300" cy="150" r="15"/><circle cx="330" cy="112" r="15"/>
+            <circle cx="286" cy="222" r="15"/>
+          </g>
+          <line x1="196" y1="226" x2="286" y2="222" stroke="var(--kill)" stroke-width="1" opacity="0.5"/>
+          <text x="212" y="272" font-family="Space Mono, monospace" font-size="10.5" fill="var(--kill)" text-anchor="middle">discuss &middot; converge &middot; agree</text>
+          <line x1="212" y1="284" x2="212" y2="306" stroke="var(--kill)" stroke-width="1.4" marker-end="url(#ark)"/>
+          <rect x="132" y="312" width="160" height="32" rx="3" fill="none" stroke="var(--kill)" stroke-dasharray="4 3"/>
+          <text x="212" y="333" font-family="Inter, sans-serif" font-size="12" fill="var(--kill)" text-anchor="middle">one answer, less diverse</text>
+
+          <!-- RIGHT: search under verifier -->
+          <text x="506" y="34" font-family="Space Mono, monospace" font-size="11" font-weight="700" letter-spacing="1.4" fill="var(--signal)">WHAT ACTUALLY WORKS</text>
+          <rect x="506" y="52" width="120" height="34" rx="3" fill="var(--surface-2)" stroke="var(--hairline-strong)"/>
+          <text x="566" y="74" font-family="Inter, sans-serif" font-size="12" fill="currentColor" text-anchor="middle">one question</text>
+
+          <g stroke="currentColor" stroke-width="1.1" opacity="0.75">
+            <line x1="546" y1="86" x2="522" y2="112" marker-end="url(#ar)"/>
+            <line x1="560" y1="86" x2="560" y2="112" marker-end="url(#ar)"/>
+            <line x1="574" y1="86" x2="598" y2="112" marker-end="url(#ar)"/>
+            <line x1="586" y1="86" x2="636" y2="112" marker-end="url(#ar)"/>
+          </g>
+          <g fill="var(--surface-2)" stroke="var(--hairline-strong)" stroke-width="1">
+            <rect x="500" y="118" width="44" height="24" rx="2"/><rect x="538" y="118" width="44" height="24" rx="2"/>
+            <rect x="576" y="118" width="44" height="24" rx="2"/><rect x="614" y="118" width="44" height="24" rx="2"/>
+            <rect x="652" y="118" width="44" height="24" rx="2"/><rect x="690" y="118" width="44" height="24" rx="2"/>
+            <rect x="728" y="118" width="44" height="24" rx="2"/><rect x="766" y="118" width="44" height="24" rx="2"/>
+            <rect x="804" y="118" width="44" height="24" rx="2"/><rect x="842" y="118" width="44" height="24" rx="2"/>
+          </g>
+          <text x="886" y="102" font-family="Space Mono, monospace" font-size="10.5" fill="currentColor" text-anchor="end">independent proposals, no discussion</text>
+
+          <g stroke="currentColor" stroke-width="1" opacity="0.55">
+            <line x1="522" y1="142" x2="640" y2="176" marker-end="url(#ar)"/>
+            <line x1="598" y1="142" x2="662" y2="176" marker-end="url(#ar)"/>
+            <line x1="674" y1="142" x2="688" y2="176" marker-end="url(#ar)"/>
+            <line x1="750" y1="142" x2="714" y2="176" marker-end="url(#ar)"/>
+            <line x1="826" y1="142" x2="740" y2="176" marker-end="url(#ar)"/>
+          </g>
+
+          <polygon points="690,178 800,210 690,242 580,210" fill="var(--signal-dim)" stroke="var(--signal)" stroke-width="1.5"/>
+          <text x="690" y="207" font-family="Space Mono, monospace" font-size="11.5" font-weight="700" fill="var(--signal)" text-anchor="middle">VERIFIER</text>
+          <text x="690" y="223" font-family="Inter, sans-serif" font-size="10.5" fill="var(--signal)" text-anchor="middle">kills cheaply</text>
+
+          <line x1="690" y1="242" x2="690" y2="296" stroke="var(--signal)" stroke-width="1.5" marker-end="url(#arg)"/>
+          <text x="700" y="270" font-family="Space Mono, monospace" font-size="10.5" fill="var(--signal)">survivors</text>
+          <rect x="626" y="300" width="128" height="32" rx="3" fill="none" stroke="var(--signal)"/>
+          <text x="690" y="321" font-family="Inter, sans-serif" font-size="12" fill="var(--signal)" text-anchor="middle">archive of elites</text>
+
+          <path d="M 626 316 L 486 316 L 486 130 L 496 130" fill="none" stroke="var(--signal)" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#arg)"/>
+          <text x="474" y="232" font-family="Space Mono, monospace" font-size="10.5" fill="var(--signal)" text-anchor="middle" transform="rotate(-90 474 232)">mutate</text>
+        </svg>
+        <figcaption>The difference is the verifier, not the headcount. On the left, agents talk to
+          each other and their errors compound; measured error amplification is up to 17.2&times;
+          single-agent, and diversity falls as the group grows. On the right, nothing talks to
+          anything: candidates are proposed independently, killed cheaply, and only survivors
+          reproduce.</figcaption>
+      </figure>
+
+      <div class="note col">Startup ideas have no proof checker. A consumer app idea is the
+        canonical reverse-asymmetric artifact: generating a thousand costs dollars, verifying one
+        costs a market experiment. So the central engineering problem of this system is
+        manufacturing the best available proxy oracle, and being explicit about where it leaks.</div>
+    </div>
+  </section>
+
+  <!-- ============ PIPELINE ============ -->
+  <section>
+    <div class="shead col">
+      <div class="eyebrow">Control flow</div>
+      <h2>One writer, five stages, no agent-to-agent calls</h2>
+      <p>Three independent teams converged on the same rule: parallel agents are safe for reading
+        and exploring, dangerous for writing and synthesising. So the orchestrator owns all state
+        and every other agent is a stateless reader.</p>
+    </div>
+
+    <figure>
+      <svg viewBox="0 0 960 430" role="img" aria-label="Pipeline: evidence harvesting feeds a void map, which feeds an evolutionary generator, whose candidates descend an oracle ladder; survivors reach real-world probes whose results feed back as the highest-weighted evidence. An orchestrator is the only component that writes to the shared world model.">
+        <defs>
+          <marker id="p1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <polygon points="0,0 10,5 0,10" fill="currentColor"/>
+          </marker>
+          <marker id="p2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <polygon points="0,0 10,5 0,10" fill="var(--signal)"/>
+          </marker>
+          <marker id="p3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <polygon points="0,0 10,5 0,10" fill="var(--void)"/>
+          </marker>
+        </defs>
+
+        <!-- console -->
+        <rect x="330" y="18" width="300" height="38" rx="3" fill="var(--surface-2)" stroke="var(--hairline-strong)"/>
+        <text x="480" y="42" font-family="Inter, sans-serif" font-size="12.5" fill="currentColor" text-anchor="middle">Founder Console &mdash; brief, dossiers, kill log, probes</text>
+
+        <!-- orchestrator -->
+        <rect x="120" y="86" width="720" height="52" rx="3" fill="var(--void-dim)" stroke="var(--void)" stroke-width="1.5"/>
+        <text x="480" y="108" font-family="Space Mono, monospace" font-size="12" font-weight="700" letter-spacing="1" fill="var(--void)" text-anchor="middle">ORCHESTRATOR &mdash; SOLE WRITER OF THE WORLD MODEL</text>
+        <text x="480" y="126" font-family="Inter, sans-serif" font-size="11" fill="var(--void)" text-anchor="middle">task ledger &middot; progress ledger &middot; stall counter &middot; cost governor &middot; resume</text>
+
+        <line x1="480" y1="56" x2="480" y2="82" stroke="currentColor" stroke-width="1.2" marker-end="url(#p1)"/>
+        <line x1="440" y1="82" x2="440" y2="60" stroke="currentColor" stroke-width="1.2" marker-end="url(#p1)"/>
+
+        <!-- stages -->
+        <g font-family="Space Mono, monospace" font-size="11.5" font-weight="700" letter-spacing="0.8" text-anchor="middle">
+          <rect x="42" y="196" width="140" height="76" rx="3" fill="var(--surface)" stroke="var(--signal)" stroke-width="1.5"/>
+          <text x="112" y="222" fill="var(--signal)">EVIDENCE</text>
+          <rect x="212" y="196" width="140" height="76" rx="3" fill="var(--surface)" stroke="var(--hairline-strong)"/>
+          <text x="282" y="222" fill="currentColor">VOID MAP</text>
+          <rect x="382" y="196" width="140" height="76" rx="3" fill="var(--surface)" stroke="var(--hairline-strong)"/>
+          <text x="452" y="222" fill="currentColor">GENESIS</text>
+          <rect x="552" y="196" width="140" height="76" rx="3" fill="var(--surface)" stroke="var(--hairline-strong)"/>
+          <text x="622" y="222" fill="currentColor">ORACLE LADDER</text>
+          <rect x="722" y="196" width="140" height="76" rx="3" fill="var(--surface)" stroke="var(--signal)" stroke-width="1.5"/>
+          <text x="792" y="222" fill="var(--signal)">PROBE</text>
+        </g>
+        <g font-family="Inter, sans-serif" font-size="10.5" fill="var(--muted)" text-anchor="middle">
+          <text x="112" y="240">9 harvesters</text><text x="112" y="256">cite or discard</text>
+          <text x="282" y="240">occupancy grid</text><text x="282" y="256">voids + tombstones</text>
+          <text x="452" y="240">island theses</text><text x="452" y="256">archive of elites</text>
+          <text x="622" y="240">L0 &rarr; L5</text><text x="622" y="256">every gate kills</text>
+          <text x="792" y="240">$50 ad test</text><text x="792" y="256">you approve</text>
+        </g>
+
+        <!-- vertical links to orchestrator -->
+        <g stroke="var(--void)" stroke-width="1.1" opacity="0.65" stroke-dasharray="3 4">
+          <line x1="112" y1="138" x2="112" y2="192"/><line x1="282" y1="138" x2="282" y2="192"/>
+          <line x1="452" y1="138" x2="452" y2="192"/><line x1="622" y1="138" x2="622" y2="192"/>
+          <line x1="792" y1="138" x2="792" y2="192"/>
+        </g>
+        <text x="946" y="166" font-family="Space Mono, monospace" font-size="9" fill="var(--void)" text-anchor="end">agents read, never write</text>
+
+        <!-- horizontal flow -->
+        <g stroke="currentColor" stroke-width="1.4">
+          <line x1="182" y1="234" x2="208" y2="234" marker-end="url(#p1)"/>
+          <line x1="352" y1="234" x2="378" y2="234" marker-end="url(#p1)"/>
+          <line x1="522" y1="234" x2="548" y2="234" marker-end="url(#p1)"/>
+          <line x1="692" y1="234" x2="718" y2="234" marker-end="url(#p1)"/>
+        </g>
+        <g font-family="Space Mono, monospace" font-size="9.5" fill="var(--muted)" text-anchor="middle">
+          <text x="195" y="188">signals</text><text x="365" y="188">voids</text>
+          <text x="535" y="188">candidates</text><text x="705" y="188">top 3</text>
+        </g>
+
+        <!-- mutate loop -->
+        <path d="M 622 272 L 622 312 L 452 312 L 452 276" fill="none" stroke="currentColor" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#p1)"/>
+        <text x="537" y="327" font-family="Space Mono, monospace" font-size="10" fill="var(--muted)" text-anchor="middle">survivors mutate &middot; 4 generations</text>
+
+        <!-- probe feedback -->
+        <path d="M 792 272 L 792 380 L 112 380 L 112 276" fill="none" stroke="var(--signal)" stroke-width="1.5" marker-end="url(#p2)"/>
+        <text x="452" y="398" font-family="Space Mono, monospace" font-size="10.5" fill="var(--signal)" text-anchor="middle">probe results re-enter as the highest-weighted evidence &mdash; the only contact with ground truth</text>
+      </svg>
+      <figcaption>Evidence is the novelty engine, not plumbing. In the one clean ablation
+        available, a single agent with a retrieval layer beat a full multi-agent system on novelty
+        and diversity; the multi-agent system won only on quality. So the evidence layer is built
+        first, and the dashed loop at the bottom is the only place the system learns anything true.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ============ GENOME ============ -->
+  <section>
+    <div class="shead col">
+      <div class="eyebrow">Representation</div>
+      <h2>An idea is a typed slot vector</h2>
+      <p>The same structure this repository already uses for siRNA modification patterns. Slots
+        one to four form the archive coordinate. Every slot records where it came from: harvested
+        evidence, an inherited parent, or the model&rsquo;s own invention.</p>
+    </div>
+    <div class="slots">
+      <div class="slot desc"><span class="n">01 &middot; descriptor</span><span class="k">unlock</span><span class="d">What just became possible, with the date its cost curve crossed</span></div>
+      <div class="slot desc"><span class="n">02 &middot; descriptor</span><span class="k">pain</span><span class="d">An evidenced problem, with a verbatim quote and a volume estimate</span></div>
+      <div class="slot desc"><span class="n">03 &middot; descriptor</span><span class="k">audience</span><span class="d">A named population. &ldquo;Everyone&rdquo; is rejected deterministically</span></div>
+      <div class="slot desc"><span class="n">04 &middot; descriptor</span><span class="k">mechanic</span><span class="d">The core loop: capture, streak, ambient, async-social</span></div>
+      <div class="slot"><span class="n">05</span><span class="k">wedge</span><span class="d">The narrowest possible first use case</span></div>
+      <div class="slot"><span class="n">06</span><span class="k">moat</span><span class="d">What accumulates: data, habit, network, taste, library</span></div>
+      <div class="slot"><span class="n">07</span><span class="k">model</span><span class="d">How money is made, and at what price point</span></div>
+      <div class="slot"><span class="n">08</span><span class="k">loop</span><span class="d">How one user produces the next, with no ad spend</span></div>
+      <div class="slot"><span class="n">09 &middot; mandatory</span><span class="k">kill</span><span class="d">Pre-registered conditions that would prove this wrong. Absent or unfalsifiable, the idea dies at gate zero</span></div>
+    </div>
+  </section>
+
+  <!-- ============ OCCUPANCY ============ -->
+  <section>
+    <div class="shead col">
+      <div class="eyebrow">Void detection</div>
+      <h2>Occupied, tombstoned, or void</h2>
+      <p>Shipped products project into the same space. A cell with a live product is occupied. A
+        cell where everything died is tombstoned, and it is the highest-value region when paired
+        with a new unlock, because &ldquo;right idea, wrong decade&rdquo; is the most reliable
+        source of opportunity. A cell with neither, next to a capability that just got cheap, is
+        the frontier.</p>
+    </div>
+
+    <div class="stack">
+      <div class="gridwrap">
+        <table class="occ">
+          <thead>
+            <tr>
+              <th></th>
+              <th class="colh">parents, under-10s</th>
+              <th class="colh">seniors + carers</th>
+              <th class="colh">night-shift nurses</th>
+              <th class="colh">adult ESL learners</th>
+              <th class="colh">gym regulars</th>
+              <th class="colh">recent immigrants</th>
+              <th class="colh">chronic pain</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th class="rowh">free on-device inference</th>
+              <td><div class="cell occ-front"></div></td><td><div class="cell occ-front"></div></td>
+              <td><div class="cell"></div></td><td><div class="cell occ-ship"></div></td>
+              <td><div class="cell occ-ship"></div></td><td><div class="cell occ-front"></div></td>
+              <td><div class="cell"></div></td></tr>
+            <tr><th class="rowh">real-time voice under 2c/min</th>
+              <td><div class="cell occ-ship"></div></td><td><div class="cell occ-front"></div></td>
+              <td><div class="cell occ-front"></div></td><td><div class="cell occ-ship"></div></td>
+              <td><div class="cell"></div></td><td><div class="cell occ-front"></div></td>
+              <td><div class="cell"></div></td></tr>
+            <tr><th class="rowh">1M context at flat price</th>
+              <td><div class="cell"></div></td><td><div class="cell"></div></td>
+              <td><div class="cell occ-front"></div></td><td><div class="cell"></div></td>
+              <td><div class="cell occ-ship"></div></td><td><div class="cell"></div></td>
+              <td><div class="cell occ-front"></div></td></tr>
+            <tr><th class="rowh">video at 3c/second</th>
+              <td><div class="cell occ-tomb"></div></td><td><div class="cell"></div></td>
+              <td><div class="cell"></div></td><td><div class="cell occ-tomb"></div></td>
+              <td><div class="cell occ-ship"></div></td><td><div class="cell"></div></td>
+              <td><div class="cell"></div></td></tr>
+            <tr><th class="rowh">age verification as an OS call</th>
+              <td><div class="cell occ-front"></div></td><td><div class="cell"></div></td>
+              <td><div class="cell"></div></td><td><div class="cell occ-tomb"></div></td>
+              <td><div class="cell"></div></td><td><div class="cell"></div></td>
+              <td><div class="cell"></div></td></tr>
+            <tr><th class="rowh">glasses display SDK</th>
+              <td><div class="cell"></div></td><td><div class="cell occ-front"></div></td>
+              <td><div class="cell occ-front"></div></td><td><div class="cell occ-front"></div></td>
+              <td><div class="cell occ-front"></div></td><td><div class="cell"></div></td>
+              <td><div class="cell"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="legend">
+        <span><i class="sw cell occ-ship"></i> occupied by a shipped product</span>
+        <span><i class="sw cell occ-tomb"></i> tombstoned &mdash; tried, died</span>
+        <span><i class="sw cell occ-front"></i> void on the frontier</span>
+        <span><i class="sw cell"></i> void, no fresh unlock</span>
+      </div>
+
+      <p class="fine col">Illustrative. The axes and unlocks are real and sourced; the cell states
+        are hand-set to show how the encoding works, not pipeline output. The real grid is four
+        dimensions deep and holds one elite per cell, which is what makes &ldquo;we already have
+        an idea like that&rdquo; a structural fact rather than a matter of opinion.</p>
+    </div>
+  </section>
+
+  <!-- ============ LADDER ============ -->
+  <section>
+    <div class="shead col">
+      <div class="eyebrow">The oracle ladder</div>
+      <h2>Every gate must kill</h2>
+      <p>Cost per candidate rises strictly down the ladder, so almost everything dies against free
+        deterministic checks and the expensive stages see very few survivors. A gate that passes
+        almost everything is decoration, and gets removed.</p>
+    </div>
+
+    <div class="stack">
+      <div class="ladder">
+        <div class="rung"><span class="gate">L0</span><div class="bar" style="width:100%">Validity</div><span class="kill">&minus;40%</span><p class="why">nine slots filled, kill conditions falsifiable, category allowed &mdash; free, deterministic code</p></div>
+        <div class="rung"><span class="gate">L1</span><div class="bar" style="width:88%">Obviousness</div><span class="kill">&minus;30%</span><p class="why">would any model have said this? distance to cold model priors and to shipped products</p></div>
+        <div class="rung"><span class="gate">L2</span><div class="bar" style="width:70%">Grounding</div><span class="kill">&minus;15%</span><p class="why">every pain and unlock resolves to a live source URL</p></div>
+        <div class="rung"><span class="gate">L3</span><div class="bar" style="width:58%">Buildability</div><span class="kill">&minus;20%</span><p class="why">cost, weeks, and gross margin. Negative margin is an automatic kill</p></div>
+        <div class="rung"><span class="gate">L4</span><div class="bar" style="width:44%">Adversarial panel</div><span class="kill">&minus;50%</span><p class="why">seven attackers on clean context, one surface each, plus a sneaky advocate</p></div>
+        <div class="rung"><span class="gate">L5</span><div class="bar" style="width:26%">Tournament</div><span class="kill">ranks</span><p class="why">pairwise, position-swapped, ranked by lower confidence bound</p></div>
+        <div class="rung truth"><span class="gate">L7</span><div class="bar" style="width:16%">Reality probe</div><span class="kill">truth</span><p class="why">$50 of ad spend, a landing page, five humans by hand &mdash; you approve every dollar</p></div>
+      </div>
+
+      <div class="tscroll">
+        <table>
+          <thead><tr><th>Attacker at L4</th><th>Must argue</th></tr></thead>
+          <tbody>
+            <tr><td class="m">demand_skeptic</td><td>the pain is stated, not felt</td></tr>
+            <tr><td class="m">incumbent_response</td><td>the category leader ships this as a feature in one quarter</td></tr>
+            <tr><td class="m">economics_attacker</td><td>the margin or the acquisition cost never works</td></tr>
+            <tr><td class="m">distribution_attacker</td><td>there is no loop; growth requires paid acquisition</td></tr>
+            <tr><td class="m">retention_attacker</td><td>it is a one-shot novelty; usage collapses after week two</td></tr>
+            <tr><td class="m">graveyard_attacker</td><td>this already died, here is the tombstone</td></tr>
+            <tr><td class="m">taste_attacker</td><td>nobody would show this to a friend</td></tr>
+            <tr><td class="m">sneaky_advocate</td><td>the most persuasive possible pitch for a deliberately bad idea. Anything it sneaks past the panel becomes a hard negative that hardens the rubric</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fine col">Panel capped at seven, on clean context, sharded into isolated subgroups,
+        drawn from different model families where available, with all seniority language stripped.
+        Each of those five constraints exists because of a measured result. Any single unanswerable
+        attack is a hard kill the judge cannot overrule.</p>
+    </div>
+  </section>
+
+  <!-- ============ SCORING ============ -->
+  <section>
+    <div class="shead col">
+      <div class="eyebrow">Scoring</div>
+      <h2>Two heads, joined harmonically, never averaged</h2>
+      <p>Blind reviewers rated model-generated ideas <em>more novel</em> than expert ideas. Then
+        43 experts spent a hundred hours each actually executing them, and the model ideas&rsquo;
+        scores dropped further than the human ideas&rsquo; on every dimension, in places flipping
+        the ranking. &ldquo;Novel-sounding&rdquo; is cheap and models are superhuman at it.
+        &ldquo;Actually good&rdquo; is not measurable at ideation time. Collapsing both into one
+        number is exactly where that gap hides.</p>
+    </div>
+
+    <div class="stack">
+      <div class="formula">
+<span class="c"># head 1 — is this actually new?</span>
+<span class="h">novelty</span>   = harmonic_mean(originality, quality)
+            originality = min(distance_to_cold_model_priors,
+                              distance_to_shipped_products)
+
+<span class="c"># head 2 — could you actually ship and sell it?</span>
+<span class="v">viability</span> = harmonic_mean(buildability, unit_economics,
+                              distribution_loop, timing)
+
+<span class="c"># reported side by side, always. ranked pairwise within each head.</span>
+<span class="c"># the composite only selects what reaches a real-world probe:</span>
+shortlist = 100 * harmonic_mean(<span class="h">novelty</span>, <span class="v">viability</span>) * survival_multiplier
+      </div>
+
+      <p class="col">Harmonic throughout, because the harmonic mean is chosen specifically to
+        punish either term being low. A weighted sum lets a fatal weakness hide behind strong
+        unrelated dimensions: an idea that is brilliant and unbuildable would land in the middle
+        instead of at zero. Then each survivor is turned into three to five falsifiable binary
+        forecasts with resolution dates, and the system <strong>tracks its own Brier score over
+        time</strong> &mdash; the one thing no rubric can give you, a scoring function that is
+        eventually scored itself.</p>
+
+      <div class="note col">The honest ceiling: published benchmarks on venture-outcome
+        prediction reach about a <strong>4.7&times; lift</strong> over a 0.78% base rate, with
+        frontier models beating human baselines. That is roughly a 4% hit rate. The deliverable is
+        a ranked shortlist with kill conditions and a cheap decisive test. Never a verdict.</div>
+    </div>
+  </section>
+
+  <!-- ============ REFUSALS ============ -->
+  <section>
+    <div class="shead col">
+      <div class="eyebrow">Deliberate omissions</div>
+      <h2>What this design refuses to do, and why</h2>
+      <p>Each of these is the intuitive way to build the system, and each is ruled out by
+        something measured rather than by taste.</p>
+    </div>
+    <div class="tscroll">
+      <table>
+        <thead><tr><th>Tempting</th><th>Why not</th></tr></thead>
+        <tbody>
+          <tr><td>A 10,000-agent committee</td><td>Coordination cost is super-linear, returns go negative past 45% single-agent accuracy, error amplification hits 17.2&times;, and no ablation supports the headline</td></tr>
+          <tr><td>&ldquo;Think like a genius&rdquo; personas</td><td>Measured: visionary-founder personas produced <span class="num">50.40</span> unique idea categories against <span class="num">56.97</span> for ordinary personas. The celebrity voice is worse than a random normal person</td></tr>
+          <tr><td>Agents arguing to refine ideas</td><td>Across 36 configurations, none of five debate methods beat plain chain-of-thought. Generate in isolation first, then attack</td></tr>
+          <tr><td>Asking the model to be novel</td><td>Prompting for novelty and raising temperature buy originality by spending quality, and barely move the frontier. Temperature&rsquo;s effect is U-shaped</td></tr>
+          <tr><td>A panel of personas as a jury</td><td>Juries help only when errors are uncorrelated. Five personas of one model is one judge wearing hats</td></tr>
+          <tr><td>Rating ideas one to ten</td><td>Pairwise comparison agrees with human preference more reliably, and the gap widens precisely on subjective judgments</td></tr>
+          <tr><td>Letting the system grade itself</td><td>The closest existing system reports progress on a curve that is largely self-rated. Rising internal scores with no external check means the ranker has learned to like the generator</td></tr>
+          <tr><td>Enterprise, regulated, hardware, or over-budget ideas</td><td>Rejected deterministically at gate zero, not left to an agent&rsquo;s judgment</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ SEED ============ -->
+  <section>
+    <div class="shead col">
+      <div class="eyebrow">Day-one evidence load</div>
+      <h2>What the harvesters already see</h2>
+      <p>Real September 2026 figures, hand-harvested so the architecture can be reviewed against
+        actual inputs. These are inputs, not conclusions.</p>
+    </div>
+
+    <div class="stack-lg">
+      <div class="tscroll">
+        <table>
+          <thead><tr><th>Unlock</th><th>Then</th><th>Now</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Free cloud inference</strong> for small developers</td><td class="num">per-token billing</td><td class="num ok">$0 for Apple&rsquo;s cloud models under 2M lifetime downloads</td></tr>
+            <tr><td>Frontier-class text</td><td class="num">$30 / $60 per M tokens</td><td class="num">$0.10 / $0.40 per M tokens</td></tr>
+            <tr><td>Real-time voice</td><td class="num">uneconomic</td><td class="num">$0.005&ndash;$0.091 per minute, a 13&times; spread</td></tr>
+            <tr><td>Video generation</td><td class="num">product-priced</td><td class="num">$0.03 per second</td></tr>
+            <tr><td>Age verification</td><td class="num">vendor contract</td><td class="num">an OS call on both platforms</td></tr>
+            <tr><td>Smart glasses display</td><td class="num">closed platform</td><td class="num">third-party access opened May 2026, official HTML path</td></tr>
+            <tr><td>US app payments</td><td class="num">30% platform cut</td><td class="num ok">0% on external links today, possibly reversed in 2027</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tscroll">
+        <table>
+          <thead><tr><th>The constraint that kills consumer AI apps</th><th class="num">Number</th></tr></thead>
+          <tbody>
+            <tr><td>New subscription apps reaching $10k/month within two years</td><td class="num no">4.6%</td></tr>
+            <tr><td>New subscription app launches per month, 2022 &rarr; 2026</td><td class="num">~2,000 &rarr; 14,700+</td></tr>
+            <tr><td>Twelve-month retention, AI apps vs non-AI</td><td class="num no">21.1% vs 30.7%</td></tr>
+            <tr><td>One-year retention, high vs low retaining AI apps</td><td class="num">13.9% vs 1.4%</td></tr>
+            <tr><td>First monthly renewal, high vs low retainers</td><td class="num">57.9% vs 30.2%</td></tr>
+            <tr><td>Inference cost per daily active user per month</td><td class="num">$0.09 to $18.24 &mdash; a 200&times; spread</td></tr>
+            <tr><td>iOS cost per install, and per paying user</td><td class="num">$5.84, then $20&ndash;$80+</td></tr>
+            <tr><td>Median monthly revenue per payer</td><td class="num">$8&ndash;$24</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="col">Read the last three rows together: <strong>paid acquisition is closed at this
+        budget.</strong> That is why a distribution loop is a mandatory genome slot and why an
+        idea with no organic loop dies at the panel. And the retention rows are why accumulating
+        user state is treated as a scoring dimension rather than a nice-to-have: the diagnosis
+        across thousands of AI apps is the one-and-done problem, where subscribers come for one
+        impressive result, share it, and never return.</p>
+
+      <p class="fine col">The written spec also lists what could <em>not</em> be verified &mdash;
+        contested spend totals, aggregator-sourced acquisition costs, viral failure-rate
+        projections, and the complete absence of any smart-glasses revenue data. An evidence layer
+        that hides its gaps is not an evidence layer.</p>
+    </div>
+  </section>
+
+  <!-- ============ PHASES ============ -->
+  <section>
+    <div class="shead col">
+      <div class="eyebrow">Build order</div>
+      <h2>Eight phases, and the first three carry the weight</h2>
+    </div>
+    <div class="phases">
+      <div class="ph core"><span class="p">Phase 1</span><span class="t"><b>Skeleton.</b> Genome schema, gate-zero validity rules, world-model store, orchestrator with dual ledger and stall counter, cost governor</span></div>
+      <div class="ph core"><span class="p">Phase 2</span><span class="t"><b>Evidence.</b> Three harvesters plus normalisation into typed primitives, citation enforced at write time</span></div>
+      <div class="ph core"><span class="p">Phase 3</span><span class="t"><b>Void map.</b> Occupancy grid, void classification, originality distances, the obviousness gate</span></div>
+      <div class="ph"><span class="p">Phase 4</span><span class="t">Genesis: archive, island theses, six operators, the generation envelope, diversity monitor</span></div>
+      <div class="ph"><span class="p">Phase 5</span><span class="t">Oracle ladder: grounding, buildability, adversarial panel, sneaky advocate, tournament</span></div>
+      <div class="ph"><span class="p">Phase 6</span><span class="t">Calibration against labelled historical launches, golden set, Brier tracking</span></div>
+      <div class="ph"><span class="p">Phase 7</span><span class="t">Founder Console: morning brief, dossiers, kill log, probe queue</span></div>
+      <div class="ph"><span class="p">Phase 8</span><span class="t">Probe loop and active-learning feedback &mdash; closing the loop to reality</span></div>
+    </div>
+    <p class="fine col" style="margin-top:16px">A system with phases one to three and a single naive
+      generator will beat a system with a magnificent agent roster and no evidence layer. That is
+      not a guess; it is what the ablation measured.</p>
+  </section>
+
+  <!-- ============ DECISIONS ============ -->
+  <section>
+    <div class="shead col">
+      <div class="eyebrow">Before the build starts</div>
+      <h2>Five things only you can decide</h2>
+      <p>Everything else in this document is settled by evidence. These five are judgment calls
+        about your money, your time, and your appetite.</p>
+    </div>
+
+    <div class="decisions">
+      <div class="dec"><span class="i">01</span><div class="b">
+        <h3>How many model families?</h3>
+        <p>Heterogeneous critics are the only debate intervention that reliably helps, and juries
+          only work when their errors are uncorrelated. That means paying for a second and third
+          provider&rsquo;s API alongside the first.</p>
+        <p class="rec">Recommended: two families minimum for the panel and the judge. One family
+          works, but the panel gets logged as a single judge with variance rather than independent
+          votes.</p>
+      </div></div>
+
+      <div class="dec"><span class="i">02</span><div class="b">
+        <h3>What is the monthly running budget?</h3>
+        <p>This sets cycle size directly. Batch processing plus prompt caching stacks to roughly
+          95% off input, and cost scales with survivors rather than with how much you generate.</p>
+        <p class="rec">Recommended: start at $50&ndash;$150 a month for a nightly cycle, and skip
+          the model router entirely until spend passes about $200, below which it costs more
+          engineering time than it saves.</p>
+      </div></div>
+
+      <div class="dec"><span class="i">03</span><div class="b">
+        <h3>Will you actually run the probes?</h3>
+        <p>Gate seven is the only contact with ground truth, and it needs real money and a human
+          decision. Without it, rising internal scores mean only that the ranker has learned to
+          like the generator.</p>
+        <p class="rec">Recommended: commit $200 a month for probes, or cut the probe layer and
+          accept that the system is a ranked hypothesis generator rather than a validator.</p>
+      </div></div>
+
+      <div class="dec"><span class="i">04</span><div class="b">
+        <h3>Do you want the calibration backtest?</h3>
+        <p>It is what separates a measured scoring function from a confident one, and the labelled
+          historical data is public. It is also a weekend of work that produces no new ideas.</p>
+        <p class="rec">Recommended: yes, and run it before trusting a single ranking. It is the
+          cheapest credibility available.</p>
+      </div></div>
+
+      <div class="dec"><span class="i">05</span><div class="b">
+        <h3>Where does this live?</h3>
+        <p>Right now it sits beside OligoVoid, which is genuinely apt &mdash; it reuses the same
+          void-detection machinery &mdash; but the two projects have nothing else in common.</p>
+        <p class="rec">Recommended: keep it here through phase three while the shared abstraction
+          is doing real work, then split it into its own repository.</p>
+      </div></div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Founder OS &middot; architecture v1 &middot; design for review, nothing built yet.</p>
+    <p>Full specification, all 37 cited findings, and the schema live in <code>founder-os/docs/</code>
+      on the <code>claude/multi-agent-orchestration-twygjg</code> branch.</p>
+  </footer>
+
+</div>
