@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "iOS + Android (Flutter/Dart); the weekly call audio is the cost centre - cloud ASR with speaker diarisation and a non-English target language (~$0.004/min, on-device ASR is not good enough for code-switched family speech in Tagalog/Vietnamese/Gujarati); cheap frontier text model at $0.10/$0.40 per M to pull the 20 phrases and write cards; daily drill itself runs on-device with system TTS at $0; Supabase backend; App Store + Google Play.",
+    "milestones": [
+      "Week 1-2: call capture - record a video call from the phone (or import an audio file), diarise, and store it encrypted with a visible delete control, because this is a family's private conversation.",
+      "Week 3-4: phrase extraction - pull the 20 phrases that actually recurred, with the relative's own audio clip attached to each card rather than synthetic speech.",
+      "Week 5-6: on-device four-minute morning drill with FSRS scheduling and audio-first prompts, scheduled against the next call.",
+      "Week 7-8: the gift loop - invite a second family member, and a shared deck of phrases the family actually uses.",
+      "Week 9-11: consent and privacy UX for recording others, free/paid split, store review in two stores."
+    ],
+    "build_cost_usd": 3600,
+    "weeks_to_v1": 11,
+    "inference_cost_user_month": 0.42,
+    "price_month": 9,
+    "expected_conversion": 0.035,
+    "riskiest_technical_assumption": "That transcribing and mining a 35-minute noisy, code-switched family video call is cheap enough to give away on the free tier - it is not, because the transcription IS the wedge and cannot be paywalled, so roughly $0.42 of ASR and extraction per active user per month runs against about $0.32 of blended revenue at $9 and 3.5%, i.e. negative gross margin per active.",
+    "cheapest_way_to_test_that_assumption": "Take three real recorded family calls, transcribe each with the cheapest usable vendor, and check both the actual per-call bill and whether an on-device model gets close enough to move that cost to zero - two hours and under $5 of API spend."
+  },
+  "text": "",
+  "usage": {}
+}

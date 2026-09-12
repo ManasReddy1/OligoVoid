@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "Web only (SvelteKit/TypeScript) - the work happens on a desktop next to a scanner, not on a phone; frontier vision model at $0.10/$0.40 per M for handwriting transcription run as two independent passes plus a reconciliation pass per page, then one flat million-token pass over the whole box (at the ~90% cache discount) for the who/where/when timeline; Postgres + S3-compatible storage on Fly.io; Stripe Checkout for credit packs; public ancestor pages served statically for the SEO loop.",
+    "milestones": [
+      "Week 1-2: upload and queue - drag in 300 scans, deskew, order by physical sequence, show cost and page count before anything runs.",
+      "Week 3-4: two-pass transcription with per-word confidence and a side-by-side correction editor, because the family will fix names the model cannot know.",
+      "Week 5-6: the timeline - dates, places and correspondents extracted across the whole box in one long-context pass, with every claim clicking back to the page it came from.",
+      "Week 7-8: credit pricing per page, first-box checkout, and an exportable PDF/GEDCOM-adjacent bundle.",
+      "Week 9-10: opt-in public ancestor pages with structured data and sitemaps - the organic-search loop."
+    ],
+    "build_cost_usd": 3400,
+    "weeks_to_v1": 10,
+    "inference_cost_user_month": 0.7,
+    "price_month": 39,
+    "expected_conversion": 0.1,
+    "riskiest_technical_assumption": "That a frontier vision model hits 90% word accuracy on mid-century cursive with faded ink, crossed-over lines and personal shorthand, since below that the family spends longer correcting the output than they would have spent typing it.",
+    "cheapest_way_to_test_that_assumption": "Scan 40 real 1940s-60s letters from two correspondents, run them through the current vision model in a chat window, and have the family that owns them word-diff the result - one evening and under $2 of API spend, no code at all."
+  },
+  "text": "",
+  "usage": {}
+}

@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "Web-first (students are on school laptops and phones), Next.js + Supabase. Notes anchored to the text the student already owns - the app never ships the copyrighted set text; anchoring is by quoted phrase plus paragraph index, not page number, so it survives different print editions. On-device model on phones where available, otherwise a small cloud text call with the class's accumulated notes cached at ~90% off. Class link join, no accounts for read-only. Freemium subscription.",
+    "milestones": [
+      "Week 1-2: line-anchor engine - match a student's quoted phrase to a canonical position in the text without hosting the text, across editions.",
+      "Week 3-4: class-link join and the shared annotation layer, visible only to link holders, with moderation the teacher can ignore.",
+      "Week 5-6: rating and the pre-mock surfacing of the highest-rated line notes per chapter.",
+      "Week 7-8: shareable annotated-chapter artefact (the growth loop) and the freemium gate on second and third set texts.",
+      "Week 9: seed into six A-level and IB English classes through teachers, measure student-written notes per class."
+    ],
+    "build_cost_usd": 8000,
+    "weeks_to_v1": 9,
+    "inference_cost_user_month": 0.08,
+    "price_month": 4.99,
+    "expected_conversion": 0.02,
+    "riskiest_technical_assumption": "That notes can be reliably anchored to specific lines of a copyrighted set text the app is not allowed to host, across the four or five print and ebook editions a single class will be holding - get this wrong and every shared note lands in the wrong place, which is the product.",
+    "cheapest_way_to_test_that_assumption": "Take one set text, collect the three commonest editions plus the ebook, and test phrase-to-position matching on 100 quoted lines in a script - a day's work and no product."
+  },
+  "text": "",
+  "usage": {}
+}

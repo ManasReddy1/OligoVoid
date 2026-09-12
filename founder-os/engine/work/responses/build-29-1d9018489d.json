@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "iOS + Android (Flutter/Dart) with an offline-first SQLite card store so drills work in a basement with no signal; scheduling is plain FS-2/SM-2 arithmetic locally at $0 inference; cloud frontier text model ($0.10/$0.40 per M, ~90% cached input) used only to author the item bank up front and to generate a worked explanation when a learner misses a fill calculation; tiny FastAPI + Postgres on Render for licence keys and sync; one-time $29 in-app purchase on App Store + Google Play.",
+    "milestones": [
+      "Week 1-2: hand-verified item bank for one jurisdiction's conduit fill and box fill tables for the current code cycle - this is content work, not code, and it is the product.",
+      "Week 3-4: offline drill loop with FSRS scheduling, per-table accuracy tracking, and an exam-date countdown that compresses the schedule into the booked 8 weeks.",
+      "Week 5-6: miss-driven explanations - when a fill calculation is wrong, the model shows the table lookup step by step against the learner's own answer history.",
+      "Week 7-8: $29 unlock after a 30-card trial, plus an instructor mode that generates a printable class code and a per-student weak-table report.",
+      "Week 9: store submission and a pilot with two IBEW/JATC apprenticeship instructors."
+    ],
+    "build_cost_usd": 4500,
+    "weeks_to_v1": 9,
+    "inference_cost_user_month": 0.04,
+    "price_month": 2.42,
+    "expected_conversion": 0.06,
+    "riskiest_technical_assumption": "That model-generated conduit and box fill practice items are arithmetically and table-correct for the current code cycle at close to 100%, because a single wrong fill answer in front of an instructor ends the professional-recommendation loop that is the only channel this has.",
+    "cheapest_way_to_test_that_assumption": "Generate 200 items, hand them and the published tables to one licensed journeyman for an afternoon at $60/hr, and count errors - about $300 and one day, before any app exists."
+  },
+  "text": "",
+  "usage": {}
+}

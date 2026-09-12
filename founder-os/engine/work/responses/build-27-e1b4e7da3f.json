@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "Ray-Ban Display web layer (HTML/CSS/JS + Neural Band input) as the hands-free surface, with a Flutter phone app as the fallback and the actual system of record; vision runs on-device (Apple Foundation Models on iOS, Gemini Nano/ML Kit on Android) at $0 marginal cost, cloud text model only for cleaning up a model-number OCR and drafting the public teardown page; Supabase (Postgres + storage) behind it; Astro static site for the model-number SEO pages; App Store + Google Play + Meta's developer distribution.",
+    "milestones": [
+      "Week 1-3: phone-only capture - photo a screw/clip, speak a note, it pins to a device record keyed by model number. Proves the behaviour with zero glasses dependency.",
+      "Week 4-6: model-number recognition from a nameplate photo on-device, plus a canonical device page that merges notes from different cafes for the same model.",
+      "Week 7-10: Ray-Ban Display overlay - render the saved disassembly order beside the bench object, Neural Band to step forward/back without touching anything.",
+      "Week 11-12: public model-number pages with structured teardown steps, sitemap, and the crawlable content loop.",
+      "Week 13-14: free/paid split at $6 for unlimited saved teardowns, plus a Repair Cafe International / Repair Cafe NL mailing-list pilot with 3 venues."
+    ],
+    "build_cost_usd": 4200,
+    "weeks_to_v1": 14,
+    "inference_cost_user_month": 0.05,
+    "price_month": 6,
+    "expected_conversion": 0.02,
+    "riskiest_technical_assumption": "That the Ray-Ban Display's third-party web layer can actually keep an overlay anchored usefully to a small object 40cm from the face on a bench under fluorescent light, rather than being a heads-up text panel that is no better than propping the phone against the toolbox.",
+    "cheapest_way_to_test_that_assumption": "Buy one Ray-Ban Display (~$800, the single biggest line item in this build) and spend two days rendering a static six-step list over a dismantled kettle before writing any product code - if it reads no better than a phone on the bench, the whole glasses premise dies for $800 instead of $4,200."
+  },
+  "text": "",
+  "usage": {}
+}

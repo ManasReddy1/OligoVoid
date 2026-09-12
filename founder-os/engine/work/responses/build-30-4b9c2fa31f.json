@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "Mobile web PWA (SvelteKit/TypeScript) plus email as the actual delivery surface - no app store, no review queue; frontier text model at $0.10/$0.40 per M with each plot's multi-season notes held in flat million-token context at the ~90% cache discount; Postgres + object storage on Fly.io; Resend for the Sunday send; Stripe Checkout direct, no store cut.",
+    "milestones": [
+      "Week 1-2: plot record - beds, what was sown where and when, free-text and photo notes, importable from a photographed notebook page.",
+      "Week 3-4: the Sunday generator - one briefing per plot from that plot's own history, with an explicit rule that anything not traceable to the user's own notes gets cut.",
+      "Week 5: email delivery, open tracking, and a one-tap 'this line was generic' feedback control feeding a quality score.",
+      "Week 6: first-season cold-start mode (a plot with no history gets sowing-window prompts instead of recall, and is told so).",
+      "Week 7: Stripe at $4/month after a 4-briefing trial, plus an association pack - a noticeboard PDF and a newsletter paragraph committees can paste."
+    ],
+    "build_cost_usd": 2400,
+    "weeks_to_v1": 7,
+    "inference_cost_user_month": 0.04,
+    "price_month": 4,
+    "expected_conversion": 0.035,
+    "riskiest_technical_assumption": "That four briefings a month built from sparse, misspelled, half-abandoned plot notes read as specifically about this plot rather than as generic seasonal gardening filler, because the entire defensibility claim is recall of the user's own past mistakes.",
+    "cheapest_way_to_test_that_assumption": "Get 12 allotment holders to photograph their existing notebooks, generate four weeks of briefings by hand in a chat window, and have each of them mark every line 'about my plot' or 'could be anyone's' - about two days and no code."
+  },
+  "text": "",
+  "usage": {}
+}

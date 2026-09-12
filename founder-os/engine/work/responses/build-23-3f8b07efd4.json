@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "iOS + Android (Flutter). Entirely on-device: motion/GPS for the drive, on-device ASR and summarisation for the post-drive note, $0 marginal cost. No backend beyond a tiny countersign relay (Cloudflare Worker + D1) so the parent's tap can happen on their own phone. One-time purchase \u00a34.99/$6.49 (price_month is that amortised over 12 months).",
+    "milestones": [
+      "Week 1-2: automatic drive detection and the 20-minute session record (route, duration, conditions) with no manual entry.",
+      "Week 3: on-device post-drive summary and manoeuvre tagging from a 30-second spoken note.",
+      "Week 4: one-tap parental countersign from the parent's own device, with a link that does not need the parent to install anything.",
+      "Week 5: the unbroken-run view and the exportable log the learner shows their instructor.",
+      "Week 6: paid unlock, launch into UK learner-driver communities and two driving schools."
+    ],
+    "build_cost_usd": 4500,
+    "weeks_to_v1": 6,
+    "inference_cost_user_month": 0.01,
+    "price_month": 0.54,
+    "expected_conversion": 0.08,
+    "riskiest_technical_assumption": "That on-device drive detection and ASR in a noisy learner's car produce a log that is both accurate and hard to fake - a countersign that is one tap from the learner's own phone is trivially forged, and a log nobody trusts has no reason to exist.",
+    "cheapest_way_to_test_that_assumption": "Run a background motion/GPS logger plus on-device ASR on ten real practice drives with three learner-parent pairs and check whether the parent would sign what it produced - two weekends, no purchase."
+  },
+  "text": "",
+  "usage": {}
+}

@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "React Native (both siblings' phones matter equally), plus a plain web view. On-device ASR for the 30-second dictation, then a Haiku-class pass to structure it (who, what, amount, date). Q&A holds the household's whole record in a long context window with prompt caching (~90% off cached input) - no vector DB. Postgres on Supabase for the shared thread, per-household invite links, role-based read access. Freemium subscription, App Store + Play Store.",
+    "milestones": [
+      "Week 1-2: 30-second dictate-after-a-call capture with on-device ASR, structured into a dated entry with zero typing.",
+      "Week 3-4: the shared thread and the invite-for-function loop - the second sibling must get value in the first 60 seconds without any setup.",
+      "Week 5-6: ask-the-log over the full household history with caching, answering 'what did the furnace guy say in March and who paid him' with citations back to the specific entry.",
+      "Week 7: receipts and appointment attachments, contractor contact extraction, export for the sibling who does the taxes.",
+      "Week 8-9: freemium gate (2 people and 3 months of history free, paid for more), pilot with 15 sibling pairs found through carer forums."
+    ],
+    "build_cost_usd": 8500,
+    "weeks_to_v1": 9,
+    "inference_cost_user_month": 0.18,
+    "price_month": 7.99,
+    "expected_conversion": 0.035,
+    "riskiest_technical_assumption": "That 30-second dictations from two or three siblings accumulate into a record with enough factual anchors - names, dates, amounts - that the long-context answer is correct rather than a confident reconstruction; a thin log makes the no-retrieval-pipeline pitch vacuous and a wrong answer about who paid the furnace guy is worse than no answer.",
+    "cheapest_way_to_test_that_assumption": "Take one family's real six months of texts and call notes, paste them into a long context window as-is, and ask twenty questions a sibling would actually ask - measure how many are answered correctly with a citation versus plausibly confabulated."
+  },
+  "text": "",
+  "usage": {}
+}

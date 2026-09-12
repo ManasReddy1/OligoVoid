@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "iOS + Android (React Native with a native on-device vision bridge). On-device vision for reading pump switch / pressure tank labels in bad light with no signal, $0 marginal. Occasional cloud call (Haiku-class + one grounded search) only for part-number resolution when back on signal. Everything stored locally, exportable. One-time purchase $19.99 (price_month is that amortised over 12 months).",
+    "milestones": [
+      "Week 1-2: low-light, no-signal capture and on-device label reading for well/septic equipment - torch, glare, condensation are the normal case here.",
+      "Week 3-4: the dated record: what is installed, when it was photographed, what changed - built to still make sense 18 months later when something drips.",
+      "Week 5: part-number resolution with an honest confidence state, deferred until signal returns.",
+      "Week 6: shareable one-page record for the plumber/well contractor (the growth loop).",
+      "Week 7: paid unlock after the first free identification, ship to US rural-homeowner subreddits and a well-water forum."
+    ],
+    "build_cost_usd": 6000,
+    "weeks_to_v1": 7,
+    "inference_cost_user_month": 0.08,
+    "price_month": 1.67,
+    "expected_conversion": 0.09,
+    "riskiest_technical_assumption": "That on-device vision reads a decades-old, corroded pump switch label in a dark crawlspace well enough to name the model, and that the resulting part numbers are actually compatible rather than plausible-looking.",
+    "cheapest_way_to_test_that_assumption": "Photograph 30 real well/septic setups (a plumber will let you tag along for a day) in the conditions they actually live in, run the on-device model over them offline, and check the part numbers against a supply-house catalogue."
+  },
+  "text": "",
+  "usage": {}
+}

@@ -10,10 +10,10 @@
     ],
     "build_cost_usd": 9000,
     "weeks_to_v1": 9,
-    "inference_cost_user_month": 6.6,
+    "inference_cost_user_month": 1.58,
     "price_month": 14.99,
     "expected_conversion": 0.07,
-    "riskiest_technical_assumption": "That a 30-second generated telling lands well enough on the first render - at $0.03/sec a clean 30s clip is $0.90, but a grandparent who rejects and regenerates twice makes it $2.70, and four clips a month at that rate ($10.80) eats a $14.99 credit pack alive; this is exactly the shape that burned $1M/day against $2.1M lifetime revenue.",
+    "riskiest_technical_assumption": "That a 30-second generated telling lands well enough on the first render - at $0.03/sec a clean 30s clip is $0.90, a payer doing four a month with even 1.5x regeneration is ~$10 against a $14.99 pack, and every non-paying trial user still burns ~$1.20 of real render cost for their free sample, which is precisely the shape that burned $1M/day against $2.1M of lifetime revenue.",
     "cheapest_way_to_test_that_assumption": "Hand-produce ten real memories through the generation API yourself, show each to the grandparent who told it, and count how many they would have re-rolled - the average regenerations per accepted clip is the whole business model in one number."
   },
   "text": "",
