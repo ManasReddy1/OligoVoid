@@ -1,0 +1,25 @@
+{
+  "parsed": {
+    "checks": {
+      "A": {
+        "q1": true,
+        "q2": true,
+        "q3": true,
+        "q4": false,
+        "q5": false
+      },
+      "B": {
+        "q1": true,
+        "q2": false,
+        "q3": true,
+        "q4": true,
+        "q5": true
+      }
+    },
+    "winner": "B",
+    "margin": "clear",
+    "reason": "Code Book Recall sells into an exam-prep niche that reliably pays up front and drills for months before the test, while House Parts Record's job is finished the moment the part number appears, leaving no second session and no referral."
+  },
+  "text": "",
+  "usage": {}
+}

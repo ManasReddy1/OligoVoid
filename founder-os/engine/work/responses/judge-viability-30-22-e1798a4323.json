@@ -1,0 +1,25 @@
+{
+  "parsed": {
+    "checks": {
+      "A": {
+        "q1": true,
+        "q2": true,
+        "q3": true,
+        "q4": true,
+        "q5": true
+      },
+      "B": {
+        "q1": true,
+        "q2": true,
+        "q3": false,
+        "q4": true,
+        "q5": true
+      }
+    },
+    "winner": "B",
+    "margin": "clear",
+    "reason": "Sunday Plot Briefing needs multi-season plot history before its briefing is worth anything and goes quiet every winter, while Nani's Words is useful on day one and its Sunday trigger runs all year."
+  },
+  "text": "",
+  "usage": {}
+}

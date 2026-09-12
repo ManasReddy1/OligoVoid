@@ -1,0 +1,25 @@
+{
+  "parsed": {
+    "checks": {
+      "A": {
+        "q1": true,
+        "q2": false,
+        "q3": true,
+        "q4": true,
+        "q5": true
+      },
+      "B": {
+        "q1": true,
+        "q2": true,
+        "q3": false,
+        "q4": true,
+        "q5": true
+      }
+    },
+    "winner": "B",
+    "margin": "clear",
+    "reason": "Trade-exam flashcards are a saturated shipping category and the capability claim adds nothing to them, whereas recording one named relative's voice as the review corpus is a genuine recombination."
+  },
+  "text": "",
+  "usage": {}
+}

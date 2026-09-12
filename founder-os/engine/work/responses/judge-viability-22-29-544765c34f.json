@@ -1,0 +1,25 @@
+{
+  "parsed": {
+    "checks": {
+      "A": {
+        "q1": true,
+        "q2": true,
+        "q3": false,
+        "q4": true,
+        "q5": true
+      },
+      "B": {
+        "q1": true,
+        "q2": false,
+        "q3": true,
+        "q4": true,
+        "q5": true
+      }
+    },
+    "winner": "A",
+    "margin": "narrow",
+    "reason": "Code Book Recall has the better per-unit price but is boxed into one jurisdiction's code cycle against entrenched exam-prep publishers and loses each user at the exam, while Nani's Words compounds recurring revenue against a call that never stops happening."
+  },
+  "text": "",
+  "usage": {}
+}

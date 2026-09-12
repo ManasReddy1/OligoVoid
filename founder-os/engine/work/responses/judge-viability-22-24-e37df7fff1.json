@@ -1,0 +1,25 @@
+{
+  "parsed": {
+    "checks": {
+      "A": {
+        "q1": true,
+        "q2": true,
+        "q3": false,
+        "q4": true,
+        "q5": true
+      },
+      "B": {
+        "q1": true,
+        "q2": true,
+        "q3": true,
+        "q4": true,
+        "q5": true
+      }
+    },
+    "winner": "A",
+    "margin": "narrow",
+    "reason": "Both retain on a fixed weekly ritual, but Nani's Words is bought by the person who uses it and its artefact - a grandmother's recorded voice - is the referral, while Sunday Post depends on third-party parents to keep supplying photos and lands directly on Tinybeans-style grandparent digests that already ship."
+  },
+  "text": "",
+  "usage": {}
+}

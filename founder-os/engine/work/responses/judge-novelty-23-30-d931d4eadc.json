@@ -1,0 +1,25 @@
+{
+  "parsed": {
+    "checks": {
+      "A": {
+        "q1": true,
+        "q2": true,
+        "q3": true,
+        "q4": true,
+        "q5": true
+      },
+      "B": {
+        "q1": true,
+        "q2": true,
+        "q3": false,
+        "q4": true,
+        "q5": true
+      }
+    },
+    "winner": "B",
+    "margin": "narrow",
+    "reason": "Supervised practice-hour logs countersigned by a parent already ship as a whole category, while a briefing built from one allotment plot's own multi-season record has no close equivalent."
+  },
+  "text": "",
+  "usage": {}
+}

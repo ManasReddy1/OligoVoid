@@ -1,0 +1,25 @@
+{
+  "parsed": {
+    "checks": {
+      "A": {
+        "q1": true,
+        "q2": true,
+        "q3": false,
+        "q4": true,
+        "q5": true
+      },
+      "B": {
+        "q1": true,
+        "q2": true,
+        "q3": false,
+        "q4": true,
+        "q5": true
+      }
+    },
+    "winner": "A",
+    "margin": "narrow",
+    "reason": "Both pair a known loop with a personal corpus, but seasonal garden briefings are already approximated by existing planner apps, while a relative's own voice as the spaced-repetition corpus has no equivalent."
+  },
+  "text": "",
+  "usage": {}
+}

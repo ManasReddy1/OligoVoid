@@ -113,7 +113,8 @@ def main() -> None:
     c.add_argument("--budget", type=float, default=6.0)
     c.add_argument("--islands", type=int, default=6)
     c.add_argument("--per-island", type=int, default=6)
-    c.add_argument("--panel", type=int, default=5)
+    c.add_argument("--panel", type=int, default=6,
+                   help="how many of the 7 attack surfaces to run. Surfaces beyond this are dropped from the END of the panel list and reported in the progress ledger")
     c.add_argument("--pairs", type=int, default=90,
                    help="cap on tournament pairs per head; each pair is judged "
                         "twice, with the order swapped")

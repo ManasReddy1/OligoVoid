@@ -83,6 +83,10 @@ ISLANDS = [
               "contradicts is just contrarianism and will be rejected."},
 ]
 
+# Order matters: panel_size truncates this list, so whatever sits at the end is
+# what gets dropped when the panel is cut for cost. In cycle 1 that silently
+# removed graveyard_attacker, which then killed three more ideas once it was
+# actually run. Anything cut must be reported, never dropped quietly.
 PANEL = ["demand_skeptic", "incumbent_response", "economics_attacker",
          "distribution_attacker", "retention_attacker", "graveyard_attacker",
          "taste_attacker"]
@@ -93,7 +97,7 @@ class CycleConfig:
     islands: int = 6
     per_island: int = 6
     obviousness_kill_rate: float = 0.30
-    panel_size: int = 5
+    panel_size: int = 6
     tournament_max_pairs: int = 90
     budget_usd: float = 6.0
     cost_ceiling: float = 50_000
@@ -311,6 +315,10 @@ class Orchestrator:
     # -- stage 4: adversarial panel ---------------------------------------
 
     def stage_attack(self) -> dict[str, int]:
+        dropped = PANEL[self.cfg.panel_size:]
+        if dropped:
+            self.note("attack", warning="attack surfaces not run",
+                      dropped=dropped)
         done = self._judged("L4")
         rows = [r for r in self.s.ideas(status="alive", cycle_id=self.cycle_id)
                 if r["id"] not in done]

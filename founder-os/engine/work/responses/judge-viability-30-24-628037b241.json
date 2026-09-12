@@ -1,0 +1,25 @@
+{
+  "parsed": {
+    "checks": {
+      "A": {
+        "q1": true,
+        "q2": true,
+        "q3": true,
+        "q4": true,
+        "q5": true
+      },
+      "B": {
+        "q1": true,
+        "q2": true,
+        "q3": true,
+        "q4": true,
+        "q5": true
+      }
+    },
+    "winner": "B",
+    "margin": "clear",
+    "reason": "Sunday Post is a gift subscription priced against an adult child's guilt and demands nothing of the recipient to stay retained, while Sunday Plot Briefing sells to price-sensitive plot holders, needs a season of history to cold-start, and half the year has nothing to report."
+  },
+  "text": "",
+  "usage": {}
+}

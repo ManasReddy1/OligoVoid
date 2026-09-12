@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "graveyard_attacker",
+    "attack": "ContentChecked was this product: point a phone at a packet, get a personalised safe/not-safe answer against your own allergy profile. It went public in 2015 and is now permanently closed, and it died of the exact failure this wedge reproduces - FARE and SnackSafely found it declaring products \"free from peanuts\" that carried a visible \"may contain peanuts\" advisory on the same packet, and neither the sponsorship nor the company survived it. The nut-allergy answer does not live in the ingredients panel; it lives in the precautionary cross-contact line, the \"made in a factory that also handles\" statement and last month's unannounced reformulation, none of which an on-device read of one printed panel resolves. Stripping out the maintained product database, which the unlock presents as the saving, removes the only layer that ever caught a recipe change, and the stated 97% agreement threshold means roughly one packet in thirty-three cleared wrongly for a child with a confirmed nut allergy.",
+    "strongest_defence": "Never emit a yes/no: highlight avoid-list hits and read the precautionary advisory line back verbatim, positioning the product as faster reading glasses for a parent who is going to make the call herself, behind the same disclaimer every allergy app ships.",
+    "verdict": "fatal",
+    "verdict_reason": "ContentChecked died of confident false clears on cross-contact risk, and replacing a maintained database with a single on-device panel read makes that cause worse rather than dissolving it."
+  },
+  "text": "",
+  "usage": {}
+}

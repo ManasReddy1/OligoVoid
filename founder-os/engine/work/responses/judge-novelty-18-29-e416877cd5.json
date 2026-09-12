@@ -1,0 +1,25 @@
+{
+  "parsed": {
+    "checks": {
+      "A": {
+        "q1": true,
+        "q2": true,
+        "q3": false,
+        "q4": true,
+        "q5": false
+      },
+      "B": {
+        "q1": true,
+        "q2": false,
+        "q3": true,
+        "q4": true,
+        "q5": true
+      }
+    },
+    "winner": "A",
+    "margin": "clear",
+    "reason": "Spaced-repetition drilling for a trade licensing exam is the cold-obvious answer and already ships from several exam-prep vendors; an offline photo-to-part-number record for well and septic gear does not."
+  },
+  "text": "",
+  "usage": {}
+}
