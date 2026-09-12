@@ -1,6 +1,6 @@
 {
   "name": "personal_agent",
-  "description": "A phone-resident assistant that keeps you on top of people, commitments, health and goals. The islands argue opposing positions about what the product actually is.",
+  "description": "A phone-resident assistant that keeps you on top of people, commitments, health and goals. The islands argue opposing positions about what the product actually is. Island 6 was added after the graveyard harvest: the only cause of death 2026 cleanly dissolves is human labour cost, and none of the first six theses said so.",
   "islands": [
     {
       "id": 0,
@@ -37,6 +37,12 @@
       "thesis": "Memory is the product. Models are a commodity and every feature is copyable within a quarter, so the only durable thing is an accumulating record of one person that nobody else holds and that hurts to abandon.",
       "operator": "tombstone_reviver",
       "brief": "Pair a dead assistant with a specific 2026 capability change and show the stated cause of death is gone. You must name the unlock. Most of these products died of distribution or retention, and cheap inference dissolves neither; if that is the case here, say so and pick a different corpse."
+    },
+    {
+      "id": 6,
+      "thesis": "The opportunity is not a reminder app at all. It is the work that used to require paying a human assistant and died because the wage floor never fell below what consumers would pay. Zirtual, Fin, Magic, GoButler, Clara Labs and Facebook M all had a person backstopping every hard request. That is the one cause of death 2026 actually dissolves.",
+      "operator": "tombstone_reviver",
+      "brief": "Take a concierge or human-assistant service that died of labour cost and rebuild the job with an agent at near-zero marginal cost. Two tests it must pass. First, name the specific task a human was doing and show an agent can now do it end to end without a person in the loop, because a half-automated service has the same wage floor. Second, show why a general assistant will not simply absorb it: value in calendar, email and contacts accrues to whoever owns the account, and Sunrise, Timeful, Tempo, Woven and Inbox were all absorbed rather than outcompeted. If the job sits on one of those surfaces, pick a different job."
     }
   ]
 }
