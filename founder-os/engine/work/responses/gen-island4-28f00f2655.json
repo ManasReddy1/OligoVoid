@@ -1,0 +1,260 @@
+{
+  "parsed": {
+    "reasoning": "First, what the evidence actually is. There are no PAIN rows in this block. There are nine UNLOCK rows and a long list of tombstones. So every claim I make about a human problem has to lean on a tombstone, and a tombstone is a funny sort of evidence: it tells you people tried, and it tells you what killed them, and quite often the thing that killed them was not the absence of want. Jibo [37] and Moxie [39] and the Humane Pin [36] all died with buyers in hand - $899 hardware costing more than an Echo and doing less, a funding round collapsing, returns outnumbering sales. Zeo [41] says the headband was invasive and the margin was bad. Car Thing [50] and Glow [49] say the same story in different words: somebody had to manufacture a box. That is a pattern I can use. Where the cause of death is hardware cost, licence cost, or per-request compute, the underlying wish is not disproved, only the delivery of it. Where the cause of death is 'no market need' [62], 'bad market fit' [65], or 'the market opportunity isn't big enough' [54], the wish itself was thin, and I should not go back there expecting a different answer.\n\nSecond, which unlock actually dissolves a reason. Evidence [2] is the big one for anything that has to run many times a day for a person who will pay eight to twenty-four pounds a month: a full-scale model on the phone, zero marginal cost, offline, private. That kills the Mycroft [40] problem outright - their single most expensive item was compute they had to buy. [4] does the same for spoken back-and-forth: half a penny to two pence a minute means a ten-minute conversation is small change, where in 2019 it was the whole business. [3] and [5] together mean you can hold a person's whole history in the window for a fraction of a penny and not build a retrieval pipeline, which is the difference between a weekend and a quarter of work for one person. [9] matters quietly: zero platform commission on external payment links from a US app turns a $10 subscription into $10 instead of $7, and at 3% conversion that is the difference between a viable thing and a hobby. [7] and [8] are real but narrower - age signals as a free OS call, and glasses finally open to third parties. Glasses I am wary of, because Glass [42] and Magic Leap [43] both died of price and of straddling, and the installed base argument that killed Vreal [45] has not been answered.\n\nThird, which populations are specific enough to actually reach with no advertising budget. The tombstones that died of distribution - Habitual [63] in a category of hundreds of near-identical entrants with no channel, Poparazzi [56] unable to convert a number-one spike into usage, Meerkat [57] cut off from somebody else's social graph - all say the same thing. You need a population that already gathers somewhere, where somebody with standing tells them what to use: a physio, a driving instructor, a teacher with a set text, a carers' group, a language class at a community centre. That rules out anything aimed at a general public, and it rules out anything whose growth depends on a platform that can withdraw the graph in two hours [57] or ban the business model by developer-agreement update [58].\n\nFourth, the manual workaround test. The pains worth taking are the ones people already handle by hand, badly. People rehearse hard conversations in the car on the way there. People write the same things on index cards. People keep a paper logbook of practice hours. People phone on a Sunday and struggle for the third week running to say what happened. People pencil notes in the margin of a book and nobody ever reads them - openmargin [44] died of being 'too early', which is the one cause of death that an unlock is allowed to overturn. Retention is the thing to be honest about: Tandem's medication app [47] validated the need in research and then found retention 'really difficult' after launch, and Tandem's fitness team [46] concluded live fitness simply is not engaging. So anything I propose has to be attached to a trigger that exists whether or not my thing exists, and has to be killable on a retention number, not on a feeling.",
+    "candidates": [
+      {
+        "title": "Before You Say It",
+        "probability": "0.28",
+        "unlock": {
+          "value": "Real-time spoken conversation now costs $0.005-$0.018 a minute on cheap stacks, so a ten-minute rehearsal costs about a penny, and frontier text at $0.10/M input makes the written prep around it effectively free.",
+          "signal_ids": [
+            4,
+            3
+          ]
+        },
+        "pain": {
+          "value": "Spoken-companion products repeatedly found willing buyers and then died of hardware cost and funding rather than of indifference - Jibo shipped at $899 costing far more than an Echo and ran out of money [37], Moxie died when a lead investor pulled out while carrying LLM and speech costs [39], and the Humane Pin was cut from $699 to $499 before returns outnumbered sales [36].",
+          "signal_ids": [
+            37,
+            39,
+            36
+          ]
+        },
+        "audience": {
+          "value": "Adult children in the UK and US who are about to tell a parent in their seventies or eighties to stop driving or to accept a carer"
+        },
+        "mechanic": {
+          "value": "simulation_rehearsal"
+        },
+        "wedge": {
+          "value": "One thing only: you practise the first ninety seconds of the 'you need to stop driving' conversation against a voice that answers the way your father actually answers, three or four times, the evening before."
+        },
+        "moat": {
+          "value": "accumulated_personal_corpus"
+        },
+        "model": {
+          "value": "hybrid_sub_credits"
+        },
+        "loop": {
+          "value": "professional_recommendation"
+        },
+        "kill": [
+          "fewer than 30% of people who finish a first rehearsal start a second one within 14 days",
+          "median session under 3 minutes across the first 500 sessions, meaning nobody is actually rehearsing",
+          "fewer than 1 in 20 of the first 200 paying users arrived through a named carers' organisation, dementia charity or social worker",
+          "voice cost above $0.30 per active user per month once real session lengths are measured"
+        ],
+        "why_now": "The wish to talk to something that talks back kept finding buyers and kept being killed by the cost of the box and the cost of the minute [37][39][36], and the minute now costs half a penny to two pence [4].",
+        "why_not_obvious": "The obvious suggestion for this population is a care-planning checklist or a directory of homes, because that is what the problem looks like on paper, while the part people actually lose sleep over is the first ninety seconds of one specific conversation.",
+        "transport": {
+          "source_domain": "Flight simulators and job-interview practice, where rehearsing a high-stakes encounter against a stand-in is normal and proven.",
+          "destination_domain": "Family caregiving conversations, where nobody rehearses because the only stand-in available is another relative who is already upset.",
+          "driver": "Anticipatory dread of one specific encounter, and the relief that comes from having already said the words once.",
+          "why_this_transfer_holds": "Interview practice works because the encounter is dated, singular and feared, and the driver survives because a driving-keys conversation is all three; most transfers of rehearsal fail when the encounter is vague or repeated, and this one is neither - and unlike Jibo and Moxie [37][39] it needs no hardware, only minutes that now cost pennies [4]."
+        }
+      },
+      {
+        "title": "Nani's Words",
+        "probability": "0.24",
+        "unlock": {
+          "value": "A full-scale model with vision now runs on the phone itself at zero marginal cost, offline and private, so a card-by-card language drill costs nothing to serve however many times a day it is used.",
+          "signal_ids": [
+            2,
+            4
+          ]
+        },
+        "pain": {
+          "value": "Language and habit apps in crowded categories died of distribution and of segment thinness rather than of cost - Habitual sat in a category with hundreds of near-identical entrants and never found a channel [63], and Refolo could not find a segment for whom the problem was acute enough to pay [65].",
+          "signal_ids": [
+            63,
+            65
+          ]
+        },
+        "audience": {
+          "value": "Second-generation British Punjabi and Gujarati adults in their twenties and thirties who understand their grandparents but cannot reply"
+        },
+        "mechanic": {
+          "value": "spaced_repetition"
+        },
+        "wedge": {
+          "value": "The fifty phrases you need for a Sunday phone call to one named grandmother, recorded in her own voice and resurfaced on the schedule you are forgetting them on."
+        },
+        "moat": {
+          "value": "switching_cost_of_history"
+        },
+        "model": {
+          "value": "freemium_subscription"
+        },
+        "loop": {
+          "value": "community_embed"
+        },
+        "kill": [
+          "fewer than 25% of people who complete a first week are still reviewing on day 30",
+          "fewer than 10 of the first 50 paying users can name a relative they have actually spoken more to since starting",
+          "on-device inference fails or is unavailable on more than 40% of installed handsets, forcing cloud cost above $0.30 per active user per month",
+          "fewer than 100 of the first 1,000 sign-ups arrive through a temple, gurdwara, community class or family group chat rather than paid placement"
+        ],
+        "why_now": "The drill loop that works for medical students has always cost nothing but attention, and now the voice and the grading cost nothing either because both run on the handset [2][4], which is what a crowded, thin-margin category needed [63].",
+        "why_not_obvious": "The obvious suggestion is a general heritage-language course, but the acute version is not fluency at all - it is fifty phrases for one recurring phone call with one specific person whose voice is the study material.",
+        "transport": {
+          "source_domain": "Anki and medical-school flashcards, where scheduled resurfacing tuned to forgetting is a settled, unglamorous technology.",
+          "destination_domain": "Heritage-language speaking with a named elderly relative, where the material is emotional and personal rather than examinable.",
+          "driver": "Fear of loss with a deadline attached - the grandparent is old, and every missed Sunday is unrecoverable.",
+          "why_this_transfer_holds": "Spaced repetition usually fails outside exams because nothing forces the review; here a weekly phone call is the external forcing function the transfer needs, and unlike the hundreds of look-alike language apps that died without a channel [63] the review deck is recorded in one irreplaceable voice, which is also why a competitor's identical feature cannot take the corpus."
+        }
+      },
+      {
+        "title": "Hours Book",
+        "probability": "0.20",
+        "unlock": {
+          "value": "On-device inference means a driving-practice log can transcribe, summarise and grade a session with no per-request cost, so an app used every evening by a teenager still costs nothing to run.",
+          "signal_ids": [
+            2,
+            3
+          ]
+        },
+        "pain": {
+          "value": "Adherence products validated the need in research and then could not hold people - Tandem's medication app found retention 'really difficult' after launch despite validating the need [47], and a live fitness team concluded the format simply is not engaging [46].",
+          "signal_ids": [
+            47,
+            46
+          ]
+        },
+        "audience": {
+          "value": "UK learner drivers aged 17 to 19 practising in a parent's car between paid instructor lessons"
+        },
+        "mechanic": {
+          "value": "streak_habit"
+        },
+        "wedge": {
+          "value": "A twenty-minute private practice drive, logged by the learner and countersigned by the supervising parent in one tap, with a visible unbroken run of days."
+        },
+        "moat": {
+          "value": "habit_lock"
+        },
+        "model": {
+          "value": "one_time_purchase"
+        },
+        "loop": {
+          "value": "invite_for_function"
+        },
+        "kill": [
+          "the supervising parent fails to join in more than 50% of installs within 7 days, which breaks the loop entirely",
+          "median streak length under 4 days across the first 300 learner-parent pairs",
+          "fewer than 40% of pairs log 5 or more sessions inside 30 days",
+          "fewer than 15% of learners still logging in the week before their practical test"
+        ],
+        "why_now": "The daily-streak loop needs a grading step on every session to feel earned, and grading a spoken twenty-minute drive is now free because the model runs on the phone [2][3], where previously each session carried a cloud round trip nobody could fund at a one-off price.",
+        "why_not_obvious": "The obvious suggestion for learner drivers is theory-test question banks, because that is the product that already exists in every store, while the thing that actually decides the test is unstructured private practice that nobody currently counts.",
+        "transport": {
+          "source_domain": "Language-app streaks, where visible continuity pressure on a small daily act is the most reliably copied mechanic in consumer software.",
+          "destination_domain": "Supervised learner-driver practice, which is currently tracked, if at all, on a folded sheet of paper in the glovebox.",
+          "driver": "Not wanting to break a visible run, made stronger because a second person - the parent in the passenger seat - can see the run too.",
+          "why_this_transfer_holds": "Streaks fail when the daily act is invented by the app, which is how medication and fitness adherence products lost their users [47][46]; here the act already happens because there is a test date, and the parent's countersignature supplies the social witness that a solo streak lacks."
+        }
+      },
+      {
+        "title": "Sunday Post",
+        "probability": "0.16",
+        "unlock": {
+          "value": "A million-token context at flat pricing with cached input at roughly a 90% discount, on top of $0.10/M input text, means a whole family's accumulated photo captions and messages can be assembled into a weekly briefing for a fraction of a penny, with no retrieval pipeline to build.",
+          "signal_ids": [
+            5,
+            3
+          ]
+        },
+        "pain": {
+          "value": "Family-connection products built around a box or a feed have died on hardware and on incumbents rather than on lack of feeling - Amazon Glow was discontinued within roughly a year on poor sales as a hardware product for a moment that passed [49], and Huxe shut down the day after Spotify shipped a near-identical personal feed feature [52].",
+          "signal_ids": [
+            49,
+            52
+          ]
+        },
+        "audience": {
+          "value": "Grandparents over 70 living more than 200 miles from grandchildren they see a few times a year"
+        },
+        "mechanic": {
+          "value": "scheduled_digest"
+        },
+        "wedge": {
+          "value": "One page every Sunday at six: three photographs the parents already shared this week, written up in plain sentences naming each child, and three questions to ask on the phone."
+        },
+        "moat": {
+          "value": "content_library"
+        },
+        "model": {
+          "value": "subscription"
+        },
+        "loop": {
+          "value": "gift_to_recipient"
+        },
+        "kill": [
+          "fewer than 35% of recipients open 4 consecutive weekly editions",
+          "parents supply fewer than 5 photos in a week in more than half of households by week 6",
+          "fewer than 15% of gift recipients or their families convert to a paying sender within 90 days",
+          "fewer than 1 in 4 recipients report using the questions on an actual phone call in the first 200 surveyed"
+        ],
+        "why_now": "The prepared briefing at a fixed hour is an old, working format, and holding a family's whole year of captions and messages in context to write one now costs under a penny a week with cached input [5][3], where it previously meant a retrieval pipeline and a vector database.",
+        "why_not_obvious": "The obvious suggestion for distant grandparents is another video-calling device, which is exactly the shape of product that has already been discontinued [49], while the unmet part is not the call itself but having something specific to say on it.",
+        "transport": {
+          "source_domain": "The morning market briefing and the daily news digest, where a prepared summary delivered at a fixed hour has held attention for a century.",
+          "destination_domain": "Extended-family life across distance, where the equivalent information arrives scattered through group chats the oldest member often cannot follow.",
+          "driver": "The comfort of a ritual arrival at a known time, plus the relief of not having to search for something to talk about.",
+          "why_this_transfer_holds": "Digests fail when the reader has no obligation to act on them; here the Sunday phone call is the obligation, and the digest is the script for it - and unlike Huxe [52] the corpus is one family's private history, which an incumbent shipping a generic personal feed cannot replicate."
+        }
+      },
+      {
+        "title": "Margin Class",
+        "probability": "0.12",
+        "unlock": {
+          "value": "A model on the phone and a million-token context at flat price mean a whole set text plus a class's accumulated notes can sit in one window and answer a margin question instantly and privately, with no per-student cloud bill.",
+          "signal_ids": [
+            2,
+            5
+          ]
+        },
+        "pain": {
+          "value": "Shared margin notes have been tried and buried for timing rather than for dislike - openmargin died of 'being too early in the market' with slow shipping and strong competitors [44] - and a beloved reading product can still fold when its market is judged too small [54].",
+          "signal_ids": [
+            44,
+            54
+          ]
+        },
+        "audience": {
+          "value": "A-level and IB English Literature students in their final year working through a prescribed set text"
+        },
+        "mechanic": {
+          "value": "annotation_overlay"
+        },
+        "wedge": {
+          "value": "One set text per class group: notes pinned to specific lines, visible only to people who joined with the class link, with the highest-rated line notes surfaced before a mock exam."
+        },
+        "moat": {
+          "value": "social_graph"
+        },
+        "model": {
+          "value": "freemium_subscription"
+        },
+        "loop": {
+          "value": "shareable_artifact"
+        },
+        "kill": [
+          "fewer than 20% of students who read a first annotated chapter add a note of their own within 7 days",
+          "fewer than 3 student-written annotations per set text per class group in the first full term",
+          "fewer than 100 of the first 1,000 sign-ups arrive through a shared class link rather than search",
+          "fewer than 25% of class groups still active 8 weeks after the text is set"
+        ],
+        "why_now": "Margin notes on a shared text failed when the market was too early and the tooling too slow [44], and the reading, the grading and the answering can now all happen on the student's own phone at no marginal cost [2][5].",
+        "why_not_obvious": "The obvious suggestion for exam-year students is a revision-notes app that hands them somebody else's summary, whereas the part that actually moves a grade is arguing about one line with the four people sitting next to you.",
+        "transport": {
+          "source_domain": "Genius-style line annotation and shared Kindle highlights, where a layer of notes on someone else's text is a proven way to hold attention.",
+          "destination_domain": "Prescribed school set texts, where every cohort re-derives the same arguments from scratch and then loses them.",
+          "driver": "Wanting to be seen being clever in front of a specific small group you already sit with, not an anonymous internet.",
+          "why_this_transfer_holds": "Annotation transfers fail when the underlying text is optional, so nobody shows up twice; a set text is compulsory, dated by an exam, and read by the same thirty people, which supplies the density openmargin never had [44] - and the lock-in is the classmates, not the software."
+        }
+      }
+    ]
+  },
+  "text": "",
+  "usage": {}
+}

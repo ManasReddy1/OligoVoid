@@ -99,7 +99,12 @@ DENY_PATTERNS = [
      "regulated: legal or tax practice"),
     (r"\b(custom hardware|proprietary device|we manufacture|our wearable|build a device)\b",
      "hardware-dependent build"),
-    (r"\b(crypto|token|web3|NFT)\b", "regulated: crypto"),
+    # Bare "token" is not a crypto signal: the first cycle killed seven sound
+    # candidates because their evidence cited a "million-token context".
+    (r"\b(cryptocurrency|crypto ?(wallet|exchange|trading|token|coin))\b|"
+     r"\bweb3\b|\bNFTs?\b|\bblockchain\b|\btokenomics\b|"
+     r"\b(governance|utility|security) token\b|\btoken sale\b",
+     "regulated: crypto"),
 ]
 
 BANNED_AUDIENCES = {

@@ -146,13 +146,10 @@ class Orchestrator:
     # -- stage 1: generation ---------------------------------------------
 
     def stage_generate(self) -> int:
-        existing = self.s.ideas(cycle_id=self.cycle_id)
-        if existing:
-            # Generation already happened for this cycle. Re-running the driver
-            # must not re-ingest the same candidates: a resumed cycle continues,
-            # it does not start over.
-            self.note("generate", skipped=True, existing=len(existing))
-            return 0
+        # Track ingestion PER ISLAND. An all-or-nothing guard would drop any
+        # island whose answer arrived after the first ingest, which is the
+        # normal case when the islands are answered in parallel.
+        already = {r["island"] for r in self.s.ideas(cycle_id=self.cycle_id)}
         sigs = self.s.signals()
         if not sigs:
             raise RuntimeError("no evidence in the store; grounding is the novelty engine")
@@ -165,6 +162,8 @@ class Orchestrator:
             # Each island sees a different evidence slice, which is the cheapest
             # real source of divergence between lineages.
             k = isl["id"]
+            if k in already:
+                continue
             slice_ = (unlocks + tombs +
                       pains[k::max(1, self.cfg.islands)] + pains[:6])
             sys_p, user_p = P.generation_prompt(
