@@ -1,0 +1,25 @@
+{
+  "parsed": {
+    "checks": {
+      "A": {
+        "q1": true,
+        "q2": true,
+        "q3": false,
+        "q4": true,
+        "q5": false
+      },
+      "B": {
+        "q1": true,
+        "q2": false,
+        "q3": true,
+        "q4": true,
+        "q5": true
+      }
+    },
+    "winner": "A",
+    "margin": "clear",
+    "reason": "A weekly grandchild photo digest for distant grandparents is the archetypal cold-model answer and already ships from Tinybeans, GrandPad and the discontinued Glow, while a photo-to-part-number ledger pairs a newly pocketable offline vision model with well and septic gear no consumer software covers."
+  },
+  "text": "",
+  "usage": {}
+}

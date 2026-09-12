@@ -150,6 +150,14 @@ def fake(d: dict):
                 "strongest_defence": "the best available answer",
                 "verdict": verdict, "verdict_reason": "because of the evidence"}
 
+    if label.startswith("probe-"):
+        return {"kind": "community_post",
+                "hypothesis": "people in the affected forum say they need this",
+                "falsifier": "fewer than 3 unprompted replies saying they need it",
+                "budget_usd": 0, "days": 7,
+                "exactly_what_to_do": ["post in the forum", "wait a week", "count replies"],
+                "what_it_cannot_tell_you": "whether anyone would pay"}
+
     if label.startswith("judge-"):
         a, b = meta.get("a"), meta.get("b")
         return {"checks": {}, "winner": "A" if (a or 0) < (b or 0) else "B",
@@ -170,7 +178,7 @@ def main() -> int:
 
     print("\nadvancing the cycle")
     rounds = 0
-    while rounds < 8:
+    while rounds < 10:
         rounds += 1
         orch.pending = []
         out = orch.run()
@@ -192,7 +200,7 @@ def main() -> int:
     print(f"kills by gate: {by_gate}")
 
     print("\nchecks")
-    check("cycle terminated", rounds < 8, f"{rounds} rounds")
+    check("cycle terminated", rounds < 10, f"{rounds} rounds")
     check("ideas were generated", len(ideas) >= 9, f"{len(ideas)}")
     check("L0 killed the invalid candidates", by_gate.get("L0", 0) >= 3)
     check("L1 killed something", by_gate.get("L1", 0) >= 1)
@@ -216,6 +224,9 @@ def main() -> int:
     check("pairs were judged both ways",
           any(c["swapped"] for c in comps) and any(not c["swapped"] for c in comps),
           f"{len(comps)} comparisons")
+
+    check("probes were designed", len(store.probes()) >= 1,
+          f"{len(store.probes())}")
 
     out_html = tmp / "report.html"
     report_mod.render(store, orch.cycle_id, out_html, title="Self-test")

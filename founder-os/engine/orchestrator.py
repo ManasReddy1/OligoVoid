@@ -13,6 +13,7 @@ coordination cost that makes large agent groups misbehave (finding F2c/F3b).
 from __future__ import annotations
 
 import json
+import time
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable
@@ -428,7 +429,7 @@ class Orchestrator:
             ck = checks.get(r["id"], {})
             quality = ck.get("quality", 0.5)
             distribution = ck.get("distribution", 0.5)
-            timing = scoring.timing_score(l3.get("months_since_unlock"))
+            timing = scoring.timing_score(self._months_since_unlock(r["id"]))
 
             sc = scoring.assemble(originality, quality, build, econ,
                                   distribution, timing, survival)
@@ -445,6 +446,37 @@ class Orchestrator:
         out.sort(key=lambda x: x["founder_score"], reverse=True)
         self.note("score", scored=len(out))
         return out
+
+    def _months_since_unlock(self, idea_id: int) -> float | None:
+        """How long ago the cited capability actually crossed its threshold.
+
+        This was previously read from the build plan, where it never appears, so
+        every idea scored the same default and timing contributed nothing to the
+        composite. The real answer is already in the store: the UNLOCK signal
+        the idea cites carries the date the cost curve crossed.
+        """
+        row = self.s.idea(idea_id)
+        if not row:
+            return None
+        try:
+            genome = json.loads(row["genome"])
+        except (ValueError, TypeError):
+            return None
+        ids = ((genome.get("unlock") or {}).get("signal_ids")) or []
+        dates = []
+        for sid in ids:
+            sig = next((x for x in self.s.signals("UNLOCK") if x["id"] == sid), None)
+            if sig and sig.get("dated_at"):
+                dates.append(str(sig["dated_at"])[:10])
+        if not dates:
+            return None
+        newest = max(dates)                       # the most recent crossing
+        try:
+            y, m, d = (int(x) for x in newest.split("-"))
+        except ValueError:
+            return None
+        now = time.localtime()
+        return (now.tm_year - y) * 12 + (now.tm_mon - m) + (now.tm_mday - d) / 30.0
 
     def _checklist_scores(self) -> dict[int, dict[str, Any]]:
         """Per-idea scores from the judges' yes/no checks.
@@ -557,7 +589,7 @@ class Orchestrator:
 
     # -- driver -----------------------------------------------------------
 
-    def run(self, upto: str = "score") -> dict[str, Any]:
+    def run(self, upto: str = "probe") -> dict[str, Any]:
         order = ["generate", "screen", "build", "attack", "rank", "score", "probe"]
         done: dict[str, Any] = {}
         try:

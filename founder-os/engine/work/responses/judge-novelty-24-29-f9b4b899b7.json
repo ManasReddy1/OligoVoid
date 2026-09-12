@@ -1,0 +1,25 @@
+{
+  "parsed": {
+    "checks": {
+      "A": {
+        "q1": true,
+        "q2": false,
+        "q3": true,
+        "q4": true,
+        "q5": true
+      },
+      "B": {
+        "q1": true,
+        "q2": false,
+        "q3": true,
+        "q4": true,
+        "q5": true
+      }
+    },
+    "winner": "B",
+    "margin": "narrow",
+    "reason": "Both sit in saturated categories, but the grandparent photo digest is the most-generated consumer app idea there is and ships in a dozen forms, while cutting spaced repetition down to one jurisdiction's current code cycle is at least a wedge the incumbent exam-prep vendors have not taken."
+  },
+  "text": "",
+  "usage": {}
+}
