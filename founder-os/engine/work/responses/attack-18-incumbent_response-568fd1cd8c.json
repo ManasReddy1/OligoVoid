@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "incumbent_response",
+    "attack": "Google Lens is not the incumbent; the lead-generation-funded home record is. Thumbtack's free Home Care plan, Angi, Frontdoor and Centriq already give homeowners a dated record of installed equipment, and Centriq has been OCRing appliance data plates into model numbers, manuals and fitting parts for years, all free because the record itself manufactures service leads. Any of them can add on-device capture in a quarter, and a 25-dollar one-time purchase has no room to price against a product that is free precisely because the homeowner is the inventory.",
+    "strongest_defence": "That funding model is the constraint: those incumbents monetize by selling the homeowner to a contractor, so they cannot be a neutral private record, and their coverage stops where their contractor network stops, which is exactly rural well-and-septic country with no marketplace supply to monetize. They also assume connectivity, and the wedge is a crawlspace with one bar of signal where an on-device model is the only thing that answers.",
+    "verdict": "wounded",
+    "verdict_reason": "The rural, offline, lead-gen-free niche is genuinely unattractive to the incumbents, but their free subsidized records still destroy the price anchor for a paid one-time purchase."
+  },
+  "text": "",
+  "usage": {}
+}

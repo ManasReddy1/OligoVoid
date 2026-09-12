@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "economics_attacker",
+    "attack": "A $29 one-time purchase nets $20.30 after the store fee and that is the whole lifetime value, while kill line one sets trial-to-buy at 3%: $5.84/0.03 = $195 per buyer on iOS and $64 on Android, 3-10x the entire value of the product with no second purchase to amortise it. The cost side is also softer than claimed - prompt caches expire in minutes, so an apprentice doing one session a day re-pays full price on a ~300k-token code book each sitting (40 sessions x ~$0.03 = $1.20 per learner over eight weeks); that still clears the $0.30/month ceiling, but the 90% cache discount only applies within a single sitting, not across a study plan. And the addressable event is narrow - on the order of 50-60k US licensing exam candidates a year - so 5% reach is about $50k a year against per-jurisdiction content that must be rebuilt every three-year code cycle.",
+    "strongest_defence": "Instructor and journeyman referral is a genuine zero-CAC channel and a booked exam date produces unusually high trial-to-buy, so with ~100% gross margin the product never needs to buy an install; $29 against a licensing exam worth a wage increase is also underpriced and could be $49-79.",
+    "verdict": "wounded",
+    "verdict_reason": "Marginal cost is negligible, but a $20.30 net one-time sale at the stated 3% conversion means $64-195 per buyer on any paid channel, so growth depends entirely on instructor referral into a 50-60k/year cohort."
+  },
+  "text": "",
+  "usage": {}
+}

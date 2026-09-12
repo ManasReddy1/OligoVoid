@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "incumbent_response",
+    "attack": "The incumbent is Driving Test Success from Focus Multimedia, the default UK learner app sold through instructors and supermarket retail with millions of installs, which already bundles a progress tracker and lesson diary alongside the theory bank the learner has already paid for; Theory Test Pro sits in the same slot with the ADI channel. Adding a supervising-driver countersign and a visible streak to an app the learner opens anyway is a minor release that improves their own retention, and it reaches the learner at the exact moment of need for free. The DVSA's own Ready to Pass? service publishes a free practice record on the same idea, and RED, AA and Bill Plant already log lessons in their branded apps. A 300-pair one-time-purchase product is starting from zero distribution against products the learner's instructor hands them in week one.",
+    "strongest_defence": "The supervising parent is not the incumbents' customer and never has been: their revenue is theory question banks and instructor lead generation, their product has no habit or streak machinery, and the parent countersign is a second account they have no reason to want. The DVSA cannot run a habit product at all, and the learner-parent pair as the unit of the product is a segment nobody currently addresses.",
+    "verdict": "wounded",
+    "verdict_reason": "The feature is trivially copyable by apps that already own the learner at the moment of need, though none of them currently treats the supervising parent as a user."
+  },
+  "text": "",
+  "usage": {}
+}

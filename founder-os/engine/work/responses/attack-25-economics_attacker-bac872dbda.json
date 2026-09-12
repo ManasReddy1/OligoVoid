@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "economics_attacker",
+    "attack": "The ceiling, not the funnel, is what kills this. A-level English Literature entries in England have fallen to roughly 35,000 a year; adding IB English A candidates globally gets the wedge to perhaps 130,000 students a year, and the class-link mechanic only works where a specific set text is shared. At the idea's own 3% conversion, 100% penetration of every one of those students is about 3,900 payers at roughly $5/month across an eight-month exam season - about $156k a year, rebuilt from zero every September because the entire cohort leaves in June; realistic single-digit penetration puts it at $10-20k a year. Each payer is worth $28 gross and $19.60 net against a $20-80 cost per paying user, so acquisition is underwater at the cheapest end of the band and 2.5x underwater at the median - and the payers are teenagers who do not hold the payment card, which pushes conversion below 3%, not above it.",
+    "strongest_defence": "Change the payer: a departmental licence at GBP 200/year sold to English departments replaces 3% teenage conversion with an institutional buyer, or run entirely on the shared class link at zero CAC and accept a small, profitable, zero-marginal-cost business.",
+    "verdict": "fatal",
+    "verdict_reason": "At total penetration of every A-level and IB English Literature candidate the consumer configuration tops out near $156k a year with a payer worth $19.60 net against a $20-80 acquisition cost, and the only rescue - selling to schools instead of students - is a different company with a different payer, price and sales cycle."
+  },
+  "text": "",
+  "usage": {}
+}

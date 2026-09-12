@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "economics_attacker",
+    "attack": "This fails on audience size before it fails on anything else. The buyer must own a Ray-Ban Display - on the order of a million units globally, roughly 0.4% of adults even in the US launch market - and also be a home-garage motorcycle restorer mid-teardown, perhaps 300k people in the US; the intersection is a few thousand people worldwide even allowing a 5x over-index for gadget-minded tinkerers. No ad product targets that intersection, so buying installs means paying $5.84 against a ~0.4% relevant fraction, about $1,460 per relevant install, for a $30 product that nets $21 after the store fee. Their own success bar - 500 units in six months - is $10,500 of lifetime revenue, and even 2,000 units is $42,000 ever, with no second purchase because the model is one-time.",
+    "strongest_defence": "With zero ad spend and zero marginal cost there are no losses to cover, the Ray-Ban Display install base compounds over the next few years, and a $30 one-off app costs nothing to keep alive while the platform grows into the audience.",
+    "verdict": "fatal",
+    "verdict_reason": "At 100% penetration of an untargetable few-thousand-person intersection the lifetime revenue ceiling is tens of thousands of dollars from a single $21 net sale per buyer, so no acquisition spend at any CPI and no conversion rate can ever be repaid."
+  },
+  "text": "",
+  "usage": {}
+}

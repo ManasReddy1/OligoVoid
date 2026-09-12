@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "economics_attacker",
+    "attack": "Multiply the idea's own kill thresholds and the funnel is the attack: half of households fail the photo-supply test by week 6, 35% of recipients open four consecutive editions, 15% convert within 90 days - 0.5 x 0.35 x 0.15 = 2.6% of installs become payers, so a $5.84 iOS install costs $225 per paying subscriber. A gift subscription at around $6/month nets $4.20, and scheduled-digest products churn fast; even nine months is $38 of lifetime value, a 6x hole, and still underwater against the $20-80 CPPU band at its midpoint. Content cost is genuinely fractions of a penny, so this is purely an acquisition failure, made worse because three separate people - parents supplying photos, a grandparent reading, an adult child paying - must all be recruited to produce one revenue stream.",
+    "strongest_defence": "gift_to_recipient is a free loop: the paying sender already lives in the household that supplies the photos, so there is no third party to acquire, and selling it as a gifted annual plan at $60-80 up front triples lifetime value without touching the reader's price sensitivity.",
+    "verdict": "wounded",
+    "verdict_reason": "Near-zero inference cost answers the margin half, but a three-party funnel that yields 2.6% of installs as payers puts acquisition at roughly $225 per subscriber against $38 of lifetime value."
+  },
+  "text": "",
+  "usage": {}
+}

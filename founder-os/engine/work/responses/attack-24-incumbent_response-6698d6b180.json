@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "incumbent_response",
+    "attack": "The incumbent is Google Photos and the feature is a scheduled written recap to a partner-shared contact. It already holds the parents' photos, already has partner sharing to one named family member, already writes captions and recaps with Ask Photos, and already knows which children are in which picture; a weekly Sunday digest is a cron job over assets it possesses, shipped free, with no supply step because the parents never have to send anything. Skylight, the leader in grandparent photo frames and already subscription-billed to the sending family, can put the same written page on the screen in the grandparent's kitchen. The author's own cited precedent, Huxe closing the day after Spotify shipped a near-identical personal feed, is precisely this failure mode occurring in an adjacent category.",
+    "strongest_defence": "The paid object is not the photographs, it is the three questions to ask on the phone, which is a conversation aid rather than a media feature; incumbents narrate what they already hold and have no reason to prompt a call. A gift-purchased, paper-shaped page delivered to a recipient over 70 who has no Google account is a channel neither Google Photos nor a hardware frame serves, and the buyer is the adult child, not the viewer.",
+    "verdict": "wounded",
+    "verdict_reason": "Google already holds the photos, the recipient relationship and the generation capability, so the only defensible sliver is the conversation prompt, which is thin ground for a subscription."
+  },
+  "text": "",
+  "usage": {}
+}

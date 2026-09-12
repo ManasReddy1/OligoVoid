@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "incumbent_response",
+    "attack": "The incumbent is GrowVeg, the dominant UK veg-plot planner at around 30 pounds a year, which already stores per-bed layouts across multiple seasons, already remembers crop rotation, and already sends a location-tied weekly email telling the holder what to sow now; adding 'and here is what you noted went wrong in this bed last year' is one release on a record and a habit it already owns. The multi-season per-plot history the idea names as its moat is data GrowVeg has been accumulating from its subscribers for over a decade, so it does not need to backfill anything. Planta and PictureThis sit behind it with tens of millions of subscribers already running per-plant schedules and reminders, and the RHS already mails members a weekly what-to-do-now. The idea's own fourth kill criterion is this exact event.",
+    "strongest_defence": "What GrowVeg holds is an intended plan, not observed outcomes: nobody records in it that the leeks bolted or the slugs took the second sowing, and its weekly mail is generic calendar data rather than a reading of this grower's own mistakes. Planta and PictureThis are consumer houseplant products with no bed-level model of an allotment, and the community distribution through associations and noticeboards is a channel none of them work.",
+    "verdict": "wounded",
+    "verdict_reason": "The incumbent already holds the per-plot multi-season record and the weekly habit, so only the observed-notes layer separates them, and that is one feature rather than a moat."
+  },
+  "text": "",
+  "usage": {}
+}

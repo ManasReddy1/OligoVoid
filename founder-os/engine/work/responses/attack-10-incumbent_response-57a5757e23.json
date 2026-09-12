@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "incumbent_response",
+    "attack": "The incumbent is Meta and the feature is Meta AI's own episodic memory on the Ray-Ban Display: the 'remember what I saw and where I put it, show it to me again' recall loop Meta demos as the reason to buy the device, invoked hands-free by voice and Neural Band with no install and no purchase. This product does not compete near the incumbent, it runs on the incumbent's hardware, ships through the incumbent's store, duplicates the incumbent's headline capability, and its entire addressable market is people who have already bought Meta's glasses, so there is no distribution outside the incumbent's installed base to retreat to. Meta does not need to know anything about motorcycles: a generic pin-a-note-to-a-thing-and-resurface-it feature, bundled free, makes 500 units at 30 dollars unreachable, and Meta has sherlocked platform apps on every surface it has ever opened.",
+    "strongest_defence": "Meta opened the SDK precisely because it wants vertical apps it will never build, and a structured multi-month teardown register with reassembly ordering and an exportable shared log is a project tool rather than an assistant's recall; Meta's consumer memory features also carry retention and privacy limits that stop them holding a six-month bench record.",
+    "verdict": "fatal",
+    "verdict_reason": "It is a paid, feature-sized third-party app living entirely inside the incumbent's platform and duplicating that platform's flagship free capability, so a bundled generic version zeroes both the price and the only distribution channel it has."
+  },
+  "text": "",
+  "usage": {}
+}

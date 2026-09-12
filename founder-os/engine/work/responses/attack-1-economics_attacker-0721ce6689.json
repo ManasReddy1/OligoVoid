@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "economics_attacker",
+    "attack": "On-device inference genuinely kills the margin half of this attack; acquisition is untouched and it is where the arithmetic dies. At the idea's own kill floor of 3% paid conversion by day 60, a $5.84 iOS install costs $195 per paying household and a $1.92 Android install costs $64, against a UK allergy utility that realistically prices at GBP 3-5 ($4-6/month, below the $8-24 median payer) and returns roughly $50-70 gross, about $40 net of the 30% store fee, over a full year of retention - a 1.6x to 5x hole per payer. The base is also thin: roughly 200-250k UK school-age children with a confirmed nut or dairy allergy, so even 20% install penetration at 3% conversion is about 1,400 payers, around $6k/month, and kill line four (median scans dropping below 4/week by month 3) is precisely the churn that shortens the retention the LTV depends on.",
+    "strongest_defence": "Marginal cost is zero, so any organic install is 100% margin: the professional_recommendation loop (dietitians, paediatric allergy clinics, school catering) is a zero-CAC channel, and a GBP 4/month subscription with 1,500-3,000 loyal payers is a viable one-person business that never buys a single install.",
+    "verdict": "wounded",
+    "verdict_reason": "Zero marginal cost makes free acquisition profitable, but paid acquisition is closed at every price this audience will pay, so the idea rests entirely on an unproven clinical referral channel against a ceiling of a few thousand payers."
+  },
+  "text": "",
+  "usage": {}
+}
