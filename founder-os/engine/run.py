@@ -48,7 +48,7 @@ def cmd_cycle(args) -> None:
     backend = make_backend(prefer_api=not args.files_only)
     cid = _current_cycle(store) if args.resume else None
 
-    cfg = CycleConfig(budget_usd=args.budget, islands=args.islands,
+    cfg = CycleConfig(theme=args.theme, budget_usd=args.budget, islands=args.islands,
                       per_island=args.per_island, panel_size=args.panel,
                       tournament_max_pairs=args.pairs)
     orch = Orchestrator(store, backend, cfg, cycle_id=cid)
@@ -115,6 +115,9 @@ def main() -> None:
     c.add_argument("--per-island", type=int, default=6)
     c.add_argument("--panel", type=int, default=6,
                    help="how many of the 7 attack surfaces to run. Surfaces beyond this are dropped from the END of the panel list and reported in the progress ledger")
+    c.add_argument("--theme", default=None,
+                   help="point the cycle at a problem space defined in "
+                        "data/themes/<name>.json instead of the generic theses")
     c.add_argument("--pairs", type=int, default=90,
                    help="cap on tournament pairs per head; each pair is judged "
                         "twice, with the order swapped")

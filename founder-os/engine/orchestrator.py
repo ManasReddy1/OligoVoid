@@ -93,6 +93,26 @@ PANEL = ["demand_skeptic", "incumbent_response", "economics_attacker",
          "taste_attacker"]
 
 
+def load_islands(theme: str | None) -> list[dict]:
+    """Island theses for a cycle.
+
+    Themes let the same machinery be pointed at a chosen problem space. The
+    theses inside a theme must genuinely oppose each other: the tournament is
+    what settles which belief produced better ideas, and that only works if the
+    beliefs actually conflict.
+    """
+    if not theme:
+        return ISLANDS
+    path = Path(__file__).parent / "data" / "themes" / f"{theme}.json"
+    if not path.exists():
+        raise SystemExit(f"no such theme: {path}")
+    data = json.loads(path.read_text())
+    islands = data.get("islands") or []
+    if len(islands) < 2:
+        raise SystemExit(f"theme {theme} needs at least 2 opposing theses")
+    return islands
+
+
 @dataclass
 class CycleConfig:
     islands: int = 6
@@ -103,6 +123,7 @@ class CycleConfig:
     budget_usd: float = 6.0
     cost_ceiling: float = 50_000
     week_ceiling: float = 12
+    theme: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return self.__dict__.copy()
@@ -118,6 +139,7 @@ class Orchestrator:
         self.pending: list[str] = []
         self.progress: list[dict[str, Any]] = []
         self.stalls = 0
+        self.islands = load_islands(self.cfg.theme)
         self.cycle_id = cycle_id or self.s.start_cycle(
             self.cfg.to_dict(), self.cfg.budget_usd)
 
@@ -163,7 +185,7 @@ class Orchestrator:
         tombs = [s for s in sigs if s["kind"] == "TOMBSTONE"]
 
         ingested = 0
-        for isl in ISLANDS[: self.cfg.islands]:
+        for isl in self.islands[: self.cfg.islands]:
             # Each island sees a different evidence slice, which is the cheapest
             # real source of divergence between lineages.
             k = isl["id"]

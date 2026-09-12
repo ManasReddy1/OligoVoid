@@ -1,0 +1,42 @@
+{
+  "name": "personal_agent",
+  "description": "A phone-resident assistant that keeps you on top of people, commitments, health and goals. The islands argue opposing positions about what the product actually is.",
+  "islands": [
+    {
+      "id": 0,
+      "thesis": "The execution layer is the product. People do not want to be reminded, they want the thing done. Every assistant that only talked has died; the one that actually sends the message, books the slot and logs the set is the one that lives.",
+      "operator": "frontier_cartographer",
+      "brief": "Find the capability that crossed a threshold in the last 18 months and ask what a phone app can now DO on the user's behalf that it could not before. Be precise about what the platform actually permits: name the specific API or intent, not a demo. An action the store would reject is not an action."
+    },
+    {
+      "id": 1,
+      "thesis": "The execution layer is a trap. Phones forbid cross-app automation and multi-step phone agents fail most of the time, so anything built on doing things for you is built on sand. The real job is initiation: noticing the moment and putting one tap in front of a person who already decided.",
+      "operator": "first_principles_reducer",
+      "brief": "Strip the job to its irreducible steps and ask which steps exist only because of an old technical limitation. People rarely fail because they cannot perform an action. Find where the failure actually happens and build only there. Name the steps you removed."
+    },
+    {
+      "id": 2,
+      "thesis": "Relationships are the wedge. Nobody lies awake about their task list; they lie awake about the friend they have not called in a year and the parent whose birthday they missed. Everything else in a life assistant is a feature of this.",
+      "operator": "analogy_transporter",
+      "brief": "Take a mechanic proven in another domain and carry it into relationship upkeep. Say why the psychological driver survives the transfer. Most transfers fail; say why this one does not."
+    },
+    {
+      "id": 3,
+      "thesis": "Health is the wedge, because it is the one category where the habit is intrinsic to the use case and retention does not collapse. A mentor that earns trust on the body earns the right to everything else.",
+      "operator": "constraint_archaeologist",
+      "brief": "Name the constraint a category leader structurally cannot remove: business model lock, platform dependency, brand promise, obligation to existing users, or data it does not have. Build only in what that constraint forecloses. Execution weakness is not a structural constraint."
+    },
+    {
+      "id": 4,
+      "thesis": "The voice is the product, not the features. What people want is someone who holds them to what they said, and a trillion-dollar company's assistant can never do that. An institutional assistant must be deferential; a mentor must not be.",
+      "operator": "inversion_engine",
+      "brief": "Take a belief the market treats as settled about assistants, check it against the supplied evidence, and build from the inversion only where the evidence fails to support the consensus. An inversion the evidence contradicts is contrarianism and will be rejected."
+    },
+    {
+      "id": 5,
+      "thesis": "Memory is the product. Models are a commodity and every feature is copyable within a quarter, so the only durable thing is an accumulating record of one person that nobody else holds and that hurts to abandon.",
+      "operator": "tombstone_reviver",
+      "brief": "Pair a dead assistant with a specific 2026 capability change and show the stated cause of death is gone. You must name the unlock. Most of these products died of distribution or retention, and cheap inference dissolves neither; if that is the case here, say so and pick a different corpse."
+    }
+  ]
+}
