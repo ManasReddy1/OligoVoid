@@ -107,6 +107,38 @@ consent prompt a competitor has to show and this design does not.
 
 ---
 
+## The deadline the red team put on this
+
+The retention attacker in cycle 2 named two failures that both concern the
+record, and both are deadlines rather than design preferences.
+
+**The moat must exist by day 30.** Several candidates were wounded for what the
+attacker called *moat-arrives-too-late*: a switching cost that is nine months
+to five years deep, and therefore **empty during exactly the first-renewal
+window where the battle is decided**. First monthly renewal is 57.9% for
+products that hold people against 30.2% for those that do not, and the gap
+narrows by the third renewal. A record that becomes precious in year two is a
+record nobody stays long enough to accumulate.
+
+So the design question is not "what will this be worth eventually". It is
+**what does a person have after four weeks that they would be annoyed to
+lose**. If the honest answer is nothing, the moat is decorative.
+
+**The record must keep growing.** The other wounded cluster was
+*repertoire closure*: a corpus that stops accumulating within a month because
+the user has finished telling it the things it asks about. A record with a
+natural end is a record with a natural cancellation date.
+
+That rules out anything shaped like a setup questionnaire, and favours records
+that grow as a by-product of ordinary use: what was promised, what happened,
+what was dismissed and when.
+
+**And the survivor shows what right looks like.** The one idea that survived
+this surface did so because its value rises with every entry, so the renewal
+question stops being *did I use it enough this month* and becomes *do I want to
+keep my record*. Those are very different questions, and only the second one is
+winnable at month one.
+
 ## Portability, which is the uncomfortable part
 
 A record that hurts to abandon is a moat. A record the user cannot take with
