@@ -12,9 +12,9 @@
   --accent-dim:#7a5a2a;
   --good:#5fd39a;
   --bad:#ff7a7a;
-  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
-  --sans:ui-sans-serif,-apple-system,"Segoe UI",Inter,system-ui,sans-serif;
-  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --serif:"Newsreader","Iowan Old Style",Palatino,Georgia,serif;
+  --sans:"Public Sans",ui-sans-serif,-apple-system,"Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
@@ -106,3 +106,6 @@ label.fld span{display:block;font-size:12.5px;color:var(--ink-faint);margin-bott
 .note{font-size:12.5px;color:var(--ink-faint);border-left:2px solid var(--line);padding-left:11px;margin:14px 0}
 .hidden{display:none}
 footer{color:var(--ink-faint);font-size:12px;padding-block:26px;border-top:1px solid var(--line);margin-top:26px}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+:where(button,input,textarea,select,[tabindex]):focus-visible{outline:2px solid var(--accent);outline-offset:2px}
