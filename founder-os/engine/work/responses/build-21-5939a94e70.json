@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "iOS-first, Swift. Speech-to-speech is the product, and the cheap stack does not carry emotional realism - realistically a mid/upper-tier speech-to-speech model at ~$0.03-0.04/min, not $0.008. Persona built from the user's written description of how the parent actually answers (deflects, gets angry, changes the subject), plus optional short voice sample. Frontier text for the prep sheet and the debrief. Hybrid subscription plus credits, App Store.",
+    "milestones": [
+      "Week 1-2: persona intake - a structured 10-question description of how this specific parent deflects - turned into a system prompt with a stable voice.",
+      "Week 3-4: the 90-second rehearsal loop with re-runs, so the user can try a different opening three or four times in one evening.",
+      "Week 5-6: debrief: what you said, where you apologised, where you backed off - plus the one sentence that landed.",
+      "Week 7: safety rails - elder-care and capacity questions get routed to real resources, never advice; crisis language handled explicitly.",
+      "Week 8-9: hybrid pricing, and distribution through dementia/carer charities and geriatric social workers rather than the App Store."
+    ],
+    "build_cost_usd": 9500,
+    "weeks_to_v1": 9,
+    "inference_cost_user_month": 0.45,
+    "price_month": 12.99,
+    "expected_conversion": 0.05,
+    "riskiest_technical_assumption": "That a persona built from the user's own description answers the way their father actually answers - if it is a generic reasonable-old-man voice the rehearsal has no transfer value - and getting that realism pushes you off the $0.008/min stack onto roughly $0.035/min, which means the three-or-four-rehearsal core cannot be given away free.",
+    "cheapest_way_to_test_that_assumption": "Have five people who have actually had this conversation write the persona description, run the rehearsal by hand on a flagship voice model, and ask them the single question 'did it answer like him?' - the answer is binary and costs a few hours plus about $20 of metered voice."
+  },
+  "text": "",
+  "usage": {}
+}

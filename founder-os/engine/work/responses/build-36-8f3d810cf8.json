@@ -1,0 +1,23 @@
+{
+  "parsed": {
+    "stack": "iOS 18+, Swift 6 / SwiftUI. Focus filter (SetFocusFilterIntent) as the wake trigger, locally-started interactive Live Activity with a call button backed by an App Intent, CallKit CXStartCallAction for the outbound call so the app at least knows about the calls it places. All state local in SwiftData - no backend, no accounts, no cloud model. RevenueCat for the subscription. App Store only.",
+    "milestones": [
+      "Week 1-2: Focus filter trigger. Verify the app is woken on every Work-to-Personal transition on a weekday evening, and log missed transitions over two weeks on three devices.",
+      "Week 3-4: Live Activity card - 'Mum - 34 days' with a working call button, started locally on the Focus change, dismissed on tap or at end of evening.",
+      "Week 5-6: Interval state machine. Reset from an in-app-placed call via CXCallObserver, plus the manual 'we spoke' tap that has to carry all the calls the app cannot see.",
+      "Week 7: Three-person cap, add-person flow, and the deliberately absent streak/pressure surface.",
+      "Week 8: Paywall and a 6-week 100-person trial instrumented for prompt-to-action-within-10-minutes.",
+      "Week 9: Submission and community-post launch."
+    ],
+    "build_cost_usd": 3800,
+    "weeks_to_v1": 9,
+    "inference_cost_user_month": 0.0,
+    "price_month": 4.99,
+    "expected_conversion": 0.02,
+    "riskiest_technical_assumption": "The core premise - 'on-device models decide from local signals whether contact already happened' - is not buildable on iOS: there is no contact-recency signal, CXCallObserver reports no handle so the app cannot tell who was called, and Messages and WhatsApp are entirely invisible, so the interval can only reset from calls placed through the app's own button and every call made from the native Phone app will produce exactly the after-the-fact prompt that is kill criterion #1.",
+    "cheapest_way_to_test_that_assumption": "There is no experiment needed - read the CallKit and Contacts API surface for thirty minutes and confirm no handle is exposed; the real test is a two-week diary study asking 20 people what fraction of their calls to a parent they would have placed from inside a third-party app rather than from Phone or WhatsApp, because that fraction is the product's ceiling.",
+    "_economics_note": "Inference is $0 - everything is local and there is no server - so this is not an economics failure, it is a capability failure. Conversion is set at 0.02 rather than 0.03-0.04 because the manual 'we spoke' tap is unsustained upkeep, which is the failure mode the idea explicitly claims to avoid; the honest reading is that this trips its own kill criterion by construction on iOS. On Android the same product is buildable, since notification access can infer contact recency."
+  },
+  "text": "",
+  "usage": {}
+}

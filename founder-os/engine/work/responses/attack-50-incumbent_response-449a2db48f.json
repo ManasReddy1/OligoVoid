@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "incumbent_response",
+    "attack": "Medisafe is the incumbent: tens of millions of users, and it already ships Medfriend, a named caregiver seat alerted when a dose is missed, plus caregiver multi-profile management. Putting the administering sibling's name on the dose row is a column in a schema they already have, not a product, and they would ship it in a quarter for the caregiving segment they already sell to. Apple is the second front - Health already logs Medications and already shares that log with a family member, so 'logged by' fits inside Health Sharing. And the free competitor is the one named in the pain: the WhatsApp group chat, where every line is already attributed and timestamped.",
+    "strongest_defence": "None of them will make the record append-only. Medisafe's log is a checklist anyone can silently untick and Apple's Medications is self-logging by the patient, a stance Apple will not change because a caregiver administration record carries clinical liability it deliberately avoids. An incumbent cannot ship a log its own user is forbidden to quietly correct, and that refusal, plus the spoken attribution, is the whole product.",
+    "verdict": "wounded",
+    "verdict_reason": "Medisafe can add caregiver attribution trivially and would kill the stated wedge, but the append-only, voice-attributed correction is a posture the incumbents structurally will not adopt."
+  },
+  "text": "",
+  "usage": {}
+}

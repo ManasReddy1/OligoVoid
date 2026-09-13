@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "React Native app for the grandparent (record + hand over) and a plain web link for the grandchild's household - no install on the receiving end. Cloud pipeline: ASR of the 2-minute memory, a text pass to storyboard it into 6 shots, then generated video at ~$0.03/sec, plus voice-preserved narration. Rendering queue on Fly.io, clips on R2. Payment via external web link at 0% platform commission (Stripe), consumable credits.",
+    "milestones": [
+      "Week 1-2: record-and-hand-over flow for a 70-something user: one big button, no editing, no timeline.",
+      "Week 3-4: memory-to-storyboard pass and the shot prompt discipline that keeps a consistent look across six clips - inconsistency is what triggers regeneration, and regeneration is the entire cost risk.",
+      "Week 5-6: render queue, failure retries, Sunday delivery to a web link, plus the grandchild's reaction going back to the grandparent (the gift loop).",
+      "Week 7-8: external-link checkout, credit packs, hard per-account render caps.",
+      "Week 9: 15 grandparent/grandchild pairs, measure clips per week and regenerations per clip."
+    ],
+    "build_cost_usd": 9000,
+    "weeks_to_v1": 9,
+    "inference_cost_user_month": 1.58,
+    "price_month": 14.99,
+    "expected_conversion": 0.07,
+    "riskiest_technical_assumption": "That a 30-second generated telling lands well enough on the first render - at $0.03/sec a clean 30s clip is $0.90, a payer doing four a month with even 1.5x regeneration is ~$10 against a $14.99 pack, and every non-paying trial user still burns ~$1.20 of real render cost for their free sample, which is precisely the shape that burned $1M/day against $2.1M of lifetime revenue.",
+    "cheapest_way_to_test_that_assumption": "Hand-produce ten real memories through the generation API yourself, show each to the grandparent who told it, and count how many they would have re-rolled - the average regenerations per accepted clip is the whole business model in one number."
+  },
+  "text": "",
+  "usage": {}
+}

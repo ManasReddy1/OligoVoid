@@ -1,0 +1,194 @@
+{
+ "parsed": {
+  "reasoning": "The settled belief I want to test is this one: an assistant gets better by being more capable and more agreeable. Do more for you, ask less of you, never argue. Every big assistant is built that way because a company that size cannot afford to be the thing that told a customer no. I work a front desk. The part of my job that actually changes what patients do is not the reminder card, it is reading the appointment back to them and making them say yes out loud, and then saying their name when they try to move it for the third time. So I went looking in the evidence for whether the failures are really about capability.\n\nThey are not. [259] is the clearest row here. The person is not forgetting and the app is not incapable. The alert fires, it sounds exactly like every other app's alert, and it gets swiped away with the rest. What they asked for was a custom notification sound, which tells you they know the problem is that nothing about the moment distinguishes the thing that matters. The workaround is dismissal, and dismissal is a habit: once you have swiped it fifty times your thumb does it before your head is involved. Note what this does NOT support. It does not support pushing harder or louder. A louder ping at the same wrong moment gets swiped faster. The failure is arriving at a moment the person cannot act, not a failure of volume.\n\n[252] is the second row and it is the one that decides the whole thing. This person is paying money to a commitment device, which is about as committed as anyone gets, and he still loses, because when he is emotionally overwhelmed the part of him that can edit the record beats the part that set the goal. His own workaround is the giveaway: he asked to hand his account credentials to a coach or a friend so that he physically cannot edit his own history. He is asking for something outside himself that will not defer to him. A deferential assistant hands the weasel the pen. But read the row properly before inverting: the goal is enforced at a clock edge with money on it, so he satisfies the clock by rewriting yesterday, and the day the clock finally beats him he drops the goal entirely. So the answer is not 'be stricter at the deadline'. A stricter clock produces more weaselling, not less.\n\nPut the two rows together and the inversion holds in a narrow form. The consensus says the win is capability plus deference. The evidence says the losses are stance and timing: nothing holds the person to what they said [252], and the holding arrives when they cannot act [259][245]. [245] is the same shape from the other side, someone who means to text a person he just met and only remembers when the moment has gone, and who manually texts people when he happens to notice he is in their part of town. He is doing the timing himself, by hand, because nothing else knows when he is able to act. [238] is another hand-done version: a person scrolling their SMS list by last contact to find who dropped off. These are all people already paying a manual tax, which is the only kind of pain I trust.\n\nWhich unlocks actually dissolve the reason nobody built this. Voice is the obvious one: [4] takes real-time spoken back-and-forth to half a cent to two cents a minute on cheap stacks, which a ten-dollar subscription can carry, and [2] plus [310] and [311] mean a capable model runs on the handset itself at zero marginal cost, with the Private Cloud Compute overflow free for a small developer under two million downloads. But cheap voice alone is not the unlock, because nothing in the evidence says a voice that talks at the wrong moment works. The timing unlocks are the ones that matter and they are newer: [308] lets an app change its own behaviour when the person's Focus changes, which is the operating system telling you whether they are at work, driving, asleep or free; [305] makes HealthKit background delivery one of the few legitimate ways an app can wake itself without a server poking it; [299] breaks the thirty-second ceiling on background intents so a check-in can actually finish; [306] lets a Live Activity be started and updated remotely and be interacted with in place, so a prompt can sit there and be answered rather than firing once and being swiped. Together those are the difference between a clock edge and a window of capability. That is the capability that did not exist, and it is the one the evidence says was missing.\n\nThe tombstones are a warning about form, not about voice. Jibo [37] shipped at $899 and did less than an Echo. Mycroft [40] ran out of money and named its own hardware as the single most expensive item. Humane [36] had returns outnumber sales at $699 falling to $499. Kuri [38] and Moxie [39] died when a parent company or an investor walked. Every one of those is custom hardware and a burn rate, not a person rejecting being spoken to. The constraint list rules out hardware anyway, which is fine, because the phone in the pocket now does what the $899 box could not. The one that worries me properly is Tandem App [47], a medication manager that found retention brutally hard after research had validated the need. That is a direct hit on anything in the medication space and it is the reason I would only build there if the record has to be shared between people, so leaving costs you someone else's trust and not just your own streak. AIRO [35] is the other honest warning: it died on lacking proof the thing worked as advertised, so any claim about predicting a good moment has to be measured out loud and killed if it is wrong.\n\nPopulations specific enough to reach. [252] and [259] are from commitment-device and quantified-self forums, and those people congregate and argue in public, which is a distribution loop with no ad budget. [12], [11] and [10] are rotating-shift workers, a population that is large, has occupational communities, and searches exactly the phrases they complain in, so their complaints are their own search terms. [210] is adult siblings splitting the dosing of one parent, which is the most specific population on this whole sheet and the only one where the product does not work until a second person is in it. [238] and [245] are people who left the social feed and now do the remembering by hand. I would avoid [13] and [14], the miscarriage rows: they are real and badly served, but nothing about a voice that holds you to what you said belongs anywhere near a pregnancy loss, and that is a product for a gentler team than this thesis produces.\n\nSo the shape I will build from, four different ways: something that speaks, that holds you to the thing you said in your own words, that refuses a silent rewrite of the record, and that only opens its mouth in a window where the person can actually do something. Not louder. Not at nine o'clock sharp.",
+  "candidates": [
+   {
+    "title": "Say It Back",
+    "probability": "0.34",
+    "unlock": {
+     "value": "Spoken back-and-forth is now half a cent to two cents a minute and a capable model runs on the handset for nothing, while Focus filters and the lifted background-intent ceiling let the app pick a moment the person is free instead of a time on a clock",
+     "signal_ids": [
+      4,
+      2,
+      308,
+      299,
+      311
+     ]
+    },
+    "pain": {
+     "value": "People who pay a commitment device still lose to themselves, because when they are overwhelmed they quietly edit the past record rather than face it, and the alert that was supposed to stop them sounds like every other push and gets swiped [252][259].",
+     "signal_ids": [
+      252,
+      259
+     ]
+    },
+    "audience": {
+     "value": "adults doing an evening course or professional exam alongside a job, who have already put money on a commitment device"
+    },
+    "mechanic": {
+     "value": "voice_conversation"
+    },
+    "wedge": {
+     "value": "One thing only: you say your week's commitment out loud once, in your own words, and the single time you try to change what you logged, it will not do it silently - it plays your own sentence back and makes you say the new version out loud before it writes anything"
+    },
+    "moat": {
+     "value": "accumulated_personal_corpus"
+    },
+    "model": {
+     "value": "subscription"
+    },
+    "loop": {
+     "value": "community_embed"
+    },
+    "kill": [
+     "Of 40 recruited evening-course students, fewer than 25% are still completing 3 or more spoken check-ins a week at week 6",
+     "More than 50% of the people who are refused a silent edit to their record uninstall within 7 days - that would mean the non-deferential stance is unsellable, not underbuilt",
+     "Voice minutes exceed 15 per active user per month at $0.018/minute, putting blended cost over the $0.30 ceiling",
+     "Spoken check-ins offered during a Focus window are ignored at the same rate as fixed 9pm reminders, within 5 percentage points, across the first 500 prompts - the timing claim would be the thing that failed"
+    ],
+    "why_now": "Voice got cheap enough to be a monthly subscription and the phone will now tell an app when its owner is actually free, so a spoken challenge can arrive in a window where the person can act rather than at a deadline they will rewrite around.",
+    "why_not_obvious": "The obvious build for this audience is a friendlier study reminder, because nobody's product instinct is to ship something that argues with the person paying for it."
+   },
+   {
+    "title": "Rota Sleep Plan",
+    "probability": "0.24",
+    "unlock": {
+     "value": "HealthKit background delivery is a legitimate way for the app to wake itself when sleep data lands rather than at a fixed hour, and an on-device model can read a messy rota and hold a conversation about it at zero marginal cost",
+     "signal_ids": [
+      305,
+      2,
+      310,
+      308
+     ]
+    },
+    "pain": {
+     "value": "Sleep tracking assumes one night block, so a night-rotation nurse reads as sixteen hours or zero, daytime catch-up naps are not counted at all, and the workaround is setting the sleep window to 00:00-00:01 and hand-editing the record every day [12][11][10].",
+     "signal_ids": [
+      12,
+      11,
+      10
+     ]
+    },
+    "audience": {
+     "value": "rotating-shift hospital nurses and plant operators on published 4-week rotas who already wear a Garmin or an Oura ring"
+    },
+    "mechanic": {
+     "value": "guided_protocol"
+    },
+    "wedge": {
+     "value": "Photograph next month's posted rota once; the app produces a plan of sleep windows for that rota only, and checks in by voice at the end of each block - never at a set hour, only when the wearable says a sleep block has just closed"
+    },
+    "moat": {
+     "value": "habit_lock"
+    },
+    "model": {
+     "value": "freemium_subscription"
+    },
+    "loop": {
+     "value": "content_seo"
+    },
+    "kill": [
+     "Fewer than 30% of people recruited from Garmin and Oura shift-work complaint threads still have a rota loaded after 3 full rotations, roughly 12 weeks",
+     "More than 20% of daytime sleep blocks are still missing from the plan 6 hours after the person wakes, meaning the background wake is not reliable enough to replace hand-editing",
+     "Pages targeting the phrases these people already type, such as sleep tracking counts my night shift as a nap, draw under 500 organic visits a month by day 90",
+     "Free-to-paid conversion sits below 3% after 2,000 installs"
+    ],
+    "why_now": "The wearable can now wake the app the moment a daytime sleep block closes, which is exactly the window a shift worker can act in and the one a fixed bedtime reminder always misses.",
+    "why_not_obvious": "Everyone assumes shift workers need a better sleep score, when the evidence says they need the schedule itself to stop being a clock edge that their life cannot meet."
+   },
+   {
+    "title": "Follow-Up Drafts",
+    "probability": "0.22",
+    "unlock": {
+     "value": "A million tokens of context at flat pricing with cached input holds years of a person's own contact history without a retrieval pipeline, text inference is cheap enough to draft continuously, and Focus filters tell the app when its owner is free rather than mid-shift",
+     "signal_ids": [
+      5,
+      3,
+      308
+     ]
+    },
+    "pain": {
+     "value": "People mean to follow up with someone they just met and the intention only surfaces after the moment has passed, so they end up doing it by hand and always forget folks until it is too late, or scrolling an SMS list by last contact to find who dropped off [245][238].",
+     "signal_ids": [
+      245,
+      238
+     ]
+    },
+    "audience": {
+     "value": "people who quit Facebook and Instagram in the last two years and now keep up with friends only by text"
+    },
+    "mechanic": {
+     "value": "delegation_handoff"
+    },
+    "wedge": {
+     "value": "You name six people out loud and say what you owe each of them; you get back one finished, sendable message at a time, surfaced only in a Focus window where you are free, and it will not offer a second until the first is sent or explicitly abandoned out loud"
+    },
+    "moat": {
+     "value": "social_graph"
+    },
+    "model": {
+     "value": "freemium_subscription"
+    },
+    "loop": {
+     "value": "referral_two_sided"
+    },
+    "kill": [
+     "Fewer than 2 of every 10 surfaced drafts are actually sent in a user's first month",
+     "More than 40% of surfaced drafts are marked bad moment across the first 500 surfaces, which would mean Focus is not a usable proxy for being able to act",
+     "Fewer than 0.15 new installs per paying user in 90 days, leaving no zero-budget distribution",
+     "Median monthly retention below 35% at month 3 - the same wall the evidence shows a medication manager hit after its need was validated"
+    ],
+    "why_now": "Holding a person's whole contact history in context is now flat-priced rather than an engineering project, and the phone will finally say whether its owner is in a position to send anything.",
+    "why_not_obvious": "The reflex build is a reminder list with birthdays on it, which is precisely the clock-edge prompt the evidence says gets swiped away with everything else."
+   },
+   {
+    "title": "Who Gave It",
+    "probability": "0.20",
+    "unlock": {
+     "value": "A spoken entry costs about a cent a minute and can be transcribed and attributed on the handset itself at no marginal cost, and a Live Activity can be started remotely and answered in place rather than firing once into a notification list",
+     "signal_ids": [
+      4,
+      2,
+      306,
+      311
+     ]
+    },
+    "pain": {
+     "value": "Siblings who each give some of an elderly parent's daily doses have apps that log that a dose was taken but not who gave it, so they re-ask each other in the family group chat and risk double-dosing, using the chat itself as the audit trail [210].",
+     "signal_ids": [
+      210,
+      252
+     ]
+    },
+    "audience": {
+     "value": "adult siblings sharing hands-on daily care of one elderly parent in that parent's own home"
+    },
+    "mechanic": {
+     "value": "shared_ledger"
+    },
+    "wedge": {
+     "value": "One medication and one household: you say 'I gave Mum the eight o'clock one' out loud as you do it, your name goes on it, and any later correction is written as a new spoken line with your voice on it rather than quietly replacing what the record already said"
+    },
+    "moat": {
+     "value": "switching_cost_of_history"
+    },
+    "model": {
+     "value": "subscription"
+    },
+    "loop": {
+     "value": "invite_for_function"
+    },
+    "kill": [
+     "Fewer than 60% of households add a second sibling within 14 days - a one-writer ledger is just another pillbox app",
+     "Self-reported duplicate-dose questions in the family chat do not fall by at least half by day 30",
+     "More than 25% of entries are typed rather than spoken by month 2, meaning the voice is not what kept them",
+     "Households drop below 40% retention at month 3, repeating the retention wall that killed a validated medication manager"
+    ],
+    "why_now": "Attributing a spoken line to the person who said it now costs effectively nothing on the handset, which is the one thing the family group chat was standing in for.",
+    "why_not_obvious": "Everyone's first suggestion here is a shared checklist, which is exactly what the existing apps are and exactly what loses the who - and a checkbox anyone can silently untick is the same hole the commitment-device evidence describes."
+   }
+  ]
+ },
+ "text": "",
+ "usage": {}
+}

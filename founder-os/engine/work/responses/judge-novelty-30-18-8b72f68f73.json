@@ -1,0 +1,25 @@
+{
+  "parsed": {
+    "checks": {
+      "A": {
+        "q1": true,
+        "q2": false,
+        "q3": false,
+        "q4": true,
+        "q5": true
+      },
+      "B": {
+        "q1": true,
+        "q2": true,
+        "q3": false,
+        "q4": true,
+        "q5": false
+      }
+    },
+    "winner": "B",
+    "margin": "narrow",
+    "reason": "Both chase neglected niches, but the allotment briefing is a scheduled digest that a plot database could have produced years ago, whereas the pump-and-tank ledger turns on a vision capability that only recently worked in a basement with one bar of signal."
+  },
+  "text": "",
+  "usage": {}
+}

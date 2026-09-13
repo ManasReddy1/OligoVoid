@@ -1,0 +1,23 @@
+{
+  "parsed": {
+    "stack": "iOS 18+ (iOS 27 for LongRunningIntent), Swift 6 / SwiftUI. EventKit free/busy read, manual friend time-zone entry via Contacts, Focus filter (SetFocusFilterIntent) to catch the exit from Sleep, LongRunningIntent + BGAppRefreshTask to assemble the brief. The overlap computation is arithmetic, not inference - on-device Foundation Model only phrases the forty seconds. No backend beyond RevenueCat; all state local in SwiftData. App Store only.",
+    "milestones": [
+      "Week 1: Overlap engine as a pure function - calendar free/busy plus friend time zone plus a waking-hours model, output a ranked list of at most three windows in both clocks. Unit-testable, no UI.",
+      "Week 2-3: Trigger layer. Focus exit from Sleep, LongRunningIntent assembly, BGAppRefreshTask fallback, and a two-week log of actual delivery times versus intended times on three devices.",
+      "Week 4-5: The brief itself - forty seconds, at most three people, overlap in both clocks, nothing else. Plus the tap-to-call/tap-to-message handoff so the window converts in one gesture.",
+      "Week 6: Friend setup - add up to five people with time zones, waking-hours defaults per region, and the shareable brief card for the distribution loop.",
+      "Week 7: Paywall, brief-time adjustment (instrumented, because users moving it twice is a kill criterion), 50-user beta.",
+      "Week 8: Submission and launch into expat-parent and new-parent communities."
+    ],
+    "build_cost_usd": 3400,
+    "weeks_to_v1": 8,
+    "inference_cost_user_month": 0.01,
+    "price_month": 4.99,
+    "expected_conversion": 0.025,
+    "riskiest_technical_assumption": "That calendar free/busy plus a friend's time zone actually identifies a callable window - the app can see that the user's calendar is empty and that the friend is awake, but it cannot see that the friend is at work or that the user has a two-year-old awake in the room, so a large share of named windows will be wrong for reasons no available signal exposes, which is exactly the '15% move the brief twice' kill line.",
+    "cheapest_way_to_test_that_assumption": "Compute the same windows by hand in a spreadsheet for 20 target users for three weeks, send them by text each morning, and ask each evening whether they could actually have called then - zero code, about $300 in gift cards.",
+    "_economics_note": "Inference is about a cent a month per active - the overlap is arithmetic and the only model call is on-device phrasing of a forty-second script. Margin is not the problem. Conversion is set at 0.025 because this is a reminder-shaped utility with weak habit lock and low willingness to pay, and the free version already delivers the one thing people want."
+  },
+  "text": "",
+  "usage": {}
+}

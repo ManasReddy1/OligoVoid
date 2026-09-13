@@ -1,0 +1,233 @@
+{
+  "parsed": {
+    "reasoning": "Working through this the way I'd work through a depot rota: what does somebody already do by hand, every day, at a fixed time, and which of those steps only exist because the old kit couldn't do better. Start with the unlocks, because they are the only things that changed. [2] is the big one for me: a full model, including vision, runs on the phone itself, offline, at zero marginal cost per use. That deletes three steps that were never really part of the job: waiting for signal, paying per request, and shipping the user's private stuff to somebody else's server. Anywhere the job happens in a bad-signal place - a chilled aisle, a cab on the A1, a bedroom at 10pm - the cloud round trip was the reason nobody built the dull daily version. [3] and [5] cover the same ground for text: a long personal history used to mean a retrieval pipeline and a vector database, and now it is a flat-priced context window with cached input at roughly a 90 percent discount, so 'remember everything this one person has told me for two years' stopped being an infrastructure project. [4] makes a spoken back-and-forth cost half a penny to two pence a minute, which is the first time a ten-minute daily conversation fits inside a ten-quid-a-month subscription. [7] gives age banding as a free operating system call instead of a vendor contract. [9] takes the 30 percent cut off US payments, which matters at these price points. I am ignoring [6] and [8] here - generated video and glasses are both impressive one-shot things, and the island belief is that impressive one-shot things lose to dull daily things. Now the graveyard, because it is more instructive. The pattern that repeats is not 'the technology was bad'. [36] Humane and [37] Jibo and [38] Kuri and [50] Car Thing and [48] Halo all died holding hardware: expensive, single-purpose, and doing less than the phone already in the pocket. [41] Zeo is the cleanest statement of the friction problem - an invasive headband plus having to log in to see anything, and thin margins underneath. So: no custom hardware, and no login standing between the person and the thing they came for. [47] is the one I keep coming back to. The medication team validated the need in research, shipped, and then found retention was really difficult. That is the exact failure the island thesis predicts: a real need is not a daily trigger. A need becomes a habit only when it is attached to a moment that already happens - the shift ends, the lunchboxes get packed, the light goes off. [56] Poparazzi is the same lesson from the other end, a number one app that could not convert a spike into sustained use. [63] Habitual died on distribution in a category of near-identical entrants, which says the loop has to be structural, not marketing. [52] Huxe died the day after a platform shipped the same feature, so the defensible part has to be the person's own accumulated record, not the clever bit. [54] Artifact was loved by a core group and still shut because the market was judged too small - so the population has to be narrow but genuinely large and reachable without ads. [44] openmargin is worth a second look: shared margin notes on books, killed for being too early. Nothing about that job was wrong; the capture step was the problem, and capture is exactly what [2] fixed. On the grocery side, [61] PepperTap and [60] Take Eat Easy both died because the margin on a low-value basket cannot carry a courier. The honest read is that these households are still doing the shop themselves, in person, on foot, and the unglamorous in-aisle steps never went away. Populations I can actually reach without an advertising budget, because they already gather somewhere: parents managing a child's food allergy (school gate, allergy charities, dietitian handouts), adult siblings sharing care for an ageing parent (one of them starts it, the others are forced in), night-trunk HGV drivers (depot yards, cab radio, forums), adults marrying into a family whose first language they do not speak (the family is the channel), and in-person book clubs (the club is the unit, not the individual). The reduction that matters in all five: strip the job to its irreducible steps and delete the ones that only existed because the machine was elsewhere. Deleted steps are always the same set - go and find signal, wait for a round trip, maintain a lookup database somebody else curates, log in to see your own record, and re-type what you already said out loud. What is left is a small act at a fixed moment, and a record that gets more expensive to abandon each week.",
+    "candidates": [
+      {
+        "title": "Aisle Label Check",
+        "probability": 0.27,
+        "unlock": {
+          "value": "A vision-capable model now runs entirely on the phone, offline and at zero marginal cost, so reading an ingredients panel in a chilled aisle with no signal no longer needs a cloud round trip or a maintained barcode database.",
+          "signal_ids": [
+            2,
+            1
+          ]
+        },
+        "pain": {
+          "value": "Households doing their own low-value grocery shop in person still check every unfamiliar label by hand, because the delivery and lookup services built for them could never carry the margin on that basket.",
+          "signal_ids": [
+            61,
+            60,
+            62
+          ]
+        },
+        "audience": {
+          "value": "UK parents packing daily lunchboxes for a child with a confirmed nut or dairy allergy"
+        },
+        "mechanic": {
+          "value": "capture_and_answer"
+        },
+        "wedge": {
+          "value": "Point the camera at one packet's ingredients panel during the weekly shop and get a yes/no against this one child's own avoid-list, offline, in under two seconds, with no account required on first use."
+        },
+        "moat": {
+          "value": "accumulated_personal_corpus"
+        },
+        "model": {
+          "value": "freemium_subscription"
+        },
+        "loop": {
+          "value": "professional_recommendation"
+        },
+        "kill": [
+          "Fewer than 30% of installs scan a second product within 7 days of the first scan.",
+          "On-device label reading is under 97% agreement with the printed panel on a 500-packet audit of own-brand UK supermarket products.",
+          "Under 3% of active households convert to paid by day 60.",
+          "Median scans per paying household drops below 4 per week by month 3."
+        ],
+        "why_now": "The camera answer used to require signal and somebody else's product database, and [2] moved both onto the handset for free, which is the only place the job actually happens.",
+        "why_not_obvious": "The obvious pitch for allergy families is a recipe or meal-planning app, and [65] shows meal planning is not acute enough to pay for; the acute moment is standing in an aisle holding one unfamiliar packet."
+      },
+      {
+        "title": "Visit Book",
+        "probability": 0.24,
+        "unlock": {
+          "value": "A flat-priced million-token context with cached input at roughly a 90% discount means two years of short daily notes from four siblings can be read back whole for pennies, with no retrieval pipeline to build or run.",
+          "signal_ids": [
+            5,
+            3
+          ]
+        },
+        "pain": {
+          "value": "Families sharing the care of an ageing parent keep the record in a group chat and a notebook on the kitchen table, and the apps built to replace that lost their users because retention after launch proved really difficult despite validated need.",
+          "signal_ids": [
+            47,
+            41
+          ]
+        },
+        "audience": {
+          "value": "adult siblings splitting weekly visits to a parent living alone"
+        },
+        "mechanic": {
+          "value": "shared_ledger"
+        },
+        "wedge": {
+          "value": "One line written on the doorstep at the end of each visit - who went, what was low in the cupboard, what needs doing next - that the next sibling sees before they set off."
+        },
+        "moat": {
+          "value": "switching_cost_of_history"
+        },
+        "model": {
+          "value": "freemium_subscription"
+        },
+        "loop": {
+          "value": "invite_for_function"
+        },
+        "kill": [
+          "Fewer than 2.0 additional family members join per household that starts a book within 21 days.",
+          "Under 40% of households still writing an entry in week 8.",
+          "Under 3% of households on a paid plan at day 90.",
+          "Blended model cost exceeds $0.30 per active household per month once history passes 12 months."
+        ],
+        "why_now": "Keeping the whole family record readable used to mean building and paying for search infrastructure, and [5] turned it into a flat-priced read of the entire history.",
+        "why_not_obvious": "The first suggestion for this family is always a shared calendar or a medication reminder, and [47] is the tombstone of exactly that; the thing they actually reread is the handover note, not the schedule."
+      },
+      {
+        "title": "Trunk Run Log",
+        "probability": 0.18,
+        "unlock": {
+          "value": "Spoken back-and-forth now costs between half a penny and two pence a minute, and the phone can run the model itself in a cab with no reception, so a ten-minute nightly conversation fits inside a consumer subscription.",
+          "signal_ids": [
+            4,
+            2
+          ]
+        },
+        "pain": {
+          "value": "The in-cab companion has repeatedly been sold as a separate paid device and failed on low consumer interest and returns, leaving drivers with nothing between the radio and a phone they are not allowed to hold.",
+          "signal_ids": [
+            50,
+            36,
+            37
+          ]
+        },
+        "audience": {
+          "value": "UK night-trunk HGV drivers working scheduled depot-to-depot runs"
+        },
+        "mechanic": {
+          "value": "voice_conversation"
+        },
+        "wedge": {
+          "value": "The last fifteen minutes of the run: a hands-free spoken wind-down that turns into one short written note the driver's household can read at breakfast."
+        },
+        "moat": {
+          "value": "accumulated_personal_corpus"
+        },
+        "model": {
+          "value": "subscription"
+        },
+        "loop": {
+          "value": "gift_to_recipient"
+        },
+        "kill": [
+          "Fewer than 35% of drivers speak on 4 or more nights in their second week.",
+          "Fewer than 1 in 5 households who receive the morning note install it themselves within 30 days.",
+          "Voice cost per active driver exceeds $0.30 per month at a 10-minute nightly session.",
+          "Under 3% paid conversion by day 45 at a GBP 6 monthly price."
+        ],
+        "why_now": "Talking was always the only input a driver has free, and [4] is the first pricing at which a nightly ten-minute conversation costs less than the subscription it sits inside.",
+        "why_not_obvious": "Everyone builds route, fuel and compliance tools for drivers, which is work software; the unserved consumer job is the gap between the end of a shift and a sleeping household."
+      },
+      {
+        "title": "Sunday Call Drills",
+        "probability": 0.16,
+        "unlock": {
+          "value": "Frontier-class text inference at roughly a thirtieth of a penny per thousand words, plus an on-device model for the daily drill itself, makes personalised card generation from a real conversation cheap enough to run free.",
+          "signal_ids": [
+            3,
+            2,
+            1
+          ]
+        },
+        "pain": {
+          "value": "Daily-habit learning products sit in a category of hundreds of near-identical entrants that never found a channel, and the ones that do launch discover retention is the hard part rather than the need.",
+          "signal_ids": [
+            63,
+            47,
+            56
+          ]
+        },
+        "audience": {
+          "value": "English-speaking people who married into a family whose first language they do not speak"
+        },
+        "mechanic": {
+          "value": "spaced_repetition"
+        },
+        "wedge": {
+          "value": "Turn the twenty phrases that actually came up in last Sunday's family video call into a four-minute drill that resurfaces each morning before the next call."
+        },
+        "moat": {
+          "value": "accumulated_personal_corpus"
+        },
+        "model": {
+          "value": "freemium_subscription"
+        },
+        "loop": {
+          "value": "gift_to_recipient"
+        },
+        "kill": [
+          "Fewer than 25% of installs complete a drill on 5 of their first 10 days.",
+          "Fewer than 15% of learners get a second family member onto it within 60 days.",
+          "Under 3% paid conversion by day 90.",
+          "Median drill length falls below 2 minutes by week 6, meaning the cards are not from real conversation."
+        ],
+        "why_now": "Generic decks were always free and always abandoned; [3] makes a deck built from this learner's own family conversation cost less than a penny a week to produce.",
+        "why_not_obvious": "The obvious product for this person is a language course, and [63] shows that category has no channel left; the distinguishing asset is the family's own recurring call, which no course can hold."
+      },
+      {
+        "title": "Paperback Margins",
+        "probability": 0.15,
+        "unlock": {
+          "value": "On-device vision means a phone can recognise the page you are holding from a photo of it, deleting the scan-and-match server step that made shared margin notes on a physical book impractical.",
+          "signal_ids": [
+            2,
+            3
+          ]
+        },
+        "pain": {
+          "value": "Shared margin notes on books were built and killed for being too early in the market with slow shipping, and the reader products that people genuinely loved have still shut for being too small to carry a company.",
+          "signal_ids": [
+            44,
+            54
+          ]
+        },
+        "audience": {
+          "value": "members of in-person monthly book clubs reading the same paperback edition"
+        },
+        "mechanic": {
+          "value": "annotation_overlay"
+        },
+        "wedge": {
+          "value": "Photograph the page you stopped on at bedtime and see only your own club's notes on that page, nobody else's."
+        },
+        "moat": {
+          "value": "social_graph"
+        },
+        "model": {
+          "value": "freemium_subscription"
+        },
+        "loop": {
+          "value": "invite_for_function"
+        },
+        "kill": [
+          "Fewer than 4 members of a 6-person club leave a note in the first book.",
+          "Fewer than 50% of clubs that finish one book start a second one in the app within 45 days.",
+          "Page recognition from a bedside photo is under 95% correct on a 300-page test across 3 print editions.",
+          "Under 3% of clubs paying by their third book."
+        ],
+        "why_now": "The job died in 2014 on a capture step nobody could make fast enough, and [2] now does page recognition on the handset for nothing.",
+        "why_not_obvious": "The reflex is to build this for ebooks where the text is already digital, but [44] and [54] suggest the money and the ritual sit with the in-person club holding paper, not with solitary ebook highlighters."
+      }
+    ]
+  },
+  "text": "",
+  "usage": {}
+}

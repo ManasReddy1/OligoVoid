@@ -1,0 +1,240 @@
+{
+  "parsed": {
+    "reasoning": "Start with what the graveyard actually says, not what people repeat about it. I read every tombstone here for the stated cause, the way you read a fault log instead of guessing at the machine. Almost none of these say 'nobody wanted it'. Jibo [37] shipped at $899, cost more than an Echo and did less. Kuri [38] stopped because Bosch found no business fit. Moxie [39] died when one lead investor walked at the last minute. Mycroft [40] ran out of money and named its single most expensive item. Humane [36] took returns faster than sales at $699 falling to $499. Car Thing [50] and Glow [49] were low-volume boxes that got switched off. That is a bill-of-materials and financing story every time. The settled belief that people rejected talking to software, or rejected a family gadget, is not supported by a single one of these causes. The thing that died was the object, not the behaviour. Same shape on the face-worn stuff: Glass [42] was priced high, sold as finished while unfinished, with unclear value, and Magic Leap [43] straddled consumer and enterprise at an unsustainable price [43]. Neither cause says a person refuses to look at a small display. And Vreal [45] and openmargin [44] state it plainly - too early, installed base too small - which is a timing fault, not a demand fault, and timing faults expire.\n\nNow the unlocks, and specifically which one dissolves which fault. The BOM fault is dissolved by [2]: a vision-capable model running on the phone already in the pocket, zero marginal cost, offline. There is no $899 to recover. The funding fault is dissolved by [3] and [5]: inference at $0.10 per million in and $0.40 out, and a million-token context at flat pricing with cached input about 90% cheaper, which removes the retrieval pipeline and vector database that used to be the reason you needed a team and a seed round. The 'voice is uneconomic for a $10 app' fault is dissolved by [4] at half a cent to under two cents a minute. The hardware fault for glasses is dissolved by [8]: Meta opened the Ray-Ban Display to third parties with an HTML/CSS/JS path, so the display is someone else's inventory problem. The under-13 compliance fault is dissolved by [7]: age assurance is now a free operating system call instead of a vendor contract. And [9] takes the 30% cut off US external payment links, which matters because the paid-acquisition maths here is already hopeless.\n\nWhich pains still have a manual workaround, meaning the behaviour survived the product dying. People still talk to themselves and to a radio in a cab. People still fix things with a phone propped against a mug and greasy fingers. Grandparents still post parcels and ring at bad times - Glow [49] was built for exactly that bond and died as a pandemic-era device with poor sales, not because the bond went away. Learners still write paper cards. Growers still keep a notebook in a shed. Those are all manual workarounds that nobody stopped doing.\n\nWhich populations are actually reachable with no ad budget. That is the hard filter, because Habitual [63] died on marketing and distribution in a category of hundreds of near-identical entrants, and Refolo [65] could not find a segment for whom the problem was acute enough to pay. So the population has to already gather somewhere - a depot, a repair cafe, a training centre, an allotment association - and the product has to sit inside that ritual. Two more warnings I am taking seriously: Huxe [52] was killed by a platform shipping a near-identical feature one day earlier, so the product must sit on a record the platform does not hold; and Sora [51] burned about a million dollars a day against roughly two million in lifetime purchases, so anything generative has to be metered at the door, not given away. Artifact [54] says the general version of a good product can still be too small a market, which argues for narrow and paid rather than broad and free. Finally IRL [55], where 95% of users were not real - a reminder to measure returning humans, not signups.",
+    "candidates": [
+      {
+        "title": "Shift Log Voice Check-In",
+        "probability": 0.26,
+        "unlock": {
+          "value": "Real-time spoken back-and-forth now costs about half a cent to under two cents a minute, and cheap text inference plus flat million-token context means the whole driving history can be re-read each time without a retrieval pipeline, so a talking companion no longer needs a $899 device or a funding round behind it.",
+          "signal_ids": [
+            4,
+            3,
+            5,
+            2
+          ]
+        },
+        "pain": {
+          "value": "Every previous attempt to give a person a hands-free spoken companion died on device cost or financing - $899 against a cheaper Echo [37], a collapsed lead investor [39], no business fit at the parent company [38], running out of money with an expensive hardware line item [40], and returns outrunning sales at $699 [36] - not on people refusing to talk to it.",
+          "signal_ids": [
+            37,
+            39,
+            38,
+            40,
+            36
+          ]
+        },
+        "audience": {
+          "value": "solo US long-haul truck drivers running multi-day over-the-road routes"
+        },
+        "mechanic": {
+          "value": "voice_conversation"
+        },
+        "wedge": {
+          "value": "One 90-second spoken check-in at shutdown, in the cab, that turns into a searchable dated entry - what broke, what the load did, what to tell dispatch tomorrow - with nothing to type and no hardware to buy."
+        },
+        "moat": {
+          "value": "accumulated_personal_corpus"
+        },
+        "model": {
+          "value": "freemium_subscription"
+        },
+        "loop": {
+          "value": "referral_two_sided"
+        },
+        "kill": [
+          "Fewer than 30% of drivers who record a first check-in record a second one within 7 days.",
+          "Free-tier voice cost exceeds $0.30 per active driver per month at the 90-second cap across 20 shifts (30 minutes a month at $0.005-$0.018 per minute).",
+          "Fewer than 3% of monthly actives pay $8 for the higher minute cap after 60 days.",
+          "Fewer than 1 in 10 paying drivers sends a working two-sided referral in their first 90 days."
+        ],
+        "why_now": "Spoken conversation dropped to consumer prices in July 2026 [4] while the dead talkers all died on hardware and money [37][39][40], so the same behaviour can now ship as an app with no bill of materials at all.",
+        "why_not_obvious": "The settled belief is that drivers rejected voice assistants, when the stated causes were price and financing, and the obvious suggestion for this audience is another load board or ELD dashboard rather than a two-minute record of their own day."
+      },
+      {
+        "title": "Bench Notes for Repair Cafes",
+        "probability": 0.22,
+        "unlock": {
+          "value": "Meta opened the Ray-Ban Display to outside developers in May 2026 with an official HTML/CSS/JS path plus Neural Band input [8], and a vision-capable model now runs on the phone at zero marginal cost [2], so a hands-free layer over the thing on the bench needs no hardware build and no per-look cloud bill.",
+          "signal_ids": [
+            8,
+            2,
+            3
+          ]
+        },
+        "pain": {
+          "value": "The face-worn attempts that people cite as proof the category is rejected actually died of price, unclear value and being sold as finished while unfinished [42], and of straddling consumer and enterprise at an unsustainable price [43], with the earlier one admitting it lacked proof the product worked as advertised [35] - none of which is a verdict on fixers wanting both hands free.",
+          "signal_ids": [
+            42,
+            43,
+            35
+          ]
+        },
+        "audience": {
+          "value": "volunteer fixers at UK and Dutch repair cafes"
+        },
+        "mechanic": {
+          "value": "annotation_overlay"
+        },
+        "wedge": {
+          "value": "Pin the disassembly order for one appliance - which screw came from where, which clip snaps - onto the device in front of you during a single Saturday session, and keep it for the next person who brings in the same model number."
+        },
+        "moat": {
+          "value": "content_library"
+        },
+        "model": {
+          "value": "freemium_subscription"
+        },
+        "loop": {
+          "value": "content_seo"
+        },
+        "kill": [
+          "Fewer than 200 of the roughly 1,500 repair-cafe volunteers reachable through association mailing lists in 12 weeks have access to a Ray-Ban Display or fall back to the phone-only mode.",
+          "Median session produces fewer than 2 saved notes across the first 300 sessions.",
+          "Model-number note pages draw under 1,000 organic visits a month by week 20.",
+          "Fewer than 3% of monthly actives pay $6 a month for unlimited saved teardowns."
+        ],
+        "why_now": "Third-party access to the glasses arrived in May 2026 [8] and on-device vision made looking at a board free [2], so the part that killed the earlier eyewear - building and pricing the hardware [42][43] - is now somebody else's problem.",
+        "why_not_obvious": "Everyone treats smart glasses as a proven consumer rejection rather than two priced-wrong hardware companies, and the obvious build for repair volunteers is a forum or a parts marketplace, not a note layer that sticks to a specific model number."
+      },
+      {
+        "title": "Two-Way Post for Grandparents",
+        "probability": 0.2,
+        "unlock": {
+          "value": "Age assurance became a free operating system call in January 2026 through the Apple Declared Age Range and Google Play Age Signals APIs [7], cheap text inference makes moderation and rewriting effectively free [3], and a five-second generated clip now costs $0.15-$0.25 instead of dollars [6], so one person can ship something aimed at a primary-school child without a compliance project.",
+          "signal_ids": [
+            7,
+            3,
+            6
+          ]
+        },
+        "pain": {
+          "value": "The dedicated product built for exactly this grandparent-to-grandchild bond was a device that was discontinued after about a year on poor sales as a pandemic-era release [49], and the wider family-robot category died on unit cost and funding [37][39] rather than on families not wanting the contact.",
+          "signal_ids": [
+            49,
+            37,
+            39
+          ]
+        },
+        "audience": {
+          "value": "grandparents living more than a three-hour drive from primary-school-age grandchildren"
+        },
+        "mechanic": {
+          "value": "async_social"
+        },
+        "wedge": {
+          "value": "One photo or drawing a week goes each way between exactly one grandparent and one grandchild's household, arriving whenever each side is free, with the child's age band read from the operating system instead of a birthday form."
+        },
+        "moat": {
+          "value": "social_graph"
+        },
+        "model": {
+          "value": "hybrid_sub_credits"
+        },
+        "loop": {
+          "value": "invite_for_function"
+        },
+        "kill": [
+          "Fewer than 40% of invited parent households accept the pairing within 14 days.",
+          "Fewer than 50% of paired grandparents send something in each of weeks 2, 3 and 4.",
+          "Fewer than 3% of active grandparents buy a credit pack in month 2, or the animated clip lands above $0.25 for five seconds.",
+          "Free-tier cost exceeds $0.30 per active pair per month once clips are excluded."
+        ],
+        "why_now": "Age assurance stopped being a vendor contract in January 2026 [7], which removes the one fixed cost that kept solo builders out of under-13 products, while the hardware that previously carried this bond was switched off for poor sales [49].",
+        "why_not_obvious": "The settled belief is that building for children means legal exposure only a large company can absorb, and the obvious answer for distant grandparents is another video-call app rather than something deliberately slow that neither side has to be awake for."
+      },
+      {
+        "title": "Code Book Recall",
+        "probability": 0.18,
+        "unlock": {
+          "value": "A million-token context at flat pricing with cached input around 90% cheaper [5] means the entire code book and the learner's whole answer history sit in the prompt with no vector database and no retrieval pipeline, at $0.10 per million input tokens [3].",
+          "signal_ids": [
+            5,
+            3
+          ]
+        },
+        "pain": {
+          "value": "Consumer study and habit products die on distribution and segment, not on capability - one failed in a category of hundreds of near-identical entrants with no channel [63], another could not find a segment for whom the problem was acute enough to pay [65], and a third found retention genuinely hard after research had validated the need [47].",
+          "signal_ids": [
+            63,
+            65,
+            47
+          ]
+        },
+        "audience": {
+          "value": "apprentice electricians studying for their licensing exam"
+        },
+        "mechanic": {
+          "value": "spaced_repetition"
+        },
+        "wedge": {
+          "value": "Only the conduit fill and box fill tables for one jurisdiction's current code cycle, resurfaced on the schedule the apprentice keeps getting wrong, for the eight weeks before a booked exam date."
+        },
+        "moat": {
+          "value": "switching_cost_of_history"
+        },
+        "model": {
+          "value": "one_time_purchase"
+        },
+        "loop": {
+          "value": "professional_recommendation"
+        },
+        "kill": [
+          "Fewer than 3% of trial users buy at $29 within 14 days of first session.",
+          "Fewer than 25% of buyers are still answering cards at day 30.",
+          "Fewer than 5 referrals per 100 buyers come from instructors or journeymen in the first 6 months.",
+          "Cost per active learner exceeds $0.30 a month even with cached input at the stated 90% discount."
+        ],
+        "why_now": "Flat million-token context with cheap cached input arrived in March 2026 [5], so the retrieval infrastructure that used to make a personalised study tool a funded project is gone, and a booked exam date supplies the acuteness the dead habit apps never had [65].",
+        "why_not_obvious": "The settled belief is that flashcard software is a solved commodity, which is true for the general case and exactly why the general ones died with no channel [63]; the non-obvious part is binding it to one trade's code cycle so instructors have a reason to name it."
+      },
+      {
+        "title": "Sunday Plot Briefing",
+        "probability": 0.14,
+        "unlock": {
+          "value": "Frontier-class text inference at $0.10 per million input and $0.40 per million output [3], with a million-token flat-priced context holding several seasons of one plot's own notes at roughly a 90% cache discount [5], makes a weekly prepared briefing cost fractions of a cent to produce.",
+          "signal_ids": [
+            3,
+            5
+          ]
+        },
+        "pain": {
+          "value": "Prepared personal briefings are treated as a proven failure, but one shut down the day after a platform shipped a near-identical feature [52] and another closed because the general market was judged too small [54] - both platform and scope problems, while the appliance-style attempt was classed as no market need at its price [62].",
+          "signal_ids": [
+            52,
+            54,
+            62
+          ]
+        },
+        "audience": {
+          "value": "UK allotment and community-garden plot holders"
+        },
+        "mechanic": {
+          "value": "scheduled_digest"
+        },
+        "wedge": {
+          "value": "One briefing every Sunday evening covering only this plot's own beds - what was sown where in previous seasons, what is due, what last year's notes said went wrong in the same week - and nothing about anyone else's garden."
+        },
+        "moat": {
+          "value": "habit_lock"
+        },
+        "model": {
+          "value": "subscription"
+        },
+        "loop": {
+          "value": "community_embed"
+        },
+        "kill": [
+          "Fewer than 45% of subscribers open 4 consecutive Sunday briefings.",
+          "Fewer than 3% of the trial list convert at $4 a month by week 8.",
+          "Fewer than 10 allotment associations agree to mention it in a newsletter or noticeboard in the first 12 weeks.",
+          "A general gardening platform ships the same per-plot briefing, as happened to a personal-briefing startup one day before it closed [52]."
+        ],
+        "why_now": "Cheap inference and flat long context arrived in the first half of 2026 [3][5], so a briefing built from one plot's multi-season record costs almost nothing to prepare, and that record is the thing a general platform cannot copy overnight the way one copied a personal-audio feature [52].",
+        "why_not_obvious": "The settled belief after those closures is that nobody wants a daily or weekly digest, when the stated causes were being copied by a platform [52] and a market judged too small [54]; the obvious product for growers is a plant identifier or a planting calendar, not a briefing that only works because it remembers their own past mistakes."
+      }
+    ]
+  },
+  "text": "",
+  "usage": {}
+}

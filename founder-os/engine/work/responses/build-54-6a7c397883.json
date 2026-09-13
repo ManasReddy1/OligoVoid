@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "iOS 18+, Swift/SwiftUI. VisionKit DataScannerViewController for live receipt capture, Apple's Vision text recognition plus the on-device Foundation model for line extraction ($0), escalating to Private Cloud Compute for faded thermal and handwritten invoices ($0 in API fees under the Small Business Program) and only then to a hosted frontier vision model for the residue. Backend: Supabase Postgres + S3-compatible storage for receipt images (~$35/mo at receipt volume), plus a Next.js signed-link statement viewer on Vercel so the medical-POA sibling reads and comments with no account. PDF/CSV export from day one because this is a fiduciary record. StoreKit 2, App Store.",
+    "milestones": [
+      "Week 1-2: capture-and-file - photograph a receipt, extract vendor/date/total/category, attach the image permanently, and store it in an append-only ledger with a CSV and PDF export path proven before any UI polish.",
+      "Week 3-4: the correction loop - a confirm screen that surfaces only the fields the model is unsure about, because the 30-minutes-of-hand-correction kill criterion is won or lost here.",
+      "Week 5-6: month-end statement generation and the accountless signed-link viewer with threaded comments for the second sibling.",
+      "Week 7-8: mileage and caregiver-invoice handling, recurring-vendor memory, and category rules the household teaches once.",
+      "Week 9: paywall at $9, TestFlight with 20 POA households, instrumented for second-sibling-opens-in-14-days and minutes-of-correction per statement."
+    ],
+    "build_cost_usd": 3600,
+    "weeks_to_v1": 9,
+    "inference_cost_user_month": 0.04,
+    "price_month": 9.0,
+    "expected_conversion": 0.03,
+    "riskiest_technical_assumption": "That on-device vision reads the documents this audience actually has - faded thermal cash receipts and handwritten caregiver invoices are the worst case for a small on-device model, and their own kill bar is under 30 minutes of hand correction per month, which at 40 documents means roughly 45 seconds of human touch per document and effectively no re-typing of totals.",
+    "cheapest_way_to_test_that_assumption": "One week and about $200: collect 200 real photographed caregiver receipts and handwritten invoices from 10 POA families, run them through the on-device pipeline in a throwaway TestFlight harness with no product around it, and stopwatch the corrections a person has to make."
+  },
+  "text": "",
+  "usage": {}
+}

@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "economics_attacker",
+    "attack": "On-device inference handles the margin, so this fails on lifetime value versus acquisition cost. The job is one-shot by the wedge's own description - photograph three things once - yet the model is a monthly subscription: a landlord who catalogues their single unit in one afternoon plausibly retains 2-3 months, returning $16-24 gross and $11-17 net at $8/month, against a $20-80 cost per paying user and against $195 per payer if you buy iOS installs at $5.84 and hit exactly the stated 3%-in-60-days kill floor. Landlord and property targeting also sits at the expensive end of the CPI distribution, several times the $5.84 blended figure, so the real number is worse. And the audience is defined by a transient state - 'first-time' landlords stop being first-time within a year - so the base must be rebuilt continuously.",
+    "strongest_defence": "Reprice as a one-time purchase and run acquisition through the trades: plumbers and electricians handing the record to customers is a zero-CAC loop, and a landlord who acquires a second and third unit has recurring reason to keep paying, extending LTV past the one-afternoon job.",
+    "verdict": "wounded",
+    "verdict_reason": "The margin objection is answered by on-device inference, but a subscription priced at $8/month against a one-shot job cannot repay even the cheapest end of the $20-80 acquisition band, so the model itself has to change."
+  },
+  "text": "",
+  "usage": {}
+}

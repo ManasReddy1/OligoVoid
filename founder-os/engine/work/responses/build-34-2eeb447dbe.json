@@ -1,0 +1,23 @@
+{
+  "parsed": {
+    "stack": "iOS 18+, Swift 6 / SwiftUI. Share Extension registered for public.url and public.html, on-device parse using Apple's Foundation Model (vision + text) plus a hand-written HTML table pre-parser doing most of the structural work so the model only resolves ambiguity. Zero backend - no accounts, no server, no network calls at all. Export is Anki-compatible .apkg plus plain CSV via the share sheet. One-time purchase (non-consumable IAP), StoreKit 2 direct, no RevenueCat needed. App Store only.",
+    "milestones": [
+      "Week 1: Ground-truth harness. Scrape-by-hand 50 pages from the 5 biggest Hungarian conjugators, hand-label every cell, and build a desktop scorer so cell accuracy is measurable before any app exists.",
+      "Week 2-3: Deterministic HTML table parser plus site-specific shims for the top 5 conjugators. Target is getting to 95% cell accuracy without the model, using the model only for the leftovers.",
+      "Week 4: Share Extension, on-device model pass for ambiguous cells, and the person-number-tense field mapping.",
+      "Week 5: Deck writer - .apkg and CSV, note type with correct fields, plus a review-and-fix screen for the cells the parser flagged as low confidence.",
+      "Week 6: Timing pass to get share-to-deck under 60 seconds on an in-support handset, free-tier limit (3 verbs free), StoreKit unlock.",
+      "Week 7: Submission and launch into r/hungarian, r/LearnFinnish and the Anki forums where the CSV workaround is already discussed."
+    ],
+    "build_cost_usd": 2200,
+    "weeks_to_v1": 7,
+    "inference_cost_user_month": 0.0,
+    "price_month": 0.62,
+    "expected_conversion": 0.05,
+    "riskiest_technical_assumption": "That a full Hungarian conjugator page fits the job at all given roughly 4K of on-device context - a definite/indefinite conjugation table runs well over a hundred cells and the surrounding page markup blows past 4K, so the work has to be chunked, and chunk boundaries falling inside a table are exactly where the 5% cell-error budget gets spent.",
+    "cheapest_way_to_test_that_assumption": "Run 30 saved conjugator pages through the same model weights in a desktop harness against hand-labelled ground truth and count cell-level errors by chunk position - one weekend, $0, and it happens before a single line of app code.",
+    "_economics_note": "price_month is the $14.99 one-time purchase amortised over an assumed 24-month install life. Inference is genuinely $0 - nothing leaves the handset, there is no server, so gross margin is the App Store cut and nothing else. The risk here is unit volume, not unit economics: 1,500 units at $14.99 is about $15,700 net, which recovers the build but does not fund a second language."
+  },
+  "text": "",
+  "usage": {}
+}

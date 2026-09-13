@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "economics_attacker",
+    "attack": "This is the one in the set that keeps a real per-user cloud bill, so both halves bite. At the stated 3% conversion each $8/month payer nets $5.60 after the store fee and carries roughly 33 free households, and a free household is 2-3 siblings dictating and querying a growing record; at even $0.05-0.15 per free household per month that is $1.65-5.00 of carried cost, leaving $0.60-3.95 of monthly contribution per payer. Against a $20-80 cost per paying user that is a 5 to 130 month payback on a product whose own kill line concedes entries may fall below 4 per month by month 3, and buying iOS installs at $5.84 against 3% conversion is $195 per payer, or 49 months of contribution at the optimistic end.",
+    "strongest_defence": "Cap the free tier hard (30-day history, a handful of queries) so the 33:1 carry collapses to near zero, price at $12-15 for a multi-sibling household rather than $8, and rely on invite_for_function so the second and third sibling arrive at zero CAC inside an already-acquired household.",
+    "verdict": "wounded",
+    "verdict_reason": "Free-tier inference carry plus a $20-80 CPPU against $5.60 net per payer makes the stated configuration unpayable, though a capped free tier and a higher household price bring it back into range."
+  },
+  "text": "",
+  "usage": {}
+}

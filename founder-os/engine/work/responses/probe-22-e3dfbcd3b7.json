@@ -1,0 +1,20 @@
+{
+  "parsed": {
+    "kind": "concierge",
+    "hypothesis": "A second-generation British Punjabi or Gujarati adult will do the awkward thing the whole product depends on - actually ask their grandmother to sit and record 50 phrases in her own voice - and will then still be drilling those clips two weeks later, after the emotion of the recording session has worn off.",
+    "falsifier": "Of 5 recruited people, fewer than 3 return usable audio of at least 20 phrases in the named grandmother's own voice within 7 days of saying yes; OR fewer than 3 of 5 answer the daily drill on at least 8 of the 14 days, with at least 2 of those answers falling in the second week. Either outcome kills it: the first means the study material cannot be collected, the second means the drill does not survive the novelty.",
+    "budget_usd": 0,
+    "days": 21,
+    "exactly_what_to_do": [
+      "Saturday morning: post one honest recruiting message ('I am building a thing to help me talk to my Nani - want 5 people to test it by hand, no app, just WhatsApp') in r/ABCDesis, r/britishasian and two UK Punjabi/Gujarati Facebook groups, and DM it to 10 people you already know in that bracket. Stop at the first 5 who name a specific living relative and the language.",
+      "Same day: send each of the 5 a fixed list of 50 Sunday-phone-call phrases in English ('have you eaten', 'how is your knee', 'I will call again next week') and one instruction: get your grandmother on the phone or visit her, and send me a WhatsApp voice note of her saying each one. Log the exact date and hour each person said yes.",
+      "Record two things per person in a spreadsheet: days elapsed until the first voice note arrives, and how many of the 50 phrases they actually got. Anyone who has sent nothing by day 7 counts as a fail - do not chase them a second time, the chasing is the thing you are measuring.",
+      "From the day their audio lands, send that person 5 of their own grandmother's clips on WhatsApp at 8pm daily for 14 days. Grade by hand: they reply with what they think it means, you reply correct or not, and you re-send the ones they missed 2 days later and the ones they got 6 days later. This is the spaced repetition, done by you.",
+      "Tick a box each night for each person: answered, or did not. Do not send reminders, do not gamify, do not apologise for a missed day - a silent day must be allowed to stay silent or the retention number is yours, not theirs.",
+      "On day 21 ask each person one question and write the answer verbatim: 'since we started, have you spoken to her more, less, or the same?' Count only the ones who can name a specific extra conversation."
+    ],
+    "what_it_cannot_tell_you": "Nothing about money. Five people you personally cajoled into a free hand-run experiment will not tell you whether anyone pays a subscription, and the grandmother's voice makes the trial emotionally loaded in a way a paywall is not. It also cannot tell you the two things in the kill list that are structural rather than behavioural: whether on-device inference actually runs on the handsets this audience owns, and whether temples, gurdwaras and family group chats will supply sign-ups - you hand-recruited these five, so you have tested the drill, not the channel."
+  },
+  "text": "",
+  "usage": {}
+}

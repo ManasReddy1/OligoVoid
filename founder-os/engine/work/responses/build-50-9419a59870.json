@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "iOS 18+ first (Swift/SwiftUI), Android in v2 because sibling households are mixed-platform. On-device SFSpeechRecognizer with a custom contextual-strings vocabulary of the household's actual drug names ($0), audio clip retained in the record for audit. Attribution is device identity plus signed-in seat, not voice biometrics. ActivityKit push-to-start Live Activity for the dose window, App Intent for the in-place I gave it button. Backend: Supabase Postgres, append-only dose ledger with corrections as new rows, ~$25/mo, plus a small APNs service. StoreKit 2, App Store.",
+    "milestones": [
+      "Week 1-2: append-only household ledger - dose events, seat attribution, corrections-as-new-rows, and a PDF/CSV export that a family could hand to a GP.",
+      "Week 3-4: spoken capture with household drug vocabulary, on-device transcription, slot extraction (which med, what time, who), and a confirmation glance that takes under three seconds.",
+      "Week 5-6: the shared surface - dose Live Activity pushed to every seat, remote start, answered in place, with widget and notification fallbacks when the Live Activity is throttled or dismissed.",
+      "Week 7-8: second-sibling invite flow designed for a 60-year-old on a mixed device, plus duplicate-dose detection and warning when two seats log the same window.",
+      "Week 9: paywall, TestFlight with 15 real multi-sibling households, instrumented for second-sibling-in-14-days, typed-vs-spoken ratio, and month-3 retention."
+    ],
+    "build_cost_usd": 3300,
+    "weeks_to_v1": 9,
+    "inference_cost_user_month": 0.01,
+    "price_month": 8.99,
+    "expected_conversion": 0.035,
+    "riskiest_technical_assumption": "That on-device speech recognition reliably captures drug names and dose times from older adults in a noisy kitchen - generic on-device ASR mangles pharmaceutical names badly, and in an audit record a misheard line is worse than a missing one because the family now trusts something wrong.",
+    "cheapest_way_to_test_that_assumption": "One week and about $150 in participant vouchers: record 200 real spoken dose lines from 10 caregivers aged 45-75 in their own kitchens, run them through Apple's on-device recogniser with and without a contextual drug vocabulary, and count word-error on the drug name and time slots only."
+  },
+  "text": "",
+  "usage": {}
+}

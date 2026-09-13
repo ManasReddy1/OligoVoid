@@ -1,0 +1,25 @@
+{
+  "parsed": {
+    "checks": {
+      "A": {
+        "q1": true,
+        "q2": false,
+        "q3": true,
+        "q4": true,
+        "q5": true
+      },
+      "B": {
+        "q1": true,
+        "q2": true,
+        "q3": true,
+        "q4": true,
+        "q5": true
+      }
+    },
+    "winner": "B",
+    "margin": "narrow",
+    "reason": "Hours Book charges once to a teenage cohort whose need ends at the driving test, so it must resell thousands of copies a month forever, while Sunday Plot Briefing accumulates subscribers through allotment societies despite its seasonal dip."
+  },
+  "text": "",
+  "usage": {}
+}

@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "incumbent_response",
+    "attack": "Apple is the incumbent and it already ships three versions of this: Journaling Suggestions surfaces people you have not been in touch with lately, Contacts and Siri Suggestions surface 'call Mum', and Reminders already fires on a Focus change. The decisive point is the other half: iOS exposes no call log and no Messages history to third parties, so 'a day where contact already happened produces nothing at all' is implementable only by the company that owns CallKit and iMessage. Kill criterion one, more than one in five real calls going undetected, is therefore not a risk to be measured but the shape of the API surface, and it is exactly what killed Donna, Humin and Refresh, all of which wanted a last-contacted date the OS would not give them.",
+    "strongest_defence": "Detection does not have to be inferred: the Live Activity's own call button places the call, so every call the product prompted is known by construction, and a single 'already spoke' tap covers the rest without becoming a database the user maintains. The three-person cap means the residual error is three people, not a contact list.",
+    "verdict": "fatal",
+    "verdict_reason": "The one property that makes this a prompt rather than noise depends on call and message history only Apple can read, and Apple already ships the deferential version of the prompt itself."
+  },
+  "text": "",
+  "usage": {}
+}

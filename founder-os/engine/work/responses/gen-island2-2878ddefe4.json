@@ -1,0 +1,190 @@
+{
+  "parsed": {
+    "reasoning": "Start with which pains here have a workaround, because a workaround is proof someone is already paying a cost by hand. [236] keeps a calendar of birthdays purely to force one contact a year with people they care about \u2014 that is a person doing manual bookkeeping against their own forgetting, and the quote says the failure is not affection, it is that the remembering happens at an hour when a call is impossible and the impulse dies there. [243] is the same job attempted with a proper tool and abandoned: the friction of another specialised app meant the record went stale, and a stale record is worth nothing. Note what [243] fell back to \u2014 Google Contacts with birthday reminders. Same manual ledger as [236]. Two independent people reinventing the same workaround is the strongest signal in this block. [264] and [250] sharpen it: a nudge is only useful inside the narrow window where acting is still possible, and [250] says a reminder that lands after that window is what causes the miss, not a lack of reminders. [257] is the same complaint in space rather than time \u2014 reached in a room where they cannot act. So the evidenced failure mode is timing and place, not memory. [229] is the one piece of evidence about several people sharing one obligation: a group with a common pot has no authoritative record and ends up reading raw activity history and redoing the arithmetic by hand. [222] shows a population that already sustains a daily review ritual and will export to CSV and hand-import to keep it. [12] gives a population awake at hours when wellbeing software assumes everyone is asleep.\n\nNow the honest problem with this whole area. A keep-in-touch app shut in April 2026 saying it worked as a product and failed as a business, and the earlier contacts apps were bought for their teams and switched off. I take that seriously rather than around it. Two things were true of all of them: they were single-player, so nobody but the user ever noticed the upkeep stopping, and they all needed to know when you last spoke to someone. On iOS that number does not exist. There is no contact-recency signal to read. So any design that quietly watches for silence is dead on the platform, whatever the funding. What the platform does expose, and did not before, is different in kind: [305] HealthKit background delivery as a legitimate way for an app to wake itself, [308] Focus filters so an app can see the user has gone into Sleep or Work, [299] a background intent that is no longer capped at thirty seconds, [306] Live Activities that can be started and updated from outside the app, and [298] Siri composing across third-party intents. Those are all signals about the user's own state and the clock, not about their relationships. Recency has to come from somewhere else: from another person tapping, from a ritual the user already sits down to, or from time-zone arithmetic. That is the whole design constraint.\n\nOn cost, [311] and [1] mean a small developer under two million downloads pays nothing for cloud inference on Private Cloud Compute, [2] and [310] mean a capable model with vision runs on the handset at zero marginal cost, and [4] puts spoken conversation at half a penny to two pence a minute. So the thirty-pence-per-user ceiling is not the binding constraint any more; distribution is. With no advertising budget the only loops that work are ones where a second person has to be present for the thing to function, or where the product sits inside a ritual a community already runs.\n\nWhich populations are reachable. Adult siblings sharing care of an ageing parent find each other by definition \u2014 they are already in a group thread. Parents of small children with friends abroad are in [236] verbatim. Teachers with daily review decks are in [222] and congregate in public forums around that software. Night-shift hospital staff are in [12] and have the strongest claim of all: they are conscious at hours when nobody they love is. I would not touch the disordered-eating case [19] or the miscarriage case [13] with a nudging product; both quotes are about software insisting at the wrong moment, which is exactly the harm a relationship prompter risks causing.\n\nThe transport I keep coming back to: mechanics that already survive without enthusiasm. A shared kitty and a settle-up ledger works because someone else is watching the entry. A morning shift brief works because it is prepared for you and read at a fixed hour. A review deck works because the reviewing is the maintenance, not a chore on top of it. Held post works because the depot decides when to deliver, not the sender. None of those depend on the software knowing how long it has been since you spoke.",
+    "candidates": [
+      {
+        "title": "Call Rota for Siblings",
+        "probability": 0.34,
+        "unlock": {
+          "value": "A Live Activity can now be started and updated from outside the app, so whose turn it is can sit on three siblings' lock screens without any of them opening anything, and the summarising of each logged call runs at zero cloud cost on Private Cloud Compute under the small-developer programme.",
+          "signal_ids": [
+            306,
+            311,
+            1
+          ]
+        },
+        "pain": {
+          "value": "A group carrying one shared obligation has no authoritative record of who did what, so they end up reading raw activity history and redoing the arithmetic by hand, and the same job attempted in a single-player tool goes stale within months because the upkeep is unsustained.",
+          "signal_ids": [
+            229,
+            243
+          ]
+        },
+        "audience": {
+          "value": "Adult siblings splitting weekly check-in calls to one ageing parent"
+        },
+        "mechanic": {
+          "value": "shared_ledger"
+        },
+        "wedge": {
+          "value": "Three siblings, one parent: after a call you tap once and dictate ten seconds \u2014 'rang Tuesday, nine minutes, she said her knee is worse' \u2014 and the only shared view is a single line of who rang last and who is up next."
+        },
+        "moat": {
+          "value": "social_graph"
+        },
+        "model": {
+          "value": "freemium_subscription"
+        },
+        "loop": {
+          "value": "invite_for_function"
+        },
+        "kill": [
+          "Fewer than 40% of installed groups get a second sibling to accept and post one entry within 7 days.",
+          "Median entries per member drop below 1 per week by week 6, which is the stale-record failure in [243] repeating.",
+          "Groups of 3 or more settle at under 2 logged calls per month, i.e. no better than the once-a-year birthday-calendar workaround in [236].",
+          "Paid conversion below 3% of active groups at 90 days."
+        ],
+        "why_now": "The remotely started, remotely updated Live Activity [306] means the shared state is visible at a glance on every sibling's lock screen without any of them maintaining an app, which is the exact upkeep cost that killed the single-player version in [243].",
+        "why_not_obvious": "This is the opposite of the contacts apps that were bought out and switched off and of the keep-in-touch app that closed in April 2026: those were all one person minding a private list, and all of them wanted a last-contacted date that iOS does not expose \u2014 here recency is produced by a sibling's tap, so the product never needs a platform signal and the upkeep has a witness who notices when it stops."
+      },
+      {
+        "title": "Callable Window Brief",
+        "probability": 0.28,
+        "unlock": {
+          "value": "A background intent is no longer capped at thirty seconds [299] and Focus filters let the app read that the person has come out of Sleep or Work [308], so a prepared brief can be assembled and delivered at the moment a free slot and a friend's waking hours actually overlap, rather than at a fixed time the user guessed at.",
+          "signal_ids": [
+            299,
+            308,
+            306
+          ]
+        },
+        "pain": {
+          "value": "People who care about friends abroad do remember them, but the remembering happens at an hour when calling is impossible and the impulse dies there, and a prompt that lands outside the narrow window when acting is still possible is what causes the miss.",
+          "signal_ids": [
+            236,
+            264,
+            250
+          ]
+        },
+        "audience": {
+          "value": "Parents of under-fives whose closest friends live three or more time zones away"
+        },
+        "mechanic": {
+          "value": "scheduled_digest"
+        },
+        "wedge": {
+          "value": "One forty-second brief each morning naming at most three people whose waking hours overlap a gap already free in your calendar today, with the overlap stated in both clocks and nothing else in it."
+        },
+        "moat": {
+          "value": "habit_lock"
+        },
+        "model": {
+          "value": "freemium_subscription"
+        },
+        "loop": {
+          "value": "shareable_artifact"
+        },
+        "kill": [
+          "Fewer than 25% of briefs are opened within 30 minutes of delivery by week 4.",
+          "Calls or messages actually placed inside a named window stay under 1 per user per week at day 60.",
+          "More than 15% of users move the brief time twice or disable it outright, which means the window is being computed wrongly.",
+          "Paid conversion below 3% at 90 days."
+        ],
+        "why_now": "Longer background execution plus Focus state [299][308] means the overlap can be worked out and delivered at the one hour it is actionable, which is precisely the failure named in [250] and [264].",
+        "why_not_obvious": "The obvious suggestion for this audience is a reminder app, but the evidence says the reminder is not missing \u2014 the hour is [250][264]; and unlike the contacts apps that died needing a last-contacted date, the overlap here is arithmetic on time zone and calendar free/busy, both of which the platform does hand over."
+      },
+      {
+        "title": "People Cards in the Daily Deck",
+        "probability": 0.2,
+        "unlock": {
+          "value": "A vision-capable model runs entirely on the handset at zero marginal cost [2][310], so a screenshot of a message thread can be turned into two or three plain recall cards without a server, an account, or a per-card fee, and the small-developer programme covers anything that does need the cloud [1].",
+          "signal_ids": [
+            2,
+            310,
+            1
+          ]
+        },
+        "pain": {
+          "value": "A specialised relationship tool gets abandoned within months because nobody sustains the manual upkeep, while the same population will export to CSV and hand-import decks mid-semester to keep a review ritual they already run.",
+          "signal_ids": [
+            243,
+            222
+          ]
+        },
+        "audience": {
+          "value": "K-12 teachers who already sit down to a daily spaced-repetition review"
+        },
+        "mechanic": {
+          "value": "spaced_repetition"
+        },
+        "wedge": {
+          "value": "Thirty cards, one fact per person \u2014 a colleague's son's name, which parent works nights \u2014 dropped into the review session they already do each morning, in the same deck format they already export and import."
+        },
+        "moat": {
+          "value": "switching_cost_of_history"
+        },
+        "model": {
+          "value": "one_time_purchase"
+        },
+        "loop": {
+          "value": "community_embed"
+        },
+        "kill": [
+          "Fewer than 30% of buyers still have people cards in their daily review at day 60.",
+          "Median deck stops growing past 20 cards, meaning the card-making step is the friction named in [243].",
+          "Under 2% of the forum threads where the CSV workaround in [222] is discussed produce a single install in the first 8 weeks.",
+          "Refund requests exceed 10% of purchases."
+        ],
+        "why_now": "On-device vision [2][310] means a card can be made from a screenshot in a second with no typing, which removes the manual upkeep step that [243] says is why the tool went stale.",
+        "why_not_obvious": "Nobody proposes flashcards for friendship, and that is the point of the transfer: the forgetting curve does not care whether the fact is a French verb or that your neighbour's mother is in hospital, and because the review is the maintenance rather than a chore stacked on top of it, this never becomes the separate app that the 2026 keep-in-touch closure and the earlier contacts acqui-hires all had to be \u2014 it also never asks the phone when you last spoke to anyone."
+      },
+      {
+        "title": "Held Voice Notes for Night Shift",
+        "probability": 0.18,
+        "unlock": {
+          "value": "HealthKit background delivery is one of the few legitimate ways an app can wake itself [305] and Focus filters expose when someone enters or leaves Sleep [308], so a recorded note can be held and released at the recipient's own waking moment, with speech handled at half a penny to two pence a minute [4].",
+          "signal_ids": [
+            305,
+            308,
+            4
+          ]
+        },
+        "pain": {
+          "value": "Rotating-shift hospital and emergency workers say wellbeing software simply ignores that their waking hours are inverted, and the general failure it produces is remembering someone at an hour when contacting them is impossible.",
+          "signal_ids": [
+            12,
+            236
+          ]
+        },
+        "audience": {
+          "value": "Night-shift hospital nurses on rotating rosters"
+        },
+        "mechanic": {
+          "value": "async_social"
+        },
+        "wedge": {
+          "value": "On a 03:40 break, record one thirty-second note to one friend; it is held and delivered when that friend's own phone reports they are up, and it is never delivered into their night."
+        },
+        "moat": {
+          "value": "accumulated_personal_corpus"
+        },
+        "model": {
+          "value": "freemium_subscription"
+        },
+        "loop": {
+          "value": "invite_for_function"
+        },
+        "kill": [
+          "Fewer than 50% of first notes have their recipient install and listen within 72 hours.",
+          "Median held-delivery error is worse than 60 minutes against the recipient's actual wake time, which makes it no better than sending a WhatsApp voice note.",
+          "Senders fall below 2 notes per roster week by week 8.",
+          "Paid conversion below 3% at 90 days."
+        ],
+        "why_now": "HealthKit background delivery and Focus state [305][308] are the first signals that let an app know a recipient is awake without the recipient doing anything, which is the missing half of the problem in [12] and [236].",
+        "why_not_obvious": "The instinct is to tell shift workers to just send a voice message, but the evidence in [12] is that the inversion itself is what software ignores, and the transferred mechanic is the sorting depot rather than the postbox \u2014 the sender is freed from choosing the hour; note also that this reads only the wake signals the platform publishes and never asks how long it has been since these two spoke, which is the signal the dead contacts apps all assumed existed."
+      }
+    ]
+  },
+  "text": "",
+  "usage": {}
+}

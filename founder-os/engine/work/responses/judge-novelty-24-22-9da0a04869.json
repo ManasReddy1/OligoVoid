@@ -1,0 +1,25 @@
+{
+  "parsed": {
+    "checks": {
+      "A": {
+        "q1": true,
+        "q2": true,
+        "q3": true,
+        "q4": true,
+        "q5": true
+      },
+      "B": {
+        "q1": true,
+        "q2": true,
+        "q3": false,
+        "q4": true,
+        "q5": true
+      }
+    },
+    "winner": "B",
+    "margin": "clear",
+    "reason": "The weekly photo digest sent to distant grandparents already ships as printed gazettes and connected frames, while a relative's own recorded voice as the drill corpus is unshipped."
+  },
+  "text": "",
+  "usage": {}
+}

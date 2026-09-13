@@ -1,0 +1,628 @@
+{
+  "note": "Indexed by the BELIEF each line refutes, not by theme. Attribution is stated honestly: 'verified' means the wording and source are well documented; 'commonly attributed' means the sentiment is real but the exact wording or speaker is contested; 'misattributed' means the popular attribution is wrong and the real one is given.",
+  "entries": [
+    {
+      "id": "idea-exists",
+      "belief": "My idea already exists, so there is no point doing it.",
+      "tags": [
+        "creative",
+        "starting",
+        "originality",
+        "writing",
+        "startup"
+      ],
+      "quote": "Everything has been thought of before, but the problem is to think of it again.",
+      "who": "Johann Wolfgang von Goethe",
+      "source": "Maxims and Reflections",
+      "attribution": "commonly attributed",
+      "refutation": "Existence is not the bar. Nobody has thought it again, in this decade, with your specifics. The seven basic plots were named in 1859 and people still queue for films.",
+      "move": "Write one paragraph naming what YOUR version does that the existing one does not. Ten minutes.",
+      "phrasings": [
+        "someone already made this",
+        "my script feels like a film that already came out",
+        "this has been done before",
+        "it's derivative, unoriginal"
+      ]
+    },
+    {
+      "id": "idea-obvious",
+      "belief": "If this were a good idea someone would already have done it.",
+      "tags": [
+        "startup",
+        "starting",
+        "originality"
+      ],
+      "quote": "What important truth do very few people agree with you on?",
+      "who": "Peter Thiel",
+      "source": "Zero to One (2014)",
+      "attribution": "verified",
+      "refutation": "The question is not whether it is obvious. It is whether it is obvious AND agreed with. Obvious-but-disbelieved is the only place a small team wins.",
+      "move": "Write the sentence most people would disagree with. If nobody would argue, the idea is the problem, not you.",
+      "phrasings": [
+        "it seems too obvious",
+        "surely a big company would have built this",
+        "why hasn't anyone done it"
+      ]
+    },
+    {
+      "id": "look-for-ideas",
+      "belief": "I need to sit down and think of a better idea.",
+      "tags": [
+        "startup",
+        "stuck",
+        "creative"
+      ],
+      "quote": "The way to get startup ideas is not to try to think of startup ideas. It's to look for problems, preferably problems you have yourself.",
+      "who": "Paul Graham",
+      "source": "How to Get Startup Ideas (2012)",
+      "attribution": "verified",
+      "refutation": "Ideas generated on demand are ideas from memory, so they are everyone's ideas. The ones worth having come from friction you personally hit.",
+      "move": "List three things that annoyed you this week. Do not judge them. Ten minutes.",
+      "phrasings": [
+        "I need a better idea",
+        "brainstorming isn't working",
+        "I can't think of anything good"
+      ]
+    },
+    {
+      "id": "work-is-bad",
+      "belief": "What I am making is bad, so I must not be any good at this.",
+      "tags": [
+        "creative",
+        "writing",
+        "quitting",
+        "self-doubt"
+      ],
+      "quote": "All of us who do creative work, we get into it because we have good taste. But there is this gap. For the first couple years you make stuff, it's just not that good. But your taste, the thing that got you into the game, is still killer.",
+      "who": "Ira Glass",
+      "source": "interview for Current TV's 'The Gap' (2009)",
+      "attribution": "verified",
+      "refutation": "The disappointment is your taste working correctly on work that has not caught up yet. Losing the taste would be the bad outcome, not this.",
+      "move": "Finish the bad version anyway. Volume closes the gap; judgement does not.",
+      "phrasings": [
+        "everything I write is terrible",
+        "my work is rubbish",
+        "maybe I'm not a writer",
+        "I'm not talented enough",
+        "this is embarrassing to look at"
+      ]
+    },
+    {
+      "id": "must-be-good-now",
+      "belief": "It has to be good when it comes out or there is no point writing it.",
+      "tags": [
+        "writing",
+        "creative",
+        "perfectionism"
+      ],
+      "quote": "Almost all good writing begins with terrible first efforts. You need to start somewhere.",
+      "who": "Anne Lamott",
+      "source": "Bird by Bird (1994)",
+      "attribution": "verified",
+      "refutation": "You are trying to do drafting and editing in the same pass. They are different jobs and doing both at once produces neither.",
+      "move": "Write the worst possible version on purpose. Give yourself permission out loud. Ten minutes.",
+      "phrasings": [
+        "the first draft has to be good",
+        "I can't write badly",
+        "every sentence has to land"
+      ]
+    },
+    {
+      "id": "too-much",
+      "belief": "There is too much to do and I do not know where to start.",
+      "tags": [
+        "overwhelm",
+        "starting",
+        "planning"
+      ],
+      "quote": "Bird by bird, buddy. Just take it bird by bird.",
+      "who": "Anne Lamott's father, quoted in Bird by Bird",
+      "source": "Bird by Bird (1994)",
+      "attribution": "verified",
+      "refutation": "Overwhelm is a symptom of looking at the whole thing at once. The whole thing is not an action and never was.",
+      "move": "Name the single smallest piece that is genuinely doable right now. Do only that.",
+      "phrasings": [
+        "there's too much to do",
+        "I don't know where to begin",
+        "the list is enormous",
+        "overwhelmed"
+      ]
+    },
+    {
+      "id": "dont-want-to-get-up",
+      "belief": "I do not want to get out of bed.",
+      "tags": [
+        "morning",
+        "alarm",
+        "discipline"
+      ],
+      "quote": "At dawn, when you have trouble getting out of bed, tell yourself: I have to go to work — as a human being. What do I have to complain of, if I'm going to do what I was born for?",
+      "who": "Marcus Aurelius",
+      "source": "Meditations 5.1 (Hays translation)",
+      "attribution": "verified",
+      "refutation": "He wrote this because he had the same problem, as emperor of Rome, two thousand years ago. The reluctance is not evidence of a defect.",
+      "move": "Feet on the floor. That is the whole instruction. The rest follows or it does not.",
+      "phrasings": [
+        "I want to hit snooze",
+        "can't get out of bed",
+        "five more minutes",
+        "turning the alarm off",
+        "too early"
+      ]
+    },
+    {
+      "id": "not-inspired",
+      "belief": "I do not feel inspired right now.",
+      "tags": [
+        "creative",
+        "starting",
+        "excuses"
+      ],
+      "quote": "Inspiration is for amateurs — the rest of us just show up and get to work.",
+      "who": "Chuck Close",
+      "source": "widely quoted from interviews and talks",
+      "attribution": "verified",
+      "refutation": "Inspiration follows work far more often than it precedes it. Waiting for the feeling is how the feeling is prevented.",
+      "move": "Work for ten minutes badly. If it is still dead after ten, stop guilt-free.",
+      "phrasings": [
+        "I don't feel like it",
+        "no inspiration",
+        "not in the mood",
+        "waiting to feel ready"
+      ]
+    },
+    {
+      "id": "keep-putting-off",
+      "belief": "I keep putting this off and I do not know why.",
+      "tags": [
+        "procrastination",
+        "avoidance",
+        "fear"
+      ],
+      "quote": "The more important a call or action is to our soul's evolution, the more Resistance we will feel toward pursuing it.",
+      "who": "Steven Pressfield",
+      "source": "The War of Art (2002)",
+      "attribution": "verified",
+      "refutation": "The avoidance is a compass, not a verdict. You are not avoiding it because it is unimportant. You are avoiding it because it is.",
+      "move": "Whatever the task is, do the first ninety seconds of it. Open the file. Dial the number. Stop after.",
+      "phrasings": [
+        "I keep delaying this",
+        "procrastinating again",
+        "been avoiding this for weeks",
+        "I'll do it tomorrow"
+      ]
+    },
+    {
+      "id": "not-ready",
+      "belief": "It is not ready to show anyone yet.",
+      "tags": [
+        "shipping",
+        "perfectionism",
+        "startup"
+      ],
+      "quote": "If you are not embarrassed by the first version of your product, you've launched too late.",
+      "who": "Reid Hoffman",
+      "source": "widely quoted, LinkedIn founding lore",
+      "attribution": "verified",
+      "refutation": "Nothing you learn in private is worth what you learn in the first hour of contact with a real user. Polish is the cheapest thing to add later.",
+      "move": "Show it to exactly one person today. Not a launch. One person.",
+      "phrasings": [
+        "it isn't finished",
+        "not ready to show anyone",
+        "needs more work before launch"
+      ]
+    },
+    {
+      "id": "perfectionism",
+      "belief": "It is nearly right, I just need one more pass.",
+      "tags": [
+        "perfectionism",
+        "shipping"
+      ],
+      "quote": "The best is the enemy of the good.",
+      "who": "Voltaire",
+      "source": "La Bégueule (1772), quoting an Italian proverb",
+      "attribution": "verified",
+      "refutation": "The marginal pass is costing more than it adds, and you already know that, which is why you are reading this instead of doing the pass.",
+      "move": "Set a timer for fifteen minutes. When it ends, it ships as it is.",
+      "phrasings": [
+        "one more pass",
+        "almost right",
+        "just needs polish",
+        "not quite perfect yet"
+      ]
+    },
+    {
+      "id": "one-day-off",
+      "belief": "Missing one day will not matter.",
+      "tags": [
+        "habits",
+        "discipline",
+        "streak"
+      ],
+      "quote": "We are what we repeatedly do. Excellence, then, is not an act, but a habit.",
+      "who": "Will Durant, summarising Aristotle",
+      "source": "The Story of Philosophy (1926)",
+      "attribution": "misattributed — usually credited to Aristotle; the wording is Durant's",
+      "refutation": "One day genuinely does not matter. Two is how the identity changes. The rule that works is: never miss twice.",
+      "move": "If you have already missed today, do a two-minute version now so that tomorrow is not the second miss.",
+      "phrasings": [
+        "I missed yesterday",
+        "broke the streak",
+        "skipping today won't matter",
+        "already off track"
+      ]
+    },
+    {
+      "id": "need-motivation",
+      "belief": "I just need to find more motivation.",
+      "tags": [
+        "discipline",
+        "habits",
+        "excuses"
+      ],
+      "quote": "You do not rise to the level of your goals. You fall to the level of your systems.",
+      "who": "James Clear",
+      "source": "Atomic Habits (2018)",
+      "attribution": "verified",
+      "refutation": "Motivation is an output, not an input. You are trying to summon the thing that was supposed to be produced by starting.",
+      "move": "Change one thing about the environment instead of your feelings. Phone in another room. Editor already open.",
+      "phrasings": [
+        "I need motivation",
+        "no willpower",
+        "can't make myself",
+        "lost discipline"
+      ]
+    },
+    {
+      "id": "busy-but-nothing",
+      "belief": "I am busy all day but nothing important is moving.",
+      "tags": [
+        "work",
+        "priorities",
+        "planning"
+      ],
+      "quote": "If you do not work on an important problem, it's unlikely you'll do important work.",
+      "who": "Richard Hamming",
+      "source": "You and Your Research (1986 lecture at Bell Labs)",
+      "attribution": "verified",
+      "refutation": "Busy is not the opposite of idle; it is a different way of avoiding the problem that would actually count. Hamming's point is that people work on what is open, not on what matters.",
+      "move": "Name the one important problem in your field you are NOT working on. Write why not. That sentence is usually the real task.",
+      "phrasings": [
+        "busy all day but nothing done",
+        "spinning wheels",
+        "no real progress",
+        "all admin no work"
+      ]
+    },
+    {
+      "id": "read-more-first",
+      "belief": "I should read and research more before I start.",
+      "tags": [
+        "learning",
+        "starting",
+        "procrastination"
+      ],
+      "quote": "What I cannot create, I do not understand.",
+      "who": "Richard Feynman",
+      "source": "found on his blackboard at the time of his death, 1988",
+      "attribution": "verified",
+      "refutation": "Reading feels like progress and produces none that survives contact. Understanding arrives on the far side of making, not before it.",
+      "move": "Build the smallest broken version. Let the gaps tell you what to read.",
+      "phrasings": [
+        "I should study more first",
+        "need to research before starting",
+        "don't know enough yet"
+      ]
+    },
+    {
+      "id": "conditions-wrong",
+      "belief": "I will do it properly once my conditions are better.",
+      "tags": [
+        "excuses",
+        "starting",
+        "environment"
+      ],
+      "quote": "You do not need to leave your room. Remain sitting at your table and listen. Do not even listen, simply wait, be quiet, still and solitary. The world will freely offer itself to you to be unmasked.",
+      "who": "Franz Kafka",
+      "source": "The Zürau Aphorisms",
+      "attribution": "verified",
+      "refutation": "Better conditions are a receding target by design; each time you arrive, the bar moves. The work has to be possible from where you are.",
+      "move": "Do the version that is possible in the conditions you have right now, at whatever quality that allows.",
+      "phrasings": [
+        "when things settle down",
+        "once I have a proper desk",
+        "when life is less chaotic",
+        "need a better setup"
+      ]
+    },
+    {
+      "id": "editing-while-writing",
+      "belief": "I keep rewriting the first paragraph and cannot get past it.",
+      "tags": [
+        "writing",
+        "creative",
+        "perfectionism"
+      ],
+      "quote": "Don't try to create and analyze at the same time. They're different processes.",
+      "who": "Sister Corita Kent",
+      "source": "Immaculate Heart College Art Department Rules, Rule 8 (c. 1967–68)",
+      "attribution": "verified",
+      "refutation": "You are running two incompatible processes on the same sentence. That loop has no exit, which is why you are still in it.",
+      "move": "Turn the screen brightness down or cover the text. Write the next section without looking back.",
+      "phrasings": [
+        "stuck on the first paragraph",
+        "keep rewriting the opening",
+        "can't get past the first page"
+      ]
+    },
+    {
+      "id": "afraid-it-fails",
+      "belief": "I am afraid it will fail and I will have wasted the time.",
+      "tags": [
+        "fear",
+        "starting",
+        "risk"
+      ],
+      "quote": "We suffer more often in imagination than in reality.",
+      "who": "Seneca",
+      "source": "Letters to Lucilius, Letter 13",
+      "attribution": "verified",
+      "refutation": "The version in your head is more expensive than the real one, and you have already paid for it several times.",
+      "move": "Write down the actual worst case in concrete terms — money, weeks, who finds out. It is usually smaller on paper.",
+      "phrasings": [
+        "what if it fails",
+        "scared of wasting time",
+        "it might not work",
+        "anxious about it"
+      ]
+    },
+    {
+      "id": "what-others-think",
+      "belief": "People will think it is stupid.",
+      "tags": [
+        "fear",
+        "shipping",
+        "judgement"
+      ],
+      "quote": "Men are disturbed not by the things which happen, but by the opinions about the things.",
+      "who": "Epictetus",
+      "source": "Enchiridion, 5",
+      "attribution": "verified",
+      "refutation": "You are not afraid of the thing. You are afraid of a judgement you are currently supplying yourself, for free, on their behalf.",
+      "move": "Send it to one person who is on your side. Get one real reaction to replace the imagined ones.",
+      "phrasings": [
+        "people will judge me",
+        "they'll think it's stupid",
+        "afraid of looking foolish"
+      ]
+    },
+    {
+      "id": "try-many-things",
+      "belief": "I should be trying lots of different things to find what works.",
+      "tags": [
+        "focus",
+        "discipline",
+        "priorities"
+      ],
+      "quote": "I fear not the man who has practiced 10,000 kicks once, but I fear the man who has practiced one kick 10,000 times.",
+      "who": "Bruce Lee",
+      "source": "widely attributed; exact wording not traced to a published text",
+      "attribution": "commonly attributed",
+      "refutation": "Breadth is how you avoid the discomfort of being measurably mediocre at one thing for a while. Depth is where the compounding lives.",
+      "move": "Pick the one you would keep if forced. Put the others on a written list for later, then close them.",
+      "phrasings": [
+        "maybe I should try something else",
+        "keep switching projects",
+        "should diversify",
+        "too many options"
+      ]
+    },
+    {
+      "id": "obstacle",
+      "belief": "Something got in the way so today is a write-off.",
+      "tags": [
+        "setback",
+        "discipline",
+        "resilience"
+      ],
+      "quote": "The impediment to action advances action. What stands in the way becomes the way.",
+      "who": "Marcus Aurelius",
+      "source": "Meditations 5.20",
+      "attribution": "verified",
+      "refutation": "The obstacle changed the shape of today, not its existence. Writing it off is a decision you are making, separate from the obstacle.",
+      "move": "Salvage twenty minutes. Not the day you planned — the day that is left.",
+      "phrasings": [
+        "today is ruined",
+        "something came up",
+        "the day got derailed",
+        "write off today"
+      ]
+    },
+    {
+      "id": "waiting-to-be-sure",
+      "belief": "I will commit once I am sure.",
+      "tags": [
+        "starting",
+        "commitment",
+        "fear"
+      ],
+      "quote": "Until one is committed, there is hesitancy, the chance to draw back. The moment one definitely commits oneself, then Providence moves too.",
+      "who": "W. H. Murray",
+      "source": "The Scottish Himalayan Expedition (1951)",
+      "attribution": "misattributed — the 'boldness has genius' couplet that follows is usually credited to Goethe; Murray wrote the passage and loosely rendered the verse",
+      "refutation": "Certainty is downstream of commitment, not upstream. You are waiting for a signal that only appears after you move.",
+      "move": "Make one irreversible small commitment today — tell someone, book the thing, put a date on it.",
+      "phrasings": [
+        "I want to be certain first",
+        "not sure enough to commit",
+        "need more confidence"
+      ]
+    },
+    {
+      "id": "not-enough-time",
+      "belief": "I do not have enough time for this.",
+      "tags": [
+        "time",
+        "excuses",
+        "priorities"
+      ],
+      "quote": "It is not that we have a short time to live, but that we waste a lot of it. Life is long enough if you know how to use it.",
+      "who": "Seneca",
+      "source": "On the Shortness of Life",
+      "attribution": "verified",
+      "refutation": "In almost every case it is not the hours, it is the fragmentation of them. Twenty protected minutes beat three scattered hours.",
+      "move": "Find twenty minutes in today that are already free. Protect them. That is the whole plan.",
+      "phrasings": [
+        "no time",
+        "too busy",
+        "the day is full",
+        "can't fit it in"
+      ]
+    },
+    {
+      "id": "research-enough",
+      "belief": "I have done enough digging, I already know the answer.",
+      "tags": [
+        "research",
+        "rigour",
+        "work"
+      ],
+      "quote": "Turn every page. Never assume anything. Turn every goddamned page.",
+      "who": "Robert Caro, quoting his editor Alan Hathway",
+      "source": "Working (2019)",
+      "attribution": "verified",
+      "refutation": "The thing that makes the work different from everyone else's is always in the part you were about to skip.",
+      "move": "Go back to the source you skimmed and read the part you skipped.",
+      "phrasings": [
+        "I've read enough",
+        "I already know the answer",
+        "no need to dig further"
+      ]
+    },
+    {
+      "id": "tired",
+      "belief": "I am too tired to do this properly.",
+      "tags": [
+        "energy",
+        "excuses",
+        "discipline"
+      ],
+      "quote": "Fatigue makes cowards of us all.",
+      "who": "Vince Lombardi",
+      "source": "used often by Lombardi; the line predates him and appears in earlier military usage",
+      "attribution": "commonly attributed",
+      "refutation": "Sometimes this is true and you should sleep. Often it is the same sentence that arrives whenever the task gets hard, at any hour.",
+      "move": "Test it. Ten minutes at low quality. If you are genuinely spent it will be obvious, and then stop without guilt.",
+      "phrasings": [
+        "too tired",
+        "exhausted",
+        "no energy tonight",
+        "drained"
+      ]
+    },
+    {
+      "id": "lost-momentum",
+      "belief": "I have lost momentum and it is hard to get back in.",
+      "tags": [
+        "habits",
+        "restart",
+        "creative"
+      ],
+      "quote": "I begin each day of my life with a ritual... The ritual is not the stretching and weight training I put my body through each morning at the gym; the ritual is the cab.",
+      "who": "Twyla Tharp",
+      "source": "The Creative Habit (2003)",
+      "attribution": "verified",
+      "refutation": "You are trying to restart the work. The thing that actually restarts is the small physical routine in front of it, which costs almost nothing.",
+      "move": "Do the pre-step only — sit at the desk, open the file, put the shoes on. Nothing else is required.",
+      "phrasings": [
+        "lost momentum",
+        "fell out of the habit",
+        "hard to get back into it",
+        "been weeks since I touched it"
+      ]
+    },
+    {
+      "id": "comparison",
+      "belief": "Other people are further ahead than me.",
+      "tags": [
+        "comparison",
+        "self-doubt",
+        "career"
+      ],
+      "quote": "Comparison is the thief of joy.",
+      "who": "commonly credited to Theodore Roosevelt",
+      "source": "no primary source has ever been found in Roosevelt's writings",
+      "attribution": "misattributed — the earliest traceable forms are much later; treat it as folk wisdom, not Roosevelt",
+      "refutation": "You are comparing your process to their result. You do not have access to their process, so the comparison has no information in it.",
+      "move": "Write down what YOU had a year ago versus now. Compare to that instead, since it is the only comparison with data.",
+      "phrasings": [
+        "everyone is ahead of me",
+        "people my age have done more",
+        "I'm behind everyone",
+        "they're doing better"
+      ]
+    },
+    {
+      "id": "no-one-cares",
+      "belief": "Nobody will care about this.",
+      "tags": [
+        "shipping",
+        "audience",
+        "self-doubt"
+      ],
+      "quote": "You can't connect the dots looking forward; you can only connect them looking backwards.",
+      "who": "Steve Jobs",
+      "source": "Stanford commencement address (2005)",
+      "attribution": "verified",
+      "refutation": "Whether anybody cares is not currently knowable, by you or anyone. You are treating an open question as a settled no.",
+      "move": "Put it in front of ten people who plausibly have the problem. Then you will have data instead of a guess.",
+      "phrasings": [
+        "nobody will care",
+        "who would even want this",
+        "no audience for it"
+      ]
+    },
+    {
+      "id": "should-plan-more",
+      "belief": "I should plan this out properly before doing anything.",
+      "tags": [
+        "planning",
+        "procrastination",
+        "starting"
+      ],
+      "quote": "No plan of operations extends with any certainty beyond the first encounter with the enemy's main strength.",
+      "who": "Helmuth von Moltke the Elder",
+      "source": "Militärische Werke (1871); popularly compressed to 'no plan survives contact with the enemy'",
+      "attribution": "verified",
+      "refutation": "Planning past the first real contact is fiction you are writing to delay the contact.",
+      "move": "Plan only up to the first thing that will teach you something. Then go and do that thing.",
+      "phrasings": [
+        "I should plan it out first",
+        "need a proper strategy before starting",
+        "map the whole thing out"
+      ]
+    },
+    {
+      "id": "starting-over",
+      "belief": "I am too far behind to start now.",
+      "tags": [
+        "starting",
+        "age",
+        "restart"
+      ],
+      "quote": "The best time to plant a tree was twenty years ago. The second best time is now.",
+      "who": "proverb, usually labelled Chinese",
+      "source": "no Chinese original has been identified; earliest English appearances are twentieth century",
+      "attribution": "misattributed — origin unknown; the reasoning stands regardless of who said it",
+      "refutation": "The time that has passed is sunk. It is in the cost of every option including the one where you do nothing.",
+      "move": "Start the beginner version today rather than the version you would have had. It is the only one available.",
+      "phrasings": [
+        "too late for me",
+        "I'm too old",
+        "should have started years ago",
+        "too far behind to begin"
+      ]
+    }
+  ]
+}

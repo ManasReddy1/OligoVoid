@@ -1,0 +1,25 @@
+{
+  "parsed": {
+    "checks": {
+      "A": {
+        "q1": true,
+        "q2": true,
+        "q3": true,
+        "q4": false,
+        "q5": false
+      },
+      "B": {
+        "q1": true,
+        "q2": true,
+        "q3": false,
+        "q4": true,
+        "q5": true
+      }
+    },
+    "winner": "B",
+    "margin": "clear",
+    "reason": "Nani's Words bills monthly against a Sunday call that recurs forever and spreads inside a dense diaspora family network, whereas House Parts Record is a single basement lookup sold once with a records-sharing loop that nobody actually performs."
+  },
+  "text": "",
+  "usage": {}
+}

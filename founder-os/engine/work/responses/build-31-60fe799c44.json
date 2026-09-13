@@ -1,0 +1,22 @@
+{
+  "parsed": {
+    "stack": "iOS 18+ only, Swift 6 / SwiftUI. HealthKit (background delivery on sleepAnalysis, HKHealthStore.save for corrected samples), App Intents + Focus filter (SetFocusFilterIntent), BGProcessingTask as fallback. Scoring is deterministic Swift plus Apple's on-device Foundation Model for the shift-pattern inference - no cloud model, no server round trip. Backend is RevenueCat for subscriptions and a CloudKit private database for shift-roster sync across the user's own devices; no app server at all. App Store only (HealthKit write-back has no Android analogue worth building twice).",
+    "milestones": [
+      "Week 1-2: HealthKit read + background delivery harness. Instrument wake latency on real daytime sleep blocks from 3 wearables (Apple Watch, Oura, Whoop) and log sample-written-to-app-woken deltas. This is the go/no-go.",
+      "Week 3-5: Shift model and rescoring engine. Roster entry UI (12-hour rotating patterns), day-boundary logic, and the deterministic rescorer that turns a wearable's fragmented daytime block into one sleep period with stages.",
+      "Week 6-7: Write-back path. HKHealthStore.save of corrected sleepAnalysis samples with our own source, delete/replace of our prior corrections, and the duplicate-source audit across Apple Health, Fitness and three popular sleep apps.",
+      "Week 8-9: Focus filter integration so the day boundary moves with the person's Focus, plus a published App Intent for Shortcuts and a 'what changed today' summary screen.",
+      "Week 10-11: Paywall, onboarding, Health authorisation copy that survives review, and a 30-nurse TestFlight cohort measuring 6-week retention of the corrected number.",
+      "Week 12: App Review submission, HealthKit write justification in review notes, ASO and launch into two nursing subreddits and a paramedic Discord."
+    ],
+    "build_cost_usd": 5500,
+    "weeks_to_v1": 12,
+    "inference_cost_user_month": 0.01,
+    "price_month": 4.99,
+    "expected_conversion": 0.035,
+    "riskiest_technical_assumption": "That writing a corrected sleepAnalysis sample actually changes what other apps report, when HealthKit gives no way to supersede or suppress another source's samples - the wearable's original stays in the store alongside ours and every reading app applies its own source-priority, so 'every other app reads the right number' may be false even if background delivery is instant.",
+    "cheapest_way_to_test_that_assumption": "Write one synthetic corrected sleepAnalysis sample to a test device with a throwaway 100-line app, then open Apple Health, Fitness and three popular sleep apps and see which number each one shows for that day - one afternoon, $99 of developer account."
+  },
+  "text": "",
+  "usage": {}
+}

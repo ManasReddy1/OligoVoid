@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "incumbent_response",
+    "attack": "Oura and Whoop are the incumbents and the feature is a shift-work scoring mode. Whoop has already dropped the fixed bedtime window and folds naps into a rolling sleep-need figure; Oura ships nap detection and Rest Mode and markets explicitly to shift workers. The claimed moat is the weakest part: the vendor holds the raw PPG and accelerometer stream, so the day it ships a rota mode it recomputes the nurse's entire history overnight - which is exactly the multi-year corrected record this says the vendor's own model cannot reproduce. Apple is the second front, since watchOS already auto-detects naps and Health already accepts a per-weekday sleep schedule.",
+    "strongest_defence": "Neither vendor will ask a user for a shift rota: their onboarding is built around zero configuration and their position is that one algorithm serves everyone, so the single input this product takes is the one they structurally avoid. The product also needs no vendor cooperation, because HealthKit hands it the samples and it scores into a surface it owns, so an incumbent feature does not lock it out even if it competes.",
+    "verdict": "wounded",
+    "verdict_reason": "The switching-cost moat is illusory because the vendor can rescore the whole history from raw data it owns, but the vendors' refusal to take a rota as input leaves the correction itself genuinely unshipped."
+  },
+  "text": "",
+  "usage": {}
+}

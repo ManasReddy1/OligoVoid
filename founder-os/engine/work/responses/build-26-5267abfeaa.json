@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "iOS + Android from one Flutter codebase (Dart); voice = streaming ASR (Deepgram/Whisper-class, ~$0.004/min) piped to a cheap frontier text model at $0.10/$0.40 per M tokens with the driver's full log kept in cached context, replies via on-device TTS so nothing pays flagship speech-to-speech rates; FastAPI + Postgres on Fly.io; Stripe via RevenueCat; App Store + Google Play (Android matters more than iOS for this audience, so Apple's free PCC tier is NOT the cost story here).",
+    "milestones": [
+      "Week 1-2: record-and-transcribe loop only - big thumb button, 90s cap, offline queue that uploads when the cab gets signal again. No AI reply at all.",
+      "Week 3-4: structured extraction pass turning each check-in into a dated entry (truck/trailer issue, load status, dispatch note) plus a searchable log list.",
+      "Week 5-7: spoken follow-up - model asks one or two clarifying questions in-cab, tuned on real diesel-engine background noise, with a hard per-session minute ceiling enforced server-side.",
+      "Week 8-9: free/paid tiers, minute metering, RevenueCat paywall at $8, two-sided referral codes.",
+      "Week 10-12: Android and iOS store review, CarPlay/Android Auto voice entry point, 20-driver beta through an owner-operator forum."
+    ],
+    "build_cost_usd": 3800,
+    "weeks_to_v1": 12,
+    "inference_cost_user_month": 0.22,
+    "price_month": 8,
+    "expected_conversion": 0.032,
+    "riskiest_technical_assumption": "That commodity streaming ASR holds usable word accuracy on a 90-second check-in recorded over diesel noise, road roar and a hands-free mic, because a garbled transcript makes the searchable log worthless and forces re-records that double the per-minute bill.",
+    "cheapest_way_to_test_that_assumption": "Pay six owner-operators $50 each to record 20 real 90-second shutdown check-ins on their own phones in their own cabs, run the audio through two ASR vendors and word-diff against hand transcripts - no app, one weekend, under $400."
+  },
+  "text": "",
+  "usage": {}
+}

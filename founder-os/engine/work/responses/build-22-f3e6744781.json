@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "iOS + Android (React Native). Entirely on-device for the drill - playback of the grandmother's own recorded audio plus an on-device model for prompts, $0 marginal. Small cloud text calls only for Punjabi/Gujarati transliteration and phrase curation, where on-device models are genuinely weak. Recordings stored locally with encrypted backup. Freemium subscription.",
+    "milestones": [
+      "Week 1-2: guided recording flow for the grandmother (she is 75 and not the app user - this has to work over a phone call or a visit, in one sitting).",
+      "Week 3-4: the fixed 50-phrase Sunday-call curriculum for Punjabi and Gujarati, with Gurmukhi/Gujarati script rendering and a Latin transliteration that native speakers do not wince at.",
+      "Week 5-6: on-device spaced repetition tied to the real Sunday call, not an arbitrary daily streak.",
+      "Week 7: freemium gate (first 15 phrases free), plus the community embed - a shareable deck for cousins with the same grandmother.",
+      "Week 8: 20 second-generation users recruited through British Punjabi and Gujarati community pages."
+    ],
+    "build_cost_usd": 6500,
+    "weeks_to_v1": 8,
+    "inference_cost_user_month": 0.06,
+    "price_month": 5.99,
+    "expected_conversion": 0.03,
+    "riskiest_technical_assumption": "That models handle Punjabi and Gujarati - including dialect, Gurmukhi/Shahmukhi script choice and transliteration - well enough that the 50 phrases are not subtly wrong, because a native-speaking grandmother is the harshest possible QA and a single wrong phrase discredits the whole deck.",
+    "cheapest_way_to_test_that_assumption": "Pay two native speakers (one Punjabi, one Gujarati) about \u00a3300 each to review a generated 50-phrase deck line by line before any code is written."
+  },
+  "text": "",
+  "usage": {}
+}

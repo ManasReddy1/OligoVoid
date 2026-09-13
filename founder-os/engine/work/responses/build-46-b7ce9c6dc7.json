@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "iOS 18+ only for v1 (Swift/SwiftUI, WidgetKit + ActivityKit Live Activities with push-to-start, App Intents for the interactive End Feed button). No LLM in the critical path: on-device SFSpeechRecognizer for optional spoken logging ($0), Apple Foundation on-device model for the weekly plain-English summary ($0, Small Business Program). Backend is Supabase (Postgres + Realtime + Row Level Security) on a $25/mo plan with a tiny Node/Hono service holding APNs auth keys for Live Activity push-to-start and update; last-write-wins CRDT-style merge with server-assigned interval IDs. StoreKit 2 + RevenueCat free tier. Ships on the App Store; Android deferred to v2 because push-to-start Live Activities have no Android equivalent worth matching.",
+    "milestones": [
+      "Week 1-2: household data model and conflict rules - open-interval feed/sleep records with server-assigned IDs, two-seat auth, RLS, and a merge test suite that deliberately fires overlapping starts from two devices.",
+      "Week 3-4: the Live Activity itself - start a feed on device A, push-to-start on device B's lock screen, interactive End button via App Intent writing back through the server, verified on two physical phones with the screen locked.",
+      "Week 5-6: invite flow for the second parent (deep link, 30-second onboarding at 4am standards) plus the fallback path when the Live Activity is throttled or dismissed - a widget and a notification action that do the same job.",
+      "Week 7-8: night-mode logging UI, offline queue with reconciliation on reconnect, HealthKit write for sleep, and the 7-day/28-day household summary rendered on-device.",
+      "Week 9-10: paywall, StoreKit, TestFlight with 20 real newborn households, and instrumentation for the four kill metrics (second-writer-within-48h, overlap rate, entries/day, week-12 retention)."
+    ],
+    "build_cost_usd": 2900,
+    "weeks_to_v1": 10,
+    "inference_cost_user_month": 0.02,
+    "price_month": 9.99,
+    "expected_conversion": 0.04,
+    "riskiest_technical_assumption": "That ActivityKit push-to-start plus frequent remote updates will actually land on the second parent's locked phone within a few seconds every time, night after night - Apple budgets and throttles Live Activity pushes per app and silently drops updates over budget, and a shared ledger that is occasionally stale at 4am is worse than no live surface at all.",
+    "cheapest_way_to_test_that_assumption": "Two weeks and about $200: ship a bare TestFlight build with no product in it that just starts and ends a Live Activity from a second device 8-12 times a night on five real households' phones, and log server-send-to-visible-on-screen latency and drop rate."
+  },
+  "text": "",
+  "usage": {}
+}

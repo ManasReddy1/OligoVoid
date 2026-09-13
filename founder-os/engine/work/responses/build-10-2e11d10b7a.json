@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "Ray-Ban Display third-party HTML/CSS/JS app with Neural Band input, paired with an iOS/Android companion (React Native) that does the work: on-device vision to recognise the part, on-device ASR for the spoken note, all at zero marginal cost. Local SQLite plus optional iCloud/Drive backup - the teardown history never leaves the user's devices. One-time purchase $29.99 (price_month below is that amortised over 12 months).",
+    "milestones": [
+      "Week 1-3: Display app shell, Neural Band gestures for 'pin this' and 'show me what was here', glanceable card layout.",
+      "Week 4-6: capture pipeline - photo plus spoken note pinned to a named part, with the part hierarchy (assembly > sub-assembly > fastener).",
+      "Week 7-9: re-surfacing during reassembly: look at the frame, get back the notes taken while removing from that area, in reverse order.",
+      "Week 10-11: export a shareable teardown log (the artefact that does the marketing) as a web page.",
+      "Week 12: 10 restorers who already own the hardware, one full teardown each."
+    ],
+    "build_cost_usd": 9500,
+    "weeks_to_v1": 12,
+    "inference_cost_user_month": 0.05,
+    "price_month": 2.5,
+    "expected_conversion": 0.12,
+    "riskiest_technical_assumption": "That the Display's camera and on-device vision can re-identify a specific spot on a stripped frame months later, without fiducial markers - visual anchoring on an object that is being progressively disassembled is the hard version of the problem, because the scene deliberately changes.",
+    "cheapest_way_to_test_that_assumption": "Borrow or buy one Display, photograph 20 locations on a bike at teardown and again at reassembly six weeks later, and measure how often the on-device matcher returns the right pinned note - no app needed, just a script over the photo pairs."
+  },
+  "text": "",
+  "usage": {}
+}

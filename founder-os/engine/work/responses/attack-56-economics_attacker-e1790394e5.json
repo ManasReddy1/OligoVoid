@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "economics_attacker",
+    "attack": "A one-time unlock at a 3% conversion rate produces about $0.20 of revenue per install: their own kill line 4 sets 3% by day 45, and a $7.99 unlock nets $6.79 after the 15% rate, so revenue per install is 29x under the $5.84 iOS CPI and 9.4x under the $1.92 Android one - with no second month to close the gap. No plausible price fixes it: breaking even on Android alone would need a $64 unlock and on iOS a $195 unlock, for a grocery-list utility. They are also underpricing the labour they replace by more than an order of magnitude - the named incumbent is a $10-15/month meal-planning service, and this sells a one-time $8 substitute, discarding 15-20x of demonstrated willingness to pay in exchange for an acquisition cost it can never recover.",
+    "strongest_defence": "On-device vision means zero COGS, so every organic install is pure margin, and the audience is tens of millions of households rather than a niche: 'scan recipe' is a real App Store search term, and Paprika has sustained a decade as a one-time-purchase recipe app on organic search alone, with the digitised binder including handwritten family cards as the reason nobody re-buys a competitor.",
+    "verdict": "wounded",
+    "verdict_reason": "Zero marginal cost keeps organic sales profitable, but paid acquisition is closed by 9-29x at every price a grocery utility can charge and a non-renewing unlock gives no second chance to recover it."
+  },
+  "text": "",
+  "usage": {}
+}

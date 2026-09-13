@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "No app for the grandparent - a web page plus email/SMS link, large type, no login. Parents' photos ingested from where they already are (shared iCloud album, Google Photos album, or a WhatsApp-forward email address) rather than a new upload habit. Frontier text plus vision to caption and write the page; whole-family context cached at ~90% off. Cron on Fly.io for the Sunday 6pm send. Stripe subscription, gift-purchasable.",
+    "milestones": [
+      "Week 1-2: photo ingestion from an existing shared album - the whole product dies if parents have to do anything new.",
+      "Week 3-4: the page itself: three photos, plain sentences naming each child correctly (face-to-name mapping the family confirms once), three phone questions.",
+      "Week 5: Sunday 6pm delivery, large-type page, reply-with-a-voice-note back to the parents (the gift loop).",
+      "Week 6: gift purchase flow (an adult child buys it for a grandparent), Stripe, no app install anywhere in the chain.",
+      "Week 7: 20 households, measure the only number that matters - photos supplied per week by week 6."
+    ],
+    "build_cost_usd": 6000,
+    "weeks_to_v1": 7,
+    "inference_cost_user_month": 0.03,
+    "price_month": 9.99,
+    "expected_conversion": 0.06,
+    "riskiest_technical_assumption": "That photos can be pulled automatically from where families already share them and that each child is named correctly every week - inference is genuinely near-free here (about three cents an active household a month), so the entire risk is supply-side ingestion, and if a printed-and-posted edition is ever added that adds roughly $6 a month of real postage and print COGS that the inference number does not cover.",
+    "cheapest_way_to_test_that_assumption": "Hand-make four consecutive Sunday editions for three real families from their existing shared albums, spending an hour each, and see whether photo supply holds up by week four and whether grandparents open all four."
+  },
+  "text": "",
+  "usage": {}
+}

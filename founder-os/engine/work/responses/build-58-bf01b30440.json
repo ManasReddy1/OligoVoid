@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "iOS 18+ (Swift/SwiftUI) with ActivityKit push-to-start Live Activities for the payday briefing and an App Intent for the one-tap confirm. Bill and pay-date detection needs transaction history, so Plaid Transactions for linked accounts with a manual-entry fallback path. Briefing generation is a hosted frontier text model at $0.10/$0.40 per million over a cached household context - about 20K cached input and 500 output tokens, twice a month, which is a rounding error. Backend: Python/FastAPI + Postgres on Fly.io (~$40/mo) holding the pay-cycle calendar and the APNs keys. StoreKit 2 + RevenueCat, App Store.",
+    "milestones": [
+      "Week 1-2: the pay-cycle engine - 26 biweekly dates, the two three-paycheque months, and recurring-bill date prediction from transaction history, unit-tested against a year of real anonymised statements before any UI.",
+      "Week 3-4: Plaid link, transaction sync, recurring-bill detection and a manual bill-entry path for users who will not link a bank.",
+      "Week 5-6: the payday briefing itself - what lands before next payday, what is left, is this a third-cheque month - generated and rendered as a Live Activity pushed on payday morning with a one-tap confirm.",
+      "Week 7-8: history, the third-cheque planning view, and an accuracy dashboard measuring predicted vs actual bill dates against the 2-day kill bar.",
+      "Week 9-10: freemium paywall with bank linking gated behind payment, and a 60-user cohort of hourly workers instrumented for open-rate on 6 of 8 paydays and spreadsheet abandonment."
+    ],
+    "build_cost_usd": 4600,
+    "weeks_to_v1": 10,
+    "inference_cost_user_month": 0.02,
+    "price_month": 6.99,
+    "expected_conversion": 0.02,
+    "riskiest_technical_assumption": "Inference here is genuinely $0.02 a head, but the cost that matters is not inference - the 2-day bill-date accuracy bar requires linked bank data, and Plaid Transactions runs roughly $0.30-0.60 per linked active user per month, which exceeds the $0.14 of revenue each active user generates at $6.99 and 2% conversion, so bank linking behind a free tier is a negative-gross-margin product regardless of how cheap the model is.",
+    "cheapest_way_to_test_that_assumption": "Two weeks and under $100: ask 50 hourly workers to forward or screenshot 3 months of statements, predict their next fortnight's bill dates by hand with the same rules the engine would use, and check both the 2-day accuracy and, separately, what share of them will link a bank account at all before paying."
+  },
+  "text": "",
+  "usage": {}
+}

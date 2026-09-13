@@ -1,0 +1,190 @@
+{
+ "parsed": {
+  "reasoning": "Start with which pains already have a manual workaround, because a workaround is proof the job is real and proof of what the finished result looks like. Three clusters have one. Shift-work sleep [10][11][12]: nurses and firefighters are hand-editing sleep records, setting the sleep window to 00:00-00:01, pressing the watch buttons manually, or re-entering sleep windows daily. They are doing the scoring job by hand every single day, which is the strongest kind of evidence there is. The failure is not the sensor, it is that the day boundary is hard-coded to one night block and the scoring runs on somebody else's cloud schedule, so a daytime block does not land until tomorrow [10]. Cross-system elderly care [17][24][31]: the workaround is a phone call to the parent, a personal spreadsheet of appointments, separate logins per hospital, and in one case flying out to reset a device. That is a lot of labour to replace. Conjugation drills [220]: the learner states the hours, copying HTML tables into a spreadsheet and reshaping them into card fields one verb at a time. A workaround measured in hours per handful of verbs is a job worth taking over. Tax export [227] is the same shape but the person is doing their own books, which puts it on the wrong side of the consumer-only line, so leave it. Then the two pains with no workaround at all. Reaching out to old friends [234] and to family overseas [241]. [234] is the more useful of the pair because it names the only thing that ever worked: putting the person on a calendar or a reminder. [241] is the same person further along, describing learned helplessness and no workaround. A thought that evaporates in a second cannot be fixed by a notification, because [255] says plainly that notifications are the fail point and get missed. Whatever catches that moment has to be something harder to dismiss than a banner. Now which unlock actually dissolves the reason nobody built this, rather than just making it cheaper. The sleep case was blocked on two things: you could not wake your own app when new sensor data arrived, and scoring cost a cloud round trip so it was batched. [305] removes the first, it is one of the few legitimate self-wake triggers on the platform. [2] and [310] remove the second, a full model runs on the handset at zero marginal cost, which means it can rescore a 10am sleep block at 10:05am for nothing. [308] handles the remaining detail, an app can change its own behaviour when the person's Focus changes, so the app can learn the shift boundary from the phone instead of asking. The care-coordination case was blocked on there being no shared surface that both households see at once. [306] changes that: a live activity can now be started remotely, updated remotely and carry a working button, which is a shared display on a second person's lock screen rather than a notification they have to open. [298] means a spoken sentence can compose across apps through published intents. [3] makes the text side cost essentially nothing. The reaching-out case was blocked on economics and on there being no forcing surface. [4] put real-time voice at half a cent to under two cents a minute, which is the first time a two-minute daily spoken exchange fits a consumer price. [299] matters more than it looks: the old 30-second ceiling on background intent work meant the app could never finish a real piece of work on its own, so every product in this space could only nudge. [310] does the drafting on-device. The conjugation case was blocked on nothing except that parsing a messy reference table used to need a server and a per-request fee. [310] gives vision on-device with enough local context to eat a full table, [2] makes it free and offline, [298] lets it run from a spoken or shortcut trigger. Which populations are actually reachable with no advertising budget. Rotating-shift clinical staff are reachable, they have dense forums, union rota groups and a shared grievance that every wellbeing product ignores them [12]. Learners of highly inflected languages are reachable, they congregate in small forums and already trade decks. Immigrants with family overseas are reachable only through the family member on the other end, which means the second person has to receive something. Adult children coordinating a parent's care are reachable only through the parent, and the product is dead unless the parent is added, so the invite is the function. Finally the graveyard, because three of these ideas sit near a corpse. [36], [37], [39] and [40] are all companions that talked. [39] is the sharpest warning, the hardware bricked when the funding for the speech stack went. [41] and [48] are wellness trackers killed by margin and by a crowded field. The lesson in all of them is the same and it matches the thesis: the ones that died presented information or presented a personality. None of them completed a task. So every candidate has to end in a written record, a placed call, a filed appointment or a built deck, and it has to name the permitted surface that performs that write, because an action the store rejects is not an action.",
+  "candidates": [
+   {
+    "title": "Rota Sleep",
+    "probability": 0.32,
+    "unlock": {
+     "value": "HealthKit background delivery lets the app wake itself the moment a new sleep sample is written [305], an on-device vision-and-text model rescores it locally at zero marginal cost and offline [2][310], and Focus filters let the app move its own day boundary when the person's Focus changes instead of asking them to reconfigure a bedtime window [308]; the legal write is HKHealthStore.save of corrected HKCategoryTypeIdentifier.sleepAnalysis samples plus a Shortcuts-visible App Intent, both first-party permitted APIs with a standard Health authorisation sheet.",
+     "signal_ids": [
+      2,
+      305,
+      308,
+      310
+     ]
+    },
+    "pain": {
+     "value": "Rotating-shift clinical staff cannot use their wearable's main function, because a daytime sleep block either does not score until the next day [10], is dropped as a nap that does not count toward sleep debt [11], or is double-counted against a fixed bedtime window so a night rotation reads as sixteen hours or as zero [12].",
+     "signal_ids": [
+      10,
+      11,
+      12
+     ]
+    },
+    "audience": {
+     "value": "nurses and paramedics on rotating 12-hour shift patterns"
+    },
+    "mechanic": {
+     "value": "passive_tracking"
+    },
+    "wedge": {
+     "value": "One job only: when a daytime sleep block lands in HealthKit, wake on background delivery, rescore it against the shift the person is actually on, and write a corrected sleep sample back to HealthKit within ten minutes, so every other app on the phone reads the right number that same day."
+    },
+    "moat": {
+     "value": "integration_depth"
+    },
+    "model": {
+     "value": "freemium_subscription"
+    },
+    "loop": {
+     "value": "community_embed"
+    },
+    "kill": [
+     "HealthKit background delivery wakes the app for a new sleep sample later than 15 minutes after the sample is written in more than 20 percent of 200 logged daytime blocks, which makes same-day correction a false promise.",
+     "Fewer than 40 of 100 recruited shift workers keep the corrected sample as their record of the day after 6 weeks, measured by whether they revert to the wearable vendor's number.",
+     "Apple Review rejects the HealthKit write of app-generated sleepAnalysis samples, or requires removing the write-back, in 2 successive submissions.",
+     "Paid conversion stays under 3 percent of monthly actives at 90 days across at least 2,000 installs."
+    ],
+    "why_now": "Same-day rescoring of a daytime sleep block was impossible while the phone could not wake itself on new sensor data and every score cost a cloud round trip, and background delivery [305] plus a local model [2][310] removed both constraints at once.",
+    "why_not_obvious": "The obvious move for shift workers is a better bedtime schedule or another wellbeing dashboard, when what they are actually doing by hand is correcting a record other software already reads [12]."
+   },
+   {
+    "title": "One Care Line",
+    "probability": 0.18,
+    "unlock": {
+     "value": "Live Activities can now be started remotely by push, updated remotely and carry a working button, policed by guideline 4.5.3 so it must be a live event and not marketing [306]; that gives the far-away adult child a shared, always-visible surface on a second person's lock screen rather than a notification to open. Siri composing across published App Intents [298] lets the parent confirm a dose or an appointment by voice, and collapsed text inference [3] makes summarising a portal letter cost fractions of a cent. Legal surfaces named: ActivityKit push-to-start and push-update, an interactive Live Activity button backed by an App Intent, EventKit writes to the shared calendar, and HealthKit clinical records (HKClinicalType, FHIR) read on the parent's own device with their consent. No portal scraping.",
+     "signal_ids": [
+      3,
+      298,
+      306
+     ]
+    },
+    "pain": {
+     "value": "An adult child cannot tell whether an elderly parent took a dose, because the shared caregiver view silently desyncs and the med list vanishes from their side [17], and cannot tell what an appointment change replaced, because portals only federate when two hospitals cooperate, so the family ends up phoning each office and keeping a private spreadsheet [24].",
+     "signal_ids": [
+      17,
+      24
+     ]
+    },
+    "audience": {
+     "value": "adult children managing a parent's care across two or more hospital systems"
+    },
+    "mechanic": {
+     "value": "shared_ledger"
+    },
+    "wedge": {
+     "value": "Medication confirmations only, across exactly two households: the parent taps one interactive Live Activity button, an App Intent writes the confirmation to the shared record, and a push-started Live Activity on the adult child's lock screen changes state within a minute, so nobody has to phone to ask."
+    },
+    "moat": {
+     "value": "switching_cost_of_history"
+    },
+    "model": {
+     "value": "subscription"
+    },
+    "loop": {
+     "value": "invite_for_function"
+    },
+    "kill": [
+     "Push-started Live Activities are delivered and rendered on the second household's device within 60 seconds for fewer than 90 percent of 500 test confirmations, which reproduces the silent desync the product exists to fix [17].",
+     "Fewer than 50 percent of invited parents complete setup and record a confirmation within their first 14 days, meaning the invite-for-function loop never closes.",
+     "Apple Review cites guideline 4.5.3 against the Live Activity usage in 2 successive submissions.",
+     "Median household sends fewer than 3 confirmations a week by month 2, at which point the calendar and a phone call are cheaper."
+    ],
+    "why_now": "The reason this always failed is that the second person had no live shared surface and a notification is a thing you miss [255]; remotely started and remotely updated Live Activities with a working button [306] are the first permitted always-visible two-household display on iOS.",
+    "why_not_obvious": "Everyone reaches first for records federation, which is exactly the part the hospitals control and refuse [24], when the thing the family actually does by hand every day is confirm one dose [17]."
+   },
+   {
+    "title": "Two Minute Call",
+    "probability": 0.2,
+    "unlock": {
+     "value": "Real-time spoken conversation fell to half a cent to under two cents a minute, which is the first time a daily two-minute exchange fits a consumer price [4]; iOS 27 LongRunningIntent removes the 30-second background ceiling so the app can actually finish drafting and filing the follow-up rather than only prompting [299]; and the on-device model turns the spoken minute into a written message locally [310]. Legal surfaces named: PushKit VoIP push plus CallKit reportNewIncomingCall, which is permitted because there is a genuine audio call to the app's own voice endpoint; MFMessageComposeViewController or the share sheet for the outgoing message, which still needs the person's one tap to send; and a published App Intent so the whole thing runs from Siri or Shortcuts. The app cannot send a message silently and does not claim to.",
+     "signal_ids": [
+      4,
+      299,
+      310
+     ]
+    },
+    "pain": {
+     "value": "The intention to contact someone you are fond of evaporates within seconds because nothing external catches it in that moment [234], and for people whose family is overseas the thought never converts to contact at all, with repeated failed attempts teaching them to stop trying [241].",
+     "signal_ids": [
+      234,
+      241
+     ]
+    },
+    "audience": {
+     "value": "immigrants in their thirties and forties with parents overseas"
+    },
+    "mechanic": {
+     "value": "voice_conversation"
+    },
+    "wedge": {
+     "value": "One named person, one fixed weekday minute: the phone rings as a real CallKit call, the caller asks what you would say to your mother today, and by the time you hang up a voice note and a written message to her are sitting in the Messages compose sheet needing one tap."
+    },
+    "moat": {
+     "value": "social_graph"
+    },
+    "model": {
+     "value": "consumable_credits"
+    },
+    "loop": {
+     "value": "gift_to_recipient"
+    },
+    "kill": [
+     "Fewer than 25 percent of the calls that are answered end in a message actually sent, measured over 1,000 calls, which means the product is a reminder in a costume and dies the way the ones that only talked did [36][39].",
+     "Answer rate on the scheduled CallKit call falls below 40 percent by week 4, matching the pattern where notifications are the first thing to fail [255].",
+     "Apple Review rejects the PushKit VoIP plus CallKit usage as not a genuine call in 2 successive submissions.",
+     "Voice cost per active user exceeds $0.30 a month at the median usage observed in a 500-user cohort, and credit packs do not cover it at 3 percent conversion."
+    ],
+    "why_now": "The moment is a second long [234], so the catch has to be a ringing phone rather than a banner, and a ringing phone that then finishes the work only became affordable and legal to run when voice hit cents per minute [4] and the background work ceiling lifted [299].",
+    "why_not_obvious": "The instinct is a reminder app, and the evidence says reminders are the only thing that has ever half-worked for this person [234] and also the first thing to fail [255], so the answer is to keep the trigger and replace what happens after it."
+   },
+   {
+    "title": "Table to Deck",
+    "probability": 0.3,
+    "unlock": {
+     "value": "A vision-capable model now runs on the handset with enough local context to read a full conjugation table in one pass, offline and at zero marginal cost [310][2], and it can be triggered from Siri or Shortcuts through a published App Intent [298]. Legal surfaces named: a Share Extension registered for public.url and public.html that receives the page the learner is already looking at in Safari, on-device parsing, and a plain file export the learner imports into whatever drill app they use. Nothing is crawled and no site is scraped in bulk.",
+     "signal_ids": [
+      2,
+      298,
+      310
+     ]
+    },
+    "pain": {
+     "value": "Self-directed learners of highly inflected languages spend hours copy-pasting conjugation tables into a spreadsheet and reshaping them into card fields one verb at a time, because reference sites publish HTML tables with no export [220].",
+     "signal_ids": [
+      220
+     ]
+    },
+    "audience": {
+     "value": "adult self-taught learners of Hungarian and Finnish"
+    },
+    "mechanic": {
+     "value": "delegation_handoff"
+    },
+    "wedge": {
+     "value": "Hungarian verbs only: share one conjugator page from Safari, and get back a finished deck with one card per person-number-tense cell, correctly fielded, without opening a spreadsheet."
+    },
+    "moat": {
+     "value": "accumulated_personal_corpus"
+    },
+    "model": {
+     "value": "one_time_purchase"
+    },
+    "loop": {
+     "value": "shareable_artifact"
+    },
+    "kill": [
+     "On-device parsing produces a deck needing manual correction on more than 5 percent of cells across 200 shared pages from the 5 most-used conjugator sites, because the whole promise is not touching a spreadsheet [220].",
+     "Median time from share to usable deck exceeds 60 seconds on an in-support handset, at which point copy-paste is competitive again.",
+     "Fewer than 10 percent of learners who build a deck export or post it anywhere within 30 days, which means the shareable-artifact loop carries no distribution and there is no ad budget to replace it.",
+     "Fewer than 1,500 units sell in the first 6 months, which at a one-time price does not fund a second language."
+    ],
+    "why_now": "Reading a messy reference table used to need a server and a per-request fee for a job a hobbyist does a few dozen times a year, and a vision model that runs free on the phone [310][2] makes the economics of that job trivial for the first time.",
+    "why_not_obvious": "The obvious product for a language learner is another course or another drill app, when the labour they describe is not learning at all, it is data entry [220]."
+   }
+  ]
+ },
+ "text": "",
+ "usage": {}
+}

@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "incumbent_response",
+    "attack": "The incumbent is OpenAI and the feature already shipped: ChatGPT registers an iOS share extension, so the learner shares the conjugator URL straight out of Safari and gets back a fielded CSV for Anki in one prompt, free inside a subscription many of these learners already hold, and it covers Finnish, Estonian and Turkish on day one rather than in version two. Gemini does the same job inside Chrome, and Google keeps pushing page-level extraction deeper into the browser each release. Behind both sits AnkiWeb, where complete free Hungarian verb decks already exist, so the buyer's real alternative is not the copy-paste labour described in the pain, it is a download.",
+    "strongest_defence": "What is being sold is the absence of prompting: a share extension that returns a correctly fielded deck with one card per person-number-tense cell, offline, with no account, and without the re-asking that happens when a chat model flattens the whole table into one field. Chat output still has to be checked, corrected and hand-imported, which is precisely the spreadsheet work the buyer is paying to avoid.",
+    "verdict": "wounded",
+    "verdict_reason": "A free superset of the transformation already sits on the same handset, which is brutal for a one-time purchase needing 1,500 units with no ad budget, though the one-tap correctly-fielded output is a genuine remainder."
+  },
+  "text": "",
+  "usage": {}
+}

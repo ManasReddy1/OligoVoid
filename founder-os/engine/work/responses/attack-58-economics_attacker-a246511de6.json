@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "economics_attacker",
+    "attack": "The cost model ignores the only COGS that matters: predicting which bills land before the next payday requires a live bank feed, and transaction aggregation runs roughly $0.30-0.60 per connected item per month - a fee that scales with actives, not payers. At the stated freemium 3% conversion, 33 free actives each carrying $0.35 is $11.55 per paying user per month before a single token is spent, 38x their own $0.30 blended ceiling, against a segment - hourly warehouse and retail staff - whose realistic price point is $3.99-8.99, netting $3.39-7.64. The free tier is therefore negative at every subscription price, and the only escape (manual bill entry, no aggregator) leaves the user doing the reconciliation by hand, which fails their own kill line 3.",
+    "strongest_defence": "Paywall the bank link - pay first, then connect - so the aggregator fee only ever attaches to a payer, or skip aggregation entirely and read pay dates and bill dates from a forwarded payslip and statement photos with on-device vision at zero cost; Brigit charges this exact segment $8.99/month and has millions of users, so the price point demonstrably exists.",
+    "verdict": "wounded",
+    "verdict_reason": "The freemium shape is arithmetically negative because bank-data fees scale with free actives, and only a pay-before-you-connect version survives, at a price this income segment barely supports."
+  },
+  "text": "",
+  "usage": {}
+}

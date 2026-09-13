@@ -1,0 +1,518 @@
+<title>Founder OS Build Tracker</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
+<style>
+  :root{
+    --ground:#f6f7f9; --surface:#ffffff; --surface-2:#eef1f5;
+    --hairline:#dde2e9; --hairline-strong:#c3ccd8;
+    --ink:#0f141b; --ink-2:#38424f; --muted:#5f6a7a;
+    --signal:#00854b; --signal-dim:#d3f0e0;
+    --void:#5340cc; --void-dim:#e2ddfb;
+    --kill:#c32b38; --kill-dim:#fadfe2;
+    --warn:#8a5d00; --warn-dim:#fbeccb;
+    --track:#dfe4ec;
+    --mono:"Space Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sans:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --ground:#0d0f14; --surface:#141922; --surface-2:#1b212c;
+    --hairline:#242c39; --hairline-strong:#36404f;
+    --ink:#e8edf4; --ink-2:#c2cbd8; --muted:#8d99ab;
+    --signal:#00ff88; --signal-dim:#0d2a1e;
+    --void:#9a8bff; --void-dim:#1e1b38;
+    --kill:#ff6b76; --kill-dim:#331519;
+    --warn:#f5b544; --warn-dim:#2e2310;
+    --track:#222a36;
+  }}
+  :root[data-theme="dark"]{
+    --ground:#0d0f14; --surface:#141922; --surface-2:#1b212c;
+    --hairline:#242c39; --hairline-strong:#36404f;
+    --ink:#e8edf4; --ink-2:#c2cbd8; --muted:#8d99ab;
+    --signal:#00ff88; --signal-dim:#0d2a1e;
+    --void:#9a8bff; --void-dim:#1e1b38;
+    --kill:#ff6b76; --kill-dim:#331519;
+    --warn:#f5b544; --warn-dim:#2e2310;
+    --track:#222a36;
+  }
+
+  *{box-sizing:border-box}
+  body{background:var(--ground);color:var(--ink);font-family:var(--sans);
+       font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1040px;margin:0 auto;padding-inline:20px;padding-block:0 72px}
+  h1,h2,h3{text-wrap:balance;line-height:1.18;margin:0}
+  h1{font-size:clamp(1.8rem,4.6vw,2.7rem);font-weight:700;letter-spacing:-.025em}
+  h2{font-size:clamp(1.2rem,2.8vw,1.55rem);font-weight:650;letter-spacing:-.015em}
+  h3{font-size:.98rem;font-weight:650}
+  p{margin:0}
+  .col{max-width:68ch}
+  .eyebrow{font-family:var(--mono);font-size:.66rem;font-weight:700;
+           letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .fine{font-size:.85rem;color:var(--muted)}
+  .num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+  header.mast{border-bottom:1px solid var(--hairline);padding-block:46px 28px;
+              display:flex;flex-direction:column;gap:14px}
+  section{padding-block:38px;border-bottom:1px solid var(--hairline)}
+  section:last-of-type{border-bottom:0}
+  .shead{display:flex;flex-direction:column;gap:8px;margin-bottom:22px}
+
+  /* ---- headline meters ---- */
+  .meters{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));
+          gap:1px;background:var(--hairline);border:1px solid var(--hairline);
+          border-radius:3px;overflow:hidden;margin-top:6px}
+  .meter{background:var(--surface);padding:16px 18px;display:flex;
+         flex-direction:column;gap:7px}
+  .meter .lab{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;
+              text-transform:uppercase;color:var(--muted)}
+  .meter .big{font-family:var(--mono);font-weight:700;font-size:1.75rem;
+              letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums}
+  .meter .sub{font-size:.8rem;color:var(--muted)}
+  .meter.live .big{color:var(--warn)}
+  .meter.good .big{color:var(--signal)}
+  .bar{height:5px;border-radius:3px;background:var(--track);overflow:hidden}
+  .bar > i{display:block;height:100%;background:var(--signal)}
+  .bar.w > i{background:var(--warn)}
+
+  /* ---- status chips ---- */
+  .chip{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);
+        font-size:.63rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+        padding:3px 8px;border-radius:2px;white-space:nowrap;border:1px solid}
+  .chip.done{background:var(--signal-dim);color:var(--signal);border-color:var(--signal)}
+  .chip.live{background:var(--warn-dim);color:var(--warn);border-color:var(--warn)}
+  .chip.part{background:var(--void-dim);color:var(--void);border-color:var(--void)}
+  .chip.todo{background:transparent;color:var(--muted);border-color:var(--hairline-strong)}
+
+  /* ---- pipeline ---- */
+  .pipe{display:flex;flex-direction:column;gap:3px}
+  .stage{display:grid;grid-template-columns:44px minmax(0,1fr) 118px;
+         gap:4px 13px;align-items:center}
+  .stage .g{font-family:var(--mono);font-weight:700;font-size:.8rem;color:var(--muted)}
+  .stage .box{background:var(--surface-2);border:1px solid var(--hairline);
+              border-radius:2px;padding:9px 13px;font-size:.88rem;font-weight:600;
+              white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .stage .n{font-family:var(--mono);font-size:.76rem;text-align:right;
+            font-variant-numeric:tabular-nums;color:var(--kill)}
+  .stage.pass .box{background:var(--signal-dim);border-color:var(--signal)}
+  .stage.pass .n{color:var(--signal)}
+  .stage.now .box{background:var(--warn-dim);border-color:var(--warn)}
+  .stage.now .n{color:var(--warn)}
+  .stage.flat .box{background:var(--surface-2);border-color:var(--hairline-strong);
+                   border-style:dashed}
+  .stage.flat .n{color:var(--muted)}
+  .stage.wait .box{opacity:.55;border-style:dashed}
+  .stage.wait .n{color:var(--muted)}
+  .stage .why{grid-column:2 / 4;margin:0 0 9px;font-size:.84rem;color:var(--muted)}
+
+  /* ---- phase list ---- */
+  .phases{display:flex;flex-direction:column;gap:1px;background:var(--hairline);
+          border:1px solid var(--hairline);border-radius:3px;overflow:hidden}
+  .phase{background:var(--surface);padding:16px 18px;display:flex;
+         flex-direction:column;gap:11px}
+  .phase.core{background:var(--surface-2)}
+  .ptop{display:flex;flex-wrap:wrap;gap:9px 14px;align-items:center;
+        justify-content:space-between}
+  .ptitle{display:flex;flex-wrap:wrap;gap:5px 11px;align-items:baseline}
+  .ptitle .p{font-family:var(--mono);font-size:.68rem;font-weight:700;
+             letter-spacing:.1em;color:var(--muted)}
+  .pcount{font-family:var(--mono);font-size:.74rem;color:var(--muted);
+          font-variant-numeric:tabular-nums;white-space:nowrap}
+  .items{display:grid;grid-template-columns:repeat(auto-fit,minmax(236px,1fr));
+         gap:5px 18px}
+  .item{display:grid;grid-template-columns:17px 1fr;gap:9px;align-items:start;
+        font-size:.88rem;color:var(--ink-2)}
+  .item .m{font-family:var(--mono);font-weight:700;font-size:.82rem;line-height:1.5}
+  .item.yes .m{color:var(--signal)}
+  .item.no .m{color:var(--muted)}
+  .item.run .m{color:var(--warn)}
+  .item.no span:last-child{color:var(--muted)}
+
+  /* ---- remaining ---- */
+  .remain{display:flex;flex-direction:column;gap:1px;background:var(--hairline);
+          border:1px solid var(--hairline);border-radius:3px;overflow:hidden}
+  .rw{background:var(--surface);padding:15px 18px;display:grid;
+      grid-template-columns:26px 1fr 106px;gap:14px;align-items:start}
+  .rw .i{font-family:var(--mono);font-weight:700;color:var(--void);font-size:.85rem;
+         padding-top:2px}
+  .rw .b{display:flex;flex-direction:column;gap:3px}
+  .rw p{font-size:.88rem;color:var(--ink-2)}
+  .rw .eff{font-family:var(--mono);font-size:.68rem;color:var(--muted);
+           text-align:right;white-space:nowrap;padding-top:3px}
+
+  /* ---- defects ---- */
+  .tscroll{overflow-x:auto;border:1px solid var(--hairline);border-radius:3px;
+           background:var(--surface)}
+  table{border-collapse:collapse;width:100%;font-size:.87rem;min-width:520px}
+  th,td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--hairline);
+        vertical-align:top}
+  thead th{font-family:var(--mono);font-size:.65rem;font-weight:700;letter-spacing:.1em;
+           text-transform:uppercase;color:var(--muted);background:var(--surface-2);
+           white-space:nowrap}
+  tbody tr:last-child td{border-bottom:0}
+  .note{border-left:2px solid var(--hairline-strong);padding-left:15px;
+        color:var(--muted);font-size:.89rem}
+  a{color:var(--signal);text-underline-offset:2px}
+  footer{padding-block:30px;color:var(--muted);font-size:.85rem;
+         display:flex;flex-direction:column;gap:6px}
+  @media (max-width:600px){
+    .stage{grid-template-columns:38px minmax(0,1fr) 92px}
+    .rw{grid-template-columns:22px 1fr;row-gap:6px}
+    .rw .eff{grid-column:2;text-align:left}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+
+  <header class="mast">
+    <div class="eyebrow">Founder OS &middot; status as of 12 September 2026</div>
+    <h1>Build Tracker</h1>
+    <p class="col fine">What is finished, what is running right now, and what is still
+      missing. Counts come from the live run ledger, not from memory.</p>
+
+    <div class="meters">
+      <div class="meter good">
+        <span class="lab">Deliverables done</span>
+        <span class="big">28<span style="font-size:1rem;color:var(--muted)">/40</span></span>
+        <div class="bar"><i style="width:70%"></i></div>
+        <span class="sub">70% of the specified build</span>
+      </div>
+      <div class="meter good">
+        <span class="lab">Cycle 1</span>
+        <span class="big">7<span style="font-size:1rem;color:var(--muted)">/7</span></span>
+        <div class="bar"><i style="width:100%"></i></div>
+        <span class="sub">complete, report published</span>
+      </div>
+      <div class="meter">
+        <span class="lab">Ideas alive</span>
+        <span class="big">5<span style="font-size:1rem;color:var(--muted)">/30</span></span>
+        <div class="bar"><i style="width:17%"></i></div>
+        <span class="sub">25 killed by the gates</span>
+      </div>
+      <div class="meter">
+        <span class="lab">Evidence rows</span>
+        <span class="big">233</span>
+        <div class="bar"><i style="width:100%"></i></div>
+        <span class="sub">every one with a live source URL</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= LIVE PIPELINE ================= -->
+  <section>
+    <div class="shead col">
+      <div class="eyebrow">Running now</div>
+      <h2>Cycle 1, gate by gate</h2>
+      <p>Each gate kills. The panel is the stage in flight: five attackers, one
+        surface each, working through twelve survivors.</p>
+    </div>
+
+    <div class="pipe">
+      <div class="stage pass">
+        <span class="g">GEN</span>
+        <div class="box" style="width:100%">Generated across 6 island theses</div>
+        <span class="n">30</span>
+        <p class="why">Six isolated workers, one per thesis, each seeing a different slice of evidence.</p>
+      </div>
+      <div class="stage flat">
+        <span class="g">L0</span>
+        <div class="box" style="width:100%">Validity &mdash; slots, audiences, falsifiable kill conditions</div>
+        <span class="n">&minus;0</span>
+        <p class="why">Killed 7 on a faulty crypto rule, then 0 after the fix. Currently under-biting its 40% design target.</p>
+      </div>
+      <div class="stage pass">
+        <span class="g">L1</span>
+        <div class="box" style="width:86%">Obviousness &mdash; distance to cold priors and shipped products</div>
+        <span class="n">&minus;8</span>
+        <p class="why">Killed a bedtime story companion and a margin-notes app as things any model would suggest; a sleep ledger as something that already ships.</p>
+      </div>
+      <div class="stage pass">
+        <span class="g">L2</span>
+        <div class="box" style="width:73%">Grounding &mdash; every problem and unlock resolves to a live URL</div>
+        <span class="n">&minus;0</span>
+        <p class="why">All 144 citations resolved. The generators cited real evidence rather than inventing it.</p>
+      </div>
+      <div class="stage pass">
+        <span class="g">L3</span>
+        <div class="box" style="width:73%">Buildability &mdash; cost, weeks, and gross margin</div>
+        <span class="n">&minus;10</span>
+        <p class="why">The sharpest gate so far. Ten died on margin: continuous voice transcription, nightly voice against a $9 subscription, generated video burning $1.20 per non-paying trial user.</p>
+      </div>
+      <div class="stage pass">
+        <span class="g">L4</span>
+        <div class="box" style="width:48%">Adversarial panel &mdash; 72 attacks across 6 surfaces</div>
+        <span class="n">&minus;7</span>
+        <p class="why">Run first at five surfaces, which killed 5. The sixth surface, the graveyard check, had been silently cut for cost and killed two more once actually run.</p>
+      </div>
+      <div class="stage pass">
+        <span class="g">L5</span>
+        <div class="box" style="width:28%">Tournament &mdash; 40 comparisons, both orders</div>
+        <span class="n">5</span>
+        <p class="why">Every pair judged twice with the entries swapped. 100% agreement, zero cases of choosing whichever came first.</p>
+      </div>
+      <div class="stage pass">
+        <span class="g">L7</span>
+        <div class="box" style="width:20%">Probe design &mdash; three tests, all free</div>
+        <span class="n">3</span>
+        <p class="why">Two concierge runs and one community post. No landing pages: the uncertainty in all three is behavioural, and paid traffic cannot touch it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PHASES ================= -->
+  <section>
+    <div class="shead col">
+      <div class="eyebrow">The eight phases</div>
+      <h2>What is built</h2>
+      <p>Shaded phases are the load-bearing three. A system with those and one naive
+        generator beats a system with a beautiful agent roster and no evidence layer.</p>
+    </div>
+
+    <div class="phases">
+
+      <div class="phase core">
+        <div class="ptop">
+          <div class="ptitle"><span class="p">Phase 1</span><h3>Skeleton</h3></div>
+          <div><span class="pcount">5 / 5</span> <span class="chip done">Done</span></div>
+        </div>
+        <div class="items">
+          <div class="item yes"><span class="m">&check;</span><span>Idea genome and slot vocabularies</span></div>
+          <div class="item yes"><span class="m">&check;</span><span>L0 validity rules, deterministic</span></div>
+          <div class="item yes"><span class="m">&check;</span><span>World model, single writer</span></div>
+          <div class="item yes"><span class="m">&check;</span><span>Orchestrator, dual ledger, stall counter</span></div>
+          <div class="item yes"><span class="m">&check;</span><span>Cost governor and model routing</span></div>
+        </div>
+      </div>
+
+      <div class="phase core">
+        <div class="ptop">
+          <div class="ptitle"><span class="p">Phase 2</span><h3>Evidence layer</h3></div>
+          <div><span class="pcount">6 / 8</span> <span class="chip part">Mostly</span></div>
+        </div>
+        <div class="items">
+          <div class="item yes"><span class="m">&check;</span><span>Normalisation into five typed primitives</span></div>
+          <div class="item yes"><span class="m">&check;</span><span>49 cited pains, with verbatim quotes</span></div>
+          <div class="item yes"><span class="m">&check;</span><span>103 products, shipped and dead</span></div>
+          <div class="item yes"><span class="m">&check;</span><span>9 capability curves with crossing dates</span></div>
+          <div class="item yes"><span class="m">&check;</span><span>31 tombstones with stated causes</span></div>
+          <div class="item yes"><span class="m">&check;</span><span>144 cold-model priors</span></div>
+          <div class="item no"><span class="m">&mdash;</span><span>Scheduled harvesters, so it refreshes itself</span></div>
+          <div class="item no"><span class="m">&mdash;</span><span>Demand-signal and platform-shift feeds</span></div>
+        </div>
+      </div>
+
+      <div class="phase core">
+        <div class="ptop">
+          <div class="ptitle"><span class="p">Phase 3</span><h3>Void map</h3></div>
+          <div><span class="pcount">4 / 5</span> <span class="chip part">Mostly</span></div>
+        </div>
+        <div class="items">
+          <div class="item yes"><span class="m">&check;</span><span>Occupancy grid and void classification</span></div>
+          <div class="item yes"><span class="m">&check;</span><span>Originality distance, two measures</span></div>
+          <div class="item yes"><span class="m">&check;</span><span>Obviousness gate, self-calibrating threshold</span></div>
+          <div class="item yes"><span class="m">&check;</span><span>Revival candidates from tombstone pairing</span></div>
+          <div class="item no"><span class="m">&mdash;</span><span>Normalised audience taxonomy, so coverage means something</span></div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="ptop">
+          <div class="ptitle"><span class="p">Phase 4</span><h3>Genesis</h3></div>
+          <div><span class="pcount">3 / 7</span> <span class="chip part">Partial</span></div>
+        </div>
+        <div class="items">
+          <div class="item yes"><span class="m">&check;</span><span>Six island theses, opposing beliefs</span></div>
+          <div class="item yes"><span class="m">&check;</span><span>Generation envelope on every call</span></div>
+          <div class="item yes"><span class="m">&check;</span><span>Diversity monitor and alarm metrics</span></div>
+          <div class="item no"><span class="m">&mdash;</span><span>MAP-Elites archive, one elite per cell</span></div>
+          <div class="item no"><span class="m">&mdash;</span><span>Variation operators: mutate, crossover, inject</span></div>
+          <div class="item no"><span class="m">&mdash;</span><span>Novelty rejection before evaluation</span></div>
+          <div class="item no"><span class="m">&mdash;</span><span>Operators as evidence-driven functions, not just briefs</span></div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="ptop">
+          <div class="ptitle"><span class="p">Phase 5</span><h3>Oracle ladder</h3></div>
+          <div><span class="pcount">4 / 5</span> <span class="chip done">Done</span></div>
+        </div>
+        <div class="items">
+          <div class="item yes"><span class="m">&check;</span><span>L2 grounding, retrieval only</span></div>
+          <div class="item yes"><span class="m">&check;</span><span>L3 buildability, margin as a hard kill</span></div>
+          <div class="item yes"><span class="m">&check;</span><span>L4 panel, clean context per surface</span></div>
+          <div class="item yes"><span class="m">&check;</span><span>L5 tournament, Bradley-Terry with bounds</span></div>
+          <div class="item no"><span class="m">&mdash;</span><span>Sneaky advocate, to harden the rubric</span></div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="ptop">
+          <div class="ptitle"><span class="p">Phase 6</span><h3>Calibration</h3></div>
+          <div><span class="pcount">0 / 4</span> <span class="chip todo">Not started</span></div>
+        </div>
+        <div class="items">
+          <div class="item no"><span class="m">&mdash;</span><span>Clock-frozen backtest against labelled launches</span></div>
+          <div class="item no"><span class="m">&mdash;</span><span>Golden set of human-labelled pairs</span></div>
+          <div class="item no"><span class="m">&mdash;</span><span>Forecast head with resolution dates</span></div>
+          <div class="item no"><span class="m">&mdash;</span><span>Brier score tracking over time</span></div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="ptop">
+          <div class="ptitle"><span class="p">Phase 7</span><h3>Console</h3></div>
+          <div><span class="pcount">3 / 4</span> <span class="chip part">Mostly</span></div>
+        </div>
+        <div class="items">
+          <div class="item yes"><span class="m">&check;</span><span>Report renderer with full dossiers</span></div>
+          <div class="item yes"><span class="m">&check;</span><span>Kill log, so rankings are auditable</span></div>
+          <div class="item yes"><span class="m">&check;</span><span>Coverage and diversity sections</span></div>
+          <div class="item no"><span class="m">&mdash;</span><span>Interactive console: brief, queue, ask</span></div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="ptop">
+          <div class="ptitle"><span class="p">Phase 8</span><h3>Probe loop</h3></div>
+          <div><span class="pcount">1 / 3</span> <span class="chip part">Partial</span></div>
+        </div>
+        <div class="items">
+          <div class="item yes"><span class="m">&check;</span><span>Probe design stage and human approval gate</span></div>
+          <div class="item no"><span class="m">&mdash;</span><span>Result ingestion as highest-weighted evidence</span></div>
+          <div class="item no"><span class="m">&mdash;</span><span>Active learning: pick the next test by information per dollar</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= REMAINING ================= -->
+  <section>
+    <div class="shead col">
+      <div class="eyebrow">Still missing</div>
+      <h2>What is left, in the order it matters</h2>
+      <p>Ranked by how much each one changes what you can trust, not by how hard it is.</p>
+    </div>
+
+    <div class="remain">
+      <div class="rw">
+        <span class="i">01</span>
+        <div class="b"><h3>Calibration backtest</h3>
+          <p>Until this runs, the ranking is internally consistent and externally
+            unproven. Labelled historical launches are public, so this is the cheapest
+            credibility available and the single biggest change to what the output is
+            worth.</p></div>
+        <span class="eff">a weekend</span>
+      </div>
+      <div class="rw">
+        <span class="i">02</span>
+        <div class="b"><h3>Archive and variation operators</h3>
+          <p>Right now each cycle starts from scratch. An archive that keeps one elite
+            per cell, plus mutation and crossover on survivors, is what turns a
+            one-shot generator into a search that compounds across nights.</p></div>
+        <span class="eff">a day</span>
+      </div>
+      <div class="rw">
+        <span class="i">03</span>
+        <div class="b"><h3>Scheduled harvesters</h3>
+          <p>The evidence was gathered by hand this time. Until the harvesters run on
+            their own, the system cannot notice a capability crossing a threshold
+            while you sleep, which is the whole timing edge.</p></div>
+        <span class="eff">a day</span>
+      </div>
+      <div class="rw">
+        <span class="i">04</span>
+        <div class="b"><h3>Sneaky advocate</h3>
+          <p>An agent whose job is the most persuasive possible pitch for a
+            deliberately bad idea. Whatever it sneaks past the panel becomes a hard
+            negative. This is the defence against the ranker being gamed by good
+            prose, and nothing else covers it.</p></div>
+        <span class="eff">half a day</span>
+      </div>
+      <div class="rw">
+        <span class="i">05</span>
+        <div class="b"><h3>Probe execution and feedback</h3>
+          <p>The system designs probes but nothing closes the loop. Until a real ad
+            test comes back and reweights the scorer, every number above the probe
+            line is a proxy.</p></div>
+        <span class="eff">needs your budget</span>
+      </div>
+      <div class="rw">
+        <span class="i">06</span>
+        <div class="b"><h3>Normalised audience taxonomy</h3>
+          <p>Coverage is currently computed over raw audience strings, which inflates
+            the void share to a meaningless 98%. The siRNA version of this number is
+            meaningful because its axes are a closed vocabulary.</p></div>
+        <span class="eff">half a day</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DEFECTS ================= -->
+  <section>
+    <div class="shead col">
+      <div class="eyebrow">Caught by running it</div>
+      <h2>Defects found and fixed</h2>
+      <p>Every one of these would have corrupted results quietly rather than failing
+        loudly. They are the argument for running the thing rather than admiring the
+        design.</p>
+    </div>
+    <div class="tscroll">
+      <table>
+        <thead><tr><th>What broke</th><th>How it would have looked</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><b>No generator ever saw a pain signal.</b> Evidence truncated at 40 items after 9 unlocks and 31 tombstones filled it</td>
+              <td>All 30 ideas generated from capability changes and dead products alone, citing tombstones as their evidence of a human problem. No error anywhere</td>
+              <td><span class="chip done">Fixed</span></td></tr>
+          <tr><td>Grounding accepted a citation of any kind</td>
+              <td>A problem evidenced only by a dead competitor passing as an evidenced human need</td>
+              <td><span class="chip done">Fixed</span></td></tr>
+          <tr><td>Panel silently dropped its last attack surface</td>
+              <td>Five ideas surviving that a sourced graveyard check kills</td>
+              <td><span class="chip done">Fixed</span></td></tr>
+          <tr><td>Timing scored a constant 0.4 for every idea</td>
+              <td>One of the four viability terms contributing nothing to any ranking</td>
+              <td><span class="chip done">Fixed</span></td></tr>
+          <tr><td>Novelty head counted novelty twice and never measured quality</td>
+              <td>A plausible-looking score with a term missing from it</td>
+              <td><span class="chip done">Fixed</span></td></tr>
+          <tr><td>Probe stage was unreachable behind the driver's stop point</td>
+              <td>A designed stage that simply never ran</td>
+              <td><span class="chip done">Fixed</span></td></tr>
+          <tr><td>Deny rule matched &ldquo;million-token context&rdquo; as crypto</td>
+              <td>Seven sound ideas killed at the first gate for a reason nobody would have questioned</td>
+              <td><span class="chip done">Fixed</span></td></tr>
+          <tr><td>Reloading evidence wiped the store and reassigned signal ids</td>
+              <td>The grounding gate killing good ideas for having no source, looking exactly like the gate working</td>
+              <td><span class="chip done">Fixed</span></td></tr>
+          <tr><td>Deterministic gates re-ran on every resume and recalibrated each pass</td>
+              <td>The population eaten in four rounds, with no error anywhere</td>
+              <td><span class="chip done">Fixed</span></td></tr>
+          <tr><td>Descriptor collision compared each idea against its own stored row</td>
+              <td>Every candidate killed as a duplicate of itself</td>
+              <td><span class="chip done">Fixed</span></td></tr>
+          <tr><td>Generation re-ingested candidates on every resume</td>
+              <td>Idea counts quietly multiplying each round</td>
+              <td><span class="chip done">Fixed</span></td></tr>
+          <tr><td>Persona list leaked a British accent into the audience slot</td>
+              <td>Half the survivors aimed at a market with a fifth of the revenue per install</td>
+              <td><span class="chip done">Fixed for next cycle</span></td></tr>
+          <tr><td>L0 kills nothing after the crypto fix</td>
+              <td>Investigated: the target was wrong, not the gate. Its rules live in the generation prompt, so compliance is high. Now documented as a guarantee whose kill rate is a drift alarm</td>
+              <td><span class="chip done">Resolved</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" style="margin-top:14px">Eight of these were found by running the
+      thing, not by reading it. Every one would have produced a plausible-looking
+      ranking with something quietly missing from it, which is the failure mode
+      that matters in a system whose whole output is a judgement.</p>
+  </section>
+
+  <footer>
+    <p>Counts read from the live run ledger. Branch
+      <code>claude/multi-agent-orchestration-twygjg</code>. Cycle 1 complete.</p>
+    <p class="fine">Nothing here is calibrated against real outcomes yet. Published
+      benchmarks on this class of prediction top out near a 4.7x lift over a sub-1%
+      base rate, which is the honest ceiling this is aiming at.</p>
+  </footer>
+
+</div>

@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "distribution_attacker",
+    "attack": "The only community that exists for this is r/Anki and the Anki forums, an audience whose defining trait is that its entire toolchain is free and open source and whose reflex answer to a paid one-time-purchase app is a link to an add-on someone wrote for nothing over a weekend. There is also nothing to embed: the artifact is a deck of private facts about colleagues' children and which parent works nights, which cannot be posted, shared or even mentioned aloud without sounding like surveillance, so the product is permanently unrecommendable in the one way consumer apps actually spread. The targetable set is the intersection of two narrow populations - K-12 teachers who already run a daily spaced-repetition session - plausibly a few thousand people worldwide, and the idea's own kill line concedes that under 2% of the relevant forum threads producing a single install ends it.",
+    "strongest_defence": "r/Anki and r/Teachers are both large and the CSV-workaround threads in the evidence prove the exact behaviour already happens in public, so a founder can hand-answer every one of those threads for free and needs no second installer for the product to work.",
+    "verdict": "fatal",
+    "verdict_reason": "The one named channel is structurally anti-commercial, the artifact is unshareable for privacy reasons, and the qualifying intersection is too small to yield a thousand buyers at zero budget."
+  },
+  "text": "",
+  "usage": {}
+}

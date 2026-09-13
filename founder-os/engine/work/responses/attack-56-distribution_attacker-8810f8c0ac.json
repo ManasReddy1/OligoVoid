@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "distribution_attacker",
+    "attack": "The shareable artifact is a grocery list, and the person it is shared with - the spouse doing the Saturday shop - receives it as a text or a screenshot and needs nothing installed, ever. A list that works as a screenshot is a feature, not a loop, and there is no second reason to mention it: the product fires once a week and its output is indistinguishable from a list someone typed. At a one-time price there is no recurring revenue to fund any channel, and store search for 'shopping list' and 'recipe' is among the most saturated in the catalogue, with incumbents holding both the ranking and the day-7 retention signal the stores now weight.",
+    "strongest_defence": "This is the one idea here whose value is legible in fifteen seconds of video - paper binder in, finished combined list out - which is exactly the shape organic short-form kitchen content spreads at zero cost, into by far the largest and most reachable audience in the set.",
+    "verdict": "wounded",
+    "verdict_reason": "The named artifact loop cannot turn because the recipient never needs to install, though a free organic demo channel plausibly reaches the first thousand."
+  },
+  "text": "",
+  "usage": {}
+}

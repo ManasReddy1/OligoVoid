@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "retention_attacker",
+    "attack": "The product is designed never to be opened, and by the third rotation there is nothing left to open it for: the corrected total reads the same as the last two, because the thing producing it is a hospital rota the nurse cannot change. Worse, the write-back deposits the output into HealthKit, which she keeps whether or not she pays - cancelling does not claw back a single corrected sample already written, so the paid tier is renting a background process whose only evidence of working is the absence of a complaint. The first renewal prompt therefore lands on someone who has not launched the app in three weeks and has already banked everything she wanted from it.",
+    "strongest_defence": "The trigger is not a habit the app invented - a new rota lands every fortnight for the length of a nursing career, so the correction job never stops needing doing, and invisible-but-correct is the right shape for passive infrastructure rather than a retention failure. Sessions are the wrong metric; background delivery still running at day 90 is the right one, and a free tier that keeps correcting while the paid tier sells the multi-year corrected history means the churn decision is never forced in a low-salience month.",
+    "verdict": "wounded",
+    "verdict_reason": "The correction job genuinely recurs every rotation, but the product gives its output away into HealthKit and gives the user no reason to return, so the renewal is decided by someone who has not opened it in weeks."
+  },
+  "text": "",
+  "usage": {}
+}

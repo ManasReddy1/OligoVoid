@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "incumbent_response",
+    "attack": "The named incumbent is already dead: Alexa Care Hub became Alexa Together and was discontinued in 2024, so the business-model-lock argument defends against a product that no longer exists. The live incumbents are where the behaviour already sits: the siblings' WhatsApp group with Meta AI in it, and Apple Notes shared notes with Apple Intelligence, and Google Keep with Gemini, all free, all preinstalled, and all shipping 'ask a question across your own notes' as a platform feature. Their decisive advantage is the idea's own first kill criterion: getting a second sibling to accept an invite within 14 days is a cost the incumbents simply do not pay, because everyone is already in the thread.",
+    "strongest_defence": "WhatsApp's end-to-end encryption is a promise to users that forecloses a durable, server-side, searchable multi-year archive, so Meta structurally cannot become the household record; Apple Notes fails the moment one sibling is on Android, which is the common case; and receipts, invoices and appointment letters never arrive in a chat at all. The product being sold is the prompting and the structure that make a thin record thick, not the storage.",
+    "verdict": "wounded",
+    "verdict_reason": "The encryption constraint is real for WhatsApp, but free preinstalled shared notes with cross-time question answering are shipping now on both mobile platforms and carry no invite cost, which is where this product is thinnest."
+  },
+  "text": "",
+  "usage": {}
+}

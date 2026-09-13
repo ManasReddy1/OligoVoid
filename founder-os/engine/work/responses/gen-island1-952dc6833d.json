@@ -1,0 +1,231 @@
+{
+  "parsed": {
+    "reasoning": "Start with what is actually in the evidence, because there is less of it than it looks. There are nine unlocks and a long row of tombstones. There are no entries labelled PAIN at all, so the only evidenced statements I can make about a human problem are the ones the tombstones support: who somebody already tried to serve, and what killed the attempt. I am citing tombstone ids for pain and not inventing anything else. That is a real limit and I would rather say so than paper over it.\n\nRead the tombstones in groups and a pattern falls out. The companion and gadget deaths - Jibo [37], Kuri [38], Moxie [39], Mycroft [40], Amazon Glow [49], Halo [48], Car Thing [50], Teforia [62] - almost none of them died because nobody wanted the thing. Jibo shipped at $899 doing less than a cheaper speaker. Moxie died when a funding round collapsed and the speech and LLM pieces were tied to money it no longer had. Mycroft's own CEO called out the single most expensive item. Teforia was an expensive single-purpose box. That is a cost-of-goods and cost-of-inference story, not a demand story. The headworn deaths, Google Glass [42] and Magic Leap One [43], are the same shape: high price, unclear value, straddling two segments. The delivery and courier deaths, Shyp [59], Take Eat Easy [60], PepperTap [61], are margin per order. And Sora [51] is the newest and bluntest: about a million dollars a day of compute against roughly two million dollars of lifetime purchase revenue. Cost per unit of work has killed more of these than any missing feature.\n\nThen the softer failures. Tandem's medication app [47] found retention hard even though the need had researched well. Habitual [63] was in a category with hundreds of near-identical entrants and never found a channel. Artifact [54] had a core group who loved it and still judged the market too small. Poparazzi [56] hit number one and could not hold it. openmargin [44] and Vreal [45] were simply too early for their price and their installed base. Two lessons I take seriously: a thing people already do by hand, badly, is a workaround worth replacing, but only if the replacement produces a result they could not get before; and a product that needs daily pressure to survive dies quietly when the pressure stops.\n\nNow the unlocks, and which reason-nobody-built-it each one actually dissolves. [2] is the biggest for me: a vision-capable model running on the phone itself, zero marginal cost, offline, private, crossed 2026-06-09. Everything that died of per-request cost or of needing a box on the counter now runs on hardware the person already owns. [1] pairs with it - no cloud API fees for a small developer under two million lifetime downloads - which is the whole per-user cost line for a one-person build. [3] took frontier text from thirty dollars per million input tokens down to ten cents, a three-hundred-fold cut, which is what makes a three percent conversion and thirty cents a month per active user arithmetically possible at all. [4] put real spoken back-and-forth at half a cent to under two cents a minute; a ten-minute conversation is now pennies, where Moxie and Mycroft were paying for it out of hardware margin. [5] means a million tokens of somebody's own paper at flat price with cached input at roughly ninety percent off, which deletes the retrieval pipeline and the vector database that used to be a month of work before anything shipped. [6] is video at three cents a second. [7] hands me age assurance as a free operating system call, which used to be a vendor contract and is the single reason a solo builder could not responsibly ship anything for children. [8] opened the Ray-Ban Display to third parties with an HTML and JS path, which is the first time the Glass idea can be tried without building the glasses. [9] takes the platform cut to zero on external payment links from a US app, which moves revenue per payer from the eight-to-twenty-four-dollar band toward the top of it.\n\nWhich populations are specific enough to actually reach without an advertising budget, given cost per paying user of twenty to eighty dollars? The ones that pass through a hand. Somebody who already has a tradesperson, a grandparent, a counsellor, a club, or a forum standing next to them at the moment of need. Broad hobbies do not pass; a named moment does. The Habitual lesson [63] is that distribution has to be structural, not bought.\n\nSo the shape I want: a result that was priced out eighteen months ago, delivered to a named population at a named moment, where the cost per delivery is either zero on-device or pennies, and where the person who hands it over is already in the room.",
+    "candidates": [
+      {
+        "title": "House File",
+        "probability": 0.28,
+        "unlock": {
+          "value": "A vision-capable model now runs on the phone itself at zero marginal cost and offline, and a solo developer under two million lifetime downloads pays no cloud API fee at all, so identifying equipment from a photo costs nothing per look-up.",
+          "signal_ids": [
+            1,
+            2
+          ]
+        },
+        "pain": {
+          "value": "Standing in front of an unfamiliar water heater or valve is a moment people have always handled by taking a blurry photo and asking someone later, and every product built for that moment so far was either an expensive single-purpose box with no market at the volume it needed [62] or one of hundreds of interchangeable apps that never found a channel [63].",
+          "signal_ids": [
+            62,
+            63
+          ]
+        },
+        "audience": {
+          "value": "first-time landlords with a single rental unit"
+        },
+        "mechanic": {
+          "value": "capture_and_answer"
+        },
+        "wedge": {
+          "value": "Photograph three things in one unit - the main shutoff, the water heater label, the breaker panel - and get back a named, dated record of what is installed and which parts fit it."
+        },
+        "moat": {
+          "value": "accumulated_personal_corpus"
+        },
+        "model": {
+          "value": "freemium_subscription"
+        },
+        "loop": {
+          "value": "professional_recommendation"
+        },
+        "kill": [
+          "On-device identification of common domestic fixtures from a phone photo is correct on fewer than 80 of 100 blind test shots taken by non-experts in bad light.",
+          "Fewer than 3 in 100 free accounts pay within 60 days of their first saved photo.",
+          "Fewer than 15 of 50 plumbers and electricians shown the finished record hand it on to a customer unprompted within 4 weeks.",
+          "Blended cost per active user per month exceeds $0.30 once photos that fall back to cloud inference are counted."
+        ],
+        "why_now": "The look-up that used to cost a cloud round trip per photo now runs free on the landlord's own phone [1][2], so the single-purpose device that had to carry that cost [62] is no longer the only way to deliver the answer.",
+        "why_not_obvious": "The obvious pitch to a landlord is rent collection or tenant messaging software, not a photographic inventory of pipework, because nobody thinks of a shutoff valve as a record worth keeping until the second time they need it."
+      },
+      {
+        "title": "Bedtime Radio",
+        "probability": 0.18,
+        "unlock": {
+          "value": "Real-time spoken back-and-forth fell to roughly half a cent to two cents a minute, so a ten-minute conversation costs pennies, and age assurance arrived as a free operating system call rather than a compliance project a solo builder could not take on.",
+          "signal_ids": [
+            4,
+            7
+          ]
+        },
+        "pain": {
+          "value": "The talking bedtime companion for young children has been tried repeatedly and each attempt was killed by the cost of the object and the speech stack around it - Jibo shipped at $899 doing less than a cheaper speaker [37], Moxie's speech and language pieces collapsed with a single funding round [39], and Amazon Glow was discontinued inside about a year on poor sales [49].",
+          "signal_ids": [
+            37,
+            39,
+            49
+          ]
+        },
+        "audience": {
+          "value": "parents of children aged four to seven at bedtime"
+        },
+        "mechanic": {
+          "value": "voice_conversation"
+        },
+        "wedge": {
+          "value": "One ten-minute spoken story a night on the parent's existing phone, where the child answers back and the same three characters come back the next night."
+        },
+        "moat": {
+          "value": "content_library"
+        },
+        "model": {
+          "value": "hybrid_sub_credits"
+        },
+        "loop": {
+          "value": "gift_to_recipient"
+        },
+        "kill": [
+          "Median nights used per household falls below 8 in the second month after purchase.",
+          "Voice cost per household exceeds $0.30 per month at an average of 10 minutes a night on the cheap speech stack.",
+          "Fewer than 20 of every 100 gifted subscriptions are redeemed and used at least 5 nights by the receiving household.",
+          "More than 5 in 100 sessions produce a parent-flagged unsuitable turn in the first 1,000 logged sessions."
+        ],
+        "why_now": "The part that bankrupted the talking-toy attempts was the hardware and the per-minute speech bill [37][39][49], and both went to roughly nothing on a phone the family already owns [4][7].",
+        "why_not_obvious": "Everyone's instinct for small children is a screen-free physical device with a face on it, which is exactly the thing that kept dying, and nobody expects a parent to hand over their own unlocked phone at bedtime."
+      },
+      {
+        "title": "Interview Reps",
+        "probability": 0.2,
+        "unlock": {
+          "value": "Spoken practice at under two cents a minute on top of text inference that fell from $30 to $0.10 per million input tokens, with free age signals from the operating system for accounts belonging to minors.",
+          "signal_ids": [
+            3,
+            4,
+            7
+          ]
+        },
+        "pain": {
+          "value": "Rehearsing a high-stakes spoken interview is done by cornering a relative who has never sat on the other side of one, and products aimed at this kind of self-improvement have failed on retention despite research validating the need [47] and on being indistinguishable from hundreds of near-identical entrants with no channel [63].",
+          "signal_ids": [
+            47,
+            63
+          ]
+        },
+        "audience": {
+          "value": "first-generation college applicants preparing for scholarship interviews"
+        },
+        "mechanic": {
+          "value": "simulation_rehearsal"
+        },
+        "wedge": {
+          "value": "One named scholarship's published question list, rehearsed out loud three times, with a transcript of what the applicant actually said and where the answer ran out."
+        },
+        "moat": {
+          "value": "switching_cost_of_history"
+        },
+        "model": {
+          "value": "consumable_credits"
+        },
+        "loop": {
+          "value": "community_embed"
+        },
+        "kill": [
+          "Fewer than 40 of 100 applicants who finish one rehearsal come back for a second within 7 days.",
+          "Fewer than 10 college-access groups or school counsellors adopt it into their existing interview-prep sessions in the first 2 application cycles.",
+          "Average revenue per applicant over a full application season lands under $8 while acquisition stays above $0 in ad spend but above 3 hours of founder time each.",
+          "Blind raters cannot tell rehearsed answers from unrehearsed ones better than 55 percent of the time on 100 paired recordings."
+        ],
+        "why_now": "Spoken rehearsal used to be uneconomic at a price a teenager could pay [4][3], so the practice was left to whoever happened to be at the kitchen table, and the retention problem [47] is softer here because the product is used hard for three weeks and then is done.",
+        "why_not_obvious": "The reflex for this population is essay help and application checklists, because writing leaves a document behind and a spoken rehearsal leaves nothing, which is exactly why nobody has been recording it."
+      },
+      {
+        "title": "Shoebox Transcripts",
+        "probability": 0.19,
+        "unlock": {
+          "value": "A million tokens of context at flat pricing with cached input at roughly a ninety percent discount, so a whole box of correspondence can be handed over at once without building a retrieval pipeline or a vector database first.",
+          "signal_ids": [
+            3,
+            5
+          ]
+        },
+        "pain": {
+          "value": "Reading and ordering a dead relative's boxed letters is done one page at a time by hand over years, and the earlier software attempts around personal reading and annotation failed for being too early in the market against the price and installed base of their day [44][45].",
+          "signal_ids": [
+            44,
+            45
+          ]
+        },
+        "audience": {
+          "value": "amateur genealogists holding a deceased relative's boxed correspondence"
+        },
+        "mechanic": {
+          "value": "delegation_handoff"
+        },
+        "wedge": {
+          "value": "Send scanned letters from one correspondent only and get back a plain transcript plus a dated timeline of who, where and when."
+        },
+        "moat": {
+          "value": "accumulated_personal_corpus"
+        },
+        "model": {
+          "value": "consumable_credits"
+        },
+        "loop": {
+          "value": "public_profile"
+        },
+        "kill": [
+          "Transcription of mid-century handwriting is under 90 percent word accuracy on a 200-letter blind sample judged by the family who owns them.",
+          "Fewer than 25 of 100 first-box customers send a second box within 90 days.",
+          "Published ancestor pages draw under 500 organic search visits per 1,000 pages in their first 6 months.",
+          "Compute cost per box exceeds 25 percent of the price charged for it once cached input discounts are applied."
+        ],
+        "why_now": "The box was always too big for the old context window and too small to justify a retrieval pipeline, and a million tokens at flat price with cheap cached input removes both objections at once [5][3].",
+        "why_not_obvious": "The standard answer for genealogists is a records subscription and a family tree, so nobody sells work on the paper already in the house, which is the part no database anywhere contains."
+      },
+      {
+        "title": "Bench Notes",
+        "probability": 0.15,
+        "unlock": {
+          "value": "Third-party developer access to the Ray-Ban Display with an official HTML, CSS and JS path plus Neural Band input, combined with a vision-capable model running on-device at zero marginal cost.",
+          "signal_ids": [
+            2,
+            8
+          ]
+        },
+        "pain": {
+          "value": "Keeping track of which bolt came from where during a long teardown is done with sandwich bags and a marker pen, and the head-worn attempts to help failed on high price and unclear value [42] and on straddling consumer and professional segments at an unsustainable price [43].",
+          "signal_ids": [
+            42,
+            43
+          ]
+        },
+        "audience": {
+          "value": "home-garage motorcycle restorers working a single long project bike"
+        },
+        "mechanic": {
+          "value": "annotation_overlay"
+        },
+        "wedge": {
+          "value": "One teardown: every photo and spoken note taken while removing a part is pinned back to that part and shown again when the restorer looks at it during reassembly."
+        },
+        "moat": {
+          "value": "switching_cost_of_history"
+        },
+        "model": {
+          "value": "one_time_purchase"
+        },
+        "loop": {
+          "value": "shareable_artifact"
+        },
+        "kill": [
+          "The on-device model re-identifies a previously photographed part on the bench correctly in fewer than 70 of 100 attempts under garage lighting.",
+          "Fewer than 500 units sell in the first 6 months at a one-time price of $30 or more with zero advertising spend.",
+          "Median notes captured per project falls below 25, meaning the record is too thin to be worth returning to.",
+          "Fewer than 1 in 10 completed projects produce a shared teardown log posted to a forum or club page."
+        ],
+        "why_now": "The idea only ever failed on the cost of the glasses and the closed platform [42][43], and the platform is now open to a one-person build with the recognition running free on the device [8][2].",
+        "why_not_obvious": "The obvious head-worn pitch is a repair manual in your eye line, but manuals already exist for these bikes; what does not exist is the record of what this particular owner did to this particular machine three months ago."
+      }
+    ]
+  },
+  "text": "",
+  "usage": {}
+}

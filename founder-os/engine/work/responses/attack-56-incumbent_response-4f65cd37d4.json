@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "incumbent_response",
+    "attack": "AnyList and Paprika are the category leaders and both already do the harder half: select the week's recipes and they merge quantities and dedupe into one shopping list, and Paprika already imports a recipe from an image. Apple ships the other half free - Reminders' Grocery lists auto-group items by aisle, and Live Text and Visual Intelligence read a printed page - so 'photograph the page, get a list' is a Shortcut on a phone the household already owns. Samsung and Instacart both ship recipe-to-cart flows. The claim of unabsorbability rests on paper, but reading paper is exactly the capability every platform is pushing into the camera each quarter.",
+    "strongest_defence": "Paprika's importer clips URLs, not paper, and fails on a handwritten family card, which is the specific corpus here; Apple's Live Text returns text, not summed quantities, and Reminders' aisle grouping does no arithmetic at all. The binder that accumulates is the household's own recipes, which exist in no incumbent catalogue and cannot be seeded from one.",
+    "verdict": "wounded",
+    "verdict_reason": "The quantity-merging list is already the shipped feature of the category leaders and the OCR is a free OS capability, which leaves a one-time purchase selling a thin slice between two things the buyer already has."
+  },
+  "text": "",
+  "usage": {}
+}

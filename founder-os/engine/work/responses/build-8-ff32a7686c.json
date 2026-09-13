@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "iOS + Android (Flutter/Dart) with a hard requirement on OS-provided age signals (Declared Age Range on Android, Apple's age range API) because a share of these applicants are minors; rehearsal runs on a mid-tier speech-to-speech stack around $0.012-0.018/min - a cheap ASR+TTS chain does not interrupt or probe convincingly enough to be a rehearsal; frontier text model for the post-session transcript analysis; FastAPI + Postgres on Render; consumable credit packs via StoreKit/Play Billing.",
+    "milestones": [
+      "Week 1-3: one scholarship's published question list, spoken rehearsal end to end, full transcript saved - no scoring, no personalisation.",
+      "Week 4-5: the artefact - a marked-up transcript showing where the answer ran out, filler density, and how long each answer actually ran.",
+      "Week 6-7: rep 2 and rep 3 against the applicant's own prior transcripts, so the interviewer probes the answers that previously collapsed.",
+      "Week 8-9: minor-safe account handling, credit packs, and a counsellor mode that lets a college-access group seat 25 applicants under one code.",
+      "Week 10-11: two store reviews, plus a pilot with three college-access nonprofits ahead of an application cycle."
+    ],
+    "build_cost_usd": 4000,
+    "weeks_to_v1": 11,
+    "inference_cost_user_month": 0.35,
+    "price_month": 9,
+    "expected_conversion": 0.06,
+    "riskiest_technical_assumption": "That a speech-to-speech interviewer cheap enough to sell to a first-generation applicant can interrupt, follow up and hold silence like a real panel, rather than politely taking turns - turn-taking realism, not transcription, is what separates this from talking to a voice memo.",
+    "cheapest_way_to_test_that_assumption": "Run 10 applicants through a scripted rehearsal on a stock realtime voice API with no app at all, record both the audio and the API bill, and have two people who have actually sat on scholarship panels rate each session as 'like a panel' or 'not' - about $100 of API spend and a week."
+  },
+  "text": "",
+  "usage": {}
+}

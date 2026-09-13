@@ -1,0 +1,20 @@
+{
+  "parsed": {
+    "kind": "concierge",
+    "hypothesis": "A briefing whose only value is remembering the plot's own past will actually be opened four Sundays running - and the multi-season record it depends on can be obtained from a plot holder at all, rather than existing only in their head or not existing.",
+    "falsifier": "Of 5 plot holders, fewer than 3 reply to or acknowledge all 4 consecutive Sunday briefings (a reply within 48 hours counts, silence does not); OR fewer than 3 of the 5 can supply any record of a prior season - notes, photos with dates, a seed order, a sketch of the beds - beyond the current year. Failing the first means habit_lock is fiction; failing the second means the moat is fiction, because there is no history to lock them in with.",
+    "budget_usd": 0,
+    "days": 29,
+    "exactly_what_to_do": [
+      "Saturday morning: post in r/GardeningUK and the National Allotment Society Facebook group, and pin a paper note on one local site's noticeboard, offering to hand-write a free Sunday email for 5 plot holders for a month. Take the first 5 who have held a plot for at least two seasons - a first-year holder has no past for the product to remember and would fake a pass.",
+      "Same day, 20-minute phone call each: get the bed layout, what went in each bed last year and this, and every scrap of prior-season record they have (photos, a notebook, a seed order, a WhatsApp message to themselves). Write down verbatim how much they actually had versus how much they reconstructed from memory - this number is half the experiment.",
+      "Every Sunday at 6pm for 4 weeks, send each person a 150-word email or WhatsApp message you wrote by hand, containing at least one specific callback to their own record ('last October you noted the leeks in bed 3 got rust after the wet week') and one thing due this week on their plot. Mention nobody else's garden.",
+      "End each briefing with one question they can answer in a sentence ('did the garlic go in?'). Log per person per week: replied within 48 hours, opened but silent, or nothing. Send no reminders and no 'did you see this?' - chasing manufactures the open rate you are trying to measure.",
+      "In week 3 deliberately send one person a briefing containing only generic seasonal advice with no callback to their own notes. Compare their reply to the other four that week - if the generic one reads the same to them, the memory is not what is being valued and a general platform can copy this in a weekend, which is kill condition four.",
+      "After Sunday 4, ask each of the 5 the same question and write the answer down word for word: 'if this stopped next Sunday, would you notice?' Count only the ones who say yes and name the specific thing they would miss."
+    ],
+    "what_it_cannot_tell_you": "Whether anyone pays \u00a34 a month. Five people getting a hand-written note from a real person who phoned them will open it out of politeness, and that courtesy is indistinguishable from habit at n=5 - a paid, automated, faceless version loses exactly that. It also cannot test the distribution kill (whether 10 allotment associations will put it in a newsletter) or the platform risk, and four Sundays in autumn covers the season when a plot is winding down, which is the easiest time to write a briefing and the hardest time to prove year-round habit."
+  },
+  "text": "",
+  "usage": {}
+}

@@ -1,0 +1,229 @@
+{
+  "parsed": {
+    "reasoning": "Start with what the evidence block actually contains. There are nine capability changes with dates on them, and a long row of headstones. There is no survey data here, so every claim I make about a human problem has to lean on a headstone, which is fair enough: a company that spent real money on a need and then died is evidence that the need was worth chasing and that the way they chased it did not carry its own weight.\n\nRead the headstones in groups. The first group died of hardware and price: Jibo shipped at $899 and did less than an Echo [37], Kuri could not find a business fit inside Bosch [38], the Humane Pin was returned faster than it sold and got cut from $699 to $499 [36], Amazon Glow lasted about a year [49], Car Thing was bricked outright [50], Teforia was filed under no market need for an expensive single-purpose box [62], AIRO could not prove the thing worked as advertised [35]. None of those tells me the underlying want was fake. It tells me the want could not pay for a device. That is the shape of a problem worth taking seriously on a phone people already own, which is exactly what [2] changes: a vision-capable model running on the handset, zero marginal cost, offline.\n\nThe second group died of the cost of a human being. Shyp could never get the per-pickup courier cost under the fee [59], Take Eat Easy and PepperTap both drowned in per-order margin [60][61], and Tandem's founders concluded live fitness simply was not engaging enough to pay for the live part [46]. Anywhere the only existing answer is 'hire a person by the hour', the price floor was a person's hour. [3] and [4] move that floor: text inference went from $30/M to $0.10/M input, and spoken back-and-forth now runs half a cent to two cents a minute. That is the first time a rehearsal or a conversation can be sold for less than a tutor.\n\nThe third group died of platform owners. VoiceLabs was killed by a one-line change to Amazon's developer agreement banning third-party advertising [58], and Meerkat lost the Twitter social graph with two hours' notice [57]. That is the strongest argument in the whole block for building where the platform's own money forbids it from following, and for not building on top of a graph you do not own. [7] cuts the other way and helps: age assurance used to be a vendor contract and a compliance project, and is now a free operating system call, which removes the main reason a one-person shop would not touch anything involving a child. [9] matters for the same practical reason, keeping 30% that used to go to the platform.\n\nThe fourth group died of retention and of sameness. Tandem's medication app found retention brutally hard even though the research had validated the need [47], Zeo blamed thin margins plus the friction of logging in [41], Poparazzi could not convert a #1 spike into use [56], Habitual had hundreds of near-identical rivals and no channel [63], Artifact was loved by a core and still too small [54], Huxe was erased the day Spotify shipped the same feature [52]. The lesson I take: pick needs that are either genuinely daily, or intense and time-boxed and honestly priced as such, and pick a distribution route that runs through an existing human gathering rather than an ad buy.\n\nFinally, Sora burned about $1M a day against $2.1M lifetime purchase revenue [51]. Whatever gets built has to be cheap per use by construction, not by hoping.\n\nFor populations, I want groups you can point at and find in a room: people with a fixed, dated appointment ahead of them; siblings splitting a parent's affairs; people who just took on a house with equipment nobody explained to them; a child and a grandparent separated by distance; and people with six weeks to empty a house they did not choose to inherit. Each of those sits in the blind spot of a large company whose money or promises stop it from going there.",
+    "candidates": [
+      {
+        "title": "Naturalization Interview Practice Line",
+        "probability": "0.18",
+        "unlock": {
+          "value": "Spoken back-and-forth now costs half a cent to two cents a minute on cheap stacks, and a capable model runs on the handset offline, so an unscripted mock interview no longer needs a tutor's hour behind it",
+          "signal_ids": [
+            4,
+            2
+          ]
+        },
+        "pain": {
+          "value": "Rehearsing a spoken official interview has only ever been available by paying a person by the hour, and the attempts to make live human sessions cheap enough collapsed on exactly that cost [46][59].",
+          "signal_ids": [
+            46,
+            59
+          ]
+        },
+        "audience": {
+          "value": "green card holders with a scheduled USCIS naturalization interview"
+        },
+        "mechanic": {
+          "value": "simulation_rehearsal"
+        },
+        "wedge": {
+          "value": "One twelve-minute spoken mock of the N-400 review: the officer asks about your own travel dates and addresses as you typed them, interrupts, and asks one follow-up you did not prepare for"
+        },
+        "moat": {
+          "value": "content_library"
+        },
+        "model": {
+          "value": "consumable_credits"
+        },
+        "loop": {
+          "value": "community_embed"
+        },
+        "kill": [
+          "Fewer than 15% of people who finish one free mock buy a credit pack within 7 days",
+          "Median packs bought per person is under 2, putting lifetime revenue below $10 against a $20-$80 cost per paying user",
+          "Voice cost per completed 12-minute mock exceeds $0.25, breaking the under-$0.30 per active user per month ceiling",
+          "Fewer than 20 ESL classes or community legal clinics pass it on after 3 months of direct outreach"
+        ],
+        "why_now": "The only honest version of this was a tutor charging $40 an hour, and [4] plus [2] put the same unscripted spoken pressure at roughly two cents a minute.",
+        "why_not_obvious": "The incumbent is USCIS's own free study material, and its structural constraint is brand promise: a government agency cannot publish a simulated officer who doubts you or goes off the printed 100 questions, because anything it ships reads as an official statement about your outcome, so the realistic rehearsal is foreclosed to it no matter how well it executes."
+      },
+      {
+        "title": "Parent House Log",
+        "probability": "0.22",
+        "unlock": {
+          "value": "A million-token context at flat pricing with cached input at about a 90% discount means a household's whole running record of calls, receipts and appointments can be held and reasoned over without a retrieval pipeline or a vector database, at text prices that fell to $0.10/M input",
+          "signal_ids": [
+            5,
+            3
+          ]
+        },
+        "pain": {
+          "value": "Families keeping track of an aging parent's affairs churn out of the tools built for it even when the need is real, because logging is friction and the record is thin [47][41].",
+          "signal_ids": [
+            47,
+            41
+          ]
+        },
+        "audience": {
+          "value": "adult siblings sharing care for a parent still living at home"
+        },
+        "mechanic": {
+          "value": "shared_ledger"
+        },
+        "wedge": {
+          "value": "One thread per parent where each sibling dictates thirty seconds after any phone call, visit or contractor, and the log answers 'what did the furnace guy say in March and who paid him'"
+        },
+        "moat": {
+          "value": "switching_cost_of_history"
+        },
+        "model": {
+          "value": "freemium_subscription"
+        },
+        "loop": {
+          "value": "invite_for_function"
+        },
+        "kill": [
+          "Fewer than 40% of first users get a second sibling to accept the invite within 14 days",
+          "Median entries per household fall below 4 per month by month 3",
+          "Under 3% of free households pay $8 a month after 60 days"
+        ],
+        "why_now": "The reason this was always a shared notes file is that holding a year of scrappy voice notes and answering questions across it needed an engineering project, and [5] plus [3] made that a flat monthly cost.",
+        "why_not_obvious": "The incumbent is Amazon's Alexa and its Care Hub, and its structural constraint is business model lock: the assistant exists to move Amazon retail and its developer agreement has already been changed to ban whole third-party business models on the platform [58], so it cannot become a neutral family record that the family owns, pays for directly and exports on the way out."
+      },
+      {
+        "title": "House Parts Record",
+        "probability": "0.30",
+        "unlock": {
+          "value": "A vision-capable model now runs on the phone itself at zero marginal cost and offline, so identifying a fitting in a dark crawlspace with no signal costs nothing per look",
+          "signal_ids": [
+            2,
+            3
+          ]
+        },
+        "pain": {
+          "value": "The general point-it-and-ask product has been tried at hardware prices and sold worse than it was returned, and the single-purpose connected box before it was filed under no market need [36][62][35].",
+          "signal_ids": [
+            36,
+            62,
+            35
+          ]
+        },
+        "audience": {
+          "value": "first-time owners of rural houses on well water and septic"
+        },
+        "mechanic": {
+          "value": "capture_and_answer"
+        },
+        "wedge": {
+          "value": "Photograph the pressure tank and pump switch once; get the model, the part numbers that fit it, and a dated entry that survives until the next time something drips"
+        },
+        "moat": {
+          "value": "accumulated_personal_corpus"
+        },
+        "model": {
+          "value": "one_time_purchase"
+        },
+        "loop": {
+          "value": "shareable_artifact"
+        },
+        "kill": [
+          "Fewer than 30% of buyers photograph a second item within 7 days of the first",
+          "The on-device model names the wrong part on more than 1 in 4 photographs of real basement and under-sink equipment",
+          "Fewer than 5% of exported house sheets are opened by a second person, such as a contractor or a buyer, within 90 days",
+          "Refund rate above 8% on a $25 one-time purchase"
+        ],
+        "why_now": "Every prior attempt needed a cloud round trip or its own hardware, and [2] puts a vision model in the pocket of someone standing in a basement with one bar of signal.",
+        "why_not_obvious": "The incumbent is Google Lens, and its structural constraint is data it does not have: it can match a photo against the world's index but has no record of this particular tank, when it was installed, or what the last plumber replaced, and a general index cannot acquire a stranger's house history without the person choosing to keep it somewhere."
+      },
+      {
+        "title": "Grandkid Voice Mailbox",
+        "probability": "0.20",
+        "unlock": {
+          "value": "Age assurance became a free operating system call instead of a vendor contract and compliance project, and an on-device model handles transcription and moderation with no per-message cloud cost",
+          "signal_ids": [
+            7,
+            2
+          ]
+        },
+        "pain": {
+          "value": "Amazon spent real money on remote grandparent-and-child connection and discontinued it inside about a year on poor sales, after the earlier social robot answer shipped at $899 and ran out of money [49][37].",
+          "signal_ids": [
+            49,
+            37
+          ]
+        },
+        "audience": {
+          "value": "long-distance grandparents of children under ten"
+        },
+        "mechanic": {
+          "value": "async_social"
+        },
+        "wedge": {
+          "value": "A single two-person mailbox where the child taps once to leave a voice note and the grandparent gets it as a phone call they answer, with no account, no feed and no other contacts"
+        },
+        "moat": {
+          "value": "social_graph"
+        },
+        "model": {
+          "value": "subscription"
+        },
+        "loop": {
+          "value": "gift_to_recipient"
+        },
+        "kill": [
+          "Fewer than 50% of gifted mailboxes get a recorded reply from the grandparent in the first week",
+          "Median exchanges per pair fall below 2 a week by week 6",
+          "More than 20% of child devices return no usable age signal, forcing a manual consent flow onto every family"
+        ],
+        "why_now": "The thing that kept a one-person shop out of anything involving a seven-year-old was the compliance project, and [7] turned it into a free API call on both platforms in January.",
+        "why_not_obvious": "The incumbent is Meta's Messenger Kids, and its structural constraint is obligation to existing users: everything it ships has to keep working for a friend graph and a feed measured in billions, so a paid, ad-free, deliberately two-person surface with nothing to scroll is not a product it can put its name on."
+      },
+      {
+        "title": "Box by Box",
+        "probability": "0.10",
+        "unlock": {
+          "value": "On-device vision plus text inference at $0.10/M input makes per-item sorting nearly free, and a US app can now take payment through an external link at zero platform commission instead of losing 30%",
+          "signal_ids": [
+            2,
+            3,
+            9
+          ]
+        },
+        "pain": {
+          "value": "Emptying a house is priced at a person's hourly rate, and the businesses that tried to make per-item human handling cheap never got the cost under the fee, while the generic decluttering apps died for want of any channel [59][63].",
+          "signal_ids": [
+            59,
+            63
+          ]
+        },
+        "audience": {
+          "value": "executors clearing an inherited house on a sale deadline"
+        },
+        "mechanic": {
+          "value": "delegation_handoff"
+        },
+        "wedge": {
+          "value": "Photograph one open box, get back a plain list splitting it into sell, donate and curb with a rough local price on the sell items and the nearest place that takes the rest"
+        },
+        "moat": {
+          "value": "proprietary_taste"
+        },
+        "model": {
+          "value": "hybrid_sub_credits"
+        },
+        "loop": {
+          "value": "professional_recommendation"
+        },
+        "kill": [
+          "Fewer than 25% of people who send one box send a second within 48 hours",
+          "The keep-sell-curb call is wrong on more than 30% of items when checked blind against what the household actually sold or dumped",
+          "Fewer than 10 senior move managers or estate sale organisers recommend it after 3 months, leaving no zero-budget channel",
+          "Revenue per household under $18 while credit cost per household runs over $6"
+        ],
+        "why_now": "The job has always been priced at a person's hour, and [2] and [3] drop the per-item cost to roughly nothing while [9] leaves the whole fee in the builder's hands.",
+        "why_not_obvious": "The incumbent is eBay, and its structural constraint is business model lock: it earns a cut of completed listings, so it structurally cannot tell an executor that most of the box is worth less than the postage and belongs at the curb, which is the single most useful sentence anyone in that hallway can hear."
+      }
+    ]
+  },
+  "text": "",
+  "usage": {}
+}

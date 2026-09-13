@@ -1,0 +1,25 @@
+{
+  "parsed": {
+    "checks": {
+      "A": {
+        "q1": true,
+        "q2": false,
+        "q3": true,
+        "q4": true,
+        "q5": true
+      },
+      "B": {
+        "q1": true,
+        "q2": false,
+        "q3": false,
+        "q4": true,
+        "q5": true
+      }
+    },
+    "winner": "B",
+    "margin": "clear",
+    "reason": "Spaced repetition for a trade licensing exam is the cold-obvious answer in a category the entry itself concedes holds hundreds of near-identical products, whereas a briefing assembled from one plot's own multi-season bed record has no direct shipping equivalent."
+  },
+  "text": "",
+  "usage": {}
+}

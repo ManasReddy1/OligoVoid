@@ -1,0 +1,25 @@
+{
+  "parsed": {
+    "checks": {
+      "A": {
+        "q1": true,
+        "q2": true,
+        "q3": false,
+        "q4": true,
+        "q5": false
+      },
+      "B": {
+        "q1": true,
+        "q2": true,
+        "q3": false,
+        "q4": true,
+        "q5": true
+      }
+    },
+    "winner": "B",
+    "margin": "narrow",
+    "reason": "Both are unobvious, but using one named grandmother's own recorded voice as the spaced-repetition corpus is a recombination that exists nowhere, while photo-to-part lookup has at least been attempted in appliance-registry products."
+  },
+  "text": "",
+  "usage": {}
+}

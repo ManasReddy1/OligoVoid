@@ -1,0 +1,233 @@
+{
+  "parsed": {
+    "reasoning": "Start with what the tombstones actually say, because most of them do not say the idea was wrong. Moxie (39) died when a funding round collapsed, and the reason a funding collapse killed the product rather than just the company is that the language model, the speech and the whole conversation lived on somebody else's servers, so when the bill stopped being paid the thing on the table stopped talking. Mycroft (40) is the same shape: ran out of money, and the single most expensive line was the running cost. Jibo (37) shipped at $899 while costing more to make than a cheaper box that did more. Those three are not failures of desire. They are failures of unit cost and of a product that could not survive its own vendor. That is the exact line that [2] moves: a full-scale model running on phone hardware, offline, at zero marginal cost, and [4] voice conversation now costing half a penny to under two pence a minute, and [3] text inference down from $30 per million input tokens to ten cents. A product that costs nothing per use cannot be killed by a missed funding round, and it can be sold once rather than rented.\n\nSecond group: things that were too early rather than too expensive. openmargin (44) said plainly it was too early, and Vreal (45) said the installed base was never big enough. Google Glass (42) was sold as finished when it was not, with no clear value and no third-party path worth anything; Magic Leap (43) straddled consumer and enterprise at a price nobody could carry. The thing that changed for that group is not taste, it is access: [8] is Meta Ray-Ban Display opening to third-party developers with an ordinary HTML/CSS/JS path and the Neural Band for input. The head-worn screen is now somebody else's hardware problem, already bought, already on faces, and the software on top is a one-person job. For the reading-and-notes tombstone the unlock is different again: openmargin needed a way to hold a whole book and everyone's scribbles in mind at once, which in 2014 meant a retrieval pipeline and a vector database; [5] is a million tokens of context at flat pricing with cached input at roughly ninety percent off, which is the same job with none of the plumbing.\n\nThird group: the margin deaths. Shyp (59), Take Eat Easy (60) and PepperTap (61) all died on cost per order that human labour could never fit under. Sora (51) is the modern version of exactly that - roughly a million dollars a day of compute against about $2.1 million of lifetime in-app revenue for the life of the app. I do the books side of things now and that is simply a gross margin problem, nothing cleverer. [6] is the number that moves it: three cents a second of generated video, so a five-second clip is fifteen to twenty-five pence. At that price the same output can be sold in credits and still clear a margin, and [9] takes the 30% platform cut off the top for a US app using an external payment link.\n\nFourth, the quiet ones. Zeo (41) had a real reading that people wanted but killed itself on an invasive headband, a poor margin and the friction of logging into a site to see anything. Amazon Halo (48) went for a crowded category and a subscription people would not keep. Tandem's medication app (47) found the need was real in research and retention was still terrible after launch. What all three share is that the product asked the person to do something extra every day. Anything that wants a daily act from a tired person needs to ask for nothing, which is what an always-on on-device model under [2] can do without a cloud bill or a privacy argument.\n\nNow the manual workarounds, because those are the honest evidence that a pain is real. Parents whose child's talking companion was bricked (39) went back to sitting on the floor and doing the voices themselves at the end of a shift. Shift workers keep a paper note of when they slept, which is what Zeo's own founder was complaining about (41). Evening students of the sort I sit with photocopy pages and write in the margins and then lose the photocopies, which is precisely the behaviour openmargin (44) was built for and could not hold. Somebody working front-of-house with imperfect English keeps their phone face-up on the pass and hopes, which is the workaround the closed platforms of Glass's era (42) never got to serve. Grandparents 200 miles away send a voice note and hope it gets played, which is the low-margin end of what Sora's audience actually wanted (51). Each of those workarounds is free and bad, which is the right starting point.\n\nOn populations: I want groups I can name and find without buying an advert, because at $20-$80 a paying user and $8-$24 back, paid acquisition is closed. Evening accountancy students sit in the same handful of forums and WhatsApp cohorts. Night-shift cleaners and warehouse pickers are on shift-swap boards. Restaurant floor staff learning English are reached through their ESL tutors, and tutors recommend tools. Grandparents are reached by the adult child who buys it, not by the grandparent. Parents of under-tens can now be age-gated at the operating system for nothing under [7], which removes the compliance project that used to make anything aimed at children a non-starter for one person with $50,000.\n\nThe thing I keep coming back to: in nearly every tombstone above, the cause of death is a recurring cost or a closed door, not a wrong belief about people. Recurring costs collapsed in [2], [3], [4] and [6], the platform cut went to zero in [9], the closed door opened in [8], the plumbing disappeared in [5], and the compliance work became a free API call in [7].",
+    "candidates": [
+      {
+        "title": "Offline Bedtime Companion",
+        "probability": "0.28",
+        "unlock": {
+          "value": "A full-scale model now runs on the phone itself at zero marginal cost and works offline, so the companion has no server to lose, and the operating system will confirm a child's age range for free instead of a compliance project.",
+          "signal_ids": [
+            2,
+            7,
+            4
+          ]
+        },
+        "pain": {
+          "value": "Families who bought a talking companion for a young child were left with a dead object when the company's funding round collapsed, because the conversation itself lived on rented servers.",
+          "signal_ids": [
+            39,
+            37,
+            40
+          ]
+        },
+        "audience": {
+          "value": "parents of 4-to-8-year-olds who work evening or night shifts"
+        },
+        "mechanic": {
+          "value": "voice_conversation"
+        },
+        "wedge": {
+          "value": "One twenty-minute spoken bedtime story a night, on the parent's old phone left in the child's room in aeroplane mode, where the story continues the same characters from the night before."
+        },
+        "moat": {
+          "value": "accumulated_personal_corpus"
+        },
+        "model": {
+          "value": "one_time_purchase"
+        },
+        "loop": {
+          "value": "gift_to_recipient"
+        },
+        "kill": [
+          "Fewer than 25% of families who complete a first week are still running a session on night 30.",
+          "The on-device model cannot hold a spoken turn under 1.2 seconds of latency on a 4-year-old mid-range phone.",
+          "Refund requests exceed 8% of one-time purchases in the first 60 days.",
+          "Under 3% of gifted installs convert to a second purchase for a sibling or cousin within 90 days."
+        ],
+        "why_now": "Moxie's stated cause of death was a collapsed funding round killing a product whose speech and language ran in the cloud (39); an on-device model at zero marginal cost (2) means there is no bill that can be missed and no server that can be switched off.",
+        "why_not_obvious": "Everyone reaches for a screen-free robot for this audience, and the last three robots died of hardware cost (37, 38, 39), so the answer is the parent's drawer phone rather than a new object."
+      },
+      {
+        "title": "Shift Sleep Ledger",
+        "probability": "0.14",
+        "unlock": {
+          "value": "The phone's own model can read a night of movement and room sound locally and never send any of it anywhere, which removes both the cloud bill and the reason to refuse.",
+          "signal_ids": [
+            2,
+            3
+          ]
+        },
+        "pain": {
+          "value": "Sleep tracking that people actually wanted died on an invasive headband, a thin margin and the friction of having to log into a site to see anything (41), and the wrist version was sunset into a crowded, unprofitable category (48).",
+          "signal_ids": [
+            41,
+            48
+          ]
+        },
+        "audience": {
+          "value": "rotating-shift warehouse pickers and night-shift cleaners"
+        },
+        "mechanic": {
+          "value": "passive_tracking"
+        },
+        "wedge": {
+          "value": "Point at one question only: which of your four shift patterns costs you the most sleep, answered after 14 nights with the phone face-down on the mattress and nothing to wear or log."
+        },
+        "moat": {
+          "value": "switching_cost_of_history"
+        },
+        "model": {
+          "value": "freemium_subscription"
+        },
+        "loop": {
+          "value": "community_embed"
+        },
+        "kill": [
+          "Fewer than 40% of installs record 10 nights in their first 14.",
+          "Paid conversion sits under 3% after 5,000 installs from shift-swap groups.",
+          "Blended cost per active user exceeds $0.30 a month, meaning the on-device path failed and cloud calls crept in.",
+          "Median 30-day retention is below 20%, matching the retention wall a medication app hit after launch (47)."
+        ],
+        "why_now": "Zeo's founder blamed an invasive headband, a suboptimal margin and login friction (41); a model running on the phone removes the hardware, the per-user cost and the reason to log in anywhere.",
+        "why_not_obvious": "The instinct for shift workers is a rota or wage app, not sleep, and the sleep category looks settled because a crowded field is what Amazon named when it sunset Halo (48)."
+      },
+      {
+        "title": "Margin Notes for Evening Students",
+        "probability": "0.26",
+        "unlock": {
+          "value": "A million tokens of context at flat pricing with cached input at roughly a 90% discount means an entire textbook plus a whole cohort's notes sits in one prompt, with no retrieval pipeline and no vector database to build or pay for.",
+          "signal_ids": [
+            5,
+            3
+          ]
+        },
+        "pain": {
+          "value": "Shared margin notes on what people are reading was tried and the team said outright it was too early, compounded by slow shipping and stronger competitors (44).",
+          "signal_ids": [
+            44,
+            63
+          ]
+        },
+        "audience": {
+          "value": "part-time AAT and ACCA students revising after work"
+        },
+        "mechanic": {
+          "value": "annotation_overlay"
+        },
+        "wedge": {
+          "value": "One paper at a time: photographed or PDF textbook pages for a single ACCA exam sitting, where your underlines sit beside the six other people in your cohort revising the same chapter this month."
+        },
+        "moat": {
+          "value": "switching_cost_of_history"
+        },
+        "model": {
+          "value": "freemium_subscription"
+        },
+        "loop": {
+          "value": "invite_for_function"
+        },
+        "kill": [
+          "Fewer than 3 of every 10 first users invite a second cohort member within 14 days, which means the shared layer never fills.",
+          "Median notes per user per week falls below 5 after the first month.",
+          "Paid conversion is under 3% across two consecutive exam sittings.",
+          "Cached-context cost per active user exceeds $0.30 a month once a full syllabus is loaded."
+        ],
+        "why_now": "openmargin died of being too early (44), and the specific earliness was that holding a whole book and everyone's notes together needed infrastructure a solo builder could not afford; a 1M-token flat-priced context with 90% cached discount (5) removes that entire layer.",
+        "why_not_obvious": "The obvious product for exam students is question banks and flashcards, a category with hundreds of near-identical entrants where the marketing-and-distribution failure has already been recorded (63); the unserved part is the arguing-in-the-margins that only works with other people in the same chapter."
+      },
+      {
+        "title": "Floor Shift Glasses Captions",
+        "probability": "0.13",
+        "unlock": {
+          "value": "Smart glasses opened to third-party developers with an ordinary HTML/CSS/JS path and Neural Band input, so the head-worn display is hardware somebody has already bought, and the phone's own model does the language work with no per-minute bill.",
+          "signal_ids": [
+            8,
+            2,
+            4
+          ]
+        },
+        "pain": {
+          "value": "Head-worn software died twice over when the platform was closed and the device was sold as finished with unclear value (42) or priced between consumer and enterprise until half the staff were let go (43), so nobody could build the narrow useful thing on top.",
+          "signal_ids": [
+            42,
+            43
+          ]
+        },
+        "audience": {
+          "value": "restaurant front-of-house staff working in a second language"
+        },
+        "mechanic": {
+          "value": "capture_and_answer"
+        },
+        "wedge": {
+          "value": "Order-taking only: the spoken order appears as written text plus the two menu terms the wearer flagged as unfamiliar, during a table order, and nothing else."
+        },
+        "moat": {
+          "value": "habit_lock"
+        },
+        "model": {
+          "value": "freemium_subscription"
+        },
+        "loop": {
+          "value": "professional_recommendation"
+        },
+        "kill": [
+          "Fewer than 30% of wearers use it on 4 or more shifts in their first two weeks.",
+          "Caption latency on the glasses exceeds 800ms in a room at 75dB, at which point it is slower than asking the customer to repeat.",
+          "Fewer than 10 ESL tutors recommend it to 5 or more students each in the first 6 months, which means the zero-budget channel does not exist.",
+          "Blended cost per active wearer exceeds $0.30 a month because the on-device path cannot carry a full shift."
+        ],
+        "why_now": "Google Glass died with an unclear value case on a closed platform (42); the platform is now open to third-party developers with a plain web path (8), and the one job worth doing on a face-worn screen is reading what was just said to you.",
+        "why_not_obvious": "The usual suggestion for staff in a second language is a phone translation app or a language course, and nobody proposes glasses software because the last two head-worn products are famous failures (42, 43) rather than famous platforms."
+      },
+      {
+        "title": "Two Hundred Miles Story Reels",
+        "probability": "0.19",
+        "unlock": {
+          "value": "Generated video now costs about three cents a second, so a five-second clip is fifteen to twenty-five cents, and a US app can take payment through an external link at zero platform commission.",
+          "signal_ids": [
+            6,
+            9,
+            3
+          ]
+        },
+        "pain": {
+          "value": "A consumer video app with real demand was shut down because it burned roughly $1 million a day of compute against about $2.1 million of lifetime in-app purchase revenue (51).",
+          "signal_ids": [
+            51,
+            49
+          ]
+        },
+        "audience": {
+          "value": "grandparents living more than 200 miles from their grandchildren"
+        },
+        "mechanic": {
+          "value": "delegation_handoff"
+        },
+        "wedge": {
+          "value": "One 30-second clip a week: the grandparent records a two-minute spoken memory on the phone, hands it over, and the grandchild receives a short illustrated telling of that memory on Sunday."
+        },
+        "moat": {
+          "value": "content_library"
+        },
+        "model": {
+          "value": "consumable_credits"
+        },
+        "loop": {
+          "value": "gift_to_recipient"
+        },
+        "kill": [
+          "Generation and delivery cost per 30-second clip exceeds $1.50, which breaks the credit price the audience will pay.",
+          "Fewer than 35% of grandparents who send a first clip send a fourth within 8 weeks.",
+          "Fewer than 15% of receiving households buy credits themselves within 6 months, which kills the gift loop.",
+          "Average revenue per paying account falls below $8 a month across 500 accounts."
+        ],
+        "why_now": "Sora's stated cause of death was compute burn of about $1 million a day against $2.1 million of lifetime revenue (51); at three cents a second (6) with no 30% platform cut (9), a small weekly clip is a few cents of cost against a credit pack, which is a margin rather than a hole.",
+        "why_not_obvious": "The reflex for distant grandparents is a video call or a shared photo album, and short generated video reads as a toy for teenagers rather than as the cheapest way to turn an old person's spoken memory into something a six-year-old will sit through twice."
+      }
+    ]
+  },
+  "text": "",
+  "usage": {}
+}

@@ -1,0 +1,25 @@
+{
+ "parsed": {
+  "checks": {
+   "A": {
+    "q1": true,
+    "q2": false,
+    "q3": true,
+    "q4": true,
+    "q5": true
+   },
+   "B": {
+    "q1": true,
+    "q2": true,
+    "q3": true,
+    "q4": true,
+    "q5": true
+   }
+  },
+  "winner": "B",
+  "margin": "narrow",
+  "reason": "Both retain, but Sunday Post collects a subscription from an adult child whose motive does not expire and who forwards it to siblings, while Code Book Recall takes one payment from a buyer who disappears the week he passes his exam, inside a category already crowded with near-identical study apps."
+ },
+ "text": "",
+ "usage": {}
+}

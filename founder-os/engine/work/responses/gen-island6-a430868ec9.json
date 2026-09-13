@@ -1,0 +1,192 @@
+{
+ "parsed": {
+  "reasoning": "Start with the graveyard rather than the ideas. Zirtual, Fin, Magic, GoButler, Clara and Facebook M did not die of no demand. People wanted the thing and used it. They died because behind every hard request sat a person on a wage, and the wage floor never came down below what a household would pay each month. Everything else in the list here died of a different thing: Jibo [37], Kuri [38], Humane [36], Glass [42], Magic Leap [43], Car Thing [50] died of hardware cost and thin software; Mycroft [40] and Moxie [39] died when the money ran out; AIRO [35], openmargin [44], Vreal [45] were early; Tandem App [47] and Halo [48] lost retention or lost a parent company's patience. Hardware cost and funding luck are not things 2026 fixes for a person working alone. Labour cost is. So the only tombstones worth reopening are the ones where the marginal unit was an hour of somebody's attention.\n\nWhich unlocks actually move that floor. [3] takes frontier text from thirty dollars a million tokens to ten cents, which is the difference between an assistant costing a wage and costing a rounding error. [5] gives a million tokens of context with cached input at about a tenth the price, which matters when the work is reading five years of somebody's bank statements rather than answering one question. [2] and [310] put a vision-capable model on the phone itself at zero marginal cost, which means the jobs that are mostly reading paper - receipts, printed recipes, prescription labels - can run free and stay private. [1] and [311] remove the cloud bill for a small developer under two million downloads, which is exactly the shape of a one-person product. [305] is quietly important: HealthKit background delivery is one of the few legitimate ways an app can wake itself up, so work that has to happen without the person opening anything can happen at all. [299] lifts the thirty-second ceiling so that waking up is enough time to do real work, and [306] lets the result come back as a Live Activity the person taps once.\n\nNow the pains, sorted by whether a human being is currently doing the labour by hand. [212] is the clearest. Somebody is paying a parent's bills, sorting them by category, settling up with brothers and sisters, and keeping it all in a spiral binder because the documentation has to survive a five-year Medicaid lookback. That is bookkeeping. It is the exact work a paid bookkeeper or a geriatric care manager charges by the hour for, and families do it themselves because they cannot afford the hour. Several people write to the same record, which no spreadsheet handles well. [233] is the same shape at a smaller scale: recipes printed into a binder, grocery list written by hand every week. That used to be what a cook or a meal-planning service did. [16] is a household arithmetic job - half tablets break every tracker's inventory maths, so the person recounts the bottle themselves. [226] is a paycheque job: twenty-six pay dates against twelve monthly budgets, reconciled in a parallel spreadsheet forever. [10], [11], [12] and [23] are the same complaint from shift workers and labourers - the device collected the data correctly and then handed the sorting work back to the person, two dozen confirmations a day or a nightly hand-edit of the sleep window. In every one of those the user is the unpaid assistant.\n\nTwo pains I am setting aside despite being real. [261] is a reminder bound to arriving home - that is the reminder product the thesis says not to build, and it sits on the assistant surface that Apple and Google own outright. [240] is drifting friendships, and the job lives in contacts, which is the surface Sunrise, Timeful, Tempo, Woven and Inbox all sat on before being absorbed. [219] is school staff at work, which is business software. [13] and [14] are real and awful but the fix is a state the incumbent can ship in one release, not a service somebody used to pay for. [247] and [254] are streak mechanics, which is app design, not work.\n\nWhat is left worth building is work where the output is a durable record the person keeps: a lookback-proof ledger, a digitised binder, a corrected sleep history, a paycheque plan. Records are also the answer to the absorption question. A general assistant absorbs a feature; it does not absorb five years of somebody's audited spending history or a decade of corrected night-shift sleep, because that history only exists inside the thing that built it. Populations are reachable too: caregiver forums, nursing shift boards, warehouse pay threads - places where people already swap spreadsheets with each other for free.",
+  "candidates": [
+   {
+    "title": "Lookback Ledger",
+    "probability": 0.4,
+    "unlock": {
+     "value": "Frontier reading dropped to ten cents a million input tokens with a million-token window and cached input at roughly a 90% discount, so an agent can read five years of a parent's bank statements, bills and receipts, categorise every line and keep the running record current for pennies a month - the work a paid bookkeeper billed by the hour.",
+     "signal_ids": [
+      3,
+      5,
+      2,
+      310
+     ]
+    },
+    "pain": {
+     "value": "Adult children paying an aging parent's bills, categorising the costs and settling up with siblings keep it all in a spiral binder because no consumer tool produces documentation that survives a Medicaid lookback.",
+     "signal_ids": [
+      212
+     ]
+    },
+    "audience": {
+     "value": "Adult children in the US who share paying an aging parent's bills with one or more siblings"
+    },
+    "mechanic": {
+     "value": "shared_ledger"
+    },
+    "wedge": {
+     "value": "One job only: photograph or forward a bill paid on the parent's behalf, the agent reads it, assigns the category and the payer, and writes one line to a shared family record with the image attached - starting from the month the first sibling signs up, not from a full historical import."
+    },
+    "moat": {
+     "value": "switching_cost_of_history"
+    },
+    "model": {
+     "value": "subscription"
+    },
+    "loop": {
+     "value": "invite_for_function"
+    },
+    "kill": [
+     "Fewer than 40% of paying households add a second sibling to the ledger within 30 days, which means it is a single-person spreadsheet and not a shared record.",
+     "Line-level categorisation of photographed bills and receipts agrees with the family's own labelling on under 95% of a 1,000-document audit, so someone still has to check every line by hand.",
+     "Median months of continuous use falls below 9, meaning the record never gets long enough to be worth keeping.",
+     "Blended model cost exceeds $0.30 per active household per month once photo volume settles at roughly 30 documents a month."
+    ],
+    "why_now": "End to end: the specific hourly task was a bookkeeper reading a stack of statements and receipts, sorting them into categories and reconciling who paid what, and at $0.10 per million input tokens with a million-token window [3][5] an agent does the whole read-sort-reconcile pass with no person behind it - the family only taps to confirm a line it flags as unclear, which is a confirmation, not a wage.",
+    "why_not_obvious": "Not absorbable: it never touches calendar, email or contacts, it is a financial audit record whose value is the five-year run of evidence it accumulates, so a general assistant that answers one question well still cannot hand a family the documented history; and the obvious first suggestion for this audience is a care-coordination or medication app, because nobody thinks of bookkeeping as the thing that is actually eating their evenings."
+   },
+   {
+    "title": "Binder Scan",
+    "probability": 0.25,
+    "unlock": {
+     "value": "A vision-capable model now runs entirely on the phone at zero marginal cost, so reading a printed or handwritten recipe page, pulling out ingredients and quantities and building the week's list costs nothing per household and works with no account and no cloud bill.",
+     "signal_ids": [
+      2,
+      310,
+      1,
+      311
+     ]
+    },
+    "pain": {
+     "value": "Households cooking from recipes found online print them into a binder and hand-write the grocery list every week because the recipes carry no structured ingredient data.",
+     "signal_ids": [
+      233
+     ]
+    },
+    "audience": {
+     "value": "Parents of school-age children who cook weeknight dinners from a printed recipe binder"
+    },
+    "mechanic": {
+     "value": "capture_and_answer"
+    },
+    "wedge": {
+     "value": "Photograph the four or five recipe pages picked for this week straight out of the binder and get back one combined shopping list with quantities added together and duplicates merged, ready before the Saturday shop."
+    },
+    "moat": {
+     "value": "accumulated_personal_corpus"
+    },
+    "model": {
+     "value": "one_time_purchase"
+    },
+    "loop": {
+     "value": "shareable_artifact"
+    },
+    "kill": [
+     "Fewer than 50% of first-time users photograph a second recipe page within 7 days of the first.",
+     "On-device extraction gets quantities or ingredient names wrong on more than 5% of lines across a 500-page audit of printed web recipes and handwritten cards, since a list you have to re-check by hand is the hand-written list again.",
+     "Fewer than 20% of households scan 10 or more pages in the first 60 days, meaning no personal corpus forms and there is nothing to stay for.",
+     "Under 3% of installs convert to the paid unlock by day 45."
+    ],
+    "why_now": "End to end: the specific paid task was a meal-planning service or a household cook reading the recipes and writing the combined shopping list, and an on-device vision model [2][310] now reads the page, does the quantity arithmetic and produces the finished list with nobody in the loop - the only human act is choosing which pages to photograph.",
+    "why_not_obvious": "Not absorbable: it sits on paper the household already owns rather than on calendar, email or contacts, and the lock-in is their own digitised binder including handwritten family cards that exist nowhere else; the obvious suggestion for this audience is a recipe app with its own catalogue, which is precisely what they rejected when they printed the pages out."
+   },
+   {
+    "title": "Rota Sleep Rescore",
+    "probability": 0.2,
+    "unlock": {
+     "value": "HealthKit background delivery gives a legitimate self-wake trigger and iOS 27 lifts the 30-second background ceiling, so an app can wake on new sleep and movement data, re-score it against the person's actual rota on-device for free, and hand back a finished result without the person opening anything.",
+     "signal_ids": [
+      305,
+      299,
+      2,
+      306
+     ]
+    },
+    "pain": {
+     "value": "Rotating-shift nurses and other night workers have to hand-edit sleep windows and confirm dozens of activity blocks daily because wearables assume one night block against a fixed bedtime.",
+     "signal_ids": [
+      10,
+      11,
+      12,
+      23
+     ]
+    },
+    "audience": {
+     "value": "Hospital nurses working rotating 12-hour night shifts who wear a sleep-tracking ring or watch"
+    },
+    "mechanic": {
+     "value": "passive_tracking"
+    },
+    "wedge": {
+     "value": "One number only: after a run of nights, total the daytime sleep blocks and the naps into a single corrected sleep total for that rotation, without asking the nurse to set a bedtime window or confirm anything."
+    },
+    "moat": {
+     "value": "switching_cost_of_history"
+    },
+    "model": {
+     "value": "freemium_subscription"
+    },
+    "loop": {
+     "value": "community_embed"
+    },
+    "kill": [
+     "Corrected totals disagree with the nurse's own recollection of when she slept on more than 10% of rotation days in a 90-shift diary study.",
+     "Fewer than 25% of installs still have background delivery running and data arriving at day 30.",
+     "Under 3% of monthly actives pay by day 60.",
+     "More than 20% of users still hand-edit a sleep block in a given week, which means the person is still doing the sorting."
+    ],
+    "why_now": "End to end: the manual labour here is the worker herself acting as the unpaid assistant, re-entering sleep windows nightly or confirming about two dozen activity blocks a day [10][11][12][23], and background delivery plus a longer background window [305][299] lets an on-device model do the whole classification pass while she is asleep, with nothing to confirm afterwards.",
+    "why_not_obvious": "Not absorbable: it runs on permitted HealthKit reads into a surface we own rather than driving another app, and what accumulates is a multi-year corrected sleep history for one rota pattern that the wearable vendor's own model cannot reproduce; the obvious suggestion for shift workers is a better alarm or a light-therapy schedule, when the actual complaint is that the data was collected correctly and then handed back unsorted."
+   },
+   {
+    "title": "Twenty-Six Paydays",
+    "probability": 0.15,
+    "unlock": {
+     "value": "Cheap frontier inference plus Live Activities that can be started and updated remotely and confirmed with one tap means a per-paycheque plan can be prepared and delivered on payday morning for a fraction of a cent, with no person preparing it.",
+     "signal_ids": [
+      3,
+      306,
+      299,
+      1
+     ]
+    },
+    "pain": {
+     "value": "People paid biweekly keep a parallel spreadsheet forever because budgeting tools assume a calendar-month cycle and cannot map 26 paycheques onto 12 months.",
+     "signal_ids": [
+      226
+     ]
+    },
+    "audience": {
+     "value": "Hourly warehouse and retail staff in the US paid every other Friday"
+    },
+    "mechanic": {
+     "value": "scheduled_digest"
+    },
+    "wedge": {
+     "value": "On the morning of each payday, one short briefing: which bills land before the next payday, what is left after them, and whether this is one of the two months with a third paycheque - nothing else."
+    },
+    "moat": {
+     "value": "switching_cost_of_history"
+    },
+    "model": {
+     "value": "freemium_subscription"
+    },
+    "loop": {
+     "value": "community_embed"
+    },
+    "kill": [
+     "Fewer than 45% of subscribers open the payday briefing on 6 of their first 8 paydays.",
+     "The predicted bill dates for the coming fortnight are wrong by more than 2 days on over 10% of recurring bills across a 500-user check.",
+     "Fewer than 30% of users have stopped maintaining their parallel spreadsheet by day 90, which means the arithmetic is still being done by hand.",
+     "Blended model cost per active user per month exceeds $0.30."
+    ],
+    "why_now": "End to end: the task is exactly what people currently pay a bookkeeper or do themselves in a second spreadsheet - mapping 26 pay dates onto bills that arrive monthly [226] - and at ten cents per million input tokens [3] the agent does the whole reconciliation and delivers the finished plan as a Live Activity the person taps once [306], with nobody preparing it.",
+    "why_not_obvious": "Not absorbable: the cycle is the paycheque, not the calendar, so it never sits on the calendar, email or contacts surfaces that swallowed Sunrise, Timeful, Tempo, Woven and Inbox, and the moat is years of that household's own pay-and-bill timing; the obvious suggestion for this audience is a general budgeting app, which is the exact thing they already tried and abandoned for the spreadsheet."
+   }
+  ]
+ },
+ "text": "",
+ "usage": {}
+}

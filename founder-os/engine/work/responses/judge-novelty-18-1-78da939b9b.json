@@ -1,0 +1,25 @@
+{
+  "parsed": {
+    "checks": {
+      "A": {
+        "q1": true,
+        "q2": true,
+        "q3": false,
+        "q4": true,
+        "q5": false
+      },
+      "B": {
+        "q1": true,
+        "q2": true,
+        "q3": true,
+        "q4": true,
+        "q5": true
+      }
+    },
+    "winner": "A",
+    "margin": "clear",
+    "reason": "Per-child allergen label scanning already ships in several consumer apps and is the obvious cold answer, whereas photo-identifying a well pump and turning it into a dated parts record is a recombination nobody has fielded."
+  },
+  "text": "",
+  "usage": {}
+}

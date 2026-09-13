@@ -1,0 +1,10 @@
+# The world model is regenerable: `run.py load` plus the prompts and responses
+# in work/ reproduce it exactly. A binary that churns on every stage does not
+# belong in the history.
+data/founder_os.db
+data/*.db-journal
+work/cycle.json
+
+# The prompts and responses in work/ ARE committed on purpose. They are the
+# audit trail: every ranking in a report can be traced back to the exact text
+# that produced it.

@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "retention_attacker",
+    "attack": "The queue is the flaw: you name six people, send two by day four, abandon four, and the product is empty - and refilling it requires you to remember who you owe, which is the precise cognitive act the product was bought to perform. So the loop is fuelled by the one scarce input and runs dry inside week one. The second failure lands on about the third surfaced draft, when the user reads a machine-written message to a close friend, decides it is not how they talk, rewrites it, and notices the rewrite cost as much as writing - after which the Focus-window surface is a prompt offering work rather than removing it, and gets dismissed like any other.",
+    "strongest_defence": "A million tokens of the person's own message history at flat pricing means the drafts genuinely sound like them, which is the whole difference between a rewrite and a send, and the trigger is permanent for this audience: they deleted the networks that used to do the remembering, so the drift keeps recurring and somebody goes quiet every month. The queue need not depend on user recall at all - the contact history itself surfaces who has dropped off, which removes the dry-out entirely.",
+    "verdict": "wounded",
+    "verdict_reason": "The drift genuinely recurs for people who left the networks, but as specified the queue is refilled only by the user's own recall and empties in week one, and AI-drafted messages to close friends invite editing rather than sending."
+  },
+  "text": "",
+  "usage": {}
+}

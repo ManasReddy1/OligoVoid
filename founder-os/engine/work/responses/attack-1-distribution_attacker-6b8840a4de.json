@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "distribution_attacker",
+    "attack": "The named referrer is a paediatric allergy dietitian or clinic nurse, and they will not hand out a yes/no allergen verdict produced by an unregulated on-device OCR app: the failure mode is a false negative on a nut panel and the liability lands on them, which is why NHS allergy services point families at Anaphylaxis UK's printed guidance and nothing else. Even where one clinician does, the loop can only turn at the clinic follow-up interval, which for a stable paediatric allergy patient is six to twelve months - a cycle time that cannot compound no matter what the coefficient is. The total UK pool of paediatric allergy dietitians and specialist nurses is in the low hundreds, so the claimed channel is a fixed hand-worked gatekeeper list with a hard ceiling, which is outreach, not a loop.",
+    "strongest_defence": "The clinician was never meant to be the channel, only the trust signal: the actual loop is the allergy-parent Facebook and school WhatsApp groups, where one mother posting 'this caught almonds in the own-brand pesto' is a peer recommendation with a cycle measured in days, no liability gate, and a recipient who installs because she is standing in the same aisle next Saturday.",
+    "verdict": "wounded",
+    "verdict_reason": "The professional loop is blocked by clinical liability and a six-month consultation cycle, but a fast free peer-parent channel exists, so the idea survives having named the wrong loop."
+  },
+  "text": "",
+  "usage": {}
+}

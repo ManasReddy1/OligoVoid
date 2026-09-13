@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "Ray-Ban Display HTML/CSS/JS caption surface + Neural Band, paired iOS/Android companion running on-device streaming ASR and on-device translation of flagged menu terms. Cloud ASR fallback (~$0.0025/min) for older/mid-range phones and high-noise rooms where the on-device model drops out. Menu glossary stored locally per venue. Freemium subscription.",
+    "milestones": [
+      "Week 1-2: low-latency caption rendering on the Display at glanceable line lengths; latency budget under 600ms or it is useless mid-order.",
+      "Week 3-5: on-device streaming ASR in a loud dining room, with the cloud fallback and a hard monthly cap on fallback minutes per user.",
+      "Week 6-7: menu glossary - the wearer flags two unfamiliar terms per shift and they surface inline, which is the whole differentiator versus generic captions.",
+      "Week 8-9: shift-shaped UX: on for a table order, off otherwise, because always-on is both a battery and a privacy problem.",
+      "Week 10-11: freemium gate, pilot with two restaurants whose staff already own the hardware."
+    ],
+    "build_cost_usd": 10500,
+    "weeks_to_v1": 11,
+    "inference_cost_user_month": 3.8,
+    "price_month": 9.99,
+    "expected_conversion": 0.03,
+    "riskiest_technical_assumption": "That live captioning is genuinely free - a 6-hour shift is ~360 minutes of continuous ASR, 20 shifts a month is 7,200 minutes, so every 25% of those minutes that fall back to cloud ASR costs ~$4.50 per active user per month, and at a 3% freemium conversion the ~100 free actives behind each payer make gross margin sharply negative.",
+    "cheapest_way_to_test_that_assumption": "Run on-device streaming ASR on a mid-range Android in an actual busy dining room for one full shift and log the exact fraction of minutes where it degrades, drops out, or drains the battery below usable - one evening, no glasses required."
+  },
+  "text": "",
+  "usage": {}
+}

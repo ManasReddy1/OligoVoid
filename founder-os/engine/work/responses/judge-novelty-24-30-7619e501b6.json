@@ -1,0 +1,25 @@
+{
+  "parsed": {
+    "checks": {
+      "A": {
+        "q1": true,
+        "q2": true,
+        "q3": true,
+        "q4": true,
+        "q5": true
+      },
+      "B": {
+        "q1": true,
+        "q2": true,
+        "q3": false,
+        "q4": true,
+        "q5": true
+      }
+    },
+    "winner": "B",
+    "margin": "clear",
+    "reason": "The grandparent photo digest is the archetypal cold answer and already ships in both hardware and print form, whereas the per-plot seasonal memory briefing is the less obvious recombination."
+  },
+  "text": "",
+  "usage": {}
+}

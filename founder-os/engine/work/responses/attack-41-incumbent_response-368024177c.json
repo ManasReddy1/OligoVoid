@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "incumbent_response",
+    "attack": "The absorbing incumbents are the review apps themselves. Quizlet's Magic Notes and RemNote's and Mochi's AI card generation already turn pasted text or an image into fielded cards, and Anki, the free open-source tool this audience actually uses, gets the same via add-ons plus any chat app for nothing. Apple is the second front: Visual Intelligence on a screenshot already extracts people and details and offers to file them. A one-time purchase whose only function is card-making, sold to people whose review app is free, is precisely the layer being commoditised every quarter.",
+    "strongest_defence": "No incumbent will position 'flashcard your colleague's son's name and which parent works nights' because the framing sits close enough to surveillance that Quizlet and Anki will not market it, which leaves the specific people-card schema and prompts uncontested. And the product never needs the review app's cooperation, because it writes the same CSV those apps already import, so an incumbent feature does not lock it out.",
+    "verdict": "wounded",
+    "verdict_reason": "Generic screenshot-to-cards is already shipping inside the review apps and undercuts the only function being sold, though no incumbent will explicitly build or market the people-facts framing."
+  },
+  "text": "",
+  "usage": {}
+}

@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "demand_skeptic",
+    "attack": "This is a proactive daily briefing, which is the exact surface Google killed: Assistant Snapshot had the best data, the best models and default placement on every Android phone, and it was shut down because people did not engage. The brief's content is also information the user already holds - a parent with a close friend in Sydney knows when Sydney is awake - so it is a daily interruption returning arithmetic, sold to parents of under-fives, the most interruption-saturated and least discretionary-attention audience available. And calendar free/busy is a false proxy for availability in exactly this audience: an unbooked 4pm with a toddler in it is not a callable window, so the product's central claim fails first on its own users.",
+    "strongest_defence": "The evidence [250][264] says explicitly that the intention exists and dies because it surfaces at an hour when calling is impossible, so the job is not to inform but to land the prompt inside a window where acting is still possible; Snapshot failed because it briefed everything to everyone, whereas this names at most three people and one overlap and is silent when there is none.",
+    "verdict": "fatal",
+    "verdict_reason": "It is a proactive daily feed delivering information the user already has to the audience with the least attention to spare, and the best-resourced instance of that surface was shut down for non-engagement."
+  },
+  "text": "",
+  "usage": {}
+}

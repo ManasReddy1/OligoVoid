@@ -1,0 +1,194 @@
+{
+ "parsed": {
+  "reasoning": "I'll do this the way I'd survey a house before quoting: find the thing that is already being done by hand every day, then find the pipe that can't be moved because the wall is built around it.\n\nStart with the hand-work, because a manual workaround is the only honest proof that somebody wants a job done. The sleep rows are the loudest. [10] a night-shift hospital worker whose ring will not score a daytime sleep block on the day it happens, so the main function of the device is dead on a night rotation. [11] a firefighter on 24s whose catch-up naps do not count against sleep debt, keeping apnoea numbers on a separate vendor portal and ignoring the app's figure entirely. [12] a rotating-shift worker setting the sleep window to 00:00-00:01 and hand-pressing buttons on a watch to fool the classifier. Three separate people building the same workaround against three different brands is not a bug report, it is a missing product. And the constraint underneath is structural, not sloppiness: every one of those companies sells one score per calendar day, benchmarked against a population norm and charted as a daily streak. A floating day boundary would invalidate the historical series they have already shown the customer and the cohort maths their whole comparison feature rests on. They cannot move that pipe without knocking the wall down. That is the definition of a foreclosed space.\n\nSecond, [13] and [14]. A pregnancy that ends has no state in these apps. A logged positive test cannot be removed, dates cannot be changed, the lost pregnancy keeps being surfaced, and logging the loss wrecks the cycle analytics the product is sold on. The workaround is brutal and specific: delete the app and lose years of history, or run two apps in parallel, or leave it unlogged and ask for a refund. Look at what forecloses the fix. A pregnancy tracker is a one-way funnel: week-indexed content, a stage-based content library, and a user base measured in pregnancy weeks. A reversible pregnancy object breaks the week indexing for everyone already inside it, and there is no content shelf for the weeks after a loss. Their obligation to the millions of currently-pregnant users is exactly the thing that makes the loss state unbuildable for them. Note also that roughly one pregnancy in ten ends this way by [14]'s own line, so the population is not small, it is just invisible inside a funnel.\n\nThird, [20]. Lifters training around a live wrist, shoulder or knee, where the generator keeps prescribing movements that load the bad joint, offers no substitution path, and reshuffles the manual swap on the next generation, so the person quits the gym for the day. The constraint here is data the incumbent does not hold: their exercise databases are keyed to muscle groups and equipment, not to which joints each movement loads and through which range. They never collected it, their programme engine regenerates from the muscle-group key, and a persistent user-level exclusion would break the progression scheme they sell. So the swap cannot stick. That is a data gap, not an execution gap.\n\nFourth, [216]. Two parents, a newborn, feeds and sleep, and a tracker built on one account, so they share a login or keep two partial logs that never merge and relay by text at four in the morning. Per-account subscription pricing is the lock: a genuine second writing seat is a price cut against their own revenue line, on top of an account-scoped database they would have to re-architect. Companies do not build the feature that halves their own ARPU per household.\n\nNow which unlock actually dissolves the reason nobody built these. [305] is the one I keep circling. On a phone where almost nothing is allowed to run on its own, health data delivery in the background is one of the few legitimate ways an app can wake itself up. That means a health signal is a trigger you own outright, rather than renting a push notification the person will learn to swipe away, which is precisely the failure in [258], where a normal push went blind and only a manually-dismissed alarm still registered. [308] adds a second owned trigger: the app can change its own behaviour when the Focus changes, which is how a shift actually announces itself. [306] lets a live surface be started and updated remotely and be interactive, which is what a two-person record needs at 4am. [299] lifts the 30-second background ceiling so real work can finish in the background. On cost: [2] and [310] put a vision-capable model on the handset at zero marginal cost, so a private body log never leaves the phone, and [1] and [311] give a small developer zero cloud fees for the occasional heavier call. [3] and [5] make a long personal history a flat-priced context instead of a retrieval project, and [4] makes a spoken exchange cost less than a penny a minute. That combination is what puts these inside the thirty-cents-a-user ceiling.\n\nThe graveyard says what to avoid rather than what to build. [36] [37] [38] [39] [40] [41] [50] all died holding hardware that cost more than the phone and did less; [41] adds the specific lesson that friction to see your own data kills a health product. [47] is the sharp one: a medication team validated the need in research, shipped, and found retention impossible. A need is not a habit. That is why I am only building where the trigger already fires on its own, which on this platform means the body: a sleep block ends, a cycle turns over, a feed happens, a session is due. [48] Halo shows a crowded general wellness market, which is an argument for populations defined by an exclusion rather than by a demographic.\n\nPopulations reachable with no ad budget: shift workers have unions, rota forums and nursing groups; pregnancy loss has midwives and early pregnancy units who already hand out leaflets; injured lifters sit in physio waiting rooms and in lifting forums where a specific substitution gets posted; new parents recruit their own partner because the thing does not work with one person. Each of those is a route in that does not cost twenty to eighty pounds a head. I am deliberately leaving [27] [34] [223] [230] [237] [244] [251] alone here, real as they are, because none of them has a trigger that fires without the person remembering, and that is the whole bet.",
+  "candidates": [
+   {
+    "title": "Rota Sleep",
+    "probability": "0.35",
+    "unlock": {
+     "value": "Health data delivered in the background is one of the few ways an app can wake itself on this platform, so a sleep block ending at 2pm can be scored the moment it ends, and Focus changes plus a lifted background time ceiling let the app know a shift has started and finish the work without the person opening anything; the model runs on the handset at zero marginal cost.",
+     "signal_ids": [
+      305,
+      308,
+      299,
+      2,
+      310
+     ]
+    },
+    "pain": {
+     "value": "Shift workers' wearables refuse to score a daytime sleep block on the day it happens, count catch-up naps as nothing, and double-count sleep outside a fixed window, so the tracking is useless on a rotation.",
+     "signal_ids": [
+      10,
+      11,
+      12
+     ]
+    },
+    "audience": {
+     "value": "Rotating night-shift hospital nurses and 24-hour-shift firefighters who sleep in split daytime blocks"
+    },
+    "mechanic": {
+     "value": "passive_tracking"
+    },
+    "wedge": {
+     "value": "Score every sleep block on a floating 24-hour boundary anchored to the shift instead of to midnight, and show a running sleep debt that counts daytime naps, for one person on one published rota."
+    },
+    "moat": {
+     "value": "accumulated_personal_corpus"
+    },
+    "model": {
+     "value": "subscription"
+    },
+    "loop": {
+     "value": "community_embed"
+    },
+    "kill": [
+     "Fewer than 30% of a 200-person shift-worker trial connect the health permission within 7 days of install",
+     "Floating-boundary debt figures disagree with the person's own felt tiredness rating on more than 40% of blocks over 4 weeks",
+     "Day-90 retention below 25% among installers who worked at least 8 night shifts in that window",
+     "A major wearable ships a shift mode with a movable day boundary within 12 months of launch"
+    ],
+    "why_now": "Background health delivery and Focus changes give an app two triggers it owns outright, so a sleep block that ends at 2pm can be scored at 2pm instead of waiting for a vendor's midnight batch [305][308][10].",
+    "why_not_obvious": "The obvious answer for a tired nurse is a better wearable, but the hardware already measures this correctly and it is the daily score benchmarked against a fixed calendar day that is wrong, which is the one thing the incumbents cannot change without invalidating every score they have already shown their existing customers."
+   },
+   {
+    "title": "After",
+    "probability": "0.25",
+    "unlock": {
+     "value": "A vision-capable model runs entirely on the handset at zero marginal cost, so an intimate body log and a loss never leave the phone, background health delivery wakes the programme on its own when the cycle turns over, and a small developer pays nothing for the occasional heavier call.",
+     "signal_ids": [
+      2,
+      310,
+      305,
+      1,
+      311
+     ]
+    },
+    "pain": {
+     "value": "Fertility and pregnancy apps have no state for a pregnancy that ended, so a logged positive test cannot be removed, the lost pregnancy keeps being surfaced, and recording the loss corrupts the cycle analytics the app is sold on.",
+     "signal_ids": [
+      13,
+      14
+     ]
+    },
+    "audience": {
+     "value": "Women who miscarried while tracking a pregnancy in a fertility app and intend to try to conceive again"
+    },
+    "mechanic": {
+     "value": "guided_protocol"
+    },
+    "wedge": {
+     "value": "A checkpointed programme covering the first three cycles after a loss: record the loss as a first-class event, rebuild the expected cycle-return window from the person's own pre-pregnancy history, and carry over imported cycle history intact."
+    },
+    "moat": {
+     "value": "switching_cost_of_history"
+    },
+    "model": {
+     "value": "freemium_subscription"
+    },
+    "loop": {
+     "value": "professional_recommendation"
+    },
+    "kill": [
+     "Fewer than 20% of people who install after a loss complete all three cycle checkpoints",
+     "Under 10 of the first 60 approached midwives or early pregnancy units are willing to hand out a card",
+     "Fewer than 40% successfully import prior cycle history from their old app, leaving the history claim hollow",
+     "Paid conversion below 3% at month 3 among people who finished the programme"
+    ],
+    "why_now": "The log is the most private thing a person owns and an on-device model means it never leaves the handset, which is what makes a product built entirely around a loss possible to offer rather than merely to describe [2][310][13].",
+    "why_not_obvious": "Everyone assumes this is a counselling or content problem, but the evidenced complaint is a data-model one: the pregnancy object is irreversible, and the incumbent cannot make it reversible without breaking week-indexed content for every currently-pregnant user it already serves."
+   },
+   {
+    "title": "Swap",
+    "probability": "0.22",
+    "unlock": {
+     "value": "A spoken back-and-forth now costs well under a penny a minute, and a model on the handset can hold the person's whole injury and lift history as flat-priced context rather than as a retrieval pipeline, so describing a sore joint in the gym and getting a substitution back fits inside a ten-a-month price.",
+     "signal_ids": [
+      4,
+      3,
+      5,
+      2
+     ]
+    },
+    "pain": {
+     "value": "Workout generators keep prescribing movements that load an injured wrist, shoulder or knee, offer no substitution path, and reshuffle any manual swap on the next session, so the lifter stops training altogether.",
+     "signal_ids": [
+      20
+     ]
+    },
+    "audience": {
+     "value": "Recreational barbell lifters training through an acute wrist, shoulder or knee injury"
+    },
+    "mechanic": {
+     "value": "voice_conversation"
+    },
+    "wedge": {
+     "value": "Standing at the rack, say which joint hurts and which movement is next, and get one substitution that spares that joint and keeps the same training intent, remembered permanently for that joint."
+    },
+    "moat": {
+     "value": "proprietary_taste"
+    },
+    "model": {
+     "value": "freemium_subscription"
+    },
+    "loop": {
+     "value": "shareable_artifact"
+    },
+    "kill": [
+     "Fewer than 50% of proposed substitutions are actually performed, measured across 500 in-session prompts",
+     "Median spoken exchange runs over 45 seconds, which is longer than a lifter will stand between sets",
+     "Under 25% of injured installers are still asking for substitutions 6 weeks later",
+     "Blended cost per active user exceeds $0.30 a month once voice minutes are counted"
+    ],
+    "why_now": "Voice at half a penny a minute makes a mid-set spoken exchange affordable for the first time, and it is the only interface that works with chalk on your hands and a bar in front of you [4][20].",
+    "why_not_obvious": "The obvious build is another workout generator with an injury checkbox, but the evidenced failure is that swaps do not persist, because the incumbents key their exercise databases to muscle groups and equipment and simply do not hold per-movement joint-load data to substitute against."
+   },
+   {
+    "title": "Two Hands",
+    "probability": "0.18",
+    "unlock": {
+     "value": "A live surface can now be started and updated remotely and be interactive, so a feed either parent starts appears on the other's lock screen and can be ended from there without opening an app, and background health delivery keeps the shared record current on its own.",
+     "signal_ids": [
+      306,
+      305,
+      299,
+      3
+     ]
+    },
+    "pain": {
+     "value": "Baby trackers are built around a single account, so two parents either share one login or each keep partial logs that never merge.",
+     "signal_ids": [
+      216
+     ]
+    },
+    "audience": {
+     "value": "Two-parent households in the first twelve weeks with a newborn, splitting overnight feeds"
+    },
+    "mechanic": {
+     "value": "shared_ledger"
+    },
+    "wedge": {
+     "value": "One household record of feeds and sleep with two real writing seats, where the running feed shows live on both lock screens and either parent can end it, so nobody has to text what just happened."
+    },
+    "moat": {
+     "value": "habit_lock"
+    },
+    "model": {
+     "value": "subscription"
+    },
+    "loop": {
+     "value": "invite_for_function"
+    },
+    "kill": [
+     "Fewer than 60% of installers get a second parent writing to the record within 48 hours",
+     "More than 5% of household records show conflicting overlapping feed entries after merge over a 4-week run",
+     "Median entries per household per day below 6, which is under the real feed count and means they are logging elsewhere",
+     "Retention past week 12 below 20%, confirming the window closes before a payment habit forms"
+    ],
+    "why_now": "A remotely started, remotely updated, interactive live surface is what a two-person record needs at four in the morning, when neither parent will unlock a phone and open an app to log a feed [306][216].",
+    "why_not_obvious": "It looks like a trivial account-sharing feature, which is exactly why nobody in the category ships it: a second writing seat on a per-account subscription is a direct cut to the revenue the incumbent already books per household."
+   }
+  ]
+ },
+ "text": "",
+ "usage": {}
+}

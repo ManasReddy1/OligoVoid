@@ -1,0 +1,11 @@
+{
+  "parsed": {
+    "surface": "incumbent_response",
+    "attack": "The incumbent is Tesco, and the feature is an allergen profile on the existing Tesco app's in-store scan: Tesco already holds structured ingredient and allergen data for every own-brand line and already lets shoppers filter groceries by allergen online, so 'save your child's avoid-list, scan the packet, get red/green' is data plumbing over data they own and a Clubcard loyalty win they would give away free. Behind Tesco sits Yuka, roughly 65m users on the identical scan-and-verdict loop at about GBP 10/year, one release away from adding an OCR fallback for unindexed packs. This has already been shipped twice in this exact market: Spoon Guru ran allergen filtering with Tesco and FoodMaestro ran it with the Anaphylaxis Campaign. The 3%-by-day-60 paid conversion is what evaporates, because the free answer is in the app the parent already has open at the till.",
+    "strongest_defence": "Retailers and health-score apps are structurally barred from issuing a binary 'safe for your child' verdict: post-Natasha's-Law UK legal teams will only ever print 'always check the pack', and Yuka's own terms disclaim medical use, so an incumbent can surface data but cannot give the answer the parent is standing there needing. The wedge is also the case the incumbents cannot reach at all: an unfamiliar packet in a chiller with no signal, where a barcode-plus-cloud lookup returns nothing, while on-device OCR reads the printed panel itself.",
+    "verdict": "wounded",
+    "verdict_reason": "The liability posture genuinely stops the incumbents from giving a binary safety verdict, but they own the label data, the aisle and a free channel, which is enough to strip most of the willingness to pay."
+  },
+  "text": "",
+  "usage": {}
+}

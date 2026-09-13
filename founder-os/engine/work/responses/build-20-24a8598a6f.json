@@ -1,0 +1,21 @@
+{
+  "parsed": {
+    "stack": "React Native, iOS + Android. Cloud vision (mid-tier model, multi-object per photo) rather than on-device, because a cluttered box needs better segmentation than a small model gives; frontier text at $0.10/M for the sell/donate/curb split. Resale comps via eBay Browse API plus a paid comps source; donation/disposal sites from a geocoded local directory. Web checkout through an external link at 0% commission, hybrid subscription plus credits for heavy weeks.",
+    "milestones": [
+      "Week 1-2: one-photo-per-box capture with fast repeat shooting - an executor will take 200 of these, so the loop must be under 5 seconds a box.",
+      "Week 3-4: item detection and the three-way split, with a visible 'unsure, ask a human' bucket instead of a confident wrong call on the one valuable thing.",
+      "Week 5-6: local resale price estimates from sold comps, plus nearest donation/disposal points by postcode.",
+      "Week 7-8: the plain list output an executor can hand to a sibling or an estate sale company, with running totals.",
+      "Week 9-10: hybrid pricing, external checkout, and a pilot with two estate clearance firms and one probate solicitor as referral channel."
+    ],
+    "build_cost_usd": 11000,
+    "weeks_to_v1": 10,
+    "inference_cost_user_month": 0.75,
+    "price_month": 19.99,
+    "expected_conversion": 0.06,
+    "riskiest_technical_assumption": "That sold-comp price estimates from a photo are credible enough that an executor trusts the sell/donate split - one grandmother's ring routed to 'donate' destroys trust permanently - and that the free tier is hard-capped at a few boxes, because usage is bursty (150-300 boxes in a few weeks) and an uncapped free tier turns a $4.20 payer-month into the cost of every active user.",
+    "cheapest_way_to_test_that_assumption": "Photograph 25 boxes from one real house clearance, run them through the vision plus comps pipeline manually, and have a working estate-clearance valuer mark the split - measure both accuracy and the metered API cost per box."
+  },
+  "text": "",
+  "usage": {}
+}
