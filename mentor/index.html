@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0d11">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Second Voice</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <h1>Second Voice</h1>
+    <span class="sub">answers the sentence in your head</span>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button id="tab-day" role="tab" aria-selected="true">Day</button>
+    <button id="tab-stuck" role="tab" aria-selected="false">I'm stuck</button>
+    <button id="tab-log" role="tab" aria-selected="false">Log</button>
+  </nav>
+
+  <!-- ---------------- DAY ---------------- -->
+  <section id="panel-day" role="tabpanel">
+    <div class="card">
+      <div class="spread" style="margin-bottom:10px">
+        <strong>Today</strong>
+        <span class="faint">interruptions used <span id="budget-used">0 / 3</span></span>
+      </div>
+      <div id="blocks"></div>
+    </div>
+
+    <form class="card" id="add">
+      <div class="spread" style="margin-bottom:10px"><strong>Add a block</strong>
+        <span class="faint">two or three, not everything</span></div>
+      <div class="row" style="align-items:flex-end">
+        <label class="fld" style="flex:0 0 120px"><span>Time</span>
+          <input type="time" id="f-time" required></label>
+        <label class="fld" style="flex:1;min-width:180px"><span>What</span>
+          <input type="text" id="f-what" placeholder="Write the opening scene" required></label>
+      </div>
+      <label class="fld"><span>Why it matters (you will be shown this back)</span>
+        <input type="text" id="f-why" placeholder="it's the only thing that decides whether the script exists"></label>
+      <button class="btn primary" type="submit">Add</button>
+    </form>
+
+    <div class="card">
+      <div class="spread" style="margin-bottom:8px"><strong>Reminders</strong>
+        <span class="faint" id="notif-state">Off</span></div>
+      <div class="row">
+        <button class="btn" id="enable-notifs">Turn on notifications</button>
+        <label class="row" style="gap:6px"><span class="faint">max per day</span>
+          <select id="budget" style="width:auto">
+            <option>1</option><option>2</option><option selected>3</option><option>5</option>
+          </select></label>
+      </div>
+      <p class="note">A web page can only fire these while it is open in the background, and
+      a phone will suspend it. It cannot wake you up and it cannot get past silent mode or a
+      Focus. That needs a native app — on iOS 26 and later, <b>AlarmKit</b> makes it possible for
+      the first time. Everything else here works offline and needs nothing.</p>
+    </div>
+  </section>
+
+  <!-- ---------------- STUCK ---------------- -->
+  <section id="panel-stuck" role="tabpanel" hidden>
+    <div class="card">
+      <strong>What is the sentence in your head right now?</strong>
+      <p class="faint" id="stuck-for" hidden></p>
+      <p class="muted" style="font-size:13.5px;margin:8px 0 12px">
+        Not how you feel — the actual reason you are giving yourself. Write it plainly.
+      </p>
+      <textarea id="belief" placeholder="the idea I have already exists, someone's done it better"></textarea>
+      <p class="faint" id="chips-lab" style="margin:12px 0 0">Or pick the one that is actually true:</p>
+      <div class="chips" id="chips"></div>
+    </div>
+
+    <div class="card answer" id="answer" hidden></div>
+  </section>
+
+  <!-- ---------------- LOG ---------------- -->
+  <section id="panel-log" role="tabpanel" hidden>
+    <div class="card">
+      <div class="spread" style="margin-bottom:12px"><strong>Your excuses, ranked</strong>
+        <span class="faint">the part nobody else has</span></div>
+      <div id="topbeliefs"></div>
+    </div>
+    <div class="card">
+      <div class="spread" style="margin-bottom:6px"><strong>History</strong>
+        <button class="btn sm ghost" id="export">Export</button></div>
+      <textarea id="exportbox" hidden style="min-height:120px;font-family:ui-monospace,monospace;font-size:12px"></textarea>
+      <div id="logrows"></div>
+    </div>
+  </section>
+
+  <footer>
+    Everything stays in this browser. No account, no server, no analytics.
+    Attributions are labelled: <span class="badge v">verified</span>
+    <span class="badge c">commonly attributed</span>
+    <span class="badge m">check the source</span> — most quote apps do not bother, and roughly a
+    fifth of famous quotations are attached to the wrong person.
+  </footer>
+</div>
+
+<script src="match.js"></script>
+<script src="app.js"></script>
+<script>
+if ("serviceWorker" in navigator && location.protocol === "https:") {
+  navigator.serviceWorker.register("sw.js").catch(function(){});
+}
+</script>
+</body>
+</html>
